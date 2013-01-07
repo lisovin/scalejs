@@ -1,0 +1,11 @@
+﻿({
+    paths: {
+        'scalejs'	: 'Scripts/scalejs-0.1.0',
+		'yui'		: 'Scripts/yui'
+    },
+    include: 'scalejs.navigation-yui',
+    exclude: [
+        'scalejs!core',
+		'yui'
+    ]
+})
