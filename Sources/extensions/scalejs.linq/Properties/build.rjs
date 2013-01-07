@@ -1,0 +1,11 @@
+﻿({
+	paths: {
+        'scalejs' : 'Scripts/scalejs-0.1.0',
+		'linq' : 'Scripts/linq'
+    },
+    include: 'scalejs.linq',
+    exclude: [
+        'scalejs!core',
+		'linq'
+    ]
+})
