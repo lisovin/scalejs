@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{635993FF-FD42-4360-BB22-C1BD7008833B}"
+	ProjectSection(SolutionItems) = preProject
+		JSLintOptions.xml = JSLintOptions.xml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scalejs", "scalejs.csproj", "{78CCA565-D98A-4995-BDC6-FEDF98C949E5}"
+EndProject
+Global
+	GlobalSection(JSLint) = preSolution
+		SolutionConfigurationLocation = JSLintOptions.xml
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78CCA565-D98A-4995-BDC6-FEDF98C949E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78CCA565-D98A-4995-BDC6-FEDF98C949E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

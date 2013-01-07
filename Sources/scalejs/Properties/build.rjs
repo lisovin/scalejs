@@ -1,0 +1,9 @@
+﻿({
+    include: [
+        'scalejs', 
+        'scalejs/core',
+        'scalejs/application',
+        'scalejs/module',
+        'scalejs/sandbox'
+    ]
+})
