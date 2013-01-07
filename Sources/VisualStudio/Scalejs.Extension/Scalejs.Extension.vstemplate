@@ -1,0 +1,35 @@
+﻿<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>Scalejs Extension</Name>
+    <Description>Scalable JavaScript application extension </Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>scalejs.extension</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <Icon>Scalejs.Extension.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="ProjectTemplate.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="Properties\build.rjs">build.rjs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Properties\$projectname$.nuspec">scalejs.extension.nuspec</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$.js">scalejs.extension.js</ProjectItem>
+      <ProjectItem ReplaceParameters="true">$projectname$\part1.js</ProjectItem>
+      <ProjectItem ReplaceParameters="true">tools\install.ps1</ProjectItem>
+      <ProjectItem ReplaceParameters="true">tools\uninstall.ps1</ProjectItem>
+    </Project>
+  </TemplateContent>
+  <WizardExtension>
+    <Assembly>NuGet.VisualStudio.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</Assembly>
+    <FullClassName>NuGet.VisualStudio.TemplateWizard</FullClassName>
+  </WizardExtension>
+  <WizardData>
+    <packages repository="extension" repositoryId="Scalejs..2ccf5feb-0ce0-4a3a-aafd-15aeb8a3dda0">
+      <package id="scalejs" version="0.1.0" />
+    </packages>
+  </WizardData>
+</VSTemplate>

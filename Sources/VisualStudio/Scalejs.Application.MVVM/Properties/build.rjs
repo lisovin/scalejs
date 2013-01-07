@@ -1,0 +1,7 @@
+﻿({
+	mainConfigFile: '../boot/bootstrapper.js',
+	baseUrl: '..',
+	name: 'boot/bootstrapper',
+	optimize: 'none',
+	out: '../build/$safeprojectname$.js'
+})
