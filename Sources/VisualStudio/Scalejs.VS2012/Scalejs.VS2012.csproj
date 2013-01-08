@@ -66,13 +66,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Scalejs.Application.Minimal\Scalejs.Application.Minimal.VS2012.csproj">
-      <Project>{D27642A1-C2E3-4B6E-9451-3978E91F9865}</Project>
-      <Name>Scalejs.Application.Minimal.VS2012</Name>
-      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
-    </ProjectReference>
     <ProjectReference Include="..\Scalejs.Application.MVVM\Scalejs.Application.MVVM.VS2012.csproj">
       <Project>{D807A884-E479-4531-A637-FA84AC2827E1}</Project>
       <Name>Scalejs.Application.MVVM.VS2012</Name>

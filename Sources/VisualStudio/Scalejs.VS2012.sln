@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalejs.Application.Minimal.VS2012", "Scalejs.Application.Minimal\Scalejs.Application.Minimal.VS2012.csproj", "{D27642A1-C2E3-4B6E-9451-3978E91F9865}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalejs.Application.MVVM.VS2012", "Scalejs.Application.MVVM\Scalejs.Application.MVVM.VS2012.csproj", "{D807A884-E479-4531-A637-FA84AC2827E1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scalejs.Module.MVVM.VS2012", "Scalejs.Module.MVVM\Scalejs.Module.MVVM.VS2012.csproj", "{1D00823B-90D2-4932-A0A0-29E6CFC18728}"
@@ -32,10 +30,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D27642A1-C2E3-4B6E-9451-3978E91F9865}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D27642A1-C2E3-4B6E-9451-3978E91F9865}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D27642A1-C2E3-4B6E-9451-3978E91F9865}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D27642A1-C2E3-4B6E-9451-3978E91F9865}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D807A884-E479-4531-A637-FA84AC2827E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D807A884-E479-4531-A637-FA84AC2827E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D807A884-E479-4531-A637-FA84AC2827E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
