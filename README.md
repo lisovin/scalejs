@@ -11,6 +11,14 @@ to JavaScript client side development.
 It's inspired by Nicholas Zakas <a href="http://www.youtube.com/watch?v=vXjVFPosQHw">"Scalable JavaScript Application Architecture"</a> talk. 
 The framework leverages best libraries such as Knockout, Linq, RxJS, etc. and relies on what's considered as "good parts" of JavaScript language.
 
+Prerequisites
+=============
+1. Visual Studio 2012
+2. IIS Express (via Web Platform Installer)
+3. node.js (http://nodejs.org/)
+4. requirejs optimizer (once node.js is installed run in console: npm install -g requirejs)
+5. PowerSheel 3.0 (http://www.microsoft.com/en-us/download/details.aspx?id=34595)
+
 License
 =======
 MIT license: http://opensource.org/licenses/mit-license.php
