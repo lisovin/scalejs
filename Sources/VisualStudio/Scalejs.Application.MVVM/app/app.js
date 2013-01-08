@@ -1,7 +1,7 @@
 ﻿/*global define*/
 define([
     'scalejs!application',
-    'app/main/main'
+    'app/main/mainModule'
 ], function (
     application,
     main

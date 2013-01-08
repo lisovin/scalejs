@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="Scalejs..2ccf5feb-0ce0-4a3a-aafd-15aeb8a3dda0" Version="1.0.0" Language="en-US" Publisher="Peter Lisovin" />
+    <Identity Id="Scalejs..2ccf5feb-0ce0-4a3a-aafd-15aeb8a3dda0" Version="0.1.2" Language="en-US" Publisher="Peter Lisovin" />
     <DisplayName>Scalejs</DisplayName>
     <Description xml:space="preserve">Develop scalable JavaScript applications in Visual Studio. </Description>
     <MoreInfo>https://github.com/lisovin/scalejs</MoreInfo>

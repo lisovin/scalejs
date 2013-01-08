@@ -63,12 +63,13 @@
     <Content Include="app\app.js" />
     <Content Include="app\main\bindings\mainBindings.js" />
     <Content Include="app\main\views\main.html" />
-    <Content Include="app\main\main.js" />
+    <Content Include="app\main\mainModule.js" />
     <Content Include="app\main\viewmodels\mainViewModel.js" />
     <Content Include="boot\bootstrapper.js" />
     <Content Include="index.release.html" />
     <Content Include="css\global.css" />
     <Content Include="index.html" />
+    <Content Include="README.txt" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

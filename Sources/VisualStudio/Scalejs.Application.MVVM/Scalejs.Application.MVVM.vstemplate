@@ -14,13 +14,14 @@
   </TemplateData>
   <TemplateContent>
     <Project File="ProjectTemplate.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true">README.txt</ProjectItem>
       <ProjectItem ReplaceParameters="true">index.html</ProjectItem>
       <ProjectItem ReplaceParameters="true">index.release.html</ProjectItem>
       <ProjectItem ReplaceParameters="true">app\app.js</ProjectItem>
       <ProjectItem ReplaceParameters="true">app\main\bindings\mainBindings.js</ProjectItem>
       <ProjectItem ReplaceParameters="true">app\main\viewmodels\mainViewModel.js</ProjectItem>
       <ProjectItem ReplaceParameters="true">app\main\views\main.html</ProjectItem>
-      <ProjectItem ReplaceParameters="true">app\main\main.js</ProjectItem>
+      <ProjectItem ReplaceParameters="true">app\main\mainModule.js</ProjectItem>
       <ProjectItem ReplaceParameters="true">boot\bootstrapper.js</ProjectItem>
       <ProjectItem ReplaceParameters="true">css\global.css</ProjectItem>
       <ProjectItem ReplaceParameters="true">Properties\build.rjs</ProjectItem>
