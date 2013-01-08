@@ -9,7 +9,7 @@ and is looking for ways to apply same principles and patterns
 to JavaScript client side development. 
 
 It's inspired by Nicholas Zakas <a href="http://www.youtube.com/watch?v=vXjVFPosQHw">"Scalable JavaScript Application Architecture"</a> talk. 
-The framework leverages best libraries such as Knockout, Linq, RxJS, etc. and what's considered as "good parts" of JavaScript language.
+The framework leverages best libraries such as Knockout, Linq, RxJS, etc. and relies on what's considered as "good parts" of JavaScript language.
 
 License
 =======
