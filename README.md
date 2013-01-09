@@ -20,6 +20,10 @@ Prerequisites
 5. PowerSheel 3.0 (http://www.microsoft.com/en-us/download/details.aspx?id=34595)
 6. JSLint.VS2012 extension for Visual Studio (in Visual Studio go to TOOLS -> Extensions and Updates... -> Visual Studio Gallery and type JSLint in search box)
 
+Tutorials
+=========
+1. [Quick Start](https://github.com/lisovin/scalejs/wiki/Quick-Start)
+
 License
 =======
 MIT license: http://opensource.org/licenses/mit-license.php
