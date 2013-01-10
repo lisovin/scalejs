@@ -1,4 +1,5 @@
 ﻿/*global require,define,describe,expect,it*/
+/// <reference path="../Scripts/jasmine.js"/>
 define(['scalejs!base.array'], function (array) {
     'use strict';
 
