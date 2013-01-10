@@ -7,9 +7,10 @@
     <ProjectGuid>{78CCA565-D98A-4995-BDC6-FEDF98C949E5}</ProjectGuid>
     <!--<ProjectGuid>{78CCA565-D98A-4995-BDC6-FEDF98C949E5}</ProjectGuid>-->
     <OutputType>Library</OutputType>
-    <JSLintSkip>\test\jasmine\|\test\jasmine.js|\test\require.js</JSLintSkip>
+    <JSLintSkip>\test\jasmine\|\test\jasmine.js|\test\require.js|\Scripts\</JSLintSkip>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Properties\build.rjs" />
     <None Include="Properties\scalejs.nuspec" />
     <None Include="tools\init.ps1" />
@@ -34,7 +35,9 @@
     <Content Include="js\scalejs\core.js" />
     <Content Include="js\scalejs\module.js" />
     <Content Include="js\scalejs\sandbox.js" />
-    <Content Include="test\require.js" />
+    <Content Include="Properties\test.js" />
+    <Content Include="Scripts\jasmine.js" />
+    <Content Include="Scripts\require.js" />
     <Content Include="test\all.tests.js" />
     <Content Include="test\base.array.test.js" />
   </ItemGroup>

@@ -1,6 +1,7 @@
-﻿/*global define,describe,expect,it*/
-/*jslint sloppy: true*/
-define(['scalejs/base.array'], function (array) {
+﻿/*global require,define,describe,expect,it*/
+define(['scalejs!base.array'], function (array) {
+    'use strict';
+
     describe('base.array', function () {
         describe('indexOf', function () {
             it('correctly returns index of an existing element', function () {

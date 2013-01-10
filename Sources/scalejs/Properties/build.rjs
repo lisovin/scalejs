@@ -1,4 +1,5 @@
 ﻿({
+	mainConfigFile: 'test.js',
     include: [
         'scalejs', 
         'scalejs/core',
