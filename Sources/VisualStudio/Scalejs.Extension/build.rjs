@@ -1,9 +1,0 @@
-﻿({
-    paths: {
-		'scalejs' : 'Scripts/scalejs-1.0.83'
-    },
-    include: '$projectname$',
-    exclude: [
-        'scalejs!core'
-    ]
-})

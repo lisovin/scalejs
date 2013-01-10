@@ -1,0 +1,9 @@
+
+*.suo
+*.user
+/build
+/TestResults
+/bin
+/obj
+/.nuget
+/packages
