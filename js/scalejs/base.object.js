@@ -1,6 +1,6 @@
 /*global define,console,document*/
 define([
-    'scalejs/base.type'
+    './base.type'
 ], function (
     type
 ) {
