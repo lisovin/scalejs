@@ -40,6 +40,7 @@
   </ItemGroup>
   <PropertyGroup>
     <ScalejsExtension>True</ScalejsExtension>
+    <ScalejsBaseUrl>js</ScalejsBaseUrl>
   </PropertyGroup>
   <Import Project="$(ProjectDir)tools\NuGet.targets" />
   <Import Project="$(ProjectDir)tools\Scalejs.targets" />

@@ -160,11 +160,11 @@
   </UsingTask>
 
   <PropertyGroup>
-    <ScalejsAppSitePort>8888</ScalejsAppSitePort>
+    <ScalejsAppSitePort Condition="'$(ScalejsAppSitePort)' == ''">8888</ScalejsAppSitePort>
     <ScalejsBuildDirectory>$(MSBuildProjectDirectory)\build</ScalejsBuildDirectory>
     <ScalejsPropertiesDirectory>$(MSBuildProjectDirectory)\Properties</ScalejsPropertiesDirectory>
     <ScalejsBuildRjs>$(ScalejsPropertiesDirectory)\build.rjs</ScalejsBuildRjs>
-    <ScalejsBaseUrl>js</ScalejsBaseUrl>
+    <ScalejsBaseUrl Condition="'$(ScalejsBaseUrl)' == ''">.</ScalejsBaseUrl>
     <ScalejsNuspecFile>$(ScalejsPropertiesDirectory)\$(MSBuildProjectName).nuspec</ScalejsNuspecFile>
   </PropertyGroup>
 
