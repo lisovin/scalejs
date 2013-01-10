@@ -4,6 +4,7 @@
   <UsingTask TaskName="Rjs" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
     <ParameterGroup>
       <BuildRjs ParameterType="System.String" Required="true" />
+      <BaseUrl ParameterType="System.String" Required="true"/>
       <Optimize ParameterType="System.String" Required="true"/>
       <Out ParameterType="System.String" Required="false"/>
     </ParameterGroup>
@@ -17,11 +18,11 @@
       <Using Namespace="Microsoft.Build.Utilities" />
       <Code Type="Fragment" Language="cs">
         <![CDATA[
-                Log.LogMessage(MessageImportance.High, "r.js.cmd -o {0} baseUrl=. out={1} optimize={2}", BuildRjs, Out, Optimize);
+                Log.LogMessage(MessageImportance.High, "r.js.cmd -o {0} baseUrl={1} out={2} optimize={3}", BuildRjs, BaseUrl, Out, Optimize);
 
                 var tempFile = Path.GetTempFileName();
                 var path = "cmd.exe";
-                var args = string.Format("/c r.js.cmd -o \"{0}\" baseUrl=. out=\"{1}\" optimize={2} > \"{3}\"", BuildRjs, Out, Optimize, tempFile);
+                var args = string.Format("/c r.js.cmd -o \"{0}\" baseUrl={1} out=\"{2}\" optimize={3} > \"{4}\"", BuildRjs, BaseUrl, Out, Optimize, tempFile);
                 var info = new ProcessStartInfo {FileName = path, Arguments = args, UseShellExecute = false, CreateNoWindow = true};
 
                 var process = Process.Start(info);
@@ -163,6 +164,7 @@
     <ScalejsBuildDirectory>$(MSBuildProjectDirectory)\build</ScalejsBuildDirectory>
     <ScalejsPropertiesDirectory>$(MSBuildProjectDirectory)\Properties</ScalejsPropertiesDirectory>
     <ScalejsBuildRjs>$(ScalejsPropertiesDirectory)\build.rjs</ScalejsBuildRjs>
+    <ScalejsBaseUrl>js</ScalejsBaseUrl>
     <ScalejsNuspecFile>$(ScalejsPropertiesDirectory)\$(MSBuildProjectName).nuspec</ScalejsNuspecFile>
   </PropertyGroup>
 
@@ -179,10 +181,12 @@
       <Output TaskParameter="Value" PropertyName="BuildSuffix"/>
     </CreateProperty>
     <Rjs BuildRjs="$(ScalejsBuildRjs)"
+         BaseUrl="$(ScalejsBaseUrl)"
          Out="$(ScalejsBuildDirectory)\$(MSBuildProjectName)$(BuildSuffix).js"
          Optimize="none"
          Condition="Exists('$(ScalejsBuildRjs)')"/>
     <Rjs BuildRjs="$(ScalejsBuildRjs)"
+         BaseUrl="$(ScalejsBaseUrl)"
          Out="$(ScalejsBuildDirectory)\$(MSBuildProjectName)$(BuildSuffix).min.js"
          Optimize="uglify"
          Condition="Exists('$(ScalejsBuildRjs)')"/>

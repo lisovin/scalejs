@@ -7,6 +7,7 @@
     <ProjectGuid>{78CCA565-D98A-4995-BDC6-FEDF98C949E5}</ProjectGuid>
     <!--<ProjectGuid>{78CCA565-D98A-4995-BDC6-FEDF98C949E5}</ProjectGuid>-->
     <OutputType>Library</OutputType>
+    <JSLintSkip>\test\jasmine\|\test\jasmine.js|\test\require.js</JSLintSkip>
   </PropertyGroup>
   <ItemGroup>
     <None Include="Properties\build.rjs" />
@@ -22,17 +23,20 @@
     <None Include="tools\uninstall.ps1" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="scalejs.js" />
-    <Content Include="scalejs\application.js" />
-    <Content Include="scalejs\base.array.js" />
-    <Content Include="scalejs\base.dom.js" />
-    <Content Include="scalejs\base.js" />
-    <Content Include="scalejs\base.log.js" />
-    <Content Include="scalejs\base.object.js" />
-    <Content Include="scalejs\base.type.js" />
-    <Content Include="scalejs\core.js" />
-    <Content Include="scalejs\module.js" />
-    <Content Include="scalejs\sandbox.js" />
+    <Content Include="js\scalejs.js" />
+    <Content Include="js\scalejs\application.js" />
+    <Content Include="js\scalejs\base.array.js" />
+    <Content Include="js\scalejs\base.dom.js" />
+    <Content Include="js\scalejs\base.js" />
+    <Content Include="js\scalejs\base.log.js" />
+    <Content Include="js\scalejs\base.object.js" />
+    <Content Include="js\scalejs\base.type.js" />
+    <Content Include="js\scalejs\core.js" />
+    <Content Include="js\scalejs\module.js" />
+    <Content Include="js\scalejs\sandbox.js" />
+    <Content Include="test\require.js" />
+    <Content Include="test\all.tests.js" />
+    <Content Include="test\base.array.test.js" />
   </ItemGroup>
   <PropertyGroup>
     <ScalejsExtension>True</ScalejsExtension>
