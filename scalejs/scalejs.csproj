@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  -->
+  <PropertyGroup>
+    <ProjectGuid>{78CCA565-D98A-4995-BDC6-FEDF98C949E5}</ProjectGuid>
+    <!--<ProjectGuid>{78CCA565-D98A-4995-BDC6-FEDF98C949E5}</ProjectGuid>-->
+    <OutputType>Library</OutputType>
+    <JSLintSkip>\test\jasmine\|\test\jasmine.js|\test\require.js|\Scripts\</JSLintSkip>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="Properties\build.rjs" />
+    <None Include="Properties\scalejs.nuspec">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="tools\init.ps1" />
+    <None Include="tools\install.ps1" />
+    <None Include="tools\NuGet.targets" />
+    <None Include="tools\Scalejs.psd1" />
+    <None Include="tools\Scalejs.psm1" />
+    <None Include="tools\Scalejs.targets">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="tools\uninstall.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="scalejs.js" />
+    <Content Include="scalejs\application.js" />
+    <Content Include="scalejs\base.array.js" />
+    <Content Include="scalejs\base.dom.js" />
+    <Content Include="scalejs\base.js" />
+    <Content Include="scalejs\base.log.js" />
+    <Content Include="scalejs\base.object.js" />
+    <Content Include="scalejs\base.type.js" />
+    <Content Include="scalejs\core.js" />
+    <Content Include="scalejs\module.js" />
+    <Content Include="scalejs\sandbox.js" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <ScalejsExtension>True</ScalejsExtension>
+    <ScalejsProjectType>Core</ScalejsProjectType>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir).nuget\NuGet.targets" />
+  <Import Project="$(ProjectDir)tools\Scalejs.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+</Project>

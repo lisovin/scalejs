@@ -1,4 +1,5 @@
 ﻿param($installPath, $toolsPath, $package, $project)
+
 Import-Module (Join-Path $toolsPath Scalejs.psd1)
 
 if (!(Test-Path "$(Get-SolutionDir)\.scalejs")) {
@@ -6,6 +7,7 @@ if (!(Test-Path "$(Get-SolutionDir)\.scalejs")) {
 }
 Copy-Item "$toolsPath\Scalejs.targets" "$(Get-SolutionDir)\.scalejs" | Out-Null
 
+# Add NuGet.targets to solution
 if (!(Test-Path "$(Get-SolutionDir)\.nuget")) {
 	New-Item -Type Directory "$(Get-SolutionDir)\.nuget" | Out-Null
 }

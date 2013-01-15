@@ -29,6 +29,7 @@ define(function () {
                                         core.registerExtension(extension);
                                     }
                                 });
+                                core.buildCore();
                                 isExtensionsRegistered = true;
                             }
 

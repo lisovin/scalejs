@@ -14,10 +14,10 @@ define([
     var moduleRegistrations = [],
         moduleInstances = [],
         applicationState = 'STOPPED';
-
+    /*
     function buildCore() {
         core.buildCore();
-    }
+    }*/
 
     function createModule(module, params, containerElement) {
         var moduleInstance, message;
@@ -108,7 +108,7 @@ define([
 
     function run() {
         // Build core 
-        buildCore();
+        //buildCore();
         // Create all modules
         createAll();
         startAll();

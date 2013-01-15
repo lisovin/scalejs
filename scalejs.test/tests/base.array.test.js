@@ -1,7 +1,9 @@
 ﻿/*global require,define,describe,expect,it*/
 /// <reference path="../Scripts/jasmine.js"/>
-define(['../js/scalejs/base.array'], function (array) {
+define(['scalejs!core'], function (core) {
     'use strict';
+
+    var array = core.array;
 
     describe('base.array', function () {
         describe('indexOf', function () {
