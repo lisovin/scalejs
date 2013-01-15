@@ -5,6 +5,7 @@
 /TestResults
 /bin
 /obj
-/.nuget
 /packages
 /scalejs/build
+
+/.nuget/nuget.exe

@@ -99,12 +99,7 @@ function Get-BootstrapperPath {
         return $bootstrapperPath 
     }
 
-    $testBootstrapperPath = "$projectDir\bootstrapper.js"
-    if (Test-Path $testBootstrapperPath) {
-        return $testBootstrapperPath
-    }
-
-    return $bootstrapperPath
+    return "$projectDir\bootstrapper.js"
 }
  
 function Test-Bootstrapper {
@@ -175,22 +170,34 @@ function Write-BootstrapperConfig {
 	} | Out-String
 
     $bootstrapperPath = Get-BootstrapperPath $ProjectName
-    if ($bootstrapperPath.EndsWith("boot/bootstrapper.js")) {
+	$scalejsProjectType = Get-ScalejsProjectType $ProjectName
+
+    if ($scalejsProjectType -eq 'Application') {
 	    $bootstrapper = @"
 /*global require*/
 require($($configJson.Trim()), ['app/app']);
 "@
     }
 
-    if ($bootstrapperPath.EndsWith("bootstrapper.js")) {
+    if ($scalejsProjectType -eq 'Test') {
         $bootstrapper = @"
 /*global require*/
 /// <reference path="Scripts/require.js"/>
 /// <reference path="Scripts/jasmine.js"/>
-require($($configJson.Trim()), ['tests/all.tests']);
+require($($configJson.Trim()), [
+    'scalejs!application',
+    'tests/all.tests'
+]);
 "@
     }
     
+    if ($scalejsProjectType -eq 'Extension') {
+        $bootstrapper = @"
+/*global require*/
+require($($configJson.Trim()), ['$ProjectName']);
+"@
+    }
+
     $tmp = [System.IO.Path]::GetTempFileName()
     Set-Content $tmp $bootstrapper
     Move-Item $tmp $bootstrapperPath -force
@@ -361,7 +368,7 @@ function Remove-ScalejsExtension {
     $Input
 }
 
-function Test-ScalejsProject {
+function Get-ScalejsProjectType {
  	param (
         [parameter(Position = 0, Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
         [string] $ProjectName
@@ -371,7 +378,7 @@ function Test-ScalejsProject {
 	$projectPath = $project.FullName
 	$projectType = select-string -Path $projectPath -Pattern "<ScalejsProjectType>(\w+)</ScalejsProjectType>" | %{$_.Matches.Groups[1].Value}
 
-	($projectType -eq 'Extension') -or ($projectType -eq 'Application')
+	return $projectType
 }
 
 Export-ModuleMember *
