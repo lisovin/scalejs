@@ -21,6 +21,12 @@ Prerequisites
 6. JSLint.VS2012 extension for Visual Studio (in Visual Studio go to TOOLS -> Extensions and Updates... -> Visual Studio Gallery and type `JSLint` in search box)
 7. Chutzpah Test Adapter for Visual Studio 2012 (in Visual Studio go to TOOLS -> Extensions and Updates... -> Visual Studio Gallery and type `Chutzpah` in search box)
 
+Installation
+============
+In Visual Studio go to TOOLS -> Extensions and Updates... -> Visual Studio Gallery and type `Scalejs` in the search box. It will filter the list of extensions to have just `Scalejs`. Click `Download` button - this will install the extension.
+After installation you'll have 3 project templates (Scalejs Application, Scalejs Extension, and Scalejs Test)  and 1 item template (Scalejs Module)
+See tutorial below for how to use them. 
+
 Tutorials
 =========
 1. [Quick Start](https://github.com/lisovin/scalejs/wiki/Quick-Start)
