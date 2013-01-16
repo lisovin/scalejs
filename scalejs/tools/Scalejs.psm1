@@ -94,11 +94,6 @@ function Get-BootstrapperPath {
 	)
 	$projectDir = Split-Path (Get-Project $ProjectName).FullName
 
-    $bootstrapperPath = "$projectDir\boot\bootstrapper.js"
-    if (Test-Path $bootstrapperPath) {
-        return $bootstrapperPath 
-    }
-
     return "$projectDir\bootstrapper.js"
 }
  
@@ -184,10 +179,7 @@ require($($configJson.Trim()), ['app/app']);
 /*global require*/
 /// <reference path="Scripts/require.js"/>
 /// <reference path="Scripts/jasmine.js"/>
-require($($configJson.Trim()), [
-    'scalejs!application',
-    'tests/all.tests'
-]);
+require($($configJson.Trim()), ['tests/all.tests']);
 "@
     }
     
