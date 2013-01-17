@@ -31,6 +31,10 @@ Tutorials
 =========
 1. [Quick Start](https://github.com/lisovin/scalejs/wiki/Quick-Start)
 
+Examples
+========
+1. [Highstock](https://github.com/lisovin/scalejs-examples/tree/master/Highstock) - an appplication that retrieves stock data from the server and renders it as an interactive chart. 
+
 License
 =======
 MIT license: http://opensource.org/licenses/mit-license.php
