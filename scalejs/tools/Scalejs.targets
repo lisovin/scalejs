@@ -173,7 +173,7 @@
     <MakeDir Directories="$(MSBuildProjectDirectory)\build"/>
   </Target>
 
-  <Target Name="Build" DependsOnTargets="CheckPrerequisites">
+  <Target Name="CoreBuild" DependsOnTargets="CheckPrerequisites">
     <GetNuspecVersion NuspecFile="$(ScalejsNuspecFile)">
       <Output TaskParameter="Version" PropertyName="ScalejsNuspecVersion"/>
     </GetNuspecVersion>
@@ -196,6 +196,15 @@
              Condition="'$(ScalejsProjectType)' == 'Application'"/>
     <Exec Command="$(NuGetExePath) pack $(ScalejsNuspecFile) -Version $(ScalejsNuspecVersion) -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(ScalejsBuildDirectory) -NonInteractive"
           Condition="'$(ScalejsProjectType)' == 'Extension' Or '$(ScalejsProjectType)' == 'Core'"/>
+  </Target>
+
+  <Target Name="BeforeBuild">
+  </Target>
+
+  <Target Name="AfterBuild">
+  </Target>
+  
+  <Target Name="Build" DependsOnTargets="BeforeBuild;CoreBuild;AfterBuild">
   </Target>
 
   <Target Name="Rebuild" DependsOnTargets="Clean;Build">

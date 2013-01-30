@@ -1,4 +1,4 @@
-/*global define,console,document*/
+/*global define,window,document*/
 define([
     './base.object'
 ], function (
@@ -15,29 +15,29 @@ define([
     }
 
     function info(message) {
-        if (has(console)) {
-            console.info(message);
+        if (has(window.console)) {
+            window.console.info(message);
         }
     }
 
     function warn(message) {
-        if (has(console)) {
-            console.warn(message);
+        if (has(window.console)) {
+            window.console.warn(message);
         }
     }
 
     function error(message) {
-        if (has(console)) {
-            console.error(message);
+        if (has(window.console)) {
+            window.console.error(message);
         }
     }
 
     function debug(message) {
-        if (has(console)) {
-            if (has(console, 'debug')) {
-                console.debug(message);
+        if (has(window.console)) {
+            if (has(window.console, 'debug')) {
+                window.console.debug(message);
             } else {
-                info(message);
+                window.console.info(message);
             }
         }
     }
