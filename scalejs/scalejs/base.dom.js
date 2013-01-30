@@ -3,6 +3,16 @@ define(function () {
     'use strict';
 
     function $(id) {
+        if (!id) {
+            throw new Error('Element `id` is undefined. It should be a string that starts with "#".');
+        }
+
+        if (id.toString()[0] !== '#') {
+            throw new Error('Element `id` is invalid. It should be a string that starts with "#".');
+        }
+
+        id = id.substring(1);
+
         return document.getElementById(id);
     }
 
@@ -15,6 +25,8 @@ define(function () {
         for (n = 0; n < div.childNodes.length; n += 1) {
             domElement.appendChild(div.childNodes[n].cloneNode(true));
         }
+
+        div.innerHTML = '';
     }
 
     function createElement(name, attributes) {

@@ -24,7 +24,7 @@ define([
                 return box;
             }
 
-            box = $(id);
+            box = $('#' + id);
             if (!has(box)) {
                 if (has(containerElement)) {
                     containerElement.setAttribute('id', id);
