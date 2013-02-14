@@ -3,9 +3,7 @@
 define('scalejs',[],function () {
     
 
-    var isExtensionsRegistered = false,
-        windowType = typeof (window);
-
+    var windowType = typeof (window);
 
     // IE weirdness. 
     if (windowType !== 'undefined' && window.console === 'undefined') {
@@ -20,22 +18,7 @@ define('scalejs',[],function () {
             req([moduleName], function (loadedModule) {
                 if (moduleName === 'scalejs/application') {
                     req(extensionNames, function () {
-                        var extensions = arguments;
-                        // it's possible that core was not loaded by any of the extensions, so ensure it's loaded
-                        req(['scalejs/core'], function (core) {
-                            if (!config.isBuild && !isExtensionsRegistered) {
-                                core.array.iter(extensions, function (extension, i) {
-                                    if (extension !== undefined && extension !== null) {
-                                        extension.scalejsId = extensionNames[i];
-                                        core.registerExtension(extension);
-                                    }
-                                });
-                                core.buildCore();
-                                isExtensionsRegistered = true;
-                            }
-
-                            load(loadedModule);
-                        });
+                        load(loadedModule);
                     });
                 } else {
                     load(loadedModule);
@@ -313,6 +296,25 @@ define('scalejs/base.object',[
         return target;
     }
 
+    function get(o, path, defaultValue) {
+        var props = path.split('.'),
+            i,
+            p,
+            success = true;
+
+        for (i = 0; i < props.length; i += 1) {
+            p = props[i];
+            if (has(o, p)) {
+                o = o[p];
+            } else {
+                success = false;
+                break;
+            }
+        }
+
+        return success ? o : defaultValue;
+    }
+
     function valueOrDefault(value, defaultValue) {
         return has(value) ? value : defaultValue;
     }
@@ -322,7 +324,8 @@ define('scalejs/base.object',[
         valueOrDefault: valueOrDefault,
         merge: merge,
         extend: extend,
-        clone: clone
+        clone: clone,
+        get: get
     };
 });
 
@@ -511,54 +514,7 @@ define('scalejs/base.array',[
     };
 });
 
-/*global define,console,document*/
-define('scalejs/base.dom',[],function () {
-    
-
-    function $(id) {
-        return document.getElementById(id);
-    }
-
-    function appendElementHtml(domElement, html) {
-        var div = document.createElement('div'),
-            n;
-
-        div.innerHTML = html;
-
-        for (n = 0; n < div.childNodes.length; n += 1) {
-            domElement.appendChild(div.childNodes[n].cloneNode(true));
-        }
-    }
-
-    function createElement(name, attributes) {
-        var elName = name,
-            el,
-            p;
-        // convert name to uppercase to ensure cross-browser consistency
-        // (IE keeps original case for unknown nodeName/tagName)
-        if (name && name.toUpperCase) {
-            elName = name.toUpperCase();
-        }
-        el = document.createElement(elName);
-
-        // set attributes
-        for (p in attributes) {
-            if (attributes.hasOwnProperty(p)) {
-                el.setAttribute(p, attributes[p]);
-            }
-        }
-        return el;
-    }
-
-
-    return {
-        $: $,
-        createElement: createElement,
-        appendElementHtml: appendElementHtml
-    };
-});
-
-/*global define,console,document*/
+/*global define,window,document*/
 define('scalejs/base.log',[
     './base.object'
 ], function (
@@ -575,29 +531,29 @@ define('scalejs/base.log',[
     }
 
     function info(message) {
-        if (has(console)) {
-            console.info(message);
+        if (has(window.console)) {
+            window.console.info(message);
         }
     }
 
     function warn(message) {
-        if (has(console)) {
-            console.warn(message);
+        if (has(window.console)) {
+            window.console.warn(message);
         }
     }
 
     function error(message) {
-        if (has(console)) {
-            console.error(message);
+        if (has(window.console)) {
+            window.console.error(message);
         }
     }
 
     function debug(message) {
-        if (has(console)) {
-            if (has(console, 'debug')) {
-                console.debug(message);
+        if (has(window.console)) {
+            if (has(window.console, 'debug')) {
+                window.console.debug(message);
             } else {
-                info(message);
+                window.console.info(message);
             }
         }
     }
@@ -617,13 +573,11 @@ define('scalejs/base.log',[
 /*global define,console,document*/
 define('scalejs/base',[
     './base.array',
-    './base.dom',
     './base.log',
     './base.object',
     './base.type'
 ], function (
     array,
-    dom,
     log,
     object,
     type
@@ -632,7 +586,6 @@ define('scalejs/base',[
 
     return {
         array: array,
-        dom: dom,
         log: log,
         object: object,
         type: type
@@ -647,71 +600,31 @@ define('scalejs/sandbox',[
 ) {
     
 
-    function Sandbox(id, core, containerElement) {
-        var has = core.object.has,
-            is = core.type.is,
-        //warn = core.log.warn,
-            $ = core.dom.$,
-            createElement = core.dom.createElement,
-            box,
-            dom;
-
+    function sandbox(id, core) {
         function getId() {
             return id;
-        }
-
-        function getBox() {
-            if (has(box)) {
-                return box;
-            }
-
-            box = $(id);
-            if (!has(box)) {
-                if (has(containerElement)) {
-                    containerElement.setAttribute('id', id);
-                    box = containerElement;
-                } else {
-                    box = createElement('div', { 'id': id });
-                    document.body.appendChild(box);
-                }
-            }
-
-            return box;
         }
 
         function loadModule(path, params) {
             require(
                 ['scalejs/application', path],
                 function (application, module) {
-                    application.registerModule(module, params, getBox());
+                    application.registerModule(module, params);
                 }
             );
         }
 
-        function appendHtml(html) {
-            var myBox = getBox();
-            core.dom.appendElementHtml(myBox, html);
-        }
-
-        dom = core.object.merge(core.dom, {
-            appendHtml: appendHtml
-        });
-        delete dom.appendElementHtml;
-
         return {
             getId: getId,
-            getBox: getBox,
-            has: has,
-            is: is,
             loadModule: loadModule,
             object: core.object,
+            type: core.type,
             log: core.log,
-            array: core.array,
-            dom: dom
+            array: core.array
         };
     }
 
-    return Sandbox;
+    return sandbox;
 });
 
 /*global define */
@@ -732,9 +645,26 @@ define('scalejs/core',[
             error = base.log.error,
             formatException = base.log.formatException,
             extensionRegistrations = [],
-            core = {};
+            core;
 
         function registerExtension(extension) {
+            var message;
+
+            try {
+                if (is(extension, 'buildCore', 'function')) {
+                    // If extension has `buildCore` method then delegate to it.
+                    extension.buildCore(core);
+                } else if (has(extension, 'core')) {
+                    // If extension has `core` property then extend core with it.
+                    extend(core, extension.core);
+                } else {
+                    // Otherwise extension core with the extension itself.
+                    extend(core, extension);
+                }
+            } catch (ex) {
+                message = formatException(ex);
+                error('Error: Failed to build core with extension "' + extension + '"\n' + message);
+            }
             addOne(extensionRegistrations, extension);
         }
 
@@ -773,111 +703,14 @@ define('scalejs/core',[
             return sandbox;
         }
 
-        function buildCore() {
-            var i,
-                d,
-                extensions = extensionRegistrations.slice(),
-                extension,
-                message,
-                toBuild,
-                unresolved,
-                notBuiltIds,
-                dependenciesGraph;
-
-            function unresolvedDependencies(extension) {
-                var i,
-                    unresolved = [],
-                    dependencies = extension.dependencies || [];
-
-                for (i = 0; i < dependencies.length; i += 1) {
-                    if (!has(core, dependencies[i])) {
-                        unresolved.push(dependencies[i]);
-                    }
-                }
-
-                return unresolved;
-            }
-
-            while (extensions.length > 0) {
-                i = 0;
-                toBuild = extensions.length;
-                while (i < extensions.length) {
-                    extension = extensions[i];
-                    if (is(extension, 'buildCore', 'function')) {
-                        try {
-                            // extension might be not ready to be built 
-                            // (e.g. it depends on some other extensions 
-                            // that didn't build yet)
-                            // if buildCore succeeded then remove the extension 
-                            // from the list of extensions to build.
-                            unresolved = unresolvedDependencies(extension);
-                            if (unresolved.length > 0) {
-                                i += 1;
-                            } else {
-                                extension.buildCore(core);
-                                extensions.splice(i, 1);
-                            }
-                        } catch (ex) {
-                            message = formatException(ex);
-                            error('Error: Failed to build core with extension ["' +
-                                extension.scalejsId + ']"\n' + message);
-                            extensions.splice(i, 1);
-                        }
-                    } else if (has(extension, 'core')) {
-                        if (has(extension.core, 'buildSandbox')) {
-                            error('Error: Extension ["' + extension.scalejsId +
-                                '"] has core with buildSandbox defined. ' +
-                                'buildSandbox must be the top most function ' +
-                                'of the extension.');
-                        } else {
-                            extend(core, extension.core);
-                            extensions.splice(i, 1);
-                        }
-                    } else if (!has(extension, 'buildSandbox') &&
-                            !has(extension, 'sandbox')) {
-                        extend(core, extension);
-                        extensions.splice(i, 1);
-                    } else {
-                        // extension only extends sandbox
-                        extensions.splice(i, 1);
-                    }
-                }
-                if (toBuild === extensions.length) {
-                    // no progress - build is stuck
-                    break;
-                }
-            }
-
-            if (extensions.length > 0) {
-                notBuiltIds = '';
-                dependenciesGraph = '';
-                for (i = 0; i < extensions.length; i += 1) {
-                    notBuiltIds += extensions[i].scalejsId + ', ';
-                    dependenciesGraph += extensions[i].scalejsId + ': [';
-                    unresolved = unresolvedDependencies(extensions[i]);
-                    for (d = 0; d < unresolved.length; d += 1) {
-                        dependenciesGraph += unresolved[d] + ', ';
-                    }
-                    dependenciesGraph = dependenciesGraph.substring(0,
-                        dependenciesGraph.length - 2) + ']\n';
-                }
-                error('Error: Failed to build core with extensions [' +
-                    notBuiltIds.substring(0, notBuiltIds.length - 2) + '].\n' +
-                    'Dependencies graph:\n' + dependenciesGraph);
-            }
-        }
-
-        base.object.extend(core, {
+        core = {
             type: base.type,
             object: base.object,
-            proxy: base.proxy,
             array: base.array,
             log: base.log,
-            dom: base.dom,
             registerExtension: registerExtension,
-            buildSandbox: buildSandbox,
-            buildCore: buildCore
-        });
+            buildSandbox: buildSandbox
+        };
 
         return core;
     });
@@ -898,10 +731,6 @@ define('scalejs/application',[
     var moduleRegistrations = [],
         moduleInstances = [],
         applicationState = 'STOPPED';
-    /*
-    function buildCore() {
-        core.buildCore();
-    }*/
 
     function createModule(module, params, containerElement) {
         var moduleInstance, message;
@@ -920,16 +749,15 @@ define('scalejs/application',[
         }
     }
 
-    function registerModule(module, params, containerElement) {
+    function registerModule(module, params) {
         moduleRegistrations.push({
             module: module,
-            params: params,
-            containerElement: containerElement
+            params: params
         });
 
         if (applicationState === 'STARTED' ||
                 applicationState === 'STARTING') {
-            var moduleInstance = createModule(module, params, containerElement);
+            var moduleInstance = createModule(module, params);
             if (core.object.has(moduleInstance)) {
                 moduleInstance.start();
             }
@@ -991,8 +819,6 @@ define('scalejs/application',[
     }
 
     function run() {
-        // Build core 
-        //buildCore();
         // Create all modules
         createAll();
         startAll();
@@ -1050,7 +876,6 @@ define('scalejs/module',[
                 if (is(instance, 'end', 'function')) {
                     instance.end();
                 }
-                //sandbox.dom.removeAllListeners();
             }
 
             function getInstanceId() {

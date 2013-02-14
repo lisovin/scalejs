@@ -1,9 +1,13 @@
 ﻿({
+	paths: {
+		'es5-shim': 'Scripts/es5-shim'
+	},
     include: [
         'scalejs', 
-        'scalejs/core',
         'scalejs/application',
-        'scalejs/module',
-        'scalejs/sandbox'
-    ]
+        'scalejs/module'
+    ],
+	exclude: [
+		'es5-shim'
+	]
 })

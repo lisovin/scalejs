@@ -13,10 +13,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="bootstrapper.js" />
+    <Content Include="Scripts\es5-shim.js" />
     <Content Include="Scripts\jasmine.js" />
     <Content Include="Scripts\require.js" />
-    <Content Include="Scripts\scalejs-0.1.9.js" />
-    <Content Include="Scripts\scalejs-0.1.9.min.js" />
+    <Content Include="Scripts\scalejs-0.2.0.js" />
+    <Content Include="Scripts\scalejs-0.2.0.min.js" />
     <Content Include="tests\all.tests.js" />
     <Content Include="tests\base.array.test.js" />
   </ItemGroup>

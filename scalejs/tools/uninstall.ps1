@@ -2,7 +2,8 @@
 
 $project | 
 	Remove-Import '$(SolutionDir)\.scalejs\Scalejs.targets' |
-	Remove-Paths 'scalejs'
+	Remove-Paths 'scalejs, es5-shim' |
+	Out-Null
 
 if (Test-Path "$(Get-SolutionDir)\.scalejs") {
 	Remove-Item -Path "$(Get-SolutionDir)\.scalejs" -Force -Recurse

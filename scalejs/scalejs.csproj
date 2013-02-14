@@ -12,6 +12,7 @@
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Properties\build.rjs" />
     <None Include="Properties\scalejs.nuspec">
       <SubType>Designer</SubType>
@@ -30,14 +31,17 @@
     <Content Include="scalejs.js" />
     <Content Include="scalejs\application.js" />
     <Content Include="scalejs\base.array.js" />
-    <Content Include="scalejs\base.dom.js" />
     <Content Include="scalejs\base.js" />
     <Content Include="scalejs\base.log.js" />
     <Content Include="scalejs\base.object.js" />
     <Content Include="scalejs\base.type.js" />
+    <Content Include="scalejs\base.state.js" />
+    <Content Include="scalejs\base.function.js" />
     <Content Include="scalejs\core.js" />
     <Content Include="scalejs\module.js" />
     <Content Include="scalejs\sandbox.js" />
+    <Content Include="Scripts\es5-shim.js" />
+    <Content Include="Scripts\es5-shim.min.js" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

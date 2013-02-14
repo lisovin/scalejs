@@ -16,5 +16,6 @@ Copy-Item "$toolsPath\NuGet.targets" "$(Get-SolutionDir)\.nuget" | Out-Null
 $project | 
 	Add-Import '$(SolutionDir)\.nuget\NuGet.targets' |
 	Add-Import '$(SolutionDir)\.scalejs\Scalejs.targets' |
-	Add-Paths "{'scalejs' : 'Scripts/scalejs-$($package.Version)'}" |
+	Add-Paths "{'scalejs' : 'Scripts/scalejs-$($package.Version)',
+	            'es5-shim' : 'Scripts/es5-shim.min'}" |
 	Out-Null

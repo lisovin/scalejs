@@ -14,32 +14,37 @@ define([
         return 'Error: ' + message + '\nStack: ' + stack;
     }
 
-    function info(message) {
-        if (has(window.console)) {
-            window.console.info(message);
+    function info() {
+        if (has(window, 'console', 'info')) {
+            window.console.info.apply(window.console, arguments);
         }
     }
 
-    function warn(message) {
-        if (has(window.console)) {
-            window.console.warn(message);
+    function warn() {
+        if (has(window, 'console', 'warn')) {
+            window.console.warn.apply(window.console, arguments);
+            return;
         }
+
+        info(arguments);
     }
 
-    function error(message) {
-        if (has(window.console)) {
-            window.console.error(message);
+    function error() {
+        if (has(window, 'console', 'error')) {
+            window.console.error.apply(window.console, arguments);
+            return;
         }
+
+        info(arguments);
     }
 
-    function debug(message) {
-        if (has(window.console)) {
-            if (has(window.console, 'debug')) {
-                window.console.debug(message);
-            } else {
-                window.console.info(message);
-            }
+    function debug() {
+        if (has(window, 'console', 'debug')) {
+            window.console.debug.apply(window.console, arguments);
+            return;
         }
+
+        info(arguments);
     }
 
     return {

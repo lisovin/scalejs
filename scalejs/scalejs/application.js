@@ -5,7 +5,7 @@
  */
 /*global define,window */
 define([
-    './core'
+    'scalejs!core'
 ], function (
     core
 ) {
@@ -14,10 +14,6 @@ define([
     var moduleRegistrations = [],
         moduleInstances = [],
         applicationState = 'STOPPED';
-    /*
-    function buildCore() {
-        core.buildCore();
-    }*/
 
     function createModule(module, params, containerElement) {
         var moduleInstance, message;
@@ -36,16 +32,15 @@ define([
         }
     }
 
-    function registerModule(module, params, containerElement) {
+    function registerModule(module, params) {
         moduleRegistrations.push({
             module: module,
-            params: params,
-            containerElement: containerElement
+            params: params
         });
 
         if (applicationState === 'STARTED' ||
                 applicationState === 'STARTING') {
-            var moduleInstance = createModule(module, params, containerElement);
+            var moduleInstance = createModule(module, params);
             if (core.object.has(moduleInstance)) {
                 moduleInstance.start();
             }
@@ -83,6 +78,8 @@ define([
 
         applicationState = 'STARTED';
         core.log.debug("Application started.");
+
+        core.notifyApplicationStarted();
     }
 
     function stopAll() {
@@ -107,13 +104,10 @@ define([
     }
 
     function run() {
-        // Build core 
-        //buildCore();
         // Create all modules
         createAll();
         startAll();
         window.onunload = stopAll;
-        //unloadSubscription = subscribeToEvent("unload", window, endAll);
     }
 
     return {

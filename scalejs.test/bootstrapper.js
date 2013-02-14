@@ -3,6 +3,7 @@
 /// <reference path="Scripts/jasmine.js"/>
 require({
     "paths":  {
-        "scalejs":  "../scalejs/build/scalejs-0.1.9"
+        "scalejs":  "Scripts/scalejs-0.2.0",
+        "es5-shim": "Scripts/es5-shim"
     }
 }, ['tests/all.tests']);

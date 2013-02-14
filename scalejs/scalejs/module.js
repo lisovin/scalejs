@@ -40,7 +40,6 @@ define([
                 if (is(instance, 'end', 'function')) {
                     instance.end();
                 }
-                //sandbox.dom.removeAllListeners();
             }
 
             function getInstanceId() {

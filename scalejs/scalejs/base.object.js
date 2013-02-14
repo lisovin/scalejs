@@ -117,6 +117,25 @@ define([
         return target;
     }
 
+    function get(o, path, defaultValue) {
+        var props = path.split('.'),
+            i,
+            p,
+            success = true;
+
+        for (i = 0; i < props.length; i += 1) {
+            p = props[i];
+            if (has(o, p)) {
+                o = o[p];
+            } else {
+                success = false;
+                break;
+            }
+        }
+
+        return success ? o : defaultValue;
+    }
+
     function valueOrDefault(value, defaultValue) {
         return has(value) ? value : defaultValue;
     }
@@ -126,6 +145,7 @@ define([
         valueOrDefault: valueOrDefault,
         merge: merge,
         extend: extend,
-        clone: clone
+        clone: clone,
+        get: get
     };
 });

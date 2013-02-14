@@ -4,13 +4,12 @@
 /*global define,console,document*/
 define([
     './base.array',
-    './base.dom',
     './base.log',
     './base.object',
-    './base.type'
+    './base.type',
+    './base.functional'
 ], function (
     array,
-    dom,
     log,
     object,
     type
@@ -19,7 +18,6 @@ define([
 
     return {
         array: array,
-        dom: dom,
         log: log,
         object: object,
         type: type
