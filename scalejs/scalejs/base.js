@@ -12,14 +12,16 @@ define([
     array,
     log,
     object,
-    type
+    type,
+    functional
 ) {
     'use strict';
 
     return {
+        type: type,
+        object: object,
         array: array,
         log: log,
-        object: object,
-        type: type
+        functional: functional
     };
 });

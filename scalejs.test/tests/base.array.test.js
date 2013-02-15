@@ -1,23 +1,28 @@
 ﻿/*global require,define,describe,expect,it*/
 /// <reference path="../Scripts/jasmine.js"/>
 define([
-    'scalejs!core',
-    'scalejs!application'
+    'scalejs!core'
 ], function (core) {
     'use strict';
 
     var array = core.array;
 
-    describe('base.array', function () {
-        describe('indexOf', function () {
-            it('correctly returns index of an existing element', function () {
-                var a = [1, 5, 3];
-                expect(array.indexOf(a, 5)).toBe(1);
+    describe('core.array', function () {
+        it('is defined', function () {
+            expect(array).toBeDefined();
+        });
+
+        describe('addOne', function () {
+            it('adds an element.', function () {
+                var a = [1, 2, 3];
+                array.addOne(a, 5);
+                expect(a).toEqual([1, 2, 3, 5]);
             });
 
-            it('returns -1 for non-existing element', function () {
+            it('doesn\'t add duplication element.', function () {
                 var a = [1, 5, 3];
-                expect(array.indexOf(a, 6)).toBe(-1);
+                array.addOne(a, 5);
+                expect(a).toEqual([1, 5, 3]);
             });
         });
     });

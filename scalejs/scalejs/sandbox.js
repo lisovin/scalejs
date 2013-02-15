@@ -1,8 +1,5 @@
 /*global define,document */
-define([
-    'require'
-], function (
-    require
+define(function (
 ) {
     'use strict';
 
@@ -11,18 +8,8 @@ define([
             return id;
         }
 
-        function loadModule(path, params) {
-            require(
-                ['scalejs/application', path],
-                function (application, module) {
-                    application.registerModule(module, params);
-                }
-            );
-        }
-
         return {
             getId: getId,
-            loadModule: loadModule,
             object: core.object,
             type: core.type,
             log: core.log,

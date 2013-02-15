@@ -1,5 +1,8 @@
 /*global define,console,document*/
 /*jslint nomen: true*/
+/**
+ * Based on Oliver Steele "Functional Javascript" (http://osteele.com/sources/javascript/functional/)
+ **/
 define([
 ], function (
 ) {

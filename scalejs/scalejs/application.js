@@ -11,109 +11,60 @@ define([
 ) {
     'use strict';
 
-    var moduleRegistrations = [],
-        moduleInstances = [],
-        applicationState = 'STOPPED';
+    var addOne = core.array.addOne,
+        error = core.log.error,
+        debug = core.log.debug,
+        moduleRegistrations = [],
+        moduleInstances = [];
 
-    function createModule(module, params, containerElement) {
-        var moduleInstance, message;
+    function registerModule(module) {
+        // Dynamic module loading is no longer supported for simplicity.
+        // Module is free to load any of its resources dynamically.
+        // Or an extension can provide dynamic module loading capabilities as needed.
+        if (core.isApplicationStarted()) {
+            throw new Error('Can\'t register module "' + module + '" since the application is already running.',
+                            'Dynamic module loading is not supported.');
+        }
+
+        moduleRegistrations.push(module);
+    }
+
+    function createModule(module) {
+        var moduleInstance;
 
         try {
-            moduleInstance = module.newInstance(params, containerElement);
-            core.array.addOne(moduleInstances, moduleInstance);
+            moduleInstance = module.newInstance();
+            addOne(moduleInstances, moduleInstance);
 
             return moduleInstance;
         } catch (ex) {
-            message = core.log.formatException(ex);
-            core.log.error('ERROR: Failed to create an instance of module "' +
-                    module.getModuleId() +
-                    '" with params "' + params + '"\n' +
-                    message);
-        }
-    }
-
-    function registerModule(module, params) {
-        moduleRegistrations.push({
-            module: module,
-            params: params
-        });
-
-        if (applicationState === 'STARTED' ||
-                applicationState === 'STARTING') {
-            var moduleInstance = createModule(module, params);
-            if (core.object.has(moduleInstance)) {
-                moduleInstance.start();
-            }
+            error('Fatal error during application initialization.',
+                  'Failed to create an instance of module "' + module.getModuleId() + '".',
+                  'See following exception for more details.',
+                  ex);
+            throw ex;
         }
     }
 
     function createAll() {
-        var i;
-        for (i = 0; i < moduleRegistrations.length; i += 1) {
-            createModule(moduleRegistrations[i].module,
-                             moduleRegistrations[i].params,
-                             moduleRegistrations[i].containerElement);
-        }
+        moduleRegistrations.forEach(function (registration) {
+            createModule(registration);
+        });
     }
 
     function startAll() {
-        applicationState = 'STARTING';
-        core.log.debug('Starting the application...');
-
-        var i,
-            message,
-            // PL: we need a copy for a case when a new module registered during the start of another module.
-            // This will add a new instance of the module to moduleInstances array which we don't want to 
-            // start (since it was started during the reigstration already)
-            moduleInstancesCopy = core.array.copy(moduleInstances);
-        for (i = 0; i < moduleInstancesCopy.length; i += 1) {
-            try {
-                moduleInstances[i].start();
-            } catch (ex) {
-                message = core.log.formatException(ex);
-                core.log.error('ERROR: Failed to start module "' +
-                        moduleInstances[i] + '"\n' + message);
-            }
-        }
-
-        applicationState = 'STARTED';
-        core.log.debug("Application started.");
+        debug("Application started.");
 
         core.notifyApplicationStarted();
     }
 
-    function stopAll() {
-        applicationState = 'STOPPING';
-        core.log.debug('Stopping the application...');
-
-        var i,
-            message;
-        for (i = 0; i < moduleInstances.length; i += 1) {
-            try {
-                moduleInstances[i].end();
-            } catch (ex) {
-                message = core.log.formatException(ex);
-                core.log.error('ERROR: Failed to end module "' +
-                        moduleInstances[i] + '"\n' + message);
-            }
-        }
-        core.array.removeAll(moduleInstances);
-
-        applicationState = 'STOPPED';
-        core.log.debug("Application stopped.");
-    }
-
     function run() {
-        // Create all modules
         createAll();
         startAll();
-        window.onunload = stopAll;
     }
 
     return {
         registerModule: registerModule,
-        startAll: startAll,
-        stopAll: stopAll,
         run: run
     };
 });
