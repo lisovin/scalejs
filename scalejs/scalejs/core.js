@@ -120,6 +120,7 @@ define([
         object: base.object,
         array: base.array,
         log: base.log,
+        functional: base.functional,
         buildSandbox: buildSandbox,
         notifyApplicationStarted: notifyApplicationStarted,
         onApplicationStarted: onApplicationStarted,
