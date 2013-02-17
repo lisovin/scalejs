@@ -176,10 +176,10 @@ require($($configJson.Trim()), ['app/app']);
 
     if ($scalejsProjectType -eq 'Test') {
         $bootstrapper = @"
-/*global require*/
+/*global require,navigator*/
 /// <reference path="Scripts/require.js"/>
 /// <reference path="Scripts/jasmine.js"/>
-require($($configJson.Trim()), ['tests/all.tests']);
+require($($configJson.Trim()), [(navigator.userAgent.indexOf('PhantomJS') < 0 ? 'jasmine.test.runner!' : '') + 'tests/all.tests']);
 "@
     }
     
@@ -238,10 +238,11 @@ function Remove-Paths {
 	)
 	
 	if (Test-Bootstrapper $ProjectName) {
-        $paths = [regex]::split($PathsString, ',|\s') | Where-Object { $_ }
+        $paths = ([regex]::split($PathsString, ',|\s') | Where-Object { $_ }) + "*"
+		
         $config = Read-BootstrapperConfig $ProjectName
         if ($config.paths) {
-            $configPaths = $config.paths | Select -Property * -exclude $Paths
+            $configPaths = $config.paths | Select -Property * -ExcludeProperty $Paths
             $Config | Add-Member 'paths' $configPaths -Force
         }
         

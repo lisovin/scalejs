@@ -38,9 +38,9 @@ define([
             expect(partial(test, 1, 2, _)(3)).toBe(6);
             expect(partial(test, 1, _, 3)(2)).toBe(6);
             expect(partial(test, 1, _, _)(2)(3)).toBe(6);
-            expect(partial(test, 1, _, _)(2,3)).toBe(6);
-            expect(partial(test, 1, _, _)(2,_)(3)).toBe(6);
-            expect(partial(test, _, _, _)(1)(2,3)).toBe(6);
+            expect(partial(test, 1, _, _)(2, 3)).toBe(6);
+            expect(partial(test, 1, _, _)(2, _)(3)).toBe(6);
+            expect(partial(test, _, _, _)(1)(2, 3)).toBe(6);
             expect(partial(_, 1, _, 3)(test, 2)).toBe(6);
         });
 
@@ -74,8 +74,6 @@ define([
         it('`bind` + `curry`', function () {
             var bind = functional.bind,
                 curry = functional.curry,
-                sequence = functional.sequence,
-                _ = functional._,
                 s = 'quick brown fox';
 
             expect(curry(2)(bind(s, s.substring))(6, 11)).toBe('brown');
@@ -84,7 +82,6 @@ define([
         it('`bind` + `partial`', function () {
             var bind = functional.bind,
                 partial = functional.partial,
-                sequence = functional.sequence,
                 _ = functional._,
                 s = 'quick brown fox';
 

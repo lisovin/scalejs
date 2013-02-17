@@ -1,12 +1,13 @@
-/*global require*/
+/*global require,navigator*/
 /// <reference path="Scripts/require.js"/>
 /// <reference path="Scripts/jasmine.js"/>
 require({
     "paths":  {
-        "scalejs":  "../scalejs/scalejs",
-        "es5-shim": "Scripts/es5-shim",
+        "es5-shim":  "Scripts/es5-shim.min",
         "jasmine":  "Scripts/jasmine",
-        "jasmine-html":  "Scripts/jasmine-html"
+        "jasmine-html":  "Scripts/jasmine-html",
+        "jasmine.test.runner":  "Scripts/jasmine.test.runner",
+        "scalejs":  "Scripts/scalejs-0.2.0"
     },
     "shim":  {
         "jasmine":  {
@@ -15,8 +16,7 @@ require({
         "jasmine-html":  {
             "deps":  [
                 "jasmine"
-            ],
-            "exports":  "jasmine"
+            ]
         }
     }
-}, ['tests/all.tests']);
+}, [(navigator.userAgent.indexOf('PhantomJS') < 0 ? 'jasmine.test.runner!' : '') + 'tests/all.tests']);
