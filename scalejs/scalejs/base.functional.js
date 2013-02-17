@@ -18,17 +18,16 @@ define([], function (
         /// :: (a2 -> a1) (a3 -> a2)... (a... -> a_{n}) -> a... -> a1
         /// >> compose('1+', '2*')(2) -> 5
         /// </summary>
-        var fns = Array.prototype.slice.call(arguments, 0);
+        var fns = Array.prototype.slice.call(arguments, 0).reverse();
+
         return function () {
-            var args = Array.prototype.reverse.call(arguments);
-            fns.reduce(function (args, fn) {
+            var args = fns.reduce(function (args, fn) {
                 return [fn.apply(undefined, args)];
-            });
+            }, Array.prototype.slice.call(arguments));
 
             return args[0];
         };
     }
-
     function sequence() {
         /// <summary>
         /// Same as `compose`, except applies the functions in argument-list order.
@@ -39,10 +38,9 @@ define([], function (
         var fns = Array.prototype.slice.call(arguments, 0);
 
         return function () {
-            var args = Array.prototype.slice.call(arguments, 0);
-            fns.reduce(function (args, fn) {
+            var args = fns.reduce(function (args, fn) {
                 return [fn.apply(undefined, args)];
-            }, args);
+            }, Array.prototype.slice.call(arguments, 0));
 
             return args[0];
         };
@@ -57,23 +55,6 @@ define([], function (
         var args = Array.prototype.slice.call(arguments, 2);
         return function () {
             return fn.apply(object, args.concat(Array.prototype.slice.call(arguments, 0)));
-        };
-    }
-
-    function saturate(fn) {
-        /// <summary>
-        /// Returns a function that applies the underlying function to `args`, and
-        /// ignores its own arguments.
-        /// :: (a... -> b) a... -> (... -> b)
-        /// == f.saturate(args...)(args2...) == f(args...)
-        /// >> Math.max.curry(1, 2)(3, 4) -> 4
-        /// >> Math.max.saturate(1, 2)(3, 4) -> 2
-        /// >> Math.max.curry(1, 2).saturate()(3, 4) -> 2
-        /// </summary>
-        /// <param name="fn"></param>
-        var args = Array.prototype.slice.call(arguments, 1);
-        return function () {
-            return fn.apply(undefined, args);
         };
     }
 
@@ -107,122 +88,45 @@ define([], function (
         };
     }
 
-    function curry(fn) {
-        /// <summary>
-        /// Returns a function that, applied to an argument list $arg2$,
-        /// applies the underlying function to $args ++ arg2$.
-        /// :: (a... b... -> c) a... -> (b... -> c)
-        /// == f.curry(args1...)(args2...) == f(args1..., args2...)
-        ///
-        /// Note that, unlike in languages with true partial application such as Haskell,
-        /// `curry` and `uncurry` are not inverses.  This is a repercussion of the
-        /// fact that in JavaScript, unlike Haskell, a fully saturated function is
-        /// not equivalent to the value that it returns.  The definition of `curry`
-        /// here matches semantics that most people have used when implementing curry
-        /// for procedural languages.
-        ///
-        /// This implementation is adapted from
-        /// [http://www.coryhudson.com/blog/2007/03/10/javascript-currying-redux/].
-        /// </summary>
-        /// <param name="fn"></param>
+    function curry() {
+        function _curry(n, fn) {
+            var largs = Array.prototype.slice.call(arguments, 2);
 
-        var args = Array.prototype.slice.call(arguments, 1);
-
-        return function () {
-            return fn.apply(undefined, args.concat(Array.prototype.slice.call(arguments, 0)));
-        };
-    }
-
-    function rcurry(fn) {
-        /// <summary>
-        /// Right curry.  Returns a function that, applied to an argument list $args2$,
-        /// applies the underlying function to $args2 + args$.
-        /// == f.curry(args1...)(args2...) == f(args2..., args1...)
-        /// :: (a... b... -> c) b... -> (a... -> c)
-        /// </summary>
-        var args = Array.prototype.slice.call(arguments, 1);
-        return function () {
-            return fn.apply(undefined, Array.prototype.slice.call(arguments, 0).concat(args));
-        };
-    }
-
-    function ncurry(fn, n) {
-        /// <summary>
-        /// Same as `curry`, except only applies the function when all
-        /// `n` arguments are saturated.
-        /// </summary>
-        /// <param name="fn"></param>
-        /// <param name="n"></param>
-        var largs = Array.prototype.slice.call(arguments, 2);
-        return function () {
-            var args = largs.concat(Array.prototype.slice.call(arguments, 0));
-            if (args.length < n) {
-                args.unshift(fn, n);
-                return ncurry.apply(undefined, args);
+            if (largs.length >= n) {
+                return fn.apply(undefined, largs);
             }
-            return fn.apply(undefined, args);
-        };
+
+            return function () {
+                var args = largs.concat(Array.prototype.slice.call(arguments, 0));
+                args.unshift(n, fn);
+                return _curry.apply(undefined, args);
+            };
+        }
+
+        // make curry itself curried as well (e.g. curry(n, fn) = curry(n)(fn))
+        return _curry(2, _curry).apply(undefined, arguments);
     }
 
-    function rncurry(fn, n) {
-        /// <summary>
-        /// Same as `rcurry`, except only applies the function when all
-        /// `n` arguments are saturated.
-        /// </summary>
-        /// <param name="fn"></param>
-        /// <param name="n"></param>
-        var rargs = Array.prototype.slice.call(arguments, 2);
-        return function () {
-            var args = Array.prototype.slice.call(arguments, 0).concat(rargs);
-            if (args.length < n) {
-                args.unshift(fn, n);
-                return rncurry.apply(undefined, args);
-            }
-            return fn.apply(undefined, args);
-        };
-    }
-
-    function partial(fn) {
-        /// <summary>
-        ///  Returns a function $f$ such that $f(args2)$ is equivalent to
-        ///  the underlying function applied to a combination of $args$ and $args2$.
-        /// 
-        ///  `args` is a partially-specified argument: it's a list with "holes",
-        ///  specified by the special value `_`.  It is combined with $args2$ as
-        ///  follows:
-        /// 
-        ///  From left to right, each value in $args2$ fills in the leftmost
-        ///  remaining hole in `args`.  Any remaining values
-        ///  in $args2$ are appended to the result of the filling-in process
-        ///  to produce the combined argument list.
-        /// 
-        ///  If the combined argument list contains any occurrences of `_`, the result
-        ///  of the application of $f$ is another partial function.  Otherwise, the
-        ///  result is the same as the result of applying the underlying function to
-        ///  the combined argument list.
-        /// </summary>
-        /// <param name="fn">Underlying function.</param>
-        /// <returns type="">Result function.</returns>
-
-        var args = Array.prototype.slice.call(arguments, 1),
-            //substitution positions
+    // partial itself is partial, e.g. partial(_, a, _)(f) = partial(f, a, _)
+    function partial() {
+        var args = Array.prototype.slice.call(arguments, 0),
             subpos = args.reduce(function (blanks, arg, i) {
                 return arg === _ ? blanks.concat([i]) : blanks;
             }, []);
 
+        if (subpos.length === 0) {
+            return args[0].apply(undefined, args.slice(1));
+        }
+
         return function () {
-            var specialized = args.concat(Array.prototype.slice.call(arguments, subpos.length)),
+            var //specialized = args.concat(Array.prototype.slice.call(arguments, subpos.length)),
                 i;
 
             for (i = 0; i < Math.min(subpos.length, arguments.length); i += 1) {
-                specialized[subpos[i]] = arguments[i];
+                args[subpos[i]] = arguments[i];
             }
 
-            if (specialized.some(function (s) { return s === _; })) {
-                return partial.apply(undefined, [fn].concat(specialized));
-            }
-
-            return fn.apply(undefined, specialized);
+            return partial.apply(undefined, args);
         };
     }
 
@@ -233,10 +137,6 @@ define([], function (
         bind: bind,
         aritize: aritize,
         curry: curry,
-        rcurry: rcurry,
-        ncurry: ncurry,
-        rncurry: rncurry,
-        partial: partial,
-        saturate: saturate
+        partial: partial
     };
 });
