@@ -1,11 +1,11 @@
 var require = {
-    "baseUrl": ".",
+    "baseUrl":  ".",
     "paths":  {
         "es5-shim":  "Scripts/es5-shim.min",
         "jasmine":  "Scripts/jasmine",
         "jasmine-html":  "Scripts/jasmine-html",
         "jasmine.test.runner":  "Scripts/jasmine.test.runner",
-        "scalejs":  "Scripts/scalejs-0.2.0"
+        "scalejs":  "Scripts/scalejs-0.2.5.7"
     },
     "shim":  {
         "jasmine":  {

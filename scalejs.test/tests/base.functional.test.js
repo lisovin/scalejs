@@ -20,10 +20,12 @@ define([
                 return x + y + z;
             }
 
-            expect(curry(3, test, 1, 2, 3)).toBe(6);
-            expect(curry(3, test)(1, 2, 3)).toBe(6);
-            expect(curry(3, test)(1)(2, 3)).toBe(6);
-            expect(curry(3)(test)(1)(2)(3)).toBe(6);
+            expect(curry(test, 3, 1, 2, 3)).toBe(6);
+            expect(curry(test, 3)(1, 2, 3)).toBe(6);
+            expect(curry(test, 3)(1)(2, 3)).toBe(6);
+            expect(curry(test, 3)(1)(2)(3)).toBe(6);
+            expect(curry(test)(1, 2, 3)).toBe(6);
+            expect(curry(test)(1)(2, 3)).toBe(6);
         });
 
         it('`partial`', function () {
@@ -76,7 +78,7 @@ define([
                 curry = functional.curry,
                 s = 'quick brown fox';
 
-            expect(curry(2)(bind(s, s.substring))(6, 11)).toBe('brown');
+            expect(curry(bind(s, s.substring), 2)(6, 11)).toBe('brown');
         });
 
         it('`bind` + `partial`', function () {

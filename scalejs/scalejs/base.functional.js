@@ -88,23 +88,22 @@ define([], function (
         };
     }
 
-    function curry() {
-        function _curry(n, fn) {
-            var largs = Array.prototype.slice.call(arguments, 2);
-
-            if (largs.length >= n) {
-                return fn.apply(undefined, largs);
-            }
-
-            return function () {
-                var args = largs.concat(Array.prototype.slice.call(arguments, 0));
-                args.unshift(n, fn);
-                return _curry.apply(undefined, args);
-            };
+    function curry(fn, n) {
+        if (arguments.length === 1) {
+            return curry(fn, fn.length);
         }
 
-        // make curry itself curried as well (e.g. curry(n, fn) = curry(n)(fn))
-        return _curry(2, _curry).apply(undefined, arguments);
+        var largs = Array.prototype.slice.call(arguments, 2);
+
+        if (largs.length >= n) {
+            return fn.apply(undefined, largs);
+        }
+
+        return function () {
+            var args = largs.concat(Array.prototype.slice.call(arguments, 0));
+            args.unshift(fn, n);
+            return curry.apply(undefined, args);
+        };
     }
 
     // partial itself is partial, e.g. partial(_, a, _)(f) = partial(f, a, _)

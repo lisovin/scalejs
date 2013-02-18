@@ -47,11 +47,10 @@ define([
 
             return moduleInstance;
         } catch (ex) {
-            error('Fatal error during application initialization.',
-                  'Failed to create an instance of module "' + module.getModuleId() + '".',
-                  'See following exception for more details.',
-                  ex);
-            throw ex;
+            error('Failed to create an instance of module "' + module.getModuleId() + '".',
+                  'Application will continue running without the module. ' +
+                  'See following exception stack for more details.',
+                  ex.stack);
         }
     }
 
