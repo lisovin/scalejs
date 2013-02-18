@@ -88,33 +88,33 @@ function Get-SolutionDir {
     }
 }
 
-function Get-BootstrapperPath {
+function Get-Config {
 	param(
         [string]$ProjectName
 	)
 	$projectDir = Split-Path (Get-Project $ProjectName).FullName
 
-    return "$projectDir\bootstrapper.js"
+    return "$projectDir\config.js"
 }
  
-function Test-Bootstrapper {
+function Test-Config {
 	param([string] $ProjectName)
 	
-	Test-Path (Get-BootstrapperPath $ProjectName)
+	Test-Path (Get-Config $ProjectName)
 }
 
-function Read-BootstrapperConfig {
+function Read-Config {
 	param([string] $ProjectName)
 
-	$bootstrapperPath = Get-BootstrapperPath $ProjectName
-	$bootstrapper = (Get-Content $bootstrapperPath) 
+	$configPath = Get-Config $ProjectName
+	$config = (Get-Content $configPath) 
  
-	$match = [regex]::Match($bootstrapper, "require\s*\(\s*({.*})\s*,.*\[", [System.Text.RegularExpressions.RegexOptions]::Singleline)
+	$match = [regex]::Match($config, "require\s*=\s*({.*})\s*;", [System.Text.RegularExpressions.RegexOptions]::Singleline)
 	
 	if ($match.Success) {
 		return ,(ConvertFrom-Json $match.Groups[1].Value)
 	} 
-	throw "Invalid bootstrapper content in $bootstrapperPath"
+	throw "Invalid config content in $configPath"
 	
 }
 
@@ -129,7 +129,7 @@ function ConvertTo-Ordered {
 
 }
 
-function Write-BootstrapperConfig {
+function Write-Config {
  	param (
 		[object] $Config,
 		[string] $ProjectName
@@ -164,35 +164,16 @@ function Write-BootstrapperConfig {
 		} 
 	} | Out-String
 
-    $bootstrapperPath = Get-BootstrapperPath $ProjectName
+    $configPath = Get-Config $ProjectName
 	$scalejsProjectType = Get-ScalejsProjectType $ProjectName
 
-    if ($scalejsProjectType -eq 'Application') {
-	    $bootstrapper = @"
-/*global require*/
-require($($configJson.Trim()), ['app/app']);
+	$config = @"
+var require = $($configJson.Trim());
 "@
-    }
-
-    if ($scalejsProjectType -eq 'Test') {
-        $bootstrapper = @"
-/*global require,navigator*/
-/// <reference path="Scripts/require.js"/>
-/// <reference path="Scripts/jasmine.js"/>
-require($($configJson.Trim()), [(navigator.userAgent.indexOf('PhantomJS') < 0 ? 'jasmine.test.runner!' : '') + 'tests/all.tests']);
-"@
-    }
-    
-    if ($scalejsProjectType -eq 'Extension') {
-        $bootstrapper = @"
-/*global require*/
-require($($configJson.Trim()), ['$ProjectName']);
-"@
-    }
 
     $tmp = [System.IO.Path]::GetTempFileName()
-    Set-Content $tmp $bootstrapper
-    Move-Item $tmp $bootstrapperPath -force
+    Set-Content $tmp $config
+    Move-Item $tmp $configPath -force
 }
  
 function Add-Paths {
@@ -204,8 +185,8 @@ function Add-Paths {
         [string] $ProjectName
 	)
 
-	if (Test-Bootstrapper $ProjectName) {
-        $config = Read-BootstrapperConfig $ProjectName
+	if (Test-Config $ProjectName) {
+        $config = Read-Config $ProjectName
 
         if (!$config.paths) {
             $config | Add-Member 'paths' [pscustomobject]@{}
@@ -222,7 +203,7 @@ function Add-Paths {
             }
         }
         
-        Write-BootstrapperConfig $config $ProjectName
+        Write-Config $config $ProjectName
     }
 
     $Input
@@ -237,16 +218,19 @@ function Remove-Paths {
         [string] $ProjectName
 	)
 	
-	if (Test-Bootstrapper $ProjectName) {
-        $paths = ([regex]::split($PathsString, ',|\s') | Where-Object { $_ }) + "*"
+	if (Test-Config $ProjectName) {
+        $paths = [regex]::split($PathsString, ',|\s') | Where-Object { $_ }
 		
-        $config = Read-BootstrapperConfig $ProjectName
+        $config = Read-Config $ProjectName
         if ($config.paths) {
             $configPaths = $config.paths | Select -Property * -ExcludeProperty $Paths
+			if (($configPaths | Get-Member -MemberType NoteProperty).Name -eq '*') {
+				$configPaths = $configPaths | Select -Property * -ExcludeProperty *
+			}
             $Config | Add-Member 'paths' $configPaths -Force
         }
         
-        Write-BootstrapperConfig $config $ProjectName
+        Write-Config $config $ProjectName
     }
 
     $Input
@@ -261,8 +245,8 @@ function Add-Shims {
         [string] $ProjectName
 	)		
 	
-	if (Test-Bootstrapper $ProjectName) {
-        $config = Read-BootstrapperConfig $ProjectName
+	if (Test-Config $ProjectName) {
+        $config = Read-Config $ProjectName
         
         $shims = ConvertFrom-Json $ShimsJson
         if ($config.shim) {
@@ -277,7 +261,7 @@ function Add-Shims {
             $config | Add-Member 'shim' $Shims
         }
         
-        Write-BootstrapperConfig $config $ProjectName
+        Write-Config $config $ProjectName
     }
 
     $Input
@@ -292,9 +276,9 @@ function Remove-Shims {
         [string] $ProjectName
 	)		
     
-	if (Test-Bootstrapper $ProjectName) {
+	if (Test-Config $ProjectName) {
         $shims = [regex]::split($ShimsString, ',|\s')
-        $config = Read-BootstrapperConfig $ProjectName
+        $config = Read-Config $ProjectName
 
         if ($config.shim) {
             $shimNames = $config.shim | Get-Member -MemberType NoteProperty |% {$_.Name} | Where-Object {$shims -notcontains $_}
@@ -303,7 +287,7 @@ function Remove-Shims {
             $Config | Add-Member 'shim' $shim -Force
         }
         
-        Write-BootstrapperConfig $config $ProjectName
+        Write-Config $config $ProjectName
     }
 
     $Input
@@ -318,8 +302,8 @@ function Add-ScalejsExtension {
         [string] $ProjectName
 	)		
 
-	if (Test-Bootstrapper $ProjectName) {
-        $config = Read-BootstrapperConfig $ProjectName
+	if (Test-Config $ProjectName) {
+        $config = Read-Config $ProjectName
         
         if (-not $config.scalejs) {
             $config | Add-Member 'scalejs' @{ extensions = @($Extension) }
@@ -331,7 +315,7 @@ function Add-ScalejsExtension {
             }
         }
 
-        Write-BootstrapperConfig $config $ProjectName
+        Write-Config $config $ProjectName
     }
 
     $Input
@@ -346,8 +330,8 @@ function Remove-ScalejsExtension {
         [string] $ProjectName
 	)		
 	
-	if (Test-Bootstrapper $ProjectName) {
-        $config = Read-BootstrapperConfig $ProjectName
+	if (Test-Config $ProjectName) {
+        $config = Read-Config $ProjectName
         
         $extensions = $config.scalejs.extensions
         if ($extensions) {
@@ -355,7 +339,7 @@ function Remove-ScalejsExtension {
             $config.scalejs | Add-Member 'extensions' $extensions -Force
         }
 
-        Write-BootstrapperConfig $config $ProjectName
+        Write-Config $config $ProjectName
     }
 
     $Input

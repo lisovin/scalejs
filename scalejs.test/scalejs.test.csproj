@@ -12,7 +12,7 @@
     <RootNamespace>scalejs.ajax.test</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="bootstrapper.js" />
+    <Content Include="config.js" />
     <Content Include="css\jasmine.css" />
     <Content Include="index.html" />
     <Content Include="Scripts\es5-shim.min.js" />

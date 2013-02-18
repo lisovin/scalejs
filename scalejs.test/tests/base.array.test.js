@@ -8,7 +8,7 @@ define([
     var array = core.array;
 
     describe('core.array', function () {
-        it('is really defined', function () {
+        it('is defined', function () {
             expect(array).toBeDefined();
         });
 
