@@ -1,9 +1,9 @@
 /*global define,require,jasmine*/
 define([
     'jasmine-html',
-    'scalejs!application',
     './base.array.test',
-    './base.functional.test'
+    './base.functional.test',
+    './json.test'
 ], function () {
     'use strict';
 

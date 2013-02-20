@@ -17,5 +17,6 @@ $project |
 	Add-Import '$(SolutionDir)\.nuget\NuGet.targets' |
 	Add-Import '$(SolutionDir)\.scalejs\Scalejs.targets' |
 	Add-Paths "{'scalejs' : 'Scripts/scalejs-$($package.Version)',
-	            'es5-shim' : 'Scripts/es5-shim.min'}" |
+	            'es5-shim' : 'Scripts/es5-shim',
+				'json2': 'Scripts/json2'}" |
 	Out-Null

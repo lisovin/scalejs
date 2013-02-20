@@ -1,5 +1,5 @@
 /*global define,window */
-define(['es5-shim'], function () {
+define(['es5-shim', 'json2'], function () {
     'use strict';
 
     var windowType = typeof (window);

@@ -41,6 +41,8 @@
     <Content Include="scalejs\sandbox.js" />
     <Content Include="Scripts\es5-shim.js" />
     <Content Include="Scripts\es5-shim.min.js" />
+    <Content Include="Scripts\json2.js" />
+    <Content Include="Scripts\json2.min.js" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

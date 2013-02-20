@@ -23,11 +23,12 @@
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\scalejs-0.2.32.js" />
     <Content Include="Scripts\scalejs-0.2.32.min.js" />
-    <Content Include="Scripts\scalejs-0.2.5.7.js" />
-    <Content Include="Scripts\scalejs-0.2.5.7.min.js" />
+    <Content Include="Scripts\scalejs-0.2.7.js" />
+    <Content Include="Scripts\scalejs-0.2.7.min.js" />
     <Content Include="tests\all.tests.js" />
     <Content Include="tests\base.array.test.js" />
     <Content Include="tests\base.functional.test.js" />
+    <Content Include="tests\json.test.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
