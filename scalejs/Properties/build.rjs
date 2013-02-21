@@ -9,6 +9,7 @@
         'scalejs/module'
     ],
 	exclude: [
-		'es5-shim'
+		'es5-shim',
+		'json2'
 	]
 })
