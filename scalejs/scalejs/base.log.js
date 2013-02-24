@@ -16,7 +16,12 @@ define([
 
     function info() {
         if (has(window, 'console', 'info')) {
-            window.console.info.apply(window.console, arguments);
+            if (!has(window, 'console', 'info', 'apply')) {
+                // IE8
+                window.console.info(Array.prototype.join.call(arguments));
+            } else {
+                window.console.info.apply(window.console, arguments);
+            }
         }
     }
 

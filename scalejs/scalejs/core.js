@@ -17,8 +17,8 @@ define([
         error = base.log.error,
         self = {},
         extensions = [],
-        applicationStartedListeners = [],
-        applicationStarted = false;
+        applicationEventListeners = [],
+        isApplicationRunning = false;
 
     function registerExtension(extension) {
         try {
@@ -96,23 +96,26 @@ define([
         return sandbox;
     }
 
-    function onApplicationStarted(listener) {
-        applicationStartedListeners.push(listener);
+    function onApplicationEvent(listener) {
+        applicationEventListeners.push(listener);
     }
 
     function notifyApplicationStarted() {
-        if (applicationStarted) {
-            return;
-        }
+        if (isApplicationRunning) { return; }
 
-        applicationStarted = true;
-        applicationStartedListeners.forEach(function (listener) {
-            listener();
+        isApplicationRunning = true;
+        applicationEventListeners.forEach(function (listener) {
+            listener('started');
         });
     }
 
-    function isApplicationStarted() {
-        return applicationStarted;
+    function notifyApplicationStopped() {
+        if (!isApplicationRunning) { return; }
+
+        isApplicationRunning = false;
+        applicationEventListeners.forEach(function (listener) {
+            listener('stopped');
+        });
     }
 
     return extend(self, {
@@ -123,8 +126,9 @@ define([
         functional: base.functional,
         buildSandbox: buildSandbox,
         notifyApplicationStarted: notifyApplicationStarted,
-        onApplicationStarted: onApplicationStarted,
-        isApplicationStarted: isApplicationStarted,
+        notifyApplicationStopped: notifyApplicationStopped,
+        onApplicationEvent: onApplicationEvent,
+        isApplicationRunning: function () { return isApplicationRunning; },
         registerExtension: registerExtension
     });
 });

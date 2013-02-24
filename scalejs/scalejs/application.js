@@ -61,7 +61,7 @@ define([
     }
 
     function startAll() {
-        debug("Application started.");
+        debug('Application started.');
 
         core.notifyApplicationStarted();
     }
@@ -71,8 +71,14 @@ define([
         startAll();
     }
 
+    function exit() {
+        debug('Application exited.');
+        core.notifyApplicationStopped();
+    }
+
     return {
         registerModules: registerModules,
-        run: run
+        run: run,
+        exit: exit
     };
 });
