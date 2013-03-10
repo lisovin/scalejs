@@ -51,7 +51,7 @@ define([
         /// <returns type="">New array containing the specified items.</returns>
         first = valueOrDefault(first, 0);
         count = valueOrDefault(count, array.length);
-        return array.slice(first, count);
+        return Array.prototype.slice.call(array, first, count);
     }
 
     function find(array, f, context) {
@@ -66,7 +66,17 @@ define([
     }
 
     function toArray(list, start, end) {
-        return Array.prototype.slice.call(list, start, end);
+        /*ignore jslint start*/
+        var array = [],
+            i,
+            result;
+
+        for (i = list.length; i--; array[i] = list[i]) {}
+        
+        result = copy(array, start, end);
+
+        return result;
+        /*ignore jslint end*/
     }
 
     return {

@@ -28,7 +28,7 @@ define([
         // Dynamic module loading is no longer supported for simplicity.
         // Module is free to load any of its resources dynamically.
         // Or an extension can provide dynamic module loading capabilities as needed.
-        if (core.isApplicationStarted()) {
+        if (core.isApplicationRunning()) {
             moduleNames = toArray(arguments).reduce(function (ns, m) { return ns + ',' + m; });
             throw new Error('Can\'t register module "' + moduleNames + '" since the application is already running.',
                             'Dynamic module loading is not supported.');
