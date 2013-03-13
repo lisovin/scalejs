@@ -2,13 +2,6 @@
 define(['es5-shim', 'json2'], function () {
     'use strict';
 
-    var windowType = typeof (window);
-
-    // IE weirdness. 
-    if (windowType !== 'undefined' && window.console === 'undefined') {
-        window.console = window.Console;
-    }
-
     return {
         load: function (name, req, load, config) {
             var extensionNames = config.scalejs ? config.scalejs.extensions || [] : [],

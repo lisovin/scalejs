@@ -1,62 +1,43 @@
-/*global define,window,document*/
+/*global define,window,document,console*/
 define([
-    './base.object'
 ], function (
-    object
 ) {
     'use strict';
 
-    var has = object.has;
+    var logMethods = ['log', 'info', 'warn', 'error'],
+        self = {};
 
-    function formatException(ex) {
-        var stack = has(ex, 'stack') ? String(ex.stack) : '',
-            message = has(ex, 'message') ? ex.message : '';
+    // Workaround for IE8 and IE9 - in these browsers console.log exists but it's not a real JS function.
+    // See http://stackoverflow.com/a/5539378/201958 for more details
+
+    if (window.console !== undefined) {
+        if (typeof console.log === "object") {
+            logMethods.forEach(function (method) {
+                self[method] = this.bind(console[method], console);
+            }, Function.prototype.call);
+        } else {
+            logMethods.forEach(function (method) {
+                self[method] = console[method].bind(console);
+            });
+        }
+
+        if (typeof console.debug === 'function') {
+            self.debug = console.debug.bind(console);
+        } else {
+            self.debug = self.info;
+        }
+    } else {
+        logMethods.forEach(function (method) {
+            self[method] = function () {};
+        });
+        logMethods.debug = function () {};
+    }
+
+    self.formatException = function (ex) {
+        var stack = ex.stack ? String(ex.stack) : '',
+            message = ex.message || '';
         return 'Error: ' + message + '\nStack: ' + stack;
-    }
-
-    function info() {
-        if (has(window, 'console', 'info')) {
-            if (!has(window, 'console', 'info', 'apply')) {
-                // IE8
-                window.console.info(Array.prototype.join.call(arguments));
-            } else {
-                window.console.info.apply(window.console, arguments);
-            }
-        }
-    }
-
-    function warn() {
-        if (has(window, 'console', 'warn')) {
-            window.console.warn.apply(window.console, arguments);
-            return;
-        }
-
-        info(arguments);
-    }
-
-    function error() {
-        if (has(window, 'console', 'error')) {
-            window.console.error.apply(window.console, arguments);
-            return;
-        }
-
-        info(arguments);
-    }
-
-    function debug() {
-        if (has(window, 'console', 'debug')) {
-            window.console.debug.apply(window.console, arguments);
-            return;
-        }
-
-        info(arguments);
-    }
-
-    return {
-        info: info,
-        warn: warn,
-        debug: debug,
-        error: error,
-        formatException: formatException
     };
+
+    return self;
 });
