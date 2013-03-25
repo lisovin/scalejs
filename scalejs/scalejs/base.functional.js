@@ -3,7 +3,10 @@
 /**
  * Based on Oliver Steele "Functional Javascript" (http://osteele.com/sources/javascript/functional/)
  **/
-define([], function (
+define([
+    './base.array'
+], function (
+    array
 ) {
     'use strict';
 
@@ -28,6 +31,7 @@ define([], function (
             return args[0];
         };
     }
+
     function sequence() {
         /// <summary>
         /// Same as `compose`, except applies the functions in argument-list order.
@@ -129,6 +133,92 @@ define([], function (
         };
     }
 
+    function createBuilder() {
+        function builder(opts) {
+            function buildContext() {
+                return {};
+            }
+
+            function build(context, cexpr) {
+                if (arguments.length === 1) {
+                    return;
+                }
+
+                var expr = cexpr.shift();
+
+                if (expr.kind === 'bind') {
+                    context[expr.name] = expr.expr;
+                    return build(context, cexpr);
+                }
+
+                if (expr.kind === '$bind') {
+                    return opts.bind(expr.expr, function (bound) {
+                        context[expr.name] = bound;
+                        return build(context, cexpr);
+                    });
+                }
+
+                if (expr.kind === 'return') {
+                    return opts.returnValue(expr.expr.bind(context));
+                }
+
+                if (expr.kind === '$return') {
+                    return opts.returnValueFrom(expr.expr.bind(context));
+                }
+
+                if (expr.kind === 'call') {
+                    return expr.expr.call(context);
+                }
+
+                throw new Error('Unsupported expression "' + expr + '"');
+            }
+
+            return function () {
+                return function () {
+                    var built = build(buildContext(), array.copy(arguments));
+
+                    if (opts.run) {
+                        return opts.run(built);
+                    }
+
+                    return built;
+                };
+            };
+        }
+
+        builder.bind = function (name, expr) {
+            return {
+                kind: 'bind',
+                name: name,
+                expr: expr
+            };
+        };
+
+        builder.$bind = function (name, expr) {
+            return {
+                kind: '$bind',
+                name: name,
+                expr: expr
+            };
+        };
+
+        builder.call = function (expr) {
+            return {
+                kind: 'call',
+                expr: expr
+            };
+        };
+
+        builder.returnValue = function (expr) {
+            return {
+                kind: 'return',
+                expr: expr
+            };
+        };
+
+        return builder;
+    }
+
     return {
         _: _,
         compose: compose,
@@ -136,6 +226,7 @@ define([], function (
         bind: bind,
         aritize: aritize,
         curry: curry,
-        partial: partial
+        partial: partial,
+        builder: createBuilder()
     };
 });

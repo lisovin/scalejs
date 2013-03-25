@@ -3,6 +3,7 @@ define([
     'jasmine-html',
     './base.array.test',
     './base.functional.test',
+    './base.functional.builder.test',
     './json.test'
 ], function () {
     'use strict';
