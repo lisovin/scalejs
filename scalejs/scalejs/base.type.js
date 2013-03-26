@@ -2,7 +2,27 @@
 define(function () {
     'use strict';
     function typeOf(obj) {
-        return ({}).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase();
+        if (obj === undefined) {
+            return 'undefined';
+        }
+
+        if (obj === null) {
+            return 'null';
+        }
+
+        var t = ({}).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase(),
+            m;
+
+        if (t !== 'object') {
+            return t;
+        }
+
+        m = obj.constructor.toString().match(/^function\s*([$A-Z_][0-9A-Z_$]*)/i);
+        if (m === null) {
+            return 'object';
+        }
+
+        return m[1];
     }
 
     function is(value) {

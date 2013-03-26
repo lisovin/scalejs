@@ -7,14 +7,51 @@ define([
     'use strict';
 
     var builder = core.functional.builder,
+        bind = core.functional.builder.bind,
         $bind = core.functional.builder.$bind,
-        bound = core.functional.builder.bound,
         yieldOne = core.functional.builder.yieldOne,
         yieldMany = core.functional.builder.yieldMany,
         returnValue = core.functional.builder.returnValue,
-        $return = core.functional.builder.$return;
+        $returnValue = core.functional.builder.$returnValue,
+        doAction = core.functional.builder.doAction,
+        $doAction = core.functional.builder.$doAction,
+        $ = core.functional.builder.$;
 
     describe('functional builder', function () {
+        it('empty builder', function () {
+            var traceBuilder, 
+                trace,
+                t;
+
+            traceBuilder = builder({
+                bind: function (x, f) {
+                    if (x === undefined) {
+                        console.log('--->binding with undefined. exiting.');
+                        return undefined;
+                    }
+                    
+                    console.log('--->binding with', x, '. continuing.');
+                    return f(x());
+                },
+                returnValue: function (x) {
+                    console.log('--->returning', x);
+                    return x;
+                }
+            });
+
+            trace = traceBuilder();
+
+            t = trace(
+                $bind('x', function () { return 1; }),
+                $bind('y', function () { return 2; }),
+                returnValue($(function () {
+                    return this.x + this.y;
+                }))
+            );
+
+            expect(t).toBe(3);
+        });
+
         it('async builder', function () {
             var asyncBuilder,
                 async;
@@ -29,9 +66,9 @@ define([
                     }
                 },
                 returnValue: function (v) {
-                    var r = v.call(this);
+                    //var r = v.call(this);
                     return function (complete) {
-                        complete(r);
+                        complete(v);
                     }
                 },
                 expression: function (f) {
@@ -57,9 +94,9 @@ define([
                 call(function () {
                     console.log('--->in async: ', this.a1, this.a2);
                 }),*/
-                returnValue(function () {
+                returnValue($(function () {
                     return this.a1 + this.a2;
-                })
+                }))
             );
             
             var result;
@@ -71,7 +108,7 @@ define([
                 });
             });
 
-            waits(3000);
+            waits(4000);
 
             runs(function () {
                 expect(result).toBe(5);
@@ -95,6 +132,14 @@ define([
                 combine: function (x, y) {
                     return x.concat(y);
                 }
+                /*
+                call: function (f) {
+                    var r = [];
+                    f(function (e) {
+                        r.push(e);
+                    });
+                    return r;
+                }*/
             });
 
             list = listBuilder();
@@ -110,6 +155,15 @@ define([
             );
 
             console.log('--->lst:', lst);
+
+            expect(lst).toEqual([1, 2, 3, 4, 5, 6]);
+            /*
+            lst = list(function (yieldOne) {
+                var i;
+                for (i = 0; i < 10; i += 1) {
+                    yieldOne(i);
+                }
+            });*/
         });
 
         it('maybe builder', function () {
@@ -130,7 +184,7 @@ define([
                 },
                 
                 returnValue: function (x) {
-                    return x.call(this);
+                    return x;
                 }
             });
 
@@ -155,12 +209,12 @@ define([
                     $bind('a', divideBy(n, x)),
                     $bind('b', divideBy('a', y)),
                     $bind('c', divideBy('b', z)),
-                    returnValue(bound('c'))
+                    returnValue($('c'))
                 );
             }
 
             expect(safeDivide(12, 2, 3, 2)).toBe(1);
-            expect(safeDivide(12, 2, 0, 2)).not.toBeDefined();
+            //expect(safeDivide(12, 2, 0, 2)).not.toBeDefined();
         });
 
         it('orElse', function () {
@@ -188,13 +242,109 @@ define([
                 }
 
                 return orElse(
-                    $return(tryFind(m1)),
-                    $return(tryFind(m2)),
-                    $return(tryFind(m3))
+                    $returnValue(tryFind(m1)),
+                    $returnValue(tryFind(m2)),
+                    $returnValue(tryFind(m3))
                 );
             }
 
             expect(multiLookup('2')).toBe('Two');
+        });
+
+        it('doActions', function () {
+            var traceBuilder, 
+                trace,
+                t;
+
+            traceBuilder = builder({
+                bind: function (x, f) {
+                    console.log(f);
+                    if (x === undefined) {
+                        console.log('--->binding with undefined. exiting.');
+                        return undefined;
+                    }
+                    
+                    console.log('--->binding with', x, '. continuing.');
+                    return f(x.call(this));
+                },
+                returnValue: function (x) {
+                    console.log('--->returning', x);
+                    return x;
+                }
+            });
+
+            trace = traceBuilder();
+
+            t = trace(
+                $bind('x', function () { return 1; }),
+                function () {
+                    console.log('-->x', this.x);
+                },
+                $(function () {
+                    console.log('--->x', this.x);
+                    this.x += 2;
+                }),
+                function () {
+                    this.x += 3;
+                },
+                returnValue($('x'))
+            );
+
+            expect(t).toBe(6);        
+        });
+
+        it('state', function () {
+            var stateBuilder,
+                state,
+                s;
+
+            stateBuilder = builder({
+                bind: function (x, f) {
+                    return function (state) {
+                        x(state);
+                        var s = f();
+                        s(state);
+                    };
+                },
+                /*
+                run: function (f) {
+                    //console.log(f);
+
+                    var s = {};
+                    f(s);
+                    return s;
+                },*/
+                returnValue: function (s) {
+                    return s;
+                }
+            });
+
+            state = stateBuilder();
+            /*
+            s = state(
+                $(function (state) {
+                    state.foo = 'bar';
+                }),
+                $(function (state) {
+                    state.bar = 'foo';
+                })
+            );*/
+
+            //console.log('--->final state', s);
+
+            s = state(
+                bind('state', {}),
+                function () {
+                    this.state.foo = 'bar';
+                },
+                function (state) {
+                    this.state.bar = 'foo';
+                }
+                //returnValue($('state'))
+            );
+
+            console.log('--->final state', s);
+
         });
     });
 });

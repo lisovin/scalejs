@@ -23,11 +23,8 @@
     <Content Include="Scripts\json2.js" />
     <Content Include="Scripts\json2.min.js" />
     <Content Include="Scripts\require.js" />
-    <Content Include="Scripts\scalejs-0.2.32.js" />
-    <Content Include="Scripts\scalejs-0.2.32.min.js" />
-    <Content Include="Scripts\scalejs-0.2.7.12.js" />
-    <Content Include="Scripts\scalejs-0.2.7.13.js" />
-    <Content Include="Scripts\scalejs-0.2.7.13.min.js" />
+    <Content Include="Scripts\scalejs-0.2.7.15.js" />
+    <Content Include="Scripts\scalejs-0.2.7.15.min.js" />
     <Content Include="tests\all.tests.js" />
     <Content Include="tests\base.array.test.js" />
     <Content Include="tests\base.functional.test.js" />

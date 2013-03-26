@@ -594,44 +594,96 @@ define('scalejs/base.functional',[
 
     function createBuilder() {
         function builder(opts) {
+            var build;
+
             function buildContext() {
                 return {};
             }
 
-            function build(context, cexpr) {
-                if (arguments.length === 1) {
-                    return;
+            function callExpr(context, expr) {
+                if (!expr || expr.kind !== '$') {
+                    return expr;
+                }
+
+                if (typeof expr.expr === 'function') {
+                    return expr.expr.call(context);
+                }
+
+                if (typeof expr.expr === 'string') {
+                    return context[expr.expr];
+                }
+
+                throw new Error('Parameter in $(...) must be either a function or a string referencing a binding.');
+            }
+
+            function combine(method, context, expr, cexpr) {
+                var e = callExpr(context, expr);
+                return cexpr.length > 0
+                    ? opts.combine(opts[method].call(context, e), build(context, cexpr))
+                    : opts[method].call(context, e);
+            }
+
+            build = function (context, cexpr) {
+                if (cexpr.length === 0) {
+                    if (opts.returnValue) {
+                        return opts.returnValue();
+                    }
+
+                    throw new Error('Computation expression builder must define `return` method.');
                 }
 
                 var expr = cexpr.shift();
 
                 if (expr.kind === 'bind') {
-                    context[expr.name] = expr.expr;
+                    context[expr.name] = callExpr(context, expr.expr);
+                    return build(context, cexpr);
+                }
+
+                if (expr.kind === 'do') {
+                    expr.expr.call(context);
+                    return build(context, cexpr);
+                }
+
+                if (typeof expr === 'function') {
+                    expr.call(context);
                     return build(context, cexpr);
                 }
 
                 if (expr.kind === '$bind') {
-                    return opts.bind(expr.expr, function (bound) {
+                    return opts.bind.call(context, callExpr(context, expr.expr), function (bound) {
                         context[expr.name] = bound;
                         return build(context, cexpr);
                     });
                 }
 
+                if (expr.kind === '$do' || expr.kind === '$') {
+                    return opts.bind.call(context, expr.expr.bind(context), function () {
+                        return build(context, cexpr);
+                    });
+                }
+
                 if (expr.kind === 'return') {
-                    return opts.returnValue(expr.expr.bind(context));
+                    return combine('returnValue', context, expr.expr, cexpr);
                 }
 
-                if (typeof expr === 'function') {
-                    return opts.combine(expr, cexpr);
+                if (expr.kind === '$return') {
+                    return combine('returnValueFrom', context, expr.expr, cexpr);
                 }
 
-                throw new Error('Unsupported expression "' + expr +'"');
-            }
+                if (expr.kind === 'yield') {
+                    return combine('yieldOne', context, expr.expr, cexpr);
+                }
+
+                if (expr.kind === 'yieldMany') {
+                    return combine('yieldMany', context, expr.expr, cexpr);
+                }
+
+                throw new Error('Unsupported expression "' + expr + '"');
+            };
 
             return function () {
                 return function () {
                     var built = build(buildContext(), array.copy(arguments));
-
                     if (opts.run) {
                         return opts.run(built);
                     }
@@ -657,9 +709,23 @@ define('scalejs/base.functional',[
             };
         };
 
-        builder.call = function (expr) {
+        builder.doAction = function (expr) {
             return {
-                kind: 'call',
+                kind: 'do',
+                expr: expr
+            };
+        };
+
+        builder.$doAction = function (expr) {
+            return {
+                kind: '$do',
+                expr: expr
+            };
+        };
+
+        builder.yieldOne = function (expr) {
+            return {
+                kind: 'yield',
                 expr: expr
             };
         };
@@ -667,6 +733,34 @@ define('scalejs/base.functional',[
         builder.returnValue = function (expr) {
             return {
                 kind: 'return',
+                expr: expr
+            };
+        };
+
+        builder.$returnValue = function (expr) {
+            return {
+                kind: '$return',
+                expr: expr
+            };
+        };
+
+        builder.yieldOne = function (expr) {
+            return {
+                kind: 'yield',
+                expr: expr
+            };
+        };
+
+        builder.yieldMany = function (expr) {
+            return {
+                kind: 'yieldMany',
+                expr: expr
+            };
+        };
+
+        builder.$ = function (expr) {
+            return {
+                kind: '$',
                 expr: expr
             };
         };
