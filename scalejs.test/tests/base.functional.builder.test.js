@@ -344,6 +344,58 @@ define([
             );
 
             console.log('--->final state', s);
+        });
+
+        it('interceptor', function () {
+            var stateBuilder,
+                state,
+                s,
+                interceptor;
+
+            interceptor = {
+                beforeBuild: function (ctx, ops) {
+                    console.log('--->INTERCEPTED!', ops);
+                },
+                afterBuild: function (state) {
+                    state.intercepted = 'yes';
+                    return state;
+                }
+            }
+
+            stateBuilder = builder({
+                run: function (f) {
+                    var s = {};
+                    f(s);
+                    return s;
+                },
+
+                combine: function (f, g) {
+                    return function (state) {
+                        f(state);
+                        g(state);
+                    };
+                },
+
+                missing: function (expr) {
+                    if (typeof expr === 'function') {
+                        return expr;
+                    }
+                }
+            });
+
+            var state1 = stateBuilder();
+            var state2 = state1.mixin(interceptor);
+            
+            s = state2(
+                function (state) {
+                    state.foo = 'bar';
+                },
+                function (state) {
+                    state.bar = 'foo';
+                }
+            );
+
+            console.log('--->final state', s);
 
         });
     });

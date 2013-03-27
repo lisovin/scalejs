@@ -25,7 +25,27 @@ define('scalejs',['es5-shim', 'json2'], function () {
 define('scalejs/base.type',[],function () {
     
     function typeOf(obj) {
-        return ({}).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase();
+        if (obj === undefined) {
+            return 'undefined';
+        }
+
+        if (obj === null) {
+            return 'null';
+        }
+
+        var t = ({}).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase(),
+            m;
+
+        if (t !== 'object') {
+            return t;
+        }
+
+        m = obj.constructor.toString().match(/^function\s*([$A-Z_][0-9A-Z_$]*)/i);
+        if (m === null) {
+            return 'object';
+        }
+
+        return m[1];
     }
 
     function is(value) {
@@ -644,11 +664,6 @@ define('scalejs/base.functional',[
                     return build(context, cexpr);
                 }
 
-                if (typeof expr === 'function') {
-                    expr.call(context);
-                    return build(context, cexpr);
-                }
-
                 if (expr.kind === '$bind') {
                     return opts.bind.call(context, callExpr(context, expr.expr), function (bound) {
                         context[expr.name] = bound;
@@ -678,18 +693,39 @@ define('scalejs/base.functional',[
                     return combine('yieldMany', context, expr.expr, cexpr);
                 }
 
-                throw new Error('Unsupported expression "' + expr + '"');
+                return combine('missing', context, expr, cexpr);
             };
 
             return function () {
-                function () {
+                var args = array.copy(arguments);
+
+                function expression() {
+                    var operations = Array.prototype.slice.call(arguments, 0);
+
+                    if (this.mixins) {
+                        this.mixins.forEach(function (mixin) {
+                            mixin(operations);
+                        });
+                    }
+
                     var built = build(buildContext(), array.copy(arguments));
                     if (opts.run) {
-                        return opts.run(built);
+                        return opts.run.apply(null, [built].concat(args));
                     }
 
                     return built;
-                };
+                }
+
+                function mixin() {
+                    var context = {mixins: Array.prototype.slice.call(arguments, 0)};
+                    return function () {
+                        return expression.apply(context, arguments);
+                    }
+                }
+
+                expression.mixin = mixin;
+
+                return expression;
             };
         }
 

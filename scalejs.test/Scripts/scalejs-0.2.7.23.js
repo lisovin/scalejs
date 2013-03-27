@@ -25,7 +25,27 @@ define('scalejs',['es5-shim', 'json2'], function () {
 define('scalejs/base.type',[],function () {
     
     function typeOf(obj) {
-        return ({}).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase();
+        if (obj === undefined) {
+            return 'undefined';
+        }
+
+        if (obj === null) {
+            return 'null';
+        }
+
+        var t = ({}).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase(),
+            m;
+
+        if (t !== 'object') {
+            return t;
+        }
+
+        m = obj.constructor.toString().match(/^function\s*([$A-Z_][0-9A-Z_$]*)/i);
+        if (m === null) {
+            return 'object';
+        }
+
+        return m[1];
     }
 
     function is(value) {
@@ -644,11 +664,6 @@ define('scalejs/base.functional',[
                     return build(context, cexpr);
                 }
 
-                if (typeof expr === 'function') {
-                    expr.call(context);
-                    return build(context, cexpr);
-                }
-
                 if (expr.kind === '$bind') {
                     return opts.bind.call(context, callExpr(context, expr.expr), function (bound) {
                         context[expr.name] = bound;
@@ -678,18 +693,54 @@ define('scalejs/base.functional',[
                     return combine('yieldMany', context, expr.expr, cexpr);
                 }
 
-                throw new Error('Unsupported expression "' + expr + '"');
+                return combine('missing', context, expr, cexpr);
             };
 
             return function () {
-                function () {
-                    var built = build(buildContext(), array.copy(arguments));
-                    if (opts.run) {
-                        return opts.run(built);
-                    }
+                var args = array.copy(arguments),
+                    expression = function () {
+                        var operations = Array.prototype.slice.call(arguments, 0),
+                            context = buildContext(),
+                            result;
 
-                    return built;
-                };
+                        if (this.mixins) {
+                            this.mixins.forEach(function (mixin) {
+                                if (mixin.beforeBuild) {
+                                    mixin.beforeBuild(context, operations);
+                                }
+                            });
+                        }
+
+                        result = build(context, operations);
+                        if (opts.run) {
+                            result = opts.run.apply(null, [result].concat(args));
+                        }
+
+                        if (this.mixins) {
+                            this.mixins.forEach(function (mixin) {
+                                if (mixin.afterBuild) {
+                                    result = mixin.afterBuild(result);
+                                }
+                            });
+                        }
+
+                        return result;
+                    };
+
+                function mixin() {
+                    var context = {mixins: Array.prototype.slice.call(arguments, 0)},
+                        bound = expression.bind(context);
+                    bound.mixin = function () {
+                        Array.prototype.push.apply(context.mixins, arguments);
+                        return bound;
+                    };
+
+                    return bound;
+                }
+
+                expression.mixin = mixin;
+
+                return expression;
             };
         }
 

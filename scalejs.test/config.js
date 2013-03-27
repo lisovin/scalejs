@@ -6,7 +6,7 @@ var require = {
         "jasmine-html":  "Scripts/jasmine-html",
         "jasmine.test.runner":  "Scripts/jasmine.test.runner",
         "json2":  "Scripts/json2",
-        "scalejs":  "Scripts/scalejs-0.2.7.15"
+        "scalejs":  "Scripts/scalejs-0.2.7.23"
     },
     "shim":  {
         "jasmine":  {

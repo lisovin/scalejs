@@ -218,16 +218,50 @@ define([
             };
 
             return function () {
-                var args = array.copy(arguments);
+                var args = array.copy(arguments),
+                    expression = function () {
+                        var operations = Array.prototype.slice.call(arguments, 0),
+                            context = buildContext(),
+                            result;
 
-                return function () {
-                    var built = build(buildContext(), array.copy(arguments));
-                    if (opts.run) {
-                        return opts.run.apply(null, [built].concat(args));
-                    }
+                        if (this.mixins) {
+                            this.mixins.forEach(function (mixin) {
+                                if (mixin.beforeBuild) {
+                                    mixin.beforeBuild(context, operations);
+                                }
+                            });
+                        }
 
-                    return built;
-                };
+                        result = build(context, operations);
+                        if (opts.run) {
+                            result = opts.run.apply(null, [result].concat(args));
+                        }
+
+                        if (this.mixins) {
+                            this.mixins.forEach(function (mixin) {
+                                if (mixin.afterBuild) {
+                                    result = mixin.afterBuild(result);
+                                }
+                            });
+                        }
+
+                        return result;
+                    };
+
+                function mixin() {
+                    var context = {mixins: Array.prototype.slice.call(arguments, 0)},
+                        bound = expression.bind(context);
+                    bound.mixin = function () {
+                        Array.prototype.push.apply(context.mixins, arguments);
+                        return bound;
+                    };
+
+                    return bound;
+                }
+
+                expression.mixin = mixin;
+
+                return expression;
             };
         }
 
