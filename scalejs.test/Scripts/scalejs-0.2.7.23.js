@@ -637,19 +637,45 @@ define('scalejs/base.functional',[
             }
 
             function combine(method, context, expr, cexpr) {
+                if (typeof opts[method] !== 'function') {
+                    throw new Error('This control construct may only be used if the computation expression builder ' + 
+                                    'defines a `' + method + '` method.');
+                }
+
                 var e = callExpr(context, expr);
-                return cexpr.length > 0
-                    ? opts.combine(opts[method].call(context, e), build(context, cexpr))
-                    : opts[method].call(context, e);
+
+                if (cexpr.length > 0 ||
+                   (method !== 'returnValue' &&
+                    method !== 'returnValueFrom')) {
+                    if (typeof opts.combine !== 'function') {
+                        throw new Error('This control construct may only be used if the computation expression builder ' + 
+                                        'defines a `combine` method.');
+                    }
+                    return opts.combine(opts[method].call(context, e), build(context, cexpr));
+                } 
+                
+                return opts[method].call(context, e);
+            }
+
+            if (!opts.missing) {
+                opts.missing = function (expr) {
+                    if (expr.kind) {
+                        throw new Error('Unknown operation "' + expr.kind + '". ' +
+                                        'Either define `missing` method on the builder or fix the spelling of the operation.');
+                    }
+
+                    throw new Error('Expression ' + JSON.stringify(expr) + ' cannot be processed. ' + 
+                                    'Either define `missing` method on the builder or convert expression to a function.');
+                }
             }
 
             build = function (context, cexpr) {
                 if (cexpr.length === 0) {
-                    if (opts.returnValue) {
-                        return opts.returnValue();
+                    if (opts.zero) {
+                        return opts.zero();
                     }
 
-                    throw new Error('Computation expression builder must define `return` method.');
+                    throw new Error('Computation expression builder must define `zero` method.');
                 }
 
                 var expr = cexpr.shift();
@@ -691,6 +717,16 @@ define('scalejs/base.functional',[
 
                 if (expr.kind === 'yieldMany') {
                     return combine('yieldMany', context, expr.expr, cexpr);
+                }
+
+                if (typeof expr === 'function' && opts.call) {
+                    opts.call(context, expr);
+                    return build(context, cexpr);
+                }
+
+                if (typeof expr === 'function') {
+                    expr.call(context, expr);
+                    return build(context, cexpr);
                 }
 
                 return combine('missing', context, expr, cexpr);

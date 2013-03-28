@@ -17,6 +17,199 @@ define([
         $doAction = core.functional.builder.$doAction,
         $ = core.functional.builder.$;
 
+    describe('computation expression builder', function () {
+        it('with no operations and no `zero` throws an exception.', function () {
+            var testBuilder, test, t;
+
+            testBuilder = builder({
+            });
+
+            test = testBuilder();
+
+            expect(test).toThrow();
+        });
+
+        it('with single operation and no `zero` throws an exception.', function () {
+            var testBuilder, test, t;
+
+            testBuilder = builder({
+            });
+
+            test = testBuilder();
+
+            expect(function () {
+                test(
+                    console.log('testing...')
+                );
+            }).toThrow();
+        });
+
+        it('with no operations and defined `zero` returns "zero" value.', function () {
+            var testBuilder, test, t;
+
+            testBuilder = builder({
+                zero: function () {
+                    return 5;
+                }
+            });
+
+            test = testBuilder();
+
+            expect(test()).toBe(5);
+        });
+
+        it('with single JS expresion calls it and returns "zero" value.', function () {
+            var testBuilder, test, t, op = jasmine.createSpy();
+
+            testBuilder = builder({
+                zero: function () {
+                    return 1;
+                }
+            });
+
+            test = testBuilder();
+
+            expect(test(op)).toBe(1);
+            expect(op).toHaveBeenCalled();
+        });
+
+        it('with multiple JS expressions calls them and returns "zero" value.', function () {
+            var testBuilder, test, t, op = jasmine.createSpy();
+
+            testBuilder = builder({
+                zero: function () {
+                    return 'test';
+                }
+            });
+
+            test = testBuilder();
+
+            expect(test(op, op, op)).toBe('test');
+            expect(op.callCount).toBe(3);
+        });
+
+        it('bound value can be referenced in JS expressions.', function () {
+            var testBuilder, test, t, op = jasmine.createSpy();
+
+            testBuilder = builder({
+                zero: function () {
+                    return 'test';
+                }
+            });
+
+            test = testBuilder();
+
+            expect(test(
+                bind('foo', 5),
+                function () { op(this.foo); })).toBe('test');
+            expect(op).toHaveBeenCalledWith(5);
+        });
+
+        it('bound value can be referenced in JS expressions.', function () {
+            var testBuilder, test, t, op = jasmine.createSpy();
+
+            testBuilder = builder({
+                zero: function () {
+                    return 'test';
+                }
+            });
+
+            test = testBuilder();
+
+            expect(test(
+                bind('foo', 5),
+                function () { op(this.foo); })).toBe('test');
+            expect(op).toHaveBeenCalledWith(5);
+        });
+
+        it('bound value can be referenced in JS expressions.', function () {
+            var testBuilder, test, t, op = jasmine.createSpy();
+
+            testBuilder = builder({
+                zero: function () {
+                    return 'test';
+                }
+            });
+
+            test = testBuilder();
+
+            expect(test(
+                bind('foo', 5),
+                function () { op(this.foo); })).toBe('test');
+            expect(op).toHaveBeenCalledWith(5);
+        });
+
+        it('with "returnValue" operation but no `returnValue` defined on the builder throws an exception.', function () {
+            var testBuilder, test;
+
+            testBuilder = builder({
+            });
+
+            test = testBuilder();
+
+            expect(function () { test(returnValue(5)); }).toThrow();
+        });
+
+        it('with "returnValue" operation and `returnValue` defined on the builder returns the value.', function () {
+            var testBuilder, test;
+
+            testBuilder = builder({
+                returnValue: function (x) {
+                    return x;
+                }
+            });
+
+            test = testBuilder();
+
+            expect(test(returnValue(5))).toBe(5);
+            expect(test(
+                bind('x', 10),
+                returnValue($('x'))
+            )).toBe(10);
+        });
+
+        it('with multiple "returnValue" operations but no `combine` defined on the builder throws an exception.', function () {
+            var testBuilder, test;
+
+            testBuilder = builder({
+                returnValue: function (x) {
+                    return x;
+                }
+            });
+
+            test = testBuilder();
+
+            expect(function () {
+                test(
+                    returnValue(5),
+                    returnValue('test')
+                );
+            }).toThrow();
+        });
+
+        it('with multiple "returnValue" operations, defined `combine` but no `delay` on the builder throws an exception.', function () {
+            var testBuilder, test;
+
+            testBuilder = builder({
+                combine: function (f, g) {
+                    return f;
+                },
+
+                returnValue: function (x) {
+                    return x;
+                }
+            });
+
+            test = testBuilder();
+
+            expect(test(
+                returnValue(5),
+                returnValue('test')
+            )).toBe('test');
+        });
+
+    }),
+
     describe('functional builder', function () {
         it('empty builder', function () {
             var traceBuilder, 
