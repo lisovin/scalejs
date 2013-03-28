@@ -158,19 +158,70 @@ define([
             }
 
             function combine(method, context, expr, cexpr) {
+                function isReturnLikeMethod(method) {
+                    return method === 'returnValue' ||
+                           method === 'returnValueFrom' ||
+                           method === 'yield' ||
+                           method === 'yieldFrom';
+                }
+
+                if (typeof opts[method] !== 'function') {
+                    throw new Error('This control construct may only be used if the computation expression builder ' +
+                                    'defines a `' + method + '` method.');
+                }
+
                 var e = callExpr(context, expr);
-                return cexpr.length > 0
-                    ? opts.combine(opts[method].call(context, e), build(context, cexpr))
-                    : opts[method].call(context, e);
+
+                if (cexpr.length > 0) {
+                    if (typeof opts.combine !== 'function') {
+                        throw new Error('This control construct may only be used if the computation expression builder ' +
+                                        'defines a `combine` method.');
+                    }
+                    // if it's not a return then simply combine the operations (e.g. no `delay` needed)
+                    if (!isReturnLikeMethod(method)) {
+                        return opts.combine(opts[method].call(context, e), build(context, cexpr));
+                    }
+
+                    if (typeof opts.delay !== 'function') {
+                        throw new Error('This control construct may only be used if the computation expression builder ' +
+                                        'defines a `delay` method.');
+                    }
+
+
+                    // combine with delay
+                    return opts.combine(opts[method].call(context, e), opts.delay.call(context, function () {
+                        return build(context, cexpr);
+                    }));
+                }
+
+                // if it's return then simply return
+                if (isReturnLikeMethod(method)) {
+                    return opts[method].call(context, e);
+                }
+
+                // combine non-return operation with `zero`                
+                return opts.combine(opts[method].call(context, e), build(context, cexpr));
+            }
+
+            if (!opts.missing) {
+                opts.missing = function (expr) {
+                    if (expr.kind) {
+                        throw new Error('Unknown operation "' + expr.kind + '". ' +
+                                        'Either define `missing` method on the builder or fix the spelling of the operation.');
+                    }
+
+                    throw new Error('Expression ' + JSON.stringify(expr) + ' cannot be processed. ' +
+                                    'Either define `missing` method on the builder or convert expression to a function.');
+                };
             }
 
             build = function (context, cexpr) {
                 if (cexpr.length === 0) {
-                    if (opts.returnValue) {
-                        return opts.returnValue();
+                    if (opts.zero) {
+                        return opts.zero();
                     }
 
-                    throw new Error('Computation expression builder must define `return` method.');
+                    throw new Error('Computation expression builder must define `zero` method.');
                 }
 
                 var expr = cexpr.shift();
@@ -214,6 +265,16 @@ define([
                     return combine('yieldMany', context, expr.expr, cexpr);
                 }
 
+                if (typeof expr === 'function' && opts.call) {
+                    opts.call(context, expr);
+                    return build(context, cexpr);
+                }
+
+                if (typeof expr === 'function') {
+                    expr.call(context, expr);
+                    return build(context, cexpr);
+                }
+
                 return combine('missing', context, expr, cexpr);
             };
 
@@ -222,7 +283,8 @@ define([
                     expression = function () {
                         var operations = Array.prototype.slice.call(arguments, 0),
                             context = buildContext(),
-                            result;
+                            result,
+                            toRun;
 
                         if (this.mixins) {
                             this.mixins.forEach(function (mixin) {
@@ -232,9 +294,18 @@ define([
                             });
                         }
 
-                        result = build(context, operations);
+                        if (opts.delay) {
+                            toRun = opts.delay(function () {
+                                return build(context, operations);
+                            });
+                        } else {
+                            toRun = build(context, operations);
+                        }
+
                         if (opts.run) {
-                            result = opts.run.apply(null, [result].concat(args));
+                            result = opts.run.apply(null, [toRun].concat(args));
+                        } else {
+                            result = toRun;
                         }
 
                         if (this.mixins) {

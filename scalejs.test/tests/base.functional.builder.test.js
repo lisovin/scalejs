@@ -278,6 +278,70 @@ define([
 
             expect(t).toBe(5);
         });
+
+        it('bound value with "$bind" can be referenced.', function () {
+            var asyncBuilder, async, complete = jasmine.createSpy(), start = new Date().getTime();
+
+            // async
+            asyncBuilder = builder({
+                bind: function (x, f) {
+                    // every x is function (completed) {...} where completed is function (result) {...}
+                    // (e.g. M<T> = (T -> unit) -> unit)
+                    // Therefore to bind we pass result of x into f which would return "completable" funciton.
+                    // Then we simply pass completed into that function and we are done.
+                    return function (completed) {
+                        return x(function (xResult) {
+                            var inner = f(xResult);
+                            inner(completed);
+                        });
+                    };
+                },
+                
+                run: function (f) {
+                    var r = f;
+                    /*var r = function (complete) {
+                        var v = f();
+                        complete(v);
+                    };*/
+
+                    r.timeout = function(n) {
+                        return function (complete) {
+                            setTimeout(function () {
+                                r(complete);
+                            }, n);
+                        };
+                    };
+
+                    return r;
+                },
+
+                returnValue: function (x) {
+                    // convert T to M<T>
+                    return function (complete) {
+                        console.log('--->returnValue:', x, ((new Date()).getTime() - start));
+                        complete(x);
+                    };
+                }
+            });
+
+            async = asyncBuilder();
+            
+            var a = async(
+                $bind('x', async(returnValue($(function () { return 2; }))).timeout(20)),
+                $bind('y', async(returnValue($(function () { return 3; }))).timeout(20)),
+                returnValue($(function () {
+                    return this.x + this.y;
+                }))
+            );
+
+            a(complete);
+
+            waits(50);
+
+            runs(function () {
+                expect(complete).toHaveBeenCalledWith(5);
+            });
+        });
     }),
 
     describe('functional builder', function () {

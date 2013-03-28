@@ -683,7 +683,7 @@
     </BoolOptions2>
     <ErrorOnUnused>true</ErrorOnUnused>
     <IndentSize>4</IndentSize>
-    <MaxLength>120</MaxLength>
+    <MaxLength>160</MaxLength>
     <MaxComplexity xsi:nil="true" />
     <MaxDepth xsi:nil="true" />
     <MaxStatements xsi:nil="true" />
