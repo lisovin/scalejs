@@ -187,12 +187,12 @@ define([
             }).toThrow();
         });
 
-        it('with multiple "returnValue" operations, defined `combine` but no `delay` on the builder throws an exception.', function () {
+        it('with multiple "returnValue" operations but no `delay` defined on the builder throws an exception.', function () {
             var testBuilder, test;
 
             testBuilder = builder({
-                combine: function (f, g) {
-                    return f;
+                combine: function (x, y) {
+                    return x;
                 },
 
                 returnValue: function (x) {
@@ -202,12 +202,82 @@ define([
 
             test = testBuilder();
 
-            expect(test(
-                returnValue(5),
-                returnValue('test')
-            )).toBe('test');
+            expect(function () {
+                test(
+                    returnValue(5),
+                    returnValue('test')
+                );
+            }).toThrow();
         });
 
+        it('with multiple "returnValue" operations but no `run` defined returns a function that evaluates to correct value.', function () {
+            var testBuilder, test, t;
+
+            testBuilder = builder({
+                delay: function (f) {
+                    return f;
+                },
+
+                combine: function (x, f) {
+                    if (x === 5) {
+                        return x;
+                    }
+
+                    return f();
+                },
+
+                returnValue: function (x) {
+                    console.log('--->returnValue:', x);
+                    return x;
+                }
+            });
+
+            test = testBuilder();
+            t = test(
+                returnValue('foo'),
+                returnValue(5),
+                returnValue('test')
+            );
+
+            expect(typeof t).toBe('function');
+            expect(t()).toBe(5);
+        });
+
+        it('with multiple "returnValue" operations evaluates to correct value.', function () {
+            var testBuilder, test, t;
+
+            testBuilder = builder({
+                delay: function (f) {
+                    return f;
+                },
+
+                run: function (f) {
+                    return f();
+                },
+
+                combine: function (x, f) {
+                    if (x === 5) {
+                        return x;
+                    }
+
+                    return f();
+                },
+
+                returnValue: function (x) {
+                    console.log('--->returnValue:', x);
+                    return x;
+                }
+            });
+
+            test = testBuilder();
+            t = test(
+                returnValue('foo'),
+                returnValue(5),
+                returnValue('test')
+            );
+
+            expect(t).toBe(5);
+        });
     }),
 
     describe('functional builder', function () {

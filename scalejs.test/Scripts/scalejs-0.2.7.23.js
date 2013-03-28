@@ -637,6 +637,13 @@ define('scalejs/base.functional',[
             }
 
             function combine(method, context, expr, cexpr) {
+                function isReturnLikeMethod(method) {
+                    return method === 'returnValue' ||
+                           method === 'returnValueFrom' ||
+                           method === 'yield' ||
+                           method === 'yieldFrom';
+                }
+
                 if (typeof opts[method] !== 'function') {
                     throw new Error('This control construct may only be used if the computation expression builder ' + 
                                     'defines a `' + method + '` method.');
@@ -644,17 +651,35 @@ define('scalejs/base.functional',[
 
                 var e = callExpr(context, expr);
 
-                if (cexpr.length > 0 ||
-                   (method !== 'returnValue' &&
-                    method !== 'returnValueFrom')) {
+                if (cexpr.length > 0) {
                     if (typeof opts.combine !== 'function') {
                         throw new Error('This control construct may only be used if the computation expression builder ' + 
                                         'defines a `combine` method.');
                     }
-                    return opts.combine(opts[method].call(context, e), build(context, cexpr));
+                    // if it's not a return then simply combine the operations (e.g. no `delay` needed)
+                    if (!isReturnLikeMethod(method)) {
+                        return opts.combine(opts[method].call(context, e), build(context, cexpr));
+                    }
+
+                    if (typeof opts.delay !== 'function') {
+                        throw new Error('This control construct may only be used if the computation expression builder ' + 
+                                        'defines a `delay` method.');
+                    }
+
+
+                    // combine with delay
+                    return opts.combine(opts[method].call(context, e), opts.delay.call(context, function () {
+                        return build(context, cexpr);
+                    }));
                 } 
-                
-                return opts[method].call(context, e);
+
+                // if it's return then simply return
+                if (isReturnLikeMethod(method)) {
+                    return opts[method].call(context, e);
+                } 
+
+                // combine non-return operation with `zero`                
+                return opts.combine(opts[method].call(context, e), build(context, cexpr));
             }
 
             if (!opts.missing) {
@@ -737,7 +762,8 @@ define('scalejs/base.functional',[
                     expression = function () {
                         var operations = Array.prototype.slice.call(arguments, 0),
                             context = buildContext(),
-                            result;
+                            result,
+                            toRun;
 
                         if (this.mixins) {
                             this.mixins.forEach(function (mixin) {
@@ -746,10 +772,19 @@ define('scalejs/base.functional',[
                                 }
                             });
                         }
-
-                        result = build(context, operations);
+                        
+                        if (opts.delay) {
+                            toRun = opts.delay(function () {
+                                return build(context, operations);
+                            });
+                        } else {
+                            toRun = build(context, operations);
+                        }
+                        
                         if (opts.run) {
-                            result = opts.run.apply(null, [result].concat(args));
+                            result = opts.run.apply(null, [toRun].concat(args));
+                        } else {
+                            result = toRun;
                         }
 
                         if (this.mixins) {
