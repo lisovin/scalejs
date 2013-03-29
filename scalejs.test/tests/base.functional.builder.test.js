@@ -6,15 +6,17 @@ define([
 ], function (core) {
     'use strict';
 
-    var builder = core.functional.builder,
-        bind = core.functional.builder.bind,
-        $bind = core.functional.builder.$bind,
-        yieldOne = core.functional.builder.yieldOne,
-        yieldMany = core.functional.builder.yieldMany,
-        returnValue = core.functional.builder.returnValue,
-        $returnValue = core.functional.builder.$returnValue,
-        doAction = core.functional.builder.doAction,
-        $doAction = core.functional.builder.$doAction,
+    var merge = core.object.merge,
+        builder = core.functional.builder,
+        $let = core.functional.builder.$let,
+        $LET = core.functional.builder.$LET,
+        $yield = core.functional.builder.$yield,
+        $YIELD = core.functional.builder.$YIELD,
+        $return = core.functional.builder.$return,
+        $RETURN = core.functional.builder.$RETURN,
+        $do = core.functional.builder.$do,
+        $DO = core.functional.builder.$DO,
+        $for = core.functional.builder.$for,
         $ = core.functional.builder.$;
 
     describe('computation expression builder', function () {
@@ -100,7 +102,7 @@ define([
             test = testBuilder();
 
             expect(test(
-                bind('foo', 5),
+                $let('foo', 5),
                 function () { op(this.foo); })).toBe('test');
             expect(op).toHaveBeenCalledWith(5);
         });
@@ -117,7 +119,7 @@ define([
             test = testBuilder();
 
             expect(test(
-                bind('foo', 5),
+                $let('foo', 5),
                 function () { op(this.foo); })).toBe('test');
             expect(op).toHaveBeenCalledWith(5);
         });
@@ -134,12 +136,12 @@ define([
             test = testBuilder();
 
             expect(test(
-                bind('foo', 5),
+                $let('foo', 5),
                 function () { op(this.foo); })).toBe('test');
             expect(op).toHaveBeenCalledWith(5);
         });
 
-        it('with "returnValue" operation but no `returnValue` defined on the builder throws an exception.', function () {
+        it('with "$return" operation but no `$return` defined on the builder throws an exception.', function () {
             var testBuilder, test;
 
             testBuilder = builder({
@@ -147,32 +149,32 @@ define([
 
             test = testBuilder();
 
-            expect(function () { test(returnValue(5)); }).toThrow();
+            expect(function () { test($return(5)); }).toThrow();
         });
 
-        it('with "returnValue" operation and `returnValue` defined on the builder returns the value.', function () {
+        it('with "$return" operation and `$return` defined on the builder returns the value.', function () {
             var testBuilder, test;
 
             testBuilder = builder({
-                returnValue: function (x) {
+                $return: function (x) {
                     return x;
                 }
             });
 
             test = testBuilder();
 
-            expect(test(returnValue(5))).toBe(5);
+            expect(test($return(5))).toBe(5);
             expect(test(
-                bind('x', 10),
-                returnValue($('x'))
+                $let('x', 10),
+                $return($('x'))
             )).toBe(10);
         });
 
-        it('with multiple "returnValue" operations but no `combine` defined on the builder throws an exception.', function () {
+        it('with multiple "$return" operations but no `combine` defined on the builder throws an exception.', function () {
             var testBuilder, test;
 
             testBuilder = builder({
-                returnValue: function (x) {
+                $return: function (x) {
                     return x;
                 }
             });
@@ -181,13 +183,13 @@ define([
 
             expect(function () {
                 test(
-                    returnValue(5),
-                    returnValue('test')
+                    $return(5),
+                    $return('test')
                 );
             }).toThrow();
         });
 
-        it('with multiple "returnValue" operations but no `delay` defined on the builder throws an exception.', function () {
+        it('with multiple "$return" operations but no `delay` defined on the builder throws an exception.', function () {
             var testBuilder, test;
 
             testBuilder = builder({
@@ -195,7 +197,7 @@ define([
                     return x;
                 },
 
-                returnValue: function (x) {
+                $return: function (x) {
                     return x;
                 }
             });
@@ -204,13 +206,13 @@ define([
 
             expect(function () {
                 test(
-                    returnValue(5),
-                    returnValue('test')
+                    $return(5),
+                    $return('test')
                 );
             }).toThrow();
         });
 
-        it('with multiple "returnValue" operations but no `run` defined returns a function that evaluates to correct value.', function () {
+        it('with multiple "$return" operations but no `run` defined returns a function that evaluates to correct value.', function () {
             var testBuilder, test, t;
 
             testBuilder = builder({
@@ -226,24 +228,24 @@ define([
                     return f();
                 },
 
-                returnValue: function (x) {
-                    console.log('--->returnValue:', x);
+                $return: function (x) {
+                    console.log('--->$return:', x);
                     return x;
                 }
             });
 
             test = testBuilder();
             t = test(
-                returnValue('foo'),
-                returnValue(5),
-                returnValue('test')
+                $return('foo'),
+                $return(5),
+                $return('test')
             );
 
             expect(typeof t).toBe('function');
             expect(t()).toBe(5);
         });
 
-        it('with multiple "returnValue" operations evaluates to correct value.', function () {
+        it('with multiple "$return" operations evaluates to correct value.', function () {
             var testBuilder, test, t;
 
             testBuilder = builder({
@@ -263,23 +265,23 @@ define([
                     return f();
                 },
 
-                returnValue: function (x) {
-                    console.log('--->returnValue:', x);
+                $return: function (x) {
+                    console.log('--->$return:', x);
                     return x;
                 }
             });
 
             test = testBuilder();
             t = test(
-                returnValue('foo'),
-                returnValue(5),
-                returnValue('test')
+                $return('foo'),
+                $return(5),
+                $return('test')
             );
 
             expect(t).toBe(5);
         });
 
-        it('bound value with "$bind" can be referenced.', function () {
+        it('bound value with "$LET" can be referenced.', function () {
             var asyncBuilder, async, complete = jasmine.createSpy(), start = new Date().getTime();
 
             // async
@@ -287,7 +289,7 @@ define([
                 bind: function (x, f) {
                     // every x is function (completed) {...} where completed is function (result) {...}
                     // (e.g. M<T> = (T -> unit) -> unit)
-                    // Therefore to bind we pass result of x into f which would return "completable" funciton.
+                    // Therefore to $let we pass result of x into f which would return "completable" funciton.
                     // Then we simply pass completed into that function and we are done.
                     return function (completed) {
                         return x(function (xResult) {
@@ -299,10 +301,6 @@ define([
                 
                 run: function (f) {
                     var r = f;
-                    /*var r = function (complete) {
-                        var v = f();
-                        complete(v);
-                    };*/
 
                     r.timeout = function(n) {
                         return function (complete) {
@@ -315,10 +313,10 @@ define([
                     return r;
                 },
 
-                returnValue: function (x) {
+                $return: function (x) {
                     // convert T to M<T>
                     return function (complete) {
-                        console.log('--->returnValue:', x, ((new Date()).getTime() - start));
+                        console.log('--->$return:', x, ((new Date()).getTime() - start));
                         complete(x);
                     };
                 }
@@ -327,170 +325,180 @@ define([
             async = asyncBuilder();
             
             var a = async(
-                $bind('x', async(returnValue($(function () { return 2; }))).timeout(20)),
-                $bind('y', async(returnValue($(function () { return 3; }))).timeout(20)),
-                returnValue($(function () {
+                $LET('x', async($return($(function () { return 2; }))).timeout(20)),
+                $LET('y', async($return($(function () { return 3; }))).timeout(20)),
+                $return($(function () {
                     return this.x + this.y;
                 }))
             );
 
             a(complete);
 
-            waits(50);
+            waits(60);
 
             runs(function () {
                 expect(complete).toHaveBeenCalledWith(5);
             });
         });
-    }),
 
-    describe('functional builder', function () {
-        it('empty builder', function () {
-            var traceBuilder, 
-                trace,
-                t;
+        it('`$yield` and `$YIELD` return correct values.', function () {
+            var arrayBuilder, array, a;
 
-            traceBuilder = builder({
-                bind: function (x, f) {
-                    if (x === undefined) {
-                        console.log('--->binding with undefined. exiting.');
-                        return undefined;
-                    }
-                    
-                    console.log('--->binding with', x, '. continuing.');
-                    return f(x());
+            arrayBuilder = builder({
+                delay: function (f) {
+                    return f();
                 },
-                returnValue: function (x) {
-                    console.log('--->returning', x);
+                
+                combine: function (x, xs) {
+                    return x.concat(xs);    
+                },
+                
+                $yield: function (x) {
+                    return [x];
+                },
+                
+                $YIELD: function (xs) {
+                    return xs;
+                }
+            });
+
+            array = arrayBuilder();
+            a = array(
+                $yield('foo'),
+                $YIELD([1, 3, 10]),
+                $yield('bar')
+            );
+
+            expect(a).toEqual(['foo', 1, 3, 10, 'bar']);
+        });
+
+        it('`$for` generates correct values.', function () {
+            var arrayBuilder, array, a;
+
+            arrayBuilder = builder({
+                delay: function (f) {
+                    return f();
+                },
+                
+                combine: function (x, xs) {
+                    return x.concat(xs);    
+                },
+                
+                $yield: function (x) {
+                    return [x];
+                },
+                
+                $YIELD: function (xs) {
+                    return xs;
+                },
+
+                $for: function (xs, f) {
+                    return xs.reduce(function (acc, x) {
+                        return acc.concat(f(x));
+                    }, []);
+                }
+            });
+
+            array = arrayBuilder();
+            a = array(
+                $yield(0),
+                $for('x', [1, 2], 
+                    $yield($('x')),
+                    $YIELD($(function () {
+                        return [this.x * 2];
+                    }))),
+                $yield(5)
+            );
+
+            expect(a).toEqual([0, 1, 2, 2, 4, 5]);
+        });
+
+    }),
+    /*
+        it('`if` filters values.', function () {
+            var arrayBuilder, array, a;
+
+            arrayBuilder = builder({
+                delay: function (f) {
+                    return f();
+                },
+                
+                combine: function (x, xs) {
+                    return x.concat(xs);    
+                },
+                
+                $yield: function (x) {
+                    return [x];
+                },
+                
+                $YIELD: function (xs) {
+                    return xs;
+                },
+
+                $for: function (xs, f) {
+                    return xs.reduce(function (acc, x) {
+                        return acc.concat(f(x));
+                    }, []);
+                }
+            });
+
+            array = arrayBuilder();
+            a = array(
+                $yield(0),
+                $for('x', [1, 2], 
+                    $if($(function () { return this.x === 2; }), 
+                        $then(
+                            $yield($('x')),
+                            $YIELD($(function () {
+                                return [this.x * 2];
+                            }))),
+                        $else(
+                            $yield(0)))),
+                $yield(5)
+            );
+
+            expect(a).toEqual([0, 1, 2, 2, 4, 5]);
+        });
+
+    }),*/
+
+    describe('sample builders', function () {
+        it('object builder', function () {
+            var objectBuilder, o, my;
+
+            objectBuilder = builder({
+                delay: function (f) {
+                    return f();
+                },
+                
+                combine: function (x, xs) {
+                    return merge(x, xs);
+                },
+                
+                $yield: function (x) {
                     return x;
                 }
             });
 
-            trace = traceBuilder();
-
-            t = trace(
-                $bind('x', function () { return 1; }),
-                $bind('y', function () { return 2; }),
-                returnValue($(function () {
-                    return this.x + this.y;
-                }))
-            );
-
-            expect(t).toBe(3);
-        });
-
-        it('async builder', function () {
-            var asyncBuilder,
-                async;
+            o = objectBuilder();
             
-            asyncBuilder = builder({
-                bind: function (v, f) {
-                    return function(complete) {
-                        v(function (r) {
-                            var fv = f(r);
-                            fv(complete);
-                        });
-                    }
-                },
-                returnValue: function (v) {
-                    //var r = v.call(this);
-                    return function (complete) {
-                        complete(v);
-                    }
-                },
-                expression: function (f) {
-                    f();
-                }
-            });
-
-            async = asyncBuilder();
-
-            function returnLater(s, f) {
-                return function(complete) {
-                    setTimeout(function () {
-                        var v = f();
-                        complete(v);
-                    }, s * 1000);
-                };
+            function p(name, value) {
+                var r = {};
+                r[name] = value;
+                return $yield(r);
             }
 
-            var a = async(
-                $bind('a1', returnLater(1, function () { return 2; })),
-                $bind('a2', returnLater(2, function () { return 3; })),
-                /*
-                call(function () {
-                    console.log('--->in async: ', this.a1, this.a2);
-                }),*/
-                returnValue($(function () {
-                    return this.a1 + this.a2;
-                }))
-            );
-            
-            var result;
+            my = o(
+                p('id', 'parent'),
+                p('values', [1, 'test']),
+                p('child', o(
+                    p('id', 'child'),
+                    p('more', [
+                        o(p('id', 'child1')),
+                        o(p('id', 'child2'))]))));
 
-            runs(function () {
-                a(function (v) {
-                    result = v;
-                    console.log('---->result: ', v);
-                });
-            });
+            console.log('result', JSON.stringify(my));
 
-            waits(4000);
-
-            runs(function () {
-                expect(result).toBe(5);
-            });
-        });
-
-        it('list builder', function () {
-            var listBuilder,
-                list,
-                lst;
-
-            listBuilder = builder({
-                yieldOne: function (x) {
-                    return [x];
-                },
-
-                yieldMany: function (xs) {
-                    return xs;
-                },
-
-                combine: function (x, y) {
-                    return x.concat(y);
-                }
-                /*
-                call: function (f) {
-                    var r = [];
-                    f(function (e) {
-                        r.push(e);
-                    });
-                    return r;
-                }*/
-            });
-
-            list = listBuilder();
-
-            lst = list(
-                yieldOne(1),
-                yieldOne(2),
-                yieldMany([3,4,5]),
-                /*forEach([1,2,3], function (x) {
-                    yieldOne(x);
-                }),*/
-                yieldOne(6)
-            );
-
-            console.log('--->lst:', lst);
-
-            expect(lst).toEqual([1, 2, 3, 4, 5, 6]);
-            /*
-            lst = list(function (yieldOne) {
-                var i;
-                for (i = 0; i < 10; i += 1) {
-                    yieldOne(i);
-                }
-            });*/
         });
 
         it('maybe builder', function () {
@@ -499,7 +507,7 @@ define([
                 m;
 
             maybeBuilder = builder({
-                bind: function (x, f) {
+                $let: function (x, f) {
                     var v = x.call(this);
                     console.log('--->v: ', v);
 
@@ -510,7 +518,7 @@ define([
                     return f(v);
                 },
                 
-                returnValue: function (x) {
+                $return: function (x) {
                     return x;
                 }
             });
@@ -533,10 +541,10 @@ define([
 
             function safeDivide(n, x, y, z) {
                 return maybe (
-                    $bind('a', divideBy(n, x)),
-                    $bind('b', divideBy('a', y)),
-                    $bind('c', divideBy('b', z)),
-                    returnValue($('c'))
+                    $LET('a', divideBy(n, x)),
+                    $LET('b', divideBy('a', y)),
+                    $LET('c', divideBy('b', z)),
+                    $return($('c'))
                 );
             }
 
@@ -552,7 +560,7 @@ define([
                 m3 = { '3': 'Three' };
 
             orElseBuilder = builder({
-                returnValueFrom: function (x) {
+                $returnFrom: function (x) {
                     console.log('-->returning ', x);
                     return x;
                 },
@@ -569,32 +577,32 @@ define([
                 }
 
                 return orElse(
-                    $returnValue(tryFind(m1)),
-                    $returnValue(tryFind(m2)),
-                    $returnValue(tryFind(m3))
+                    $RETURN(tryFind(m1)),
+                    $RETURN(tryFind(m2)),
+                    $RETURN(tryFind(m3))
                 );
             }
 
             expect(multiLookup('2')).toBe('Two');
         });
 
-        it('doActions', function () {
+        it('$dos', function () {
             var traceBuilder, 
                 trace,
                 t;
 
             traceBuilder = builder({
-                bind: function (x, f) {
+                $let: function (x, f) {
                     console.log(f);
                     if (x === undefined) {
-                        console.log('--->binding with undefined. exiting.');
+                        console.log('--->$leting with undefined. exiting.');
                         return undefined;
                     }
                     
-                    console.log('--->binding with', x, '. continuing.');
+                    console.log('--->$leting with', x, '. continuing.');
                     return f(x.call(this));
                 },
-                returnValue: function (x) {
+                $return: function (x) {
                     console.log('--->returning', x);
                     return x;
                 }
@@ -603,7 +611,7 @@ define([
             trace = traceBuilder();
 
             t = trace(
-                $bind('x', function () { return 1; }),
+                $LET('x', function () { return 1; }),
                 function () {
                     console.log('-->x', this.x);
                 },
@@ -614,7 +622,7 @@ define([
                 function () {
                     this.x += 3;
                 },
-                returnValue($('x'))
+                $return($('x'))
             );
 
             expect(t).toBe(6);        
@@ -626,7 +634,7 @@ define([
                 s;
 
             stateBuilder = builder({
-                bind: function (x, f) {
+                $let: function (x, f) {
                     return function (state) {
                         x(state);
                         var s = f();
@@ -641,7 +649,7 @@ define([
                     f(s);
                     return s;
                 },*/
-                returnValue: function (s) {
+                $return: function (s) {
                     return s;
                 }
             });
@@ -660,14 +668,14 @@ define([
             //console.log('--->final state', s);
 
             s = state(
-                bind('state', {}),
+                $let('state', {}),
                 function () {
                     this.state.foo = 'bar';
                 },
                 function (state) {
                     this.state.bar = 'foo';
                 }
-                //returnValue($('state'))
+                //$return($('state'))
             );
 
             console.log('--->final state', s);

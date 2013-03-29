@@ -4,13 +4,16 @@
  * Based on Oliver Steele "Functional Javascript" (http://osteele.com/sources/javascript/functional/)
  **/
 define([
+    './base.object',
     './base.array'
 ], function (
+    object,
     array
 ) {
     'use strict';
 
-    var _ = {};
+    var merge = object.merge,
+        _ = {};
 
     function compose() {
         /// <summary>
@@ -159,10 +162,10 @@ define([
 
             function combine(method, context, expr, cexpr) {
                 function isReturnLikeMethod(method) {
-                    return method === 'returnValue' ||
-                           method === 'returnValueFrom' ||
-                           method === 'yield' ||
-                           method === 'yieldFrom';
+                    return method === '$return' ||
+                           method === '$RETURN' ||
+                           method === '$yield' ||
+                           method === '$YIELD';
                 }
 
                 if (typeof opts[method] !== 'function') {
@@ -179,6 +182,15 @@ define([
                     }
                     // if it's not a return then simply combine the operations (e.g. no `delay` needed)
                     if (!isReturnLikeMethod(method)) {
+                        if (method === '$for') {
+                            return opts.combine(opts.$for(expr.items, function (item) {
+                                var cexpr = array.copy(expr.cexpr),
+                                    ctx = merge(context);
+                                ctx[expr.name] = item;
+                                return build(ctx, cexpr);
+                            }), build(context, cexpr));
+                        }
+
                         return opts.combine(opts[method].call(context, e), build(context, cexpr));
                     }
 
@@ -226,7 +238,7 @@ define([
 
                 var expr = cexpr.shift();
 
-                if (expr.kind === 'bind') {
+                if (expr.kind === 'let') {
                     context[expr.name] = callExpr(context, expr.expr);
                     return build(context, cexpr);
                 }
@@ -236,33 +248,28 @@ define([
                     return build(context, cexpr);
                 }
 
-                if (expr.kind === '$bind') {
+                if (expr.kind === 'letBind') {
                     return opts.bind.call(context, callExpr(context, expr.expr), function (bound) {
                         context[expr.name] = bound;
                         return build(context, cexpr);
                     });
                 }
 
-                if (expr.kind === '$do' || expr.kind === '$') {
+                if (expr.kind === 'doBind' || expr.kind === '$') {
                     return opts.bind.call(context, expr.expr.bind(context), function () {
                         return build(context, cexpr);
                     });
                 }
 
-                if (expr.kind === 'return') {
-                    return combine('returnValue', context, expr.expr, cexpr);
+                if (expr.kind === '$return' ||
+                        expr.kind === '$RETURN' ||
+                        expr.kind === '$yield' ||
+                        expr.kind === '$YIELD') {
+                    return combine(expr.kind, context, expr.expr, cexpr);
                 }
 
-                if (expr.kind === '$return') {
-                    return combine('returnValueFrom', context, expr.expr, cexpr);
-                }
-
-                if (expr.kind === 'yield') {
-                    return combine('yieldOne', context, expr.expr, cexpr);
-                }
-
-                if (expr.kind === 'yieldMany') {
-                    return combine('yieldMany', context, expr.expr, cexpr);
+                if (expr.kind === '$for') {
+                    return combine('$for', context, expr, cexpr);
                 }
 
                 if (typeof expr === 'function' && opts.call) {
@@ -336,68 +343,72 @@ define([
             };
         }
 
-        builder.bind = function (name, expr) {
+        builder.$let = function (name, expr) {
             return {
-                kind: 'bind',
+                kind: 'let',
                 name: name,
                 expr: expr
             };
         };
 
-        builder.$bind = function (name, expr) {
+        builder.$LET = function (name, expr) {
             return {
-                kind: '$bind',
+                kind: 'letBind',
                 name: name,
                 expr: expr
             };
         };
 
-        builder.doAction = function (expr) {
+        builder.$do = function (expr) {
             return {
                 kind: 'do',
                 expr: expr
             };
         };
 
-        builder.$doAction = function (expr) {
+        builder.$DO = function (expr) {
             return {
-                kind: '$do',
+                kind: 'doBind',
                 expr: expr
             };
         };
 
-        builder.yieldOne = function (expr) {
-            return {
-                kind: 'yield',
-                expr: expr
-            };
-        };
-
-        builder.returnValue = function (expr) {
-            return {
-                kind: 'return',
-                expr: expr
-            };
-        };
-
-        builder.$returnValue = function (expr) {
+        builder.$return = function (expr) {
             return {
                 kind: '$return',
                 expr: expr
             };
         };
 
-        builder.yieldOne = function (expr) {
+        builder.$RETURN = function (expr) {
             return {
-                kind: 'yield',
+                kind: '$RETURN',
                 expr: expr
             };
         };
 
-        builder.yieldMany = function (expr) {
+        builder.$yield = function (expr) {
             return {
-                kind: 'yieldMany',
+                kind: '$yield',
                 expr: expr
+            };
+        };
+
+        builder.$YIELD = function (expr) {
+            return {
+                kind: '$YIELD',
+                expr: expr
+            };
+        };
+
+        builder.$for = function (name, items) {
+            var cexpr = Array.prototype.slice.call(arguments, 2);
+
+            return {
+                kind: '$for',
+                name: name,
+                items: items,
+                cexpr: cexpr
             };
         };
 
@@ -410,6 +421,7 @@ define([
 
         return builder;
     }
+
 
     return {
         _: _,

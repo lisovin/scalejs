@@ -27,7 +27,9 @@
     <Content Include="Scripts\scalejs-0.2.7.21.js" />
     <Content Include="Scripts\scalejs-0.2.7.23.js" />
     <Content Include="Scripts\scalejs-0.2.7.24.js" />
-    <Content Include="Scripts\scalejs-0.2.7.24.min.js" />
+    <Content Include="Scripts\scalejs-0.2.7.25.js" />
+    <Content Include="Scripts\scalejs-0.2.7.26.js" />
+    <Content Include="Scripts\scalejs-0.2.7.26.min.js" />
     <Content Include="tests\all.tests.js" />
     <Content Include="tests\base.array.test.js" />
     <Content Include="tests\base.functional.test.js" />

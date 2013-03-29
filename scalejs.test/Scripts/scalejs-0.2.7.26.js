@@ -483,13 +483,16 @@ define('scalejs/base.log',[
  * Based on Oliver Steele "Functional Javascript" (http://osteele.com/sources/javascript/functional/)
  **/
 define('scalejs/base.functional',[
+    './base.object',
     './base.array'
 ], function (
+    object,
     array
 ) {
     
 
-    var _ = {};
+    var merge = object.merge,
+        _ = {};
 
     function compose() {
         /// <summary>
@@ -637,24 +640,84 @@ define('scalejs/base.functional',[
             }
 
             function combine(method, context, expr, cexpr) {
+                function isReturnLikeMethod(method) {
+                    return method === '$return' ||
+                           method === '$RETURN' ||
+                           method === '$yield' ||
+                           method === '$YIELD';
+                }
+
+                if (typeof opts[method] !== 'function') {
+                    throw new Error('This control construct may only be used if the computation expression builder ' +
+                                    'defines a `' + method + '` method.');
+                }
+
                 var e = callExpr(context, expr);
-                return cexpr.length > 0
-                    ? opts.combine(opts[method].call(context, e), build(context, cexpr))
-                    : opts[method].call(context, e);
+
+                if (cexpr.length > 0) {
+                    if (typeof opts.combine !== 'function') {
+                        throw new Error('This control construct may only be used if the computation expression builder ' +
+                                        'defines a `combine` method.');
+                    }
+                    // if it's not a return then simply combine the operations (e.g. no `delay` needed)
+                    if (!isReturnLikeMethod(method)) {
+                        if (method === '$for') {
+                            return opts.combine(opts.$for(expr.items, function (item) {
+                                var cexpr = array.copy(expr.cexpr),
+                                    ctx = merge(context);
+                                ctx[expr.name] = item;
+                                return build(ctx, cexpr);
+                            }), build(context, cexpr));
+                        }
+
+                        return opts.combine(opts[method].call(context, e), build(context, cexpr));
+                    }
+
+                    if (typeof opts.delay !== 'function') {
+                        throw new Error('This control construct may only be used if the computation expression builder ' +
+                                        'defines a `delay` method.');
+                    }
+
+
+                    // combine with delay
+                    return opts.combine(opts[method].call(context, e), opts.delay.call(context, function () {
+                        return build(context, cexpr);
+                    }));
+                }
+
+                // if it's return then simply return
+                if (isReturnLikeMethod(method)) {
+                    return opts[method].call(context, e);
+                }
+
+                // combine non-return operation with `zero`                
+                return opts.combine(opts[method].call(context, e), build(context, cexpr));
+            }
+
+            if (!opts.missing) {
+                opts.missing = function (expr) {
+                    if (expr.kind) {
+                        throw new Error('Unknown operation "' + expr.kind + '". ' +
+                                        'Either define `missing` method on the builder or fix the spelling of the operation.');
+                    }
+
+                    throw new Error('Expression ' + JSON.stringify(expr) + ' cannot be processed. ' +
+                                    'Either define `missing` method on the builder or convert expression to a function.');
+                };
             }
 
             build = function (context, cexpr) {
                 if (cexpr.length === 0) {
-                    if (opts.returnValue) {
-                        return opts.returnValue();
+                    if (opts.zero) {
+                        return opts.zero();
                     }
 
-                    throw new Error('Computation expression builder must define `return` method.');
+                    throw new Error('Computation expression builder must define `zero` method.');
                 }
 
                 var expr = cexpr.shift();
 
-                if (expr.kind === 'bind') {
+                if (expr.kind === 'let') {
                     context[expr.name] = callExpr(context, expr.expr);
                     return build(context, cexpr);
                 }
@@ -664,63 +727,93 @@ define('scalejs/base.functional',[
                     return build(context, cexpr);
                 }
 
-                if (expr.kind === '$bind') {
+                if (expr.kind === 'letBind') {
                     return opts.bind.call(context, callExpr(context, expr.expr), function (bound) {
                         context[expr.name] = bound;
                         return build(context, cexpr);
                     });
                 }
 
-                if (expr.kind === '$do' || expr.kind === '$') {
+                if (expr.kind === 'doBind' || expr.kind === '$') {
                     return opts.bind.call(context, expr.expr.bind(context), function () {
                         return build(context, cexpr);
                     });
                 }
 
-                if (expr.kind === 'return') {
-                    return combine('returnValue', context, expr.expr, cexpr);
+                if (expr.kind === '$return' ||
+                        expr.kind === '$RETURN' ||
+                        expr.kind === '$yield' ||
+                        expr.kind === '$YIELD') {
+                    return combine(expr.kind, context, expr.expr, cexpr);
                 }
 
-                if (expr.kind === '$return') {
-                    return combine('returnValueFrom', context, expr.expr, cexpr);
+                if (expr.kind === '$for') {
+                    return combine('$for', context, expr, cexpr);
                 }
 
-                if (expr.kind === 'yield') {
-                    return combine('yieldOne', context, expr.expr, cexpr);
+                if (typeof expr === 'function' && opts.call) {
+                    opts.call(context, expr);
+                    return build(context, cexpr);
                 }
 
-                if (expr.kind === 'yieldMany') {
-                    return combine('yieldMany', context, expr.expr, cexpr);
+                if (typeof expr === 'function') {
+                    expr.call(context, expr);
+                    return build(context, cexpr);
                 }
 
                 return combine('missing', context, expr, cexpr);
             };
 
             return function () {
-                var args = array.copy(arguments);
+                var args = array.copy(arguments),
+                    expression = function () {
+                        var operations = Array.prototype.slice.call(arguments, 0),
+                            context = buildContext(),
+                            result,
+                            toRun;
 
-                function expression() {
-                    var operations = Array.prototype.slice.call(arguments, 0);
+                        if (this.mixins) {
+                            this.mixins.forEach(function (mixin) {
+                                if (mixin.beforeBuild) {
+                                    mixin.beforeBuild(context, operations);
+                                }
+                            });
+                        }
 
-                    if (this.mixins) {
-                        this.mixins.forEach(function (mixin) {
-                            mixin(operations);
-                        });
-                    }
+                        if (opts.delay) {
+                            toRun = opts.delay(function () {
+                                return build(context, operations);
+                            });
+                        } else {
+                            toRun = build(context, operations);
+                        }
 
-                    var built = build(buildContext(), array.copy(arguments));
-                    if (opts.run) {
-                        return opts.run.apply(null, [built].concat(args));
-                    }
+                        if (opts.run) {
+                            result = opts.run.apply(null, [toRun].concat(args));
+                        } else {
+                            result = toRun;
+                        }
 
-                    return built;
-                }
+                        if (this.mixins) {
+                            this.mixins.forEach(function (mixin) {
+                                if (mixin.afterBuild) {
+                                    result = mixin.afterBuild(result);
+                                }
+                            });
+                        }
+
+                        return result;
+                    };
 
                 function mixin() {
-                    var context = {mixins: Array.prototype.slice.call(arguments, 0)};
-                    return function () {
-                        return expression.apply(context, arguments);
-                    }
+                    var context = {mixins: Array.prototype.slice.call(arguments, 0)},
+                        bound = expression.bind(context);
+                    bound.mixin = function () {
+                        Array.prototype.push.apply(context.mixins, arguments);
+                        return bound;
+                    };
+
+                    return bound;
                 }
 
                 expression.mixin = mixin;
@@ -729,68 +822,72 @@ define('scalejs/base.functional',[
             };
         }
 
-        builder.bind = function (name, expr) {
+        builder.$let = function (name, expr) {
             return {
-                kind: 'bind',
+                kind: 'let',
                 name: name,
                 expr: expr
             };
         };
 
-        builder.$bind = function (name, expr) {
+        builder.$LET = function (name, expr) {
             return {
-                kind: '$bind',
+                kind: 'letBind',
                 name: name,
                 expr: expr
             };
         };
 
-        builder.doAction = function (expr) {
+        builder.$do = function (expr) {
             return {
                 kind: 'do',
                 expr: expr
             };
         };
 
-        builder.$doAction = function (expr) {
+        builder.$DO = function (expr) {
             return {
-                kind: '$do',
+                kind: 'doBind',
                 expr: expr
             };
         };
 
-        builder.yieldOne = function (expr) {
-            return {
-                kind: 'yield',
-                expr: expr
-            };
-        };
-
-        builder.returnValue = function (expr) {
-            return {
-                kind: 'return',
-                expr: expr
-            };
-        };
-
-        builder.$returnValue = function (expr) {
+        builder.$return = function (expr) {
             return {
                 kind: '$return',
                 expr: expr
             };
         };
 
-        builder.yieldOne = function (expr) {
+        builder.$RETURN = function (expr) {
             return {
-                kind: 'yield',
+                kind: '$RETURN',
                 expr: expr
             };
         };
 
-        builder.yieldMany = function (expr) {
+        builder.$yield = function (expr) {
             return {
-                kind: 'yieldMany',
+                kind: '$yield',
                 expr: expr
+            };
+        };
+
+        builder.$YIELD = function (expr) {
+            return {
+                kind: '$YIELD',
+                expr: expr
+            };
+        };
+
+        builder.$for = function (name, items) {
+            var cexpr = Array.prototype.slice.call(arguments, 2);
+
+            return {
+                kind: '$for',
+                name: name,
+                items: items,
+                cexpr: cexpr
             };
         };
 
@@ -803,6 +900,7 @@ define('scalejs/base.functional',[
 
         return builder;
     }
+
 
     return {
         _: _,
