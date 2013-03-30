@@ -6,14 +6,12 @@ define([
     './base.array',
     './base.log',
     './base.object',
-    './base.type',
-    './base.functional'
+    './base.type'
 ], function (
     array,
     log,
     object,
-    type,
-    functional
+    type
 ) {
     'use strict';
 
@@ -21,7 +19,6 @@ define([
         type: type,
         object: object,
         array: array,
-        log: log,
-        functional: functional
+        log: log
     };
 });

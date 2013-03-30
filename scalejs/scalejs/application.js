@@ -14,8 +14,6 @@ define([
 
     var addOne = core.array.addOne,
         toArray = core.array.toArray,
-        partial = core.functional.partial,
-        _ = core.functional._,
         has = core.object.has,
         error = core.log.error,
         debug = core.log.debug,
@@ -34,7 +32,10 @@ define([
                             'Dynamic module loading is not supported.');
         }
 
-        modules = toArray(arguments).filter(partial(has, _, 'getModuleId'));
+        //modules = toArray(arguments).filter(partial(has, _, 'getModuleId'));
+        modules = toArray(arguments).filter(function (m) {
+            return has(m, 'getModuleId');
+        });
         Array.prototype.push.apply(moduleRegistrations, modules);
     }
 

@@ -14,7 +14,6 @@ define(function (
             type: core.type,
             log: core.log,
             array: core.array,
-            functional: core.functional,
             onApplicationStarted: core.onApplicationStarted
         };
     }
