@@ -17,7 +17,7 @@ Prerequisites
 2. IIS Express (via Web Platform Installer)
 3. node.js (http://nodejs.org/)
 4. requirejs optimizer (once node.js is installed run in console: npm install -g requirejs)
-5. PowerSheel 3.0 (http://www.microsoft.com/en-us/download/details.aspx?id=34595)
+5. PowerShell 3.0 (http://www.microsoft.com/en-us/download/details.aspx?id=34595)
 6. JSLint.VS2012 extension for Visual Studio (in Visual Studio go to TOOLS -> Extensions and Updates... -> Visual Studio Gallery and type `JSLint` in search box)
 7. Chutzpah Test Adapter for Visual Studio 2012 (in Visual Studio go to TOOLS -> Extensions and Updates... -> Visual Studio Gallery and type `Chutzpah` in search box)
 
