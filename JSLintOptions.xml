@@ -5,7 +5,7 @@
   <TODOEnabled>false</TODOEnabled>
   <TODOCategory>Task</TODOCategory>
   <RunOnBuild>true</RunOnBuild>
-  <CancelBuildOnError>true</CancelBuildOnError>
+  <CancelBuildOnError>false</CancelBuildOnError>
   <JSLintOptions>
     <BoolOptions2>
       <item>

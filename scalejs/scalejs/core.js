@@ -33,7 +33,7 @@ define([
                 return;
             }
             // If extension has buildCore function then give it an instance of the core. 
-            if (is(extension, 'buildCore', ' function')) {
+            if (is(extension, 'buildCore', 'function')) {
                 extension.buildCore(self);
                 addOne(extensions, extension);
                 return;
