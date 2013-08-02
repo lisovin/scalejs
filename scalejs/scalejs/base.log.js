@@ -17,7 +17,11 @@ define([
             }, Function.prototype.call);
         } else {
             logMethods.forEach(function (method) {
-                self[method] = console[method].bind(console);
+                if (console[method]) {
+                    self[method] = console[method].bind(console);
+                } else {
+                    self[method] = console.log.bind(console);
+                }
             });
         }
 
