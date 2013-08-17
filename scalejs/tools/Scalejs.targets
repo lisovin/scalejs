@@ -88,7 +88,7 @@
                 }
                 
                 var physicalPathValue = physicalPath.Value;
-                if (physicalPathValue != PhysicalPath) {
+                if (!string.Equals(physicalPathValue, PhysicalPath, StringComparison.InvariantCultureIgnoreCase)) {
                     Log.LogError("Site '{0}' already exists in {1} but its 'physicalPath' is set to {2} and not {3}. Either remove the site from the config file or configure it manually to point to project location.", Name, iisConfig, physicalPathValue, PhysicalPath);
                     return false;
                 }
@@ -188,7 +188,7 @@
     <Rjs BuildRjs="$(ScalejsBuildRjs)"
          BaseUrl="$(ScalejsBaseUrl)"
          Out="$(ScalejsBuildDirectory)\$(MSBuildProjectName)$(BuildSuffix).min.js"
-         Optimize="uglify"
+         Optimize="uglify2"
          Condition="Exists('$(ScalejsBuildRjs)')"/>
     <AddSite Name="$(MSBuildProjectName)"
              PhysicalPath="$(MSBuildProjectDirectory)"

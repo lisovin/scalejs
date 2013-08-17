@@ -1,11 +1,9 @@
 /*global define */
 /// <reference path="../Scripts/es5-shim.js" />
 define([
-    './base',
-    './sandbox'
+    './base'
 ], function (
-    base,
-    createSandbox
+    base
 ) {
     'use strict';
 
@@ -61,11 +59,17 @@ define([
 
     function buildSandbox(id) {
         if (!has(id)) {
-            throw new Error('Module is is required to builder sandbox.');
+            throw new Error('Sandbox name is required to build a sandbox.');
         }
 
         // Create module instance specific sandbox 
-        var sandbox = createSandbox(id, self);
+        var sandbox = {
+            type: self.type,
+            object: self.object,
+            array: self.array,
+            log: self.log
+        };
+
 
         // Add extensions to sandbox
         extensions.forEach(function (extension) {

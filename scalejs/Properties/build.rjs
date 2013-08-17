@@ -5,8 +5,7 @@
 	},
     include: [
         'scalejs', 
-        'scalejs/application',
-        'scalejs/module'
+        'scalejs/application'
     ],
 	exclude: [
 		'es5-shim',
