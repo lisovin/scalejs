@@ -3,7 +3,7 @@
 ModuleToProcess = 'Scalejs.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.63'
+ModuleVersion = '0.3'
 
 # ID used to uniquely identify this module
 GUID = 'C3B18A52-56C9-40D3-97F0-A3649F5DF444'
@@ -24,7 +24,7 @@ Description = 'Scalejs powershell functions'
 PowerShellVersion = '3.0'
 
 # Name of the Windows PowerShell host required by this module
-PowerShellHostName = 'Package Manager Host'
+PowerShellHostName = ''
 
 # Minimum version of the Windows PowerShell host required by this module
 PowerShellHostVersion = '1.2'
