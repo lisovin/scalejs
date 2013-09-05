@@ -1,2 +1,6 @@
 ﻿param($installPath, $toolsPath, $package, $project)
-Import-Module (Join-Path $toolsPath Scalejs.psd1)
+$solutionDir = Split-Path $dte.Solution.Properties.Item("Path").Value
+$scalejsPS = "$solutionDir\.scalejs\Scalejs.psd1"
+if (Test-Path $scalejsPS) {
+	Import-Module $scalejsPS
+}

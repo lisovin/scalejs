@@ -1,22 +1,25 @@
 ﻿param($installPath, $toolsPath, $package, $project)
 
-Import-Module (Join-Path $toolsPath Scalejs.psd1)
+$solutionDir = Split-Path $dte.Solution.Properties.Item("Path").Value
 
-if (!(Test-Path "$(Get-SolutionDir)\.scalejs")) {
-	New-Item -Type Directory "$(Get-SolutionDir)\.scalejs" | Out-Null
+if (-not (Test-Path "$solutionDir\.scalejs")) {
+	New-Item -Type Directory "$solutionDir\.scalejs" | Out-Null
 }
-Copy-Item "$toolsPath\Scalejs.targets" "$(Get-SolutionDir)\.scalejs" | Out-Null
+
+Copy-Item "$toolsPath\Scalejs.targets" "$solutionDir\.scalejs" | Out-Null
+Copy-Item "$toolsPath\Scalejs.psd1" "$solutionDir\.scalejs" | Out-Null
+Copy-Item "$toolsPath\Scalejs.psm1" "$solutionDir\.scalejs" | Out-Null
 
 # Add NuGet.targets to solution
-if (!(Test-Path "$(Get-SolutionDir)\.nuget")) {
-	New-Item -Type Directory "$(Get-SolutionDir)\.nuget" | Out-Null
+if (-not (Test-Path "$solutionDir\.nuget")) {
+	New-Item -Type Directory "$solutionDir\.nuget" | Out-Null
 }
-Copy-Item "$toolsPath\NuGet.targets" "$(Get-SolutionDir)\.nuget" | Out-Null
+Copy-Item "$toolsPath\NuGet.targets" "$solutionDir\.nuget" | Out-Null
+
+Import-Module "$solutionDir\.scalejs\Scalejs.psd1"
 
 $project | 
-	Add-Import '$(SolutionDir)\.nuget\NuGet.targets' |
-	Add-Import '$(SolutionDir)\.scalejs\Scalejs.targets' |
-	Add-Paths "{'scalejs' : 'Scripts/scalejs-$($package.Version)',
-	            'es5-shim' : 'Scripts/es5-shim',
-				'json2': 'Scripts/json2'}" |
+	Add-Import "$solutionDir\.nuget\NuGet.targets" |
+	Add-Import "$solutionDir\.scalejs\Scalejs.targets" |
+	Add-Paths "{'scalejs' : 'Scripts/scalejs-$($package.Version)'}" |
 	Out-Null

@@ -3,7 +3,7 @@
 ModuleToProcess = 'Scalejs.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.3'
+ModuleVersion = '1.0.63'
 
 # ID used to uniquely identify this module
 GUID = 'C3B18A52-56C9-40D3-97F0-A3649F5DF444'

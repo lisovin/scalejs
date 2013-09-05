@@ -184,12 +184,12 @@
          BaseUrl="$(ScalejsBaseUrl)"
          Out="$(ScalejsBuildDirectory)\$(MSBuildProjectName)$(BuildSuffix).js"
          Optimize="none"
-         Condition="Exists('$(ScalejsBuildRjs)')"/>
+         Condition="Exists('$(ScalejsBuildRjs)') And '$(Configuration)' == 'Debug'"/>
     <Rjs BuildRjs="$(ScalejsBuildRjs)"
          BaseUrl="$(ScalejsBaseUrl)"
          Out="$(ScalejsBuildDirectory)\$(MSBuildProjectName)$(BuildSuffix).min.js"
          Optimize="uglify2"
-         Condition="Exists('$(ScalejsBuildRjs)')"/>
+         Condition="Exists('$(ScalejsBuildRjs)') And '$(Configuration)' == 'Release'"/>
     <AddSite Name="$(MSBuildProjectName)"
              PhysicalPath="$(MSBuildProjectDirectory)"
              Port="$(ScalejsAppSitePort)"

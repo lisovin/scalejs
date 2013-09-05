@@ -36,15 +36,16 @@
     <Content Include="scalejs\base.object.js" />
     <Content Include="scalejs\base.type.js" />
     <Content Include="scalejs\core.js" />
-    <Content Include="Scripts\es5-shim.js" />
-    <Content Include="Scripts\es5-shim.min.js" />
-    <Content Include="Scripts\json2.js" />
-    <Content Include="Scripts\json2.min.js" />
+    <Content Include="Scripts\_scalejs.intellisense.js" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
     <ScalejsExtension>True</ScalejsExtension>
     <ScalejsProjectType>Core</ScalejsProjectType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <OutputPath>bin\Release\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <Import Project="$(SolutionDir).nuget\NuGet.targets" />
   <Import Project="$(ProjectDir)tools\Scalejs.targets" />
