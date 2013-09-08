@@ -14,7 +14,7 @@
     }
 
     window.define = function (name, deps, callback) {
-        log('`define` is called with name ', name, deps);
+        //log('`define` is called with name ', name, deps);
 
         if (typeof name !== 'string') {
             callback = deps;

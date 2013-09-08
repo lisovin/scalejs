@@ -19,7 +19,7 @@ Copy-Item "$toolsPath\NuGet.targets" "$solutionDir\.nuget" | Out-Null
 Import-Module "$solutionDir\.scalejs\Scalejs.psd1"
 
 $project | 
-	Add-Import "$solutionDir\.nuget\NuGet.targets" |
-	Add-Import "$solutionDir\.scalejs\Scalejs.targets" |
+	Add-Import '$(SolutionDir)\.nuget\NuGet.targets' |
+	Add-Import '$(SolutionDir)\.scalejs\Scalejs.targets' |
 	Add-Paths "{'scalejs' : 'Scripts/scalejs-$($package.Version)'}" |
 	Out-Null
