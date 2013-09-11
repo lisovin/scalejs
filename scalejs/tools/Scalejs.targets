@@ -161,7 +161,7 @@
 
   <PropertyGroup>
     <ScalejsAppSitePort Condition="'$(ScalejsAppSitePort)' == ''">8888</ScalejsAppSitePort>
-    <ScalejsBuildDirectory>$(MSBuildProjectDirectory)\build</ScalejsBuildDirectory>
+    <ScalejsBuildDirectory>$(MSBuildProjectDirectory)\js</ScalejsBuildDirectory>
     <ScalejsPropertiesDirectory>$(MSBuildProjectDirectory)\Properties</ScalejsPropertiesDirectory>
     <ScalejsBuildRjs>$(ScalejsPropertiesDirectory)\build.rjs</ScalejsBuildRjs>
     <ScalejsBaseUrl Condition="'$(ScalejsBaseUrl)' == ''">.</ScalejsBaseUrl>
@@ -169,8 +169,8 @@
   </PropertyGroup>
 
   <Target Name="Clean">
-    <RemoveDir Condition="Exists('$(MSBuildProjectDirectory)\build')" Directories="$(MSBuildProjectDirectory)\build"/>
-    <MakeDir Directories="$(MSBuildProjectDirectory)\build"/>
+    <RemoveDir Condition="Exists('$(MSBuildProjectDirectory)\js')" Directories="$(MSBuildProjectDirectory)\js"/>
+    <MakeDir Directories="$(MSBuildProjectDirectory)\js"/>
   </Target>
 
   <Target Name="CoreBuild" DependsOnTargets="CheckPrerequisites">

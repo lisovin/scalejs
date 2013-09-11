@@ -1,3 +1,6 @@
+/*
+ * Based on dotnetwise's https://github.com/DotNetWise/VS2012-Javascript-Intellisense
+ */
 (function () {
     var LOG = true,
         requireDefine = window.define;
@@ -19,16 +22,20 @@
         if (typeof name !== 'string') {
             callback = deps;
             deps = name;
+            //log('`defined` fake name ', name);
         }
 
-        window.require.call(window, deps, callback);
+        window.require(deps, function () {
+            try {
+                var result = callback.apply(null, arguments);
+                if (typeof result === 'function') {
+                    result();
+                }
+            } catch (e) {
+                //log('callback error ', e);
+            }
+        });
     }
-    /*
-    window.define.amd = {
-        multiversion: true,
-        plugins: true,
-        jQuery: true
-    };*/
 
     window.requirejs.onError = function (e) {
         var modules = e.requireModules && e.requireModules.join(',');
