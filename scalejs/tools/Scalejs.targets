@@ -182,12 +182,12 @@
     </CreateProperty>
     <Rjs BuildRjs="$(ScalejsBuildRjs)"
          BaseUrl="$(ScalejsBaseUrl)"
-         Out="$(ScalejsBuildDirectory)\$(MSBuildProjectName)$(BuildSuffix).js"
+         Out="$(ScalejsBuildDirectory)\$(MSBuildProjectName).js"
          Optimize="none"
          Condition="Exists('$(ScalejsBuildRjs)')"/>
     <Rjs BuildRjs="$(ScalejsBuildRjs)"
          BaseUrl="$(ScalejsBaseUrl)"
-         Out="$(ScalejsBuildDirectory)\$(MSBuildProjectName)$(BuildSuffix).min.js"
+         Out="$(ScalejsBuildDirectory)\$(MSBuildProjectName).min.js"
          Optimize="uglify2"
          Condition="Exists('$(ScalejsBuildRjs)') And ('$(Configuration)' == 'Release' Or '$(ScalejsProjectType)' == 'Extension' Or '$(ScalejsProjectType)' == 'Core')"/>
     <AddSite Name="$(MSBuildProjectName)"
