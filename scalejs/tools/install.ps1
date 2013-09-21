@@ -6,15 +6,15 @@ if (-not (Test-Path "$solutionDir\.scalejs")) {
 	New-Item -Type Directory "$solutionDir\.scalejs" | Out-Null
 }
 
-Copy-Item "$toolsPath\Scalejs.targets" "$solutionDir\.scalejs" | Out-Null
-Copy-Item "$toolsPath\Scalejs.psd1" "$solutionDir\.scalejs" | Out-Null
-Copy-Item "$toolsPath\Scalejs.psm1" "$solutionDir\.scalejs" | Out-Null
+Copy-Item -Force "$toolsPath\Scalejs.targets" "$solutionDir\.scalejs" | Out-Null
+Copy-Item -Force "$toolsPath\Scalejs.psd1" "$solutionDir\.scalejs" | Out-Null
+Copy-Item -Force "$toolsPath\Scalejs.psm1" "$solutionDir\.scalejs" | Out-Null
 
 # Add NuGet.targets to solution
 if (-not (Test-Path "$solutionDir\.nuget")) {
 	New-Item -Type Directory "$solutionDir\.nuget" | Out-Null
 }
-Copy-Item "$toolsPath\NuGet.targets" "$solutionDir\.nuget" | Out-Null
+Copy-Item -Force "$toolsPath\NuGet.targets" "$solutionDir\.nuget" | Out-Null
 
 Import-Module "$solutionDir\.scalejs\Scalejs.psd1"
 
