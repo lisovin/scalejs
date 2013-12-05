@@ -21,5 +21,9 @@ Import-Module "$solutionDir\.scalejs\Scalejs.psd1"
 $project | 
 	Add-Import '$(SolutionDir)\.nuget\NuGet.targets' |
 	Add-Import '$(SolutionDir)\.scalejs\Scalejs.targets' |
-	Add-Paths "{'scalejs' : 'Scripts/scalejs-$($package.Version)'}" |
+	Add-Paths "{
+		'scalejs'		: 'Scripts/scalejs-$($package.Version)',
+		'appModule'		: 'Scripts/scalejs.module',
+		'sandbox'		: 'Scripts/scalejs.sandbox'
+	}" |
 	Out-Null
