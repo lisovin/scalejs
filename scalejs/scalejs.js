@@ -5,6 +5,8 @@ define(function () {
 
     return {
         load: function (name, req, load, config) {
+            var moduleNames;
+
             if (name === 'extensions') {
                 if (config.scalejs && config.scalejs.extensions) {
                     extensionNames = config.scalejs.extensions;
@@ -22,23 +24,32 @@ define(function () {
                 return;
             }
 
-            if (name === 'application') {
+            if (name.indexOf('application') === 0) {
+                moduleNames = name
+                    .substring('application'.length + 1)
+                    .match(/([^,]+)/g) || [];
+
+                moduleNames = moduleNames.map(function (n) {
+                    if (n.indexOf('/') === -1) {
+                        return 'app/' + n + '/' + n + 'Module';
+                    }
+
+                    return n;
+                });
+
+                moduleNames.push('scalejs/application');
+
                 req(['scalejs!extensions'], function () {
-                    req(['scalejs/application'], function (application) {
+                    req(moduleNames, function () {
+                        var application = arguments[arguments.length - 1],
+                            modules = Array.prototype.slice.call(arguments, 0, arguments.length - 1);
+
+                        if (!config.isBuild) {
+                            application.registerModules.apply(null, modules);
+                        }
+
                         load(application);
                     });
-                });
-                return;
-            }
-
-            if (name.indexOf('sandbox') === 0) {
-                req(['scalejs!core', 'scalejs!extensions'], function (core) {
-                    if (config.isBuild) {
-                        load();
-                    } else {
-                        var sandbox = core.buildSandbox(name);
-                        load(sandbox);
-                    }
                 });
                 return;
             }
@@ -49,7 +60,7 @@ define(function () {
         },
 
         write: function (pluginName, moduleName, write) {
-            if (pluginName === 'scalejs' && moduleName === 'application') {
+            if (pluginName === 'scalejs' && moduleName.indexOf('application') === 0) {
                 write('define("scalejs/extensions", ' + JSON.stringify(extensionNames) + ', function () { return Array.prototype.slice(arguments); })');
             }
         }

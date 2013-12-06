@@ -23,7 +23,7 @@ $project |
 	Add-Import '$(SolutionDir)\.scalejs\Scalejs.targets' |
 	Add-Paths "{
 		'scalejs'		: 'Scripts/scalejs-$($package.Version)',
-		'appModule'		: 'Scripts/scalejs.module',
-		'sandbox'		: 'Scripts/scalejs.sandbox'
+		'sandbox'		: 'Scripts/scalejs.sandbox',
+		'styles'		: 'Scripts/scalejs.styles'
 	}" |
 	Out-Null

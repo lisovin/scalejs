@@ -25,7 +25,7 @@
     <None Include="tools\uninstall.ps1" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="scalejs.module.js" />
+    <Content Include="scalejs.styles.js" />
     <Content Include="scalejs.sandbox.js" />
     <Content Include="scalejs.js" />
     <Content Include="scalejs\application.js" />
