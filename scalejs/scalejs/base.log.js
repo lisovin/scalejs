@@ -25,11 +25,8 @@ define([
             });
         }
 
-        if (typeof console.debug === 'function') {
-            self.debug = console.debug.bind(console);
-        } else {
-            self.debug = self.info;
-        }
+        // debug in IE doesn't output arguments with index > 0 so use info instead
+        self.debug = self.info;
     } else {
         logMethods.forEach(function (method) {
             self[method] = function () {};

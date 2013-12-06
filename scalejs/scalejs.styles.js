@@ -16,7 +16,7 @@ define(function () {
             });
 
             req(names, function () {
-                onLoad(Array.prototype.slice.call(arguments, 0, arguments.length);
+                onLoad(Array.prototype.slice.call(arguments, 0, arguments.length));
             });
         }
     };
