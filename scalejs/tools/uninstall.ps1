@@ -2,7 +2,7 @@
 
 $project | 
 	Remove-Import '$(SolutionDir)\.scalejs\Scalejs.targets' |
-	Remove-Paths 'scalejs,sandbox,styles' |
+	Remove-Paths 'scalejs,sandbox' |
 	Out-Null
 
 if (Test-Path "$(Get-SolutionDir)\.scalejs") {

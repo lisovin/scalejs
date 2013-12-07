@@ -22,8 +22,7 @@ $project |
 	Add-Import '$(SolutionDir)\.nuget\NuGet.targets' |
 	Add-Import '$(SolutionDir)\.scalejs\Scalejs.targets' |
 	Add-Paths "{
-		'scalejs'		: 'Scripts/scalejs-$($package.Version)',
 		'sandbox'		: 'Scripts/scalejs.sandbox',
-		'styles'		: 'Scripts/scalejs.styles'
+		'scalejs'		: 'Scripts/scalejs-$($package.Version)'
 	}" |
 	Out-Null

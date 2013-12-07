@@ -179,8 +179,8 @@
             }
             
             var content = File.ReadAllText(FilePath);
-            var regex = new Regex("(" + Name + @").*([^\.'""]*\.js)", RegexOptions.IgnoreCase);
-            var newContent = regex.Replace(content, "$1-" + Version + "$2");
+            var regex = new Regex("(" + Name + @").*?(js|min.js)", RegexOptions.IgnoreCase);
+            var newContent = regex.Replace(content, "$1-" + Version + ".$2");
 
             File.WriteAllText(FilePath, newContent);
         ]]>
