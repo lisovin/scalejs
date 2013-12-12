@@ -13,7 +13,7 @@ The framework leverages best tools and libraries such as Knockout, Linq, RxJS, R
 
 Prerequisites
 =============
-1. Visual Studio 2012
+1. Visual Studio 2012 or 2013
 2. IIS Express (via Web Platform Installer)
 3. node.js (http://nodejs.org/)
 4. requirejs optimizer (once node.js is installed run in console: npm install -g requirejs)
