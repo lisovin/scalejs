@@ -1,0 +1,13 @@
+
+*.suo
+*.user
+/build
+/TestResults
+/bin
+/obj
+/packages
+/scalejs/build
+
+/.nuget/nuget.exe
+/scalejs.test/Scripts/_Chutzpah.2c00abb1d1ac257e6f8e3752e8108b3f.test.html
+/scalejs/js

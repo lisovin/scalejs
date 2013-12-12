@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{78CCA565-D98A-4995-BDC6-FEDF98C949E5}</ProjectGuid>
+    <!--<ProjectGuid>{78CCA565-D98A-4995-BDC6-FEDF98C949E5}</ProjectGuid>-->
+    <OutputType>Library</OutputType>
+    <JSLintSkip>\test\jasmine\|\test\jasmine.js|\test\require.js|\Scripts\</JSLintSkip>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Properties\build.rjs" />
+    <None Include="Properties\scalejs.nuspec">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="tools\init.ps1" />
+    <None Include="tools\install.ps1" />
+    <None Include="tools\NuGet.targets" />
+    <None Include="tools\Scalejs.psd1" />
+    <None Include="tools\Scalejs.psm1" />
+    <None Include="tools\Scalejs.targets">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="tools\uninstall.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="scalejs.sandbox.js" />
+    <Content Include="scalejs.js" />
+    <Content Include="scalejs\application.js" />
+    <Content Include="scalejs\base.array.js" />
+    <Content Include="scalejs\base.js" />
+    <Content Include="scalejs\base.log.js" />
+    <Content Include="scalejs\base.object.js" />
+    <Content Include="scalejs\base.type.js" />
+    <Content Include="scalejs\core.js" />
+    <Content Include="Scripts\_scalejs.intellisense.js" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <ScalejsExtension>True</ScalejsExtension>
+    <ScalejsProjectType>Core</ScalejsProjectType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <ScalejsBuildConfiguration>Release</ScalejsBuildConfiguration>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <ScalejsBuildConfiguration>Debug</ScalejsBuildConfiguration>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir).nuget\NuGet.targets" />
+  <Import Project="$(ProjectDir)tools\Scalejs.targets" />
+</Project>
