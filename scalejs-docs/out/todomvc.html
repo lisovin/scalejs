@@ -52,5 +52,23 @@ From the Add New Item window, search for <em>scalejs</em> and select the
     application.run();
 });</code></pre>
 <h2 id="creating-the-views">Creating the Views</h2>
-<p>The next step in this process will be to create the views* as we have been already given a template to work with. In order to create the view, we need to section off the template we were given into two parts: main and todo. The views are html files which contain templates for the view and they are in the views folder for each module.
-For our main view, we need to do two things: add the html pertinent to the main module AND reference the todo module within this html. All html within the �todo� module belongs in the views folder for the �todo� module so it must be separated from the rest of the html. This is what we get for the main_template after extracting the html from the template we were given, and removing the html for the todo module.</p>
+<p>The next step in this process will be to create the <a href="./overview.html#views">views</a> as we have been already given a template to work with. 
+In order to create the view, we need to section off the template we were given into two parts: main and todo. 
+The views are html files which contain templates for the view and they are in the <strong>views</strong> folder for each module.</p>
+<p>For our main view, we need to do two things: add the html pertinent to the main module 
+AND reference the todo module within this html. All html within the <em>todo</em> module belongs in the views folder 
+for the <em>todo</em> module so it must be separated from the rest of the html.</p>
+<p>This is what we get for the <strong>main_template</strong> after extracting the html from the template we were given, 
+and removing the html for the todo module.</p>
+<pre><code class="lang-xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"main_template"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"Section1"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">header</span> <span class="attribute">id</span>=<span class="value">"header1"</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">h1</span>&gt;</span>todos<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+        <span class="comment">&lt;!-- we need to reference todo input here --&gt;</span>
+        <span class="tag">&lt;/<span class="title">header</span>&gt;</span>
+        <span class="comment">&lt;!-- we need to reference todo items here --&gt;</span>
+    <span class="tag">&lt;/<span class="title">section</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">footer</span> <span class="attribute">id</span>=<span class="value">"Footer1"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>Double-click to edit a todo<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">footer</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
