@@ -72,3 +72,69 @@ and removing the html for the todo module.</p>
         <span class="tag">&lt;<span class="title">p</span>&gt;</span>Double-click to edit a todo<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
     <span class="tag">&lt;/<span class="title">footer</span>&gt;</span>
 <span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
+<p>A <em>template</em> is a parentless div in an html file within your <em>views</em> folder that has an id with the postfix &#39;_template&#39;</p>
+<p>Now let&#39;s also make the templates for the todo module</p>
+<pre><code class="lang-xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"main_template"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"Section1"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">header</span> <span class="attribute">id</span>=<span class="value">"header1"</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">h1</span>&gt;</span>todos<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+        <span class="comment">&lt;!-- we need to reference todo input here --&gt;</span>
+        <span class="tag">&lt;/<span class="title">header</span>&gt;</span>
+        <span class="comment">&lt;!-- we need to reference todo items here --&gt;</span>
+    <span class="tag">&lt;/<span class="title">section</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">footer</span> <span class="attribute">id</span>=<span class="value">"Footer1"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>Double-click to edit a todo<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">footer</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+
+Now let�s also make the templates for the todo module.
+
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"todo_items_template"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"main"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"toggle-all"</span> <span class="attribute">type</span>=<span class="value">"checkbox"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">label</span> <span class="attribute">for</span>=<span class="value">"toggle-all"</span>&gt;</span>Mark all as complete<span class="tag">&lt;/<span class="title">label</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"todo-list"</span>&gt;</span>
+            <span class="comment">&lt;!-- These are here just to show the structure of the list items --&gt;</span>
+            <span class="comment">&lt;!-- List items should get the class `editing` when editing and `completed` when marked as completed --&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span> <span class="attribute">class</span>=<span class="value">"completed"</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"view"</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"toggle"</span> <span class="attribute">type</span>=<span class="value">"checkbox"</span> <span class="attribute">checked</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">label</span>&gt;</span>Create a TodoMVC template<span class="tag">&lt;/<span class="title">label</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"destroy"</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+                <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"edit"</span> <span class="attribute">value</span>=<span class="value">"Create a TodoMVC template"</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"view"</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"toggle"</span> <span class="attribute">type</span>=<span class="value">"checkbox"</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">label</span>&gt;</span>Rule the web<span class="tag">&lt;/<span class="title">label</span>&gt;</span>
+                    <span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"destroy"</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+                <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"edit"</span> <span class="attribute">value</span>=<span class="value">"Rule the web"</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">section</span>&gt;</span>
+    <span class="comment">&lt;!-- This footer should hidden by default and shown when there are todos --&gt;</span>
+    <span class="tag">&lt;<span class="title">footer</span> <span class="attribute">id</span>=<span class="value">"footer"</span>&gt;</span>
+        <span class="comment">&lt;!-- This should be `0 items left` by default --&gt;</span>
+        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">id</span>=<span class="value">"todo-count"</span>&gt;</span><span class="tag">&lt;<span class="title">strong</span>&gt;</span>1<span class="tag">&lt;/<span class="title">strong</span>&gt;</span> item left<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+        <span class="comment">&lt;!-- Remove this if you don't implement routing --&gt;</span>
+        <span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"filters"</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">a</span> <span class="attribute">class</span>=<span class="value">"selected"</span> <span class="attribute">href</span>=<span class="value">"#/"</span>&gt;</span>All<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#/active"</span>&gt;</span>Active<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">li</span>&gt;</span>
+                <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#/completed"</span>&gt;</span>Completed<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
+            <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+        <span class="comment">&lt;!-- Hidden if no completed items are left ? --&gt;</span>
+        <span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"clear-completed"</span>&gt;</span>Clear completed (1)<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">footer</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"todo_input_template"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"new-todo"</span> <span class="attribute">placeholder</span>=<span class="value">"What needs to be done?"</span> <span class="attribute">autofocus</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
