@@ -1,4 +1,4 @@
-<p><link rel="stylesheet" type="text/css" href="global.css"></p>
+<p>﻿<link rel="stylesheet" type="text/css" href="global.css"></p>
 <link rel="stylesheet" href="highlight.css">
 
 <h1 id="todo-mvc-application">ToDo MVC Application</h1>
@@ -15,7 +15,7 @@ you can create a Scalejs project by simply selecting the template for a
 <p>For this tutorial we will use the CSS template. LESS will be covered in another tutorial. </p>
 <p><img src="./project1.png" alt="Scalejs MVVM Application is listed under &#39;Visual C#&#39; templates"></p>
 <p>Every Scalejs Project template has a basic file structure. 
-See <a href="./overview.html">Explaination and Overview</a>  for more details.<br>Your application code, which we will be editting in this tutorial, is within the �app� folder. 
+See <a href="./overview.html">Explaination and Overview</a>  for more details.<br>Your application code, which we will be editting in this tutorial, is within the “app” folder. 
 This folder contains the <a href="./overview.html#modules">modules</a> for your project. 
 A module will contain <a href="./bindings.html">bindings</a>, <a href="./overview.html#viewmodels">viewmodels</a>,
 <a href="./overview.html#styles">styles</a> and <a href="./overview.html#views">views</a> for your project. </p>
@@ -30,11 +30,11 @@ How will our Scalejs app accomplish these things? Before we go into the code,
 we will have a quick overview of how we will modularize the code so that you will have exposure 
 to creating multiple modules.</p>
 <p><img src="./todo.png" alt="ToDo App consists of two modules: main and todo"></p>
-<p>Conceptually, we could make the �todo� module as part of the �main� module, 
+<p>Conceptually, we could make the “todo” module as part of the “main” module, 
 but usually scalejs apps consist of a main or base module which will be a container for other modules. 
 This allows for the creation of multiple modules which will be separated from each other, 
 and the main module controls navigation and the <a href="./overview.html#layout">layout</a>. 
-Unfortunately �todoMVC� is a very simple app, so I could not split this up into more conceptual modules. 
+Unfortunately “todoMVC” is a very simple app, so I could not split this up into more conceptual modules. 
 You can take a look at our other <a href="./samples.html">samples</a> to see what a more complex app might look like.</p>
 <h2 id="creating-the-todo-module">Creating the todo Module</h2>
 <p>To make a module is extremely easy with scalejs. 
@@ -61,35 +61,20 @@ for the <em>todo</em> module so it must be separated from the rest of the html.<
 <p>This is what we get for the <strong>main_template</strong> after extracting the html from the template we were given, 
 and removing the html for the todo module.</p>
 <pre><code class="lang-xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"main_template"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"Section1"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">header</span> <span class="attribute">id</span>=<span class="value">"header1"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"todoapp"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">header</span> <span class="attribute">id</span>=<span class="value">"header"</span>&gt;</span>
             <span class="tag">&lt;<span class="title">h1</span>&gt;</span>todos<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
         <span class="comment">&lt;!-- we need to reference todo input here --&gt;</span>
         <span class="tag">&lt;/<span class="title">header</span>&gt;</span>
         <span class="comment">&lt;!-- we need to reference todo items here --&gt;</span>
     <span class="tag">&lt;/<span class="title">section</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">footer</span> <span class="attribute">id</span>=<span class="value">"Footer1"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">footer</span> <span class="attribute">id</span>=<span class="value">"info"</span>&gt;</span>
         <span class="tag">&lt;<span class="title">p</span>&gt;</span>Double-click to edit a todo<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
     <span class="tag">&lt;/<span class="title">footer</span>&gt;</span>
 <span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
 <p>A <em>template</em> is a parentless div in an html file within your <em>views</em> folder that has an id with the postfix &#39;_template&#39;</p>
-<p>Now let&#39;s also make the templates for the todo module</p>
-<pre><code class="lang-xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"main_template"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"Section1"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">header</span> <span class="attribute">id</span>=<span class="value">"header1"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">h1</span>&gt;</span>todos<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
-        <span class="comment">&lt;!-- we need to reference todo input here --&gt;</span>
-        <span class="tag">&lt;/<span class="title">header</span>&gt;</span>
-        <span class="comment">&lt;!-- we need to reference todo items here --&gt;</span>
-    <span class="tag">&lt;/<span class="title">section</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">footer</span> <span class="attribute">id</span>=<span class="value">"Footer1"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">p</span>&gt;</span>Double-click to edit a todo<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">footer</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-
-Now let�s also make the templates for the todo module.
-
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"todo_items_template"</span>&gt;</span>
+<p>Now let’s also make the templates for the todo module.</p>
+<pre><code class="lang-xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"todo_items_template"</span>&gt;</span>
     <span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"main"</span>&gt;</span>
         <span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"toggle-all"</span> <span class="attribute">type</span>=<span class="value">"checkbox"</span>&gt;</span>
         <span class="tag">&lt;<span class="title">label</span> <span class="attribute">for</span>=<span class="value">"toggle-all"</span>&gt;</span>Mark all as complete<span class="tag">&lt;/<span class="title">label</span>&gt;</span>
@@ -130,7 +115,7 @@ Now let�s also make the templates for the todo module.
                 <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#/completed"</span>&gt;</span>Completed<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
             <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
         <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-        <span class="comment">&lt;!-- Hidden if no completed items are left ? --&gt;</span>
+        <span class="comment">&lt;!-- Hidden if no completed items are left ↓ --&gt;</span>
         <span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"clear-completed"</span>&gt;</span>Clear completed (1)<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
     <span class="tag">&lt;/<span class="title">footer</span>&gt;</span>
 <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
@@ -138,3 +123,190 @@ Now let�s also make the templates for the todo module.
 <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"todo_input_template"</span>&gt;</span>
     <span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"new-todo"</span> <span class="attribute">placeholder</span>=<span class="value">"What needs to be done?"</span> <span class="attribute">autofocus</span>&gt;</span>
 <span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
+<h2 id="rendering-views">Rendering Views</h2>
+<p>Next we need to compose these modules so that <em>todo</em> module appears within the <em>main</em> module.<br>There are a few things we need to do. First of all, we need to make sure <em>todo</em> doesn&#39;t try to render itself 
+in the same place as the main module. The main module puts itself into the root, so we can remove that 
+line of code from the <strong>todoModule.js</strong> file</p>
+<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
+define([
+    <span class="string">'sandbox!todo'</span>,
+    <span class="string">'app/todo/viewmodels/todoViewModel'</span>,
+    <span class="string">'bindings!todo'</span>,
+    <span class="string">'views!todo'</span>,
+    <span class="string">'styles!todo'</span>
+], <span class="function"><span class="keyword">function</span> <span class="params">(
+    sandbox,
+    todoViewModel
+)</span> {</span>
+    <span class="string">'use strict'</span>;
+
+    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">todoModule</span><span class="params">()</span> {</span>
+        <span class="keyword">var</span> <span class="comment">// imports</span>
+            <span class="comment">//root = sandbox.mvvm.root,</span>
+            <span class="comment">//template = sandbox.mvvm.template,</span>
+            registerStates = sandbox.state.registerStates,
+            state = sandbox.state.builder.state,
+            onEntry = sandbox.state.builder.onEntry,
+            <span class="comment">// vars</span>
+            todo = todoViewModel(sandbox);
+
+        <span class="comment">// Register application state for the module.</span>
+        registerStates(<span class="string">'app'</span>,
+            state(<span class="string">'todo'</span>,
+                onEntry(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+                    <span class="comment">// Render viewModel using 'main_template' template </span>
+                    <span class="comment">// (defined in main.html) and show it in the `root` region.</span>
+                    todo.text(<span class="string">'Hello World from todo!'</span>);
+                    <span class="comment">//root(template('todo_template', todo));</span>
+                })));
+    };
+});</code></pre>
+<p>Now that we&#39;ve done this, we can instruct the main module to <em>render</em> the templates for the todo module.</p>
+<pre><code class="lang-xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"main_template"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"todoapp"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">header</span> <span class="attribute">id</span>=<span class="value">"header"</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">h1</span>&gt;</span>todos<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+            <span class="comment">&lt;!-- ko render:todoInput--&gt;</span>
+            <span class="comment">&lt;!-- /ko --&gt;</span>
+        <span class="tag">&lt;/<span class="title">header</span>&gt;</span>
+        <span class="comment">&lt;!-- ko render:todoItems --&gt;</span>
+        <span class="comment">&lt;!-- /ko --&gt;</span>
+    <span class="tag">&lt;/<span class="title">section</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">footer</span> <span class="attribute">id</span>=<span class="value">"info"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">p</span>&gt;</span>Double-click to edit a todo<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">footer</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
+<p>We just added a <a href="./mvvm.html#virtual">virtual binding</a> to our template. We use <a href="http://knockoutjs.com/">knockoutjs</a> 
+to provide binding, and here we are using the <a href="./mvvm.html#render">render</a> binding. It is not much different than 
+knockout&#39;s <a href="./mvvm.html#template">template</a> binding but it works with observables. The reason we use a virtual 
+binding is because we do not want to create a new html element; we just want to take the contents of our template 
+and render it here.</p>
+<p>We need to define <em>todoItems</em> and <em>todoInput</em> within <strong>mainViewModel.js</strong> in order for this to work.</p>
+<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
+define([
+    <span class="string">'sandbox!main'</span>
+], <span class="function"><span class="keyword">function</span> <span class="params">(
+    sandbox
+)</span> {</span>
+    <span class="string">'use strict'</span>;
+
+    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+        <span class="keyword">var</span> <span class="comment">// imports</span>
+            observable = sandbox.mvvm.observable,
+            <span class="comment">// properties</span>
+            todoItems = observable(),
+            todoInput = observable();
+
+        <span class="keyword">return</span> {
+            todoItems: todoItems,
+            todoInput: todoInput
+        };
+    };
+});</code></pre>
+<p>We now have defined todo for main. But how do we actually make it so that todo renders itself here? 
+Modules must be agnostic to other modules, so what we will do is assign this observable to a property 
+on the <a href="./overview.html#statechart">statechart</a>. </p>
+<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
+define([
+    <span class="string">'sandbox!main'</span>,
+    <span class="string">'app/main/viewmodels/mainViewModel'</span>,
+    <span class="string">'views!main'</span>,
+    <span class="string">'bindings!main'</span>,
+    <span class="string">'styles!main'</span>
+], <span class="function"><span class="keyword">function</span> <span class="params">(
+    sandbox,
+    mainViewModel
+)</span> {</span>
+    <span class="string">'use strict'</span>;
+
+    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span><span class="params">()</span> {</span>
+        <span class="keyword">var</span> <span class="comment">// imports</span>
+            root = sandbox.mvvm.root,
+            template = sandbox.mvvm.template,
+            registerStates = sandbox.state.registerStates,
+            state = sandbox.state.builder.state,
+            onEntry = sandbox.state.builder.onEntry,
+            <span class="comment">// vars</span>
+            mainVM = mainViewModel();
+
+        <span class="comment">// Register application state for the module.</span>
+        registerStates(<span class="string">'root'</span>,
+            state(<span class="string">'app'</span>,
+                state(<span class="string">'main'</span>,
+                    onEntry(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+                        <span class="comment">// create state properties for rendering todo module templates</span>
+                        <span class="keyword">this</span>.todoItems = mainVM.todoItems;
+                        <span class="keyword">this</span>.todoInput = mainVM.todoInput;
+                        <span class="comment">// Render viewModel using 'main_template' template </span>
+                        <span class="comment">// (defined in main.html) and show it in the `root` region.</span>
+                        root(template(<span class="string">'main_template'</span>, mainVM));
+                    }))));
+    };
+});</code></pre>
+<p>The reason we have statechart is to manage state and also to allow the creation and use of shared state. 
+Modules should not really be concerned about each other. When we create
+the <em>todoItems</em> and <em>todoInput</em> properties, we assign them to an empty observable. 
+This observable can now be accessed and updated by another module, but main doesn&#39;t know anything about this 
+other module – preserving the pattern of “loosely coupled” modules.</p>
+<p>Now we also must tell <em>todoItems</em> and <em>todoInput</em> what to do. We do this in the statechart for todo. 
+In <strong>todoModule.js</strong>, you should assign what we were previously putting in the root into this property.</p>
+<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
+define([
+    <span class="string">'sandbox!todo'</span>,
+    <span class="string">'app/todo/viewmodels/todoViewModel'</span>,
+    <span class="string">'bindings!todo'</span>,
+    <span class="string">'views!todo'</span>,
+    <span class="string">'styles!todo'</span>
+], <span class="function"><span class="keyword">function</span> <span class="params">(
+    sandbox,
+    todoViewModel
+)</span> {</span>
+    <span class="string">'use strict'</span>;
+
+    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">todoModule</span><span class="params">()</span> {</span>
+        <span class="keyword">var</span> <span class="comment">// imports</span>
+            template = sandbox.mvvm.template,
+            registerStates = sandbox.state.registerStates,
+            state = sandbox.state.builder.state,
+            onEntry = sandbox.state.builder.onEntry,
+            <span class="comment">// vars</span>
+            todo = todoViewModel(sandbox);
+
+        <span class="comment">// Register application state for the module.</span>
+        registerStates(<span class="string">'app'</span>,
+            state(<span class="string">'todo'</span>,
+                onEntry(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+                    <span class="comment">// pass the template bindings to the appropriate property</span>
+                    <span class="keyword">this</span>.todoItems(template(<span class="string">'todo_items_template'</span>, todo));
+                    <span class="keyword">this</span>.todoInput(template(<span class="string">'todo_input_template'</span>, todo));
+                })));
+    };
+});</code></pre>
+<p><em>Note: other unnessesary lines of code have been removed.</em></p>
+<p>Now we can also observe we had made a mistake with our <a href="./statechart.html">statechart</a>. 
+You might not be comfortable with statecharts just yet but take our word – not only is it easy to implement, 
+it is also easy to understand and debug. It allows the control flow of your app to be managed properly. 
+What we are currently doing here is adding a new child state to the <em>app</em> state. But we are already doing so in main.
+This will create the following statechart:</p>
+<p><strong>!!PLACE STATECHART PICTURE HERE!!</strong></p>
+<p>The way statechart works is that when a state which contains child states is entered, it always enters the first child state which is defined. 
+But todo isn&#39;t really a child state of <em>app</em>. It is logically a child state of main, since you can never be in either 
+main or todo. You must be in <em>main</em> in order to be in <em>todo</em>.</p>
+<p>So what do we do to resolve this? We must define the parent state of <em>todo</em> to be <em>main</em> instead of <em>app</em>.</p>
+<pre><code class="lang-javascript"> <span class="comment">// Register application state for the module.</span>
+        registerStates(<span class="string">'main'</span>,
+            state(<span class="string">'todo'</span>,
+                onEntry(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+                    <span class="comment">// pass the template bindings to the appropriate property</span>
+                    <span class="keyword">this</span>.todoItems(template(<span class="string">'todo_items_template'</span>, todo));
+                    <span class="keyword">this</span>.todoInput(template(<span class="string">'todo_input_template'</span>, todo));
+                })));</code></pre>
+<p>Now we have created the following statechart</p>
+<p><strong>!!PLACE OTHER STATECHART PICTURE HERE!!</strong></p>
+<p>The only thing that is missing is the styles. Normally we would split up styles based on how they were used by
+the modules and place them into the  <strong>styles</strong> folder. This allows us to keep clean
+and modular code. For large applications we would use LESS, but since this app is so small CSS will sufice. However,
+since we are using a premade template and stylesheet, I will simply copy and paste their stylesheet into the <strong>main.css</strong> file.</p>
+<p>Now we have created the layout of your app!! Press <strong>ctrl+f5</strong> to build the project and run IISExpress. 
+See it in action in your browser at <a href="http://localhost:8888">http://localhost:8888</a></p>
+<p>Now we need to add the functionality which is discussed in the spec. Let&#39;s take it step by step.</p>
