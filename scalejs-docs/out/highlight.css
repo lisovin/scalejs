@@ -1,0 +1,9 @@
+.lang-javascript .string {
+    color: rgb(163,21,21)
+}
+.lang-javascript .keyword {
+    color: rgb(0,0,255)
+}
+.lang-javascript .comment {
+    color: rgb(0,136,0)
+}
