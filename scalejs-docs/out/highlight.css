@@ -4,13 +4,13 @@
 .lang-javascript .keyword {
     color: rgb(0,0,255)
 }
+.lang-javascript .literal {
+    color: rgb(0,0,255)
+}
 .lang-javascript .comment {
     color: rgb(0,136,0)
 }
 
-.lang-xml {
-    color: rgb(0,0,255)
-}
 .lang-xml .tag {
     color: rgb(0,0,255)
 }
