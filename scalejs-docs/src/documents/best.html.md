@@ -7,5 +7,8 @@ for your satisfaction and sanity, they will be covered in this section.
 
 ## Debugging
 
-## Code Style
+## jsLint
 
+## Intellisense
+
+## Linq
