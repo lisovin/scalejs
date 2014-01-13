@@ -62,17 +62,21 @@ This class must be defined in the bindings.</p>
 <p>The <strong>styles</strong> contain the .css files which are needed for the module.</p>
 <p>A Scalejs project generates modules which already include the view, viewmodel, bindings and styles.</p>
 <h2 id="main-module">Main Module</h2>
-<p>!!This will be updated..!!</p>
+<p>The main module serves as a shell of our application. 
+In this module, we define the layout and styles, but we do not define
+the functional aspects of the application. 
+Rather, we specify named regions in the html
+which are merely be placeholders for content. Views from other modules can
+appear in these placeholders. </p>
+<p>It can also define certain top-level UI elements, such as the background, main menu, or toolbar. </p>
+<p>It defines the overall appearance of the application. 
+It might define styles and borders that are present and visible in the shell layout itself, 
+and it might also define styles, templates, and themes that will be applied to the views that 
+are plugged into placeholders.</p>
 <h3 id="main-view">Main View</h3>
-<p>The <em>main</em> view defines the layout, so it will mostly be a placeholder for other
-templates to render themselves inside of it. The <em>view</em> is an html file in the <strong>views</strong> folder.</p>
-<p>!! incorporate this..
-<a href="http://msdn.microsoft.com/en-us/library/ff921098(v=pandp.40).aspx">http://msdn.microsoft.com/en-us/library/ff921098(v=pandp.40).aspx</a>
-The shell plays the role of a master page providing the layout structure for the application. The shell contains one or more named regions where modules can specify the views that will appear. It can also define certain top-level UI elements, such as the background, main menu, and toolbar.
-The shell defines the overall appearance of the application. It might define styles and borders that are present and visible in the shell layout itself, and it might also define styles, templates, and themes that will be applied to the views that are plugged into the shell.
-!!</p>
+<p>The <em>main</em> view defines the html for the layout and is located in in the <strong>views</strong> folder.</p>
 <p>A <em>template</em> is a parentless div in an html file within your <em>views</em> folder that has an id with the postfix <code>_template</code>.
-We only need to define one template for <em>main</em>. </p>
+We only need to define one template for <em>main</em> which specifies the layout.</p>
 <p><strong>main/views/main.html</strong></p>
 <pre><code class="lang-xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"main_template"</span>&gt;</span>
     <span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"todoapp"</span>&gt;</span>
@@ -95,7 +99,9 @@ the funtionality of creating, showing, editting, and removing todos.</p>
 We use a <a href="http://knockoutjs.com/">knockoutjs</a> <a href="./mvvm.html#virtual">virtual binding</a> to create the regions in the layout. 
 The binding which we are using is <a href="./mvvm.html#render">render</a>. </p>
 <p>The reason we use a virtual binding is because we do not want to create a new html element; we just want to take 
-the contents of the view and render it here.</p>
+the contents of the view and render them where virtual binding is declared. Had we used regular bindings,
+which we will see in the next section, a new html element would need to be created as a wrapper for the
+bound content. </p>
 <p><strong>main/views/main.html</strong></p>
 <pre><code class="lang-xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"main_template"</span>&gt;</span>
     <span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"todoapp"</span>&gt;</span>
@@ -118,8 +124,35 @@ See it in action in your browser at <a href="http://localhost:8888">http://local
 <p><img src="./error1.png" alt="It doesn&#39;t work :("></p>
 <p>We can fix this problem in the viewmodel.</p>
 <h3 id="main-viewmodel">Main ViewModel</h3>
-<p>Since we have referenced <code>todoInput</code> and <code>todoItems</code> in the view, we have to define them in the <a href="./overview.html#viewmodels">viewmodel</a></p>
-<p>!!introduce observables here - introduce require and AMD!!</p>
+<p>For a brief moment, we will diverge from our tutorial in order to explain some important concepts which
+will be used repeatedly within our JavaScript files.</p>
+<p>The <a href="./overview.html#viewmodel">ViewModel</a> is a <a href="linktorequire">requirejs</a> module. Requirejs gives scalejs the ability to load modules with
+the neccessary dependencies while also keeping the global namespace clean since everything defined within the module
+is scopped to the function passed into <code>define</code>. Optionally, you can define an array of arguments to be passed
+into the function which is called, and these can be references to other requirejs modules or scalejs components,
+such as the sandbox (which can be seen in the below example.) The mainModule.js file and bindings file are also
+requirejs modules. <em>Every JavaScript file within the app will most likely be a requirejs module.</em></p>
+<p>Another thing in our modules, and more specifically ViewModels, which is of importance is the use of observables. 
+Using scalejs requires an understanding
+of the MVVM functionality which is provided by <a href="linktoknockout">knockoutjs</a> so it is a good idea to get familular
+with knockout bindings. What you need to care about now is that observables provide automatic UI updating when they
+are bound to an HTML element. This means that a change to this property will automatically refresh the corrosponding
+UI component, without needing to explictly update the UI whenever it needs to be changed.</p>
+<p>In order to use <code>observable</code> in our code, we import it from the <code>sandbox</code> by 
+setting it to a var at the top of our module. The <code>sandbox</code> is where extensions can
+place themselves and expose functions for modules to use. The <code>sandbox</code> allows  modules
+to access these extensions in a sandboxed manner, so no module has access to another
+module&#39;s sandbox.  <code>observable</code> is included in the <code>mvvm</code> extension. You can learn
+more about the <a href="./overview.html#sandbox">sandbox</a> and the <a href="./mvvm.html">mvvm extension</a>
+in our docs. </p>
+<p><img src="./intellisense1" alt="Magicall"></p>
+<p>One of the great benefits to scalejs is that we have <a href="./best.html#intellisense">intellisense</a>
+for all of extensions and functions in the sandbox. Keep a look out for what happens as 
+you add functions from the sandbox to your app, and feel free to take a peek at what is 
+exposed on the sandbox with the handy dandy intellisense.</p>
+<p>Now back to the tutorial.</p>
+<p>Since we have referenced <code>todoInput</code> and <code>todoItems</code> in the view, we have to define them in the viewmodel. 
+Making the following change will fix the issues we just saw after altering the view.</p>
 <p><strong>main/viewmodels/mainViewModel.js</strong></p>
 <pre><code class="lang-javascript"><span class="comment">/*global define */</span>
 define([
@@ -142,30 +175,28 @@ define([
         };
     };
 });</code></pre>
-<p>!!reword this..!!</p>
-<p>We need to return <code>todoItems</code> and <code>todoInput</code> from the viewmodel or because
-we need to access it within our module and our view. If we don&#39;t return these, 
-then they becme private variables within the viewmodel and they cannot be seen by
-other viewmodels, modules, and bindings.</p>
-<p>We made these properties observables which are bound to the &#39;render&#39; binding in the main template. 
-The render binding expects a template to be passed to it. This template comes from the <em>todo</em> module, 
-but in order for the <em>todo</em> module to access these observables, we need to expose it in the <a href="./overview.html#statechart">statechart</a>. </p>
+<p>The view is bound to <code>todoItems</code> and <code>todoInput</code> which is why they must be returned at the bottom of the viewmodel.
+If we did not return them here, the view would not be able to access it. It is best practice to only return variables 
+that are needed in another file within the module. In this case, we need it in the view. We could also access these from
+the module or another viewmodel. As you can now see, exposing these properties in the view resolved the issues from earlier,</p>
 <p>!! show that it works now!!</p>
 <h3 id="main-statechart">Main Statechart</h3>
-<p>!!WHAT IS STATECHART??!!</p>
-<p>The statechart allows modules to be agnostic to eachother, so that the <em>main</em> module does not need to know any
-details about the <em>todo</em> module or vice versa. They only need to know about the statechart, which is always
-going to be more specific to your application, as it controls the state of the application.</p>
-<p>The state chart consists of two things: states and transitions. When we transition to a state, we define the
-state (e.g. update the viewModel) within the <code>onEntry</code> transition. We also can listen for events (which are called with <code>raise</code>) and
-transition to the appropriate state based upon that. States can have parent or children states, as well as parallel
-states so your application can be in multiple states at one time. For example, our router is a parallel state and
-we will discuss routing later on.</p>
-<p>!!reword up to here!</p>
+<p>Render can be bound to a template and corrosponding data. We want to render content from the <em>todo</em> module, 
+but in order for the <em>todo</em> module to update these observables, we need to expose it in the <a href="./overview.html#statechart">statechart</a>. </p>
+<p>The statechart defines the states and flow of your application. The statechart consists of two things: states and transitions. When we transition to a state, we setup the
+state within the <code>onEntry</code> transition. We also can listen for events (which are called with <code>raise</code>) and
+transition to the appropriate state based upon that. A benefit of the statechart is that states can be hierachical and can also run in parallel to eachother. 
+For example, our router is a parallel state and we will discuss routing later on.
+The statechart is better understood in practice, but you can famuliarize yourself with the statechart from
+the <a href="linktostatechart">statechart specification</a>. </p>
+<p>In order to preserve loose coupling, the statechart must allow modules to be agnostic to eachother, 
+so that the <em>main</em> module does not need to know any details about the <em>todo</em> module or vice versa. 
+The modules will, however, be concerned with the statechart as it defines the flow of the application. </p>
+<p>In this situation, we would like to define <code>todoItems</code> and <code>todoInput</code> on the statechart so that the <em>todo</em>
+module can access them. The statechart context is shared between all states in all the modules. 
+If used properly, this what allows modules to affect one another while still being loosely coupled.</p>
 <p>Adding properties to the statechart is very simple; the context of the statechart is exposed via <code>this</code> 
-within the transition functions (e.g., <code>onEntry</code>). </p>
-<p>!The statechart context is shared between all states in all the modules. This what allows modules to exchange
-information with eachother while still being loosely coupled.</p>
+within the functions of the statechart (i.e. <code>onEntry</code>). </p>
 <p><strong>main/manModule.js</strong></p>
 <pre><code class="lang-javascript"><span class="comment">/*global define */</span>
 define([
@@ -205,14 +236,12 @@ define([
     };
 });</code></pre>
 <p><em>Note: We renamed</em> <code>viewModel</code> <em>to</em> <code>mainVM</code> <em>to avoid ambiguity</em></p>
-<p>When we create the <code>todoItems</code> and <code>todoInput</code> properties, we assign them to an empty observable. 
+<p>Recall that when we created the <code>todoItems</code> and <code>todoInput</code> properties, we assign them to an empty observable. 
 These observables can now be accessed and updated by another module, but <em>main</em> doesn&#39;t know anything about this 
-other module - preserving the pattern of &quot;loosely coupled&quot; modules. Even though the <em>todo</em> module has to
-pass its content to these observables, it doesn&#39;t know anything about the <em>main</em> module other
+other module which preserves the pattern of &quot;loosely coupled&quot; modules. Even though the <em>todo</em> module passes
+its content to these observables, it doesn&#39;t know anything about the <em>main</em> module other
 than what is explictly shared via state.</p>
-<p>If IIS Express is still running, refresh your browser. If its not running, again, 
-press <strong>CTRL + F5</strong> to start it up on <a href="http://localhost:8888">http://localhost:8888</a>.
-You will find that the errors are gone, but unfortunately it is not styled. However,
+<p>You will find that all of the errors are gone, but unfortunately it is not styled. However,
 functionally we are done with the <em>main</em> module.
 <img src="./app1.png" alt="Main module sans styles"></p>
 <h3 id="main-bindings">Main Bindings</h3>
@@ -226,12 +255,14 @@ specification. We will just copy-and-paste the contents of this css file into <s
 <p><img src="./app2.png" alt="Main module with styles"></p>
 <p>Refreshh!!</p>
 <h2 id="creating-the-todo-module">Creating the todo Module</h2>
-<p>To make a new module is extremely easy with scalejs due to the Visual Stuido Item templates
+<p>The todo module is responsible for the functionality needed of the todo list.
+To make a new module is extremely easy with scalejs due to the Visual Stuido Item templates
 for modules. <strong>Right-click</strong> on the <strong>app</strong> folder and select <strong>Add &gt; New Item.</strong>
 From the Add New Item window, search for <em>scalejs</em> and select the 
 <strong>Scalejs MVVM Module (CSS)</strong>. Name this module <em>todo</em> and click <strong>Add</strong>.</p>
 <p><img src="./module1.png" alt="Creating a new Module"></p>
-<p>Once we create a module we need include it in the <strong>app.js</strong> file. </p>
+<p>Once we create a module we need include it in the <strong>app.js</strong> file by appending a comma and the name of the module
+to the <code>scalejs!application</code> argument within the <code>require</code> function.</p>
 <pre><code class="lang-javascript">require([
     <span class="string">'scalejs!application/main,todo'</span>
 ], <span class="function"><span class="keyword">function</span> <span class="params">(
@@ -241,7 +272,8 @@ From the Add New Item window, search for <em>scalejs</em> and select the
 
     application.run();
 });</code></pre>
-<p>We also need to modify <strong>todoModule.js</strong> so that we are creating the correct statechart.</p>
+<p>This will not allow the todo module to work as intended as <strong>todoModule.js</strong> is generated by the item template, 
+but it needs to be modified slightly so that we are adding the todo state to the correct parent state.</p>
 <p>!!SHOW CODE!!</p>
 <p>As you can see above, the <em>todo</em> state is defined as a child to the <em>app</em> state. 
 Since the <em>main</em> state is also a child of the <em>app</em> state,
@@ -345,24 +377,10 @@ must be hidden when there are no todos. To do this we need to have a data struct
 to store the todos. We need to be able to know how many items are in this structure.
 We also need to be able to add and remove items. Since we will be showing todos in our 
 view, the view must be able to react to the changes in the structure.</p>
-<p>To accomplish all of this we use an <strong>observableArray</strong> to store the items. 
-If you are familiar with knockout.js this should be easy to do, but if not you can
-learn about them in more detail <a href="./mvvm.html#obseravles">here</a>.
-This property needs to be added to the viewmodel.</p>
-<p>!! MOVE THIS TO ANOTHER SECTION!!
-In order to use <code>observableArray</code> in our code, we import it from the <code>sandbox</code> by 
-setting it to a var at the top of our module. The <code>sandbox</code> is where extensions can
-place themselves and expose functions for modules to use. The <code>sandbox</code> allows  modules
-to access these extensions in a sandboxed manner, so no module has access to another
-module&#39;s sandbox.  <code>observableArray</code> is included in the <code>mvvm</code> extension. You can learn
-more about the <a href="./overview.html#sandbox">sandbox</a> and the <a href="./mvvm.html">mvvm extension</a>
-in our docs. </p>
-<p><img src="./intellisense1" alt="Magicall"></p>
-<p>One of the great benefits to scalejs is that we have <a href="./best.html#intellisense">intellisense</a>
-for all of extensions and functions in the sandbox. Keep a look out for what happens as 
-you add functions from the sandbox to your app, and feel free to take a peek at what is 
-exposed on the sandbox with the handy dandy intellisense.
-!!</p>
+<p>To accomplish all of this we use an <code>observableArray</code> to store the items. 
+Like with <code>observables</code>, if you are familiar with knockout.js this should be easy to do, but if not you can
+learn about them in more detail <a href="./mvvm.html#obseravles">here</a> and also on <a href="linktowebsite">knockout&#39;s website</a>.
+Since this is a requirement for the functionality of the <em>todo</em> module it must be declared in the ViewModel.</p>
 <p><strong>todo/viewmodels/todoViewModel.js</strong></p>
 <pre><code class="lang-javascript"><span class="comment">/*global define */</span>
 define([
@@ -390,7 +408,6 @@ We will add the data-class <code>todo-visible</code> in the <code>todo_items_tem
 <pre><code class="lang-xml"><span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"main"</span> <span class="attribute">data-class</span>=<span class="value">"todo-visible"</span>&gt;</span>
 ...
 <span class="tag">&lt;<span class="title">footer</span> <span class="attribute">id</span>=<span class="value">"footer"</span> <span class="attribute">data-class</span>=<span class="value">"todo-visible"</span>&gt;</span></code></pre>
-<p>!!reference data class elsewhere!!</p>
 <p>The reason we use data-class instead of data-bind is so that we do not have to include complicated
 JavaScript within the html of our app. We can define the data-class in our bindings file.</p>
 <p>Now we can define the logic behind the <code>todo-visible</code> data-class in <strong>todoBindings.js</strong>.</p>
