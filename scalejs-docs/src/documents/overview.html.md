@@ -1,5 +1,8 @@
 # Explaination and Overview
 
+<link rel="stylesheet" type="text/css" href="global.css">
+  <link rel="stylesheet" href="highlight.css">
+
 To create a scalejs application requires an understanding of the how things are done. 
 If you are seeking a deeper understanding of the various components of a scalejs application, you're in the right place. 
 If you are still unfamilular with scalejs and what it can do, check out the [Power of Scalejs](./power.html)
