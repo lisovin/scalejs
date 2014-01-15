@@ -3,7 +3,7 @@
   <link rel="stylesheet" href="highlight.css"></p>
 <p>To create a scalejs application requires an understanding of the how things are done. 
 If you are seeking a deeper understanding of the various components of a scalejs application, you&#39;re in the right place. 
-If you are still unfamilular with scalejs and what it can do, check out the <a href="./power.html">Power of Scalejs</a></p>
+If you are still unfamilular with scalejs and what it can do, check out the <a href="./power.html">Intro to Scalejs</a></p>
 <p>This section will cover in detail</p>
 <ul>
 <li>The <strong>Project Template</strong> and all of the files within it</li>
@@ -95,8 +95,8 @@ It also can define styles specific to your application.</p>
 <p>A folder for a module contains of a file which will be run when the module is loaded. 
 In the case of main, this file is called <strong>mainModule.js</strong>.
 Similarly, additional modules will follow the naming convention <strong><moduleName>Module.js</strong></p>
-<p><strong>mainModule.js</strong>
-/<em>global define </em>/
+<p><strong>mainModule.js</strong></p>
+<pre><code>/*global define */
 define([
     &#39;sandbox!main&#39;,
     &#39;app/main/viewmodels/mainViewModel&#39;,
@@ -107,42 +107,49 @@ define([
     sandbox,
     mainViewModel
 ) {
-    &#39;use strict&#39;;</p>
-<pre><code>return function main() {
-    var // imports
-        root = sandbox.mvvm.root,
-        template = sandbox.mvvm.template,
-        registerStates = sandbox.state.registerStates,
-        state = sandbox.state.builder.state,
-        onEntry = sandbox.state.builder.onEntry,
-        // vars
-        viewModel = mainViewModel();
+    &#39;use strict&#39;;
 
-    // Register application state for the module.
-    registerStates(&#39;root&#39;,
-        state(&#39;app&#39;,
-            state(&#39;main&#39;,
-                onEntry(function () {
-                    // Render viewModel using &#39;main_template&#39; template 
-                    // (defined in main.html) and show it in the `root` region.
-                    root(template(&#39;main_template&#39;, viewModel));
-                }))));
-};</code></pre>
-<p>});</p>
-<p>This file consists of a <a href="http://requirejs.org/">requirejs</a> module which is used to load the views, viewmodels,
+    return function main() {
+        var // imports
+            root = sandbox.mvvm.root,
+            template = sandbox.mvvm.template,
+            registerStates = sandbox.state.registerStates,
+            state = sandbox.state.builder.state,
+            onEntry = sandbox.state.builder.onEntry,
+            // vars
+            viewModel = mainViewModel();
+
+        // Register application state for the module.
+        registerStates(&#39;root&#39;,
+            state(&#39;app&#39;,
+                state(&#39;main&#39;,
+                    onEntry(function () {
+                        // Render viewModel using &#39;main_template&#39; template 
+                        // (defined in main.html) and show it in the `root` region.
+                        root(template(&#39;main_template&#39;, viewModel));
+                    }))));
+    };
+});
+
+This file consists of a [requirejs](http://requirejs.org/) module which is used to load the views, viewmodels,
 bindings, and styles for the module. Requirejs modules differ from scalejs modules as a requirejs module
-is created using <code>define</code> and is used also to define viewmodels and bindings. A scalejs module, on the other hand,
+is created using `define` and is used also to define viewmodels and bindings. A scalejs module, on the other hand,
 is a combination of html and javscript files needed to implement a specific feature for your app which is independent
-of other features of the app. The purpose of the <strong>mainModule.js</strong> file is to setup the module;
+of other features of the app. The purpose of the __mainModule.js__ file is to setup the module;
 it does not solve functional tasks, its primary job is to tie the other components of the modules together by including them
-at the top of define as seen above and define the <a href="./overview.html#statechart">statechart</a>.</p>
-<p><em>Read more about <a href="./overview.html#modules">Modules</a></em></p>
-<h3 id="view-folder-and-main-html">view folder and main.html</h3>
-<p>The view folder is a container of <a href="./overview.thml#views">views</a> and includes one view file for the main module:</p>
-<p><strong>main.html</strong></p>
-<pre><code class="lang-xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"main_template"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"main text"</span> <span class="attribute">data-class</span>=<span class="value">"main-text"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span> from helloworld.
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
+at the top of define as seen above and define the [statechart](./overview.html#statechart).
+
+_Read more about [Modules](./overview.html#modules)_
+
+### view folder and main.html
+
+The view folder is a container of [views](./overview.thml#views) and includes one view file for the main module:
+
+__main.html__
+```xml
+&lt;div id=&quot;main_template&quot;&gt;
+    &lt;span class=&quot;main text&quot; data-class=&quot;main-text&quot;&gt;&lt;/span&gt; from helloworld.
+&lt;/div&gt;</code></pre>
 <p>It consists of a single template, <code>main_template</code>. This template text which is bound to a <code>data-class</code> named <code>main-text</code>.
 The purpose of the view is to contain the templates needed for the module. Usually, it is neccesary to bind components
 of templates to data which is signified by <code>data-class</code>. 
@@ -199,7 +206,7 @@ define([
 There is nothing special about the style which is provided by the template.
 However, we do recommend giving thought to the order and structure of styles when building a large application.
 These recommendations can be found in the styles section.</p>
-<p>_Read more about <a href="./overview.html#styles">Styles</a></p>
+<p><em>Read more about <a href="./overview.html#styles">Styles</a></em></p>
 <h3 id="scripts">Scripts</h3>
 <p>The Scripts folder contains a combination of core scalejs files, scalejs extensions, and base libraries.
 The difference between extensions and base libraries are one of the key advantages of scalejs.

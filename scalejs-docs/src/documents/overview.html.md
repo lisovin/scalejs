@@ -5,7 +5,7 @@
 
 To create a scalejs application requires an understanding of the how things are done. 
 If you are seeking a deeper understanding of the various components of a scalejs application, you're in the right place. 
-If you are still unfamilular with scalejs and what it can do, check out the [Power of Scalejs](./power.html)
+If you are still unfamilular with scalejs and what it can do, check out the [Intro to Scalejs](./power.html)
 
 This section will cover in detail
 
@@ -125,6 +125,7 @@ In the case of main, this file is called __mainModule.js__.
 Similarly, additional modules will follow the naming convention __<moduleName>Module.js__
 
 __mainModule.js__
+```
 /*global define */
 define([
     'sandbox!main',
@@ -257,7 +258,7 @@ There is nothing special about the style which is provided by the template.
 However, we do recommend giving thought to the order and structure of styles when building a large application.
 These recommendations can be found in the styles section.
 
-_Read more about [Styles](./overview.html#styles)
+_Read more about [Styles](./overview.html#styles)_
 
 ### Scripts
 
