@@ -43,6 +43,8 @@ and navigate to http://localhost:8888 to see it in action!
 
 _Scalejs MVVM Application template is a working Hello World! Sample. [See how Hello World works!](./hello.html)_
 
+For further changes to the app to work, make sure to disable caching in your browser.
+
 ## Designing ToDoMVC Application
 
 !!ADD LINK TO WORKING APPLICATION!!
@@ -110,7 +112,6 @@ It defines the overall appearance of the application.
 It might define styles and borders that are present and visible in the shell layout itself, 
 and it might also define styles, templates, and themes that will be applied to the views that 
 are plugged into placeholders.
- 
 
 ### Main View
 
@@ -141,7 +142,7 @@ __main/views/main.html__
 Our layout defines two regions (items and input) that can become filled by
 views within the _todo_ module. We split it up this way
 so that our _main_ module also has control over the header "todos" and the _todo_ module is soley responsible for
-the funtionality of creating, showing, edit=ting, and removing todos.
+the funtionality of creating, showing, editing, and removing todos.
 
 In order to allow the todo module to render the views, there are a few things we need to do.
 We use a [knockoutjs](http://knockoutjs.com/) [virtual binding](./mvvm.html#virtual) to create the regions in the layout. 
@@ -341,8 +342,6 @@ specification. We will just copy-and-paste the contents of this css file into __
 __styles__ folder. In a future tutorial, we will cover how to use LESS in your modules.
 
 ![Main module with styles](./app2.png)
-
-Refreshh!!
 
 ## Creating the todo Module
 
@@ -928,7 +927,7 @@ __todo/views/todo.html__
 	</li>
 ```
 
-In the `todo-item` data-class, not only to we need to repeat the binding we had previously
+In the `todo-item` data-class, not only do we need to repeat the binding we had previously
 defined inline in the html, we also need to apply an `editing` class if the item is being 
 edited. We begin editing an item when we double-click on an item, so we also bind a function 
 called `beginEdit` to this event.
@@ -955,7 +954,7 @@ on the item
 
 The introduction of these two new properties on the item means that the item is getting
 more and more complex. We also will need to add more properties and methods as we continue
-to implement functionality, so the wise thing to do is to move the item is own viewmodel in a seperate file.
+to implement functionality, so the wise thing to do is to move the item to its own viewmodel in a separate file.
 
 We will define a new viewmodel in the __viewmodels__ folder for _todo_ and name it __itemViewModel.js__.
 Copy and paste the code below or follow the pattern that the _main_ and _todo_ viewmodels use,
@@ -1259,7 +1258,7 @@ define([
 
 Also we have to modify the binding to call 'cancelEdit' if the user presses the `ESCAPE_KEY`
 
-__todo/viewmodels/itemViewModel.js__
+__todo/viewmodels/todoBindings.js__
 ```javascript
 /*global define */
 /*jslint sloppy: true,unparam: true*/
@@ -1437,7 +1436,7 @@ __todos/viewmodels/todoViewModel.js__
 /*global define,localStorage */
 ```
 
-We create two helper functions: `toItem` so that we can convert the `itemViewModel` to a plan object literal (so we
+We create two helper functions: `toItem` so that we can convert the `itemViewModel` to a plain object literal (so we
 can stringify it and store it in `localStorage`) and `toItemViewModel` so we can convert items from `localStorage`
 to an `itemViewModel`
 
@@ -1863,3 +1862,11 @@ __todo/todoModule.js__
                         todo.currentView("Completed");
                     }))));
 ```
+
+This is all that is needed to implement routing. Check it out for yourself! 
+
+## Summary
+
+You have completed the ToDoMVC tutorial. Have a Cookie!
+
+![YUMM](https://fling.seas.upenn.edu/~asme/dynamic/wordpress/wp-content/uploads/2012/09/cookie.jpg)

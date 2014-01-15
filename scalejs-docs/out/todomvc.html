@@ -26,6 +26,7 @@ and navigate to <a href="http://localhost:8888">http://localhost:8888</a> to see
 <p>!!UPDATE THIS PICTURE!!</p>
 <p><img src="./helloworld.png" alt="Hello World!"></p>
 <p><em>Scalejs MVVM Application template is a working Hello World! Sample. <a href="./hello.html">See how Hello World works!</a></em></p>
+<p>For further changes to the app to work, make sure to disable caching in your browser.</p>
 <h2 id="designing-todomvc-application">Designing ToDoMVC Application</h2>
 <p>!!ADD LINK TO WORKING APPLICATION!!</p>
 <p>The ToDo MVC application already has well defined <a href="./linktospec">specification and design guidelines</a>. 
@@ -95,7 +96,7 @@ We only need to define one template for <em>main</em> which specifies the layout
 <p>Our layout defines two regions (items and input) that can become filled by
 views within the <em>todo</em> module. We split it up this way
 so that our <em>main</em> module also has control over the header &quot;todos&quot; and the <em>todo</em> module is soley responsible for
-the funtionality of creating, showing, edit=ting, and removing todos.</p>
+the funtionality of creating, showing, editing, and removing todos.</p>
 <p>In order to allow the todo module to render the views, there are a few things we need to do.
 We use a <a href="http://knockoutjs.com/">knockoutjs</a> <a href="./mvvm.html#virtual">virtual binding</a> to create the regions in the layout. 
 The binding which we are using is <a href="./mvvm.html#render">render</a>. </p>
@@ -254,7 +255,6 @@ bindings.</p>
 specification. We will just copy-and-paste the contents of this css file into <strong>main.css</strong> which is located in the
 <strong>styles</strong> folder. In a future tutorial, we will cover how to use LESS in your modules.</p>
 <p><img src="./app2.png" alt="Main module with styles"></p>
-<p>Refreshh!!</p>
 <h2 id="creating-the-todo-module">Creating the todo Module</h2>
 <p>The todo module is responsible for the functionality needed in the todo list, such as adding, editing, and removing todos.
 Making a new module is extremely easy because scalejs provides Visual Stuido Item Templates
@@ -716,7 +716,7 @@ and off. We will call this the <code>todo-edit</code> class.</p>
         <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
         <span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"edit"</span> <span class="attribute">data-class</span>=<span class="value">"todo-edit"</span> /&gt;</span>
     <span class="tag">&lt;/<span class="title">li</span>&gt;</span></code></pre>
-<p>In the <code>todo-item</code> data-class, not only to we need to repeat the binding we had previously
+<p>In the <code>todo-item</code> data-class, not only do we need to repeat the binding we had previously
 defined inline in the html, we also need to apply an <code>editing</code> class if the item is being 
 edited. We begin editing an item when we double-click on an item, so we also bind a function 
 called <code>beginEdit</code> to this event.</p>
@@ -738,7 +738,7 @@ is currently being editted, and <code>beginEdit</code> which is a function which
 on the item</p>
 <p>The introduction of these two new properties on the item means that the item is getting
 more and more complex. We also will need to add more properties and methods as we continue
-to implement functionality, so the wise thing to do is to move the item is own viewmodel in a seperate file.</p>
+to implement functionality, so the wise thing to do is to move the item to its own viewmodel in a separate file.</p>
 <p>We will define a new viewmodel in the <strong>viewmodels</strong> folder for <em>todo</em> and name it <strong>itemViewModel.js</strong>.
 Copy and paste the code below or follow the pattern that the <em>main</em> and <em>todo</em> viewmodels use,
 except do not declare any properties or return anything.</p>
@@ -997,7 +997,7 @@ define([
     };
 });</code></pre>
 <p>Also we have to modify the binding to call &#39;cancelEdit&#39; if the user presses the <code>ESCAPE_KEY</code></p>
-<p><strong>todo/viewmodels/itemViewModel.js</strong></p>
+<p><strong>todo/viewmodels/todoBindings.js</strong></p>
 <pre><code class="lang-javascript"><span class="comment">/*global define */</span>
 <span class="comment">/*jslint sloppy: true,unparam: true*/</span>
 define(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
@@ -1135,7 +1135,7 @@ using <code>linq</code> and functional programming concepts.</p>
 <p>Since we are using <code>localStorage</code> we need to add it to the global vars so that JSLint won&#39;t complain.</p>
 <p><strong>todos/viewmodels/todoViewModel.js</strong></p>
 <pre><code class="lang-javascript"><span class="comment">/*global define,localStorage */</span></code></pre>
-<p>We create two helper functions: <code>toItem</code> so that we can convert the <code>itemViewModel</code> to a plan object literal (so we
+<p>We create two helper functions: <code>toItem</code> so that we can convert the <code>itemViewModel</code> to a plain object literal (so we
 can stringify it and store it in <code>localStorage</code>) and <code>toItemViewModel</code> so we can convert items from <code>localStorage</code>
 to an <code>itemViewModel</code></p>
 <p><strong>todos/viewmodels/todoViewModel.js</strong></p>
@@ -1498,3 +1498,7 @@ with the text we would like to see in our URL. For the root, we specifiy &#39;/&
                     onEntry(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
                         todo.currentView(<span class="string">"Completed"</span>);
                     }))));</code></pre>
+<p>This is all that is needed to implement routing. Check it out for yourself! </p>
+<h2 id="summary">Summary</h2>
+<p>You have completed the ToDoMVC tutorial. Have a Cookie!</p>
+<p><img src="https://fling.seas.upenn.edu/~asme/dynamic/wordpress/wp-content/uploads/2012/09/cookie.jpg" alt="YUMM"></p>
