@@ -1,4 +1,4 @@
-# Explaination and Overview
+# Explanation and Overview
 
 <link rel="stylesheet" type="text/css" href="global.css">
   <link rel="stylesheet" href="highlight.css">
