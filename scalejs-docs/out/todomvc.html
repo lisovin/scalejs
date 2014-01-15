@@ -1303,7 +1303,7 @@ these options in viewmodel that the view will bind to using <code>foreach</code>
         <span class="tag">&lt;/<span class="title">ul</span>&gt;</span></code></pre>
 <p>We need to define <code>viewableOptions</code> in the viewmodel. Each viewableOption has the name of what will be
 displayed in the footer of our todo list (e.g. &#39;All&#39;, &#39;Active&#39;, and &#39;Completed&#39;) as well as a function
-which will raise an statechart event. We will need to subscribe to and react to this event in our statechart.</p>
+which will raise a statechart event. We will need to subscribe to and react to this event in our statechart.</p>
 <p><strong>todo/viewmodel/todoViewModel.js</strong></p>
 <pre><code class="lang-javascript">        <span class="keyword">var</span> observableArray = sandbox.mvvm.observableArray,
             observable = sandbox.mvvm.observable,
@@ -1348,8 +1348,8 @@ which will raise an statechart event. We will need to subscribe to and react to 
         }</code></pre>
 <p>We will define three children states in our <code>todo</code> state: <code>todo.all</code>, <code>todo.active</code> and <code>todo.completed</code>.</p>
 <p>When we enter these states, we need to update our viewModel to reflect the state that is entered.</p>
-<p>We also need to define the trasition that will occur when the events are raised. We use <code>gotoInternally</code> because
-we do not want to exit the child state when we are switching between to child states.</p>
+<p>We also need to define the transition that will occur when the events are raised. We use <code>gotoInternally</code> because
+we do not want to exit the child state when we are switching between two child states.</p>
 <p><strong>todo/todoModule.js</strong></p>
 <pre><code class="lang-javascript">        <span class="keyword">var</span> <span class="comment">// imports</span>
             template = sandbox.mvvm.template,
@@ -1391,6 +1391,7 @@ we do not want to exit the child state when we are switching between to child st
             observable = sandbox.mvvm.observable,
             has = sandbox.object.has,
             computed = sandbox.mvvm.computed,
+            raise = sandbox.state.raise,
             <span class="comment">//properties</span>
             items = observableArray(),
             newItem = observable(),
@@ -1419,6 +1420,7 @@ react to changes in <code>currentView</code> and <code>items</code>.</p>
             observable = sandbox.mvvm.observable,
             has = sandbox.object.has,
             computed = sandbox.mvvm.computed,
+            raise = sandbox.state.raise,
             <span class="comment">//properties</span>
             items = observableArray(),
             newItem = observable(),

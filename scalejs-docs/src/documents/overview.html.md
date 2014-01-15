@@ -125,7 +125,7 @@ In the case of main, this file is called __mainModule.js__.
 Similarly, additional modules will follow the naming convention __<moduleName>Module.js__
 
 __mainModule.js__
-```
+```javascript
 /*global define */
 define([
     'sandbox!main',
@@ -160,6 +160,7 @@ define([
                     }))));
     };
 });
+```
 
 This file consists of a [requirejs](http://requirejs.org/) module which is used to load the views, viewmodels,
 bindings, and styles for the module. Requirejs modules differ from scalejs modules as a requirejs module

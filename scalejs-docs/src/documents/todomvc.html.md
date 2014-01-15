@@ -1637,7 +1637,7 @@ __todo/views/todo.html__
 
 We need to define `viewableOptions` in the viewmodel. Each viewableOption has the name of what will be
 displayed in the footer of our todo list (e.g. 'All', 'Active', and 'Completed') as well as a function
-which will raise an statechart event. We will need to subscribe to and react to this event in our statechart.
+which will raise a statechart event. We will need to subscribe to and react to this event in our statechart.
 
 __todo/viewmodel/todoViewModel.js__
 ```javascript
@@ -1692,8 +1692,8 @@ We will define three children states in our `todo` state: `todo.all`, `todo.acti
 
 When we enter these states, we need to update our viewModel to reflect the state that is entered.
 
-We also need to define the trasition that will occur when the events are raised. We use `gotoInternally` because
-we do not want to exit the child state when we are switching between to child states.
+We also need to define the transition that will occur when the events are raised. We use `gotoInternally` because
+we do not want to exit the child state when we are switching between two child states.
 
 
 __todo/todoModule.js__
@@ -1742,6 +1742,7 @@ __todo/viewmodel/todoViewModel.js__
             observable = sandbox.mvvm.observable,
             has = sandbox.object.has,
             computed = sandbox.mvvm.computed,
+            raise = sandbox.state.raise,
             //properties
             items = observableArray(),
             newItem = observable(),
@@ -1774,6 +1775,7 @@ __todo/viewmodel/todoViewModel.js__
             observable = sandbox.mvvm.observable,
             has = sandbox.object.has,
             computed = sandbox.mvvm.computed,
+            raise = sandbox.state.raise,
             //properties
             items = observableArray(),
             newItem = observable(),

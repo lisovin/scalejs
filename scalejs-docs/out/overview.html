@@ -96,60 +96,54 @@ It also can define styles specific to your application.</p>
 In the case of main, this file is called <strong>mainModule.js</strong>.
 Similarly, additional modules will follow the naming convention <strong><moduleName>Module.js</strong></p>
 <p><strong>mainModule.js</strong></p>
-<pre><code>/*global define */
+<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
 define([
-    &#39;sandbox!main&#39;,
-    &#39;app/main/viewmodels/mainViewModel&#39;,
-    &#39;views!main&#39;,
-    &#39;bindings!main&#39;,
-    &#39;styles!main&#39;
-], function (
+    <span class="string">'sandbox!main'</span>,
+    <span class="string">'app/main/viewmodels/mainViewModel'</span>,
+    <span class="string">'views!main'</span>,
+    <span class="string">'bindings!main'</span>,
+    <span class="string">'styles!main'</span>
+], <span class="function"><span class="keyword">function</span> <span class="params">(
     sandbox,
     mainViewModel
-) {
-    &#39;use strict&#39;;
+)</span> {</span>
+    <span class="string">'use strict'</span>;
 
-    return function main() {
-        var // imports
+    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span><span class="params">()</span> {</span>
+        <span class="keyword">var</span> <span class="comment">// imports</span>
             root = sandbox.mvvm.root,
             template = sandbox.mvvm.template,
             registerStates = sandbox.state.registerStates,
             state = sandbox.state.builder.state,
             onEntry = sandbox.state.builder.onEntry,
-            // vars
+            <span class="comment">// vars</span>
             viewModel = mainViewModel();
 
-        // Register application state for the module.
-        registerStates(&#39;root&#39;,
-            state(&#39;app&#39;,
-                state(&#39;main&#39;,
-                    onEntry(function () {
-                        // Render viewModel using &#39;main_template&#39; template 
-                        // (defined in main.html) and show it in the `root` region.
-                        root(template(&#39;main_template&#39;, viewModel));
+        <span class="comment">// Register application state for the module.</span>
+        registerStates(<span class="string">'root'</span>,
+            state(<span class="string">'app'</span>,
+                state(<span class="string">'main'</span>,
+                    onEntry(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+                        <span class="comment">// Render viewModel using 'main_template' template </span>
+                        <span class="comment">// (defined in main.html) and show it in the `root` region.</span>
+                        root(template(<span class="string">'main_template'</span>, viewModel));
                     }))));
     };
-});
-
-This file consists of a [requirejs](http://requirejs.org/) module which is used to load the views, viewmodels,
+});</code></pre>
+<p>This file consists of a <a href="http://requirejs.org/">requirejs</a> module which is used to load the views, viewmodels,
 bindings, and styles for the module. Requirejs modules differ from scalejs modules as a requirejs module
-is created using `define` and is used also to define viewmodels and bindings. A scalejs module, on the other hand,
+is created using <code>define</code> and is used also to define viewmodels and bindings. A scalejs module, on the other hand,
 is a combination of html and javscript files needed to implement a specific feature for your app which is independent
-of other features of the app. The purpose of the __mainModule.js__ file is to setup the module;
+of other features of the app. The purpose of the <strong>mainModule.js</strong> file is to setup the module;
 it does not solve functional tasks, its primary job is to tie the other components of the modules together by including them
-at the top of define as seen above and define the [statechart](./overview.html#statechart).
-
-_Read more about [Modules](./overview.html#modules)_
-
-### view folder and main.html
-
-The view folder is a container of [views](./overview.thml#views) and includes one view file for the main module:
-
-__main.html__
-```xml
-&lt;div id=&quot;main_template&quot;&gt;
-    &lt;span class=&quot;main text&quot; data-class=&quot;main-text&quot;&gt;&lt;/span&gt; from helloworld.
-&lt;/div&gt;</code></pre>
+at the top of define as seen above and define the <a href="./overview.html#statechart">statechart</a>.</p>
+<p><em>Read more about <a href="./overview.html#modules">Modules</a></em></p>
+<h3 id="view-folder-and-main-html">view folder and main.html</h3>
+<p>The view folder is a container of <a href="./overview.thml#views">views</a> and includes one view file for the main module:</p>
+<p><strong>main.html</strong></p>
+<pre><code class="lang-xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"main_template"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"main text"</span> <span class="attribute">data-class</span>=<span class="value">"main-text"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span> from helloworld.
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
 <p>It consists of a single template, <code>main_template</code>. This template text which is bound to a <code>data-class</code> named <code>main-text</code>.
 The purpose of the view is to contain the templates needed for the module. Usually, it is neccesary to bind components
 of templates to data which is signified by <code>data-class</code>. 
