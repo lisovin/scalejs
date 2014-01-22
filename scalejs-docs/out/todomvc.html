@@ -80,18 +80,19 @@ are plugged into placeholders.</p>
 <p>A <em>template</em> is a parentless div in an html file within your <em>views</em> folder that has an id with the postfix <code>_template</code>.
 We only need to define one template for <em>main</em> which specifies the layout.</p>
 <p><strong>main/views/main.html</strong></p>
-<pre><code class="lang-xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"main_template"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"todoapp"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">header</span> <span class="attribute">id</span>=<span class="value">"header"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">h1</span>&gt;</span>todos<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
-        <span class="comment">&lt;!-- we need to reference todo input here --&gt;</span>
-        <span class="tag">&lt;/<span class="title">header</span>&gt;</span>
-        <span class="comment">&lt;!-- we need to reference todo items here --&gt;</span>
-    <span class="tag">&lt;/<span class="title">section</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">footer</span> <span class="attribute">id</span>=<span class="value">"info"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">p</span>&gt;</span>Double-click to edit a todo<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">footer</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main_template"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todoapp"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">header</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"header"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>todos<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- we need to reference todo input here --&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">header</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- we need to reference todo items here --&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">section</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">footer</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"info"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>Double-click to edit a todo<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">footer</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
 <p>!!Show the app after this change!!</p>
 <p>Our layout defines two regions (items and input) that can become filled by
 views within the <em>todo</em> module. We split it up this way
@@ -105,20 +106,21 @@ the contents of the view and render them where virtual binding is declared. Had 
 which we will see in the next section, a new html element would need to be created as a wrapper for the
 bound content. </p>
 <p><strong>main/views/main.html</strong></p>
-<pre><code class="lang-xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"main_template"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"todoapp"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">header</span> <span class="attribute">id</span>=<span class="value">"header"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">h1</span>&gt;</span>todos<span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
-            <span class="comment">&lt;!-- ko render:todoInput--&gt;</span>
-            <span class="comment">&lt;!-- /ko --&gt;</span>
-        <span class="tag">&lt;/<span class="title">header</span>&gt;</span>
-        <span class="comment">&lt;!-- ko render:todoItems --&gt;</span>
-        <span class="comment">&lt;!-- /ko --&gt;</span>
-    <span class="tag">&lt;/<span class="title">section</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">footer</span> <span class="attribute">id</span>=<span class="value">"info"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">p</span>&gt;</span>Double-click to edit a todo<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">footer</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main_template"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todoapp"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">header</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"header"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>todos<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+            <span class="hljs-comment">&lt;!-- ko render:todoInput--&gt;</span>
+            <span class="hljs-comment">&lt;!-- /ko --&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">header</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- ko render:todoItems --&gt;</span>
+        <span class="hljs-comment">&lt;!-- /ko --&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">section</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">footer</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"info"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>Double-click to edit a todo<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">footer</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
 <p>We have created the view, however, if you were to run the app, you would see an error.</p>
 <p>Press <strong>ctrl+f5</strong> to build the project and run IISExpress. 
 See it in action in your browser at <a href="http://localhost:8888">http://localhost:8888</a>, and open the debugging console
@@ -156,27 +158,28 @@ exposed on the sandbox with the handy dandy intellisense.</p>
 <p>Since we have referenced <code>todoInput</code> and <code>todoItems</code> in the view, we have to define them in the viewmodel. 
 Making the following change will fix the issues we just saw after altering the view.</p>
 <p><strong>main/viewmodels/mainViewModel.js</strong></p>
-<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
+<pre><code class="lang-javascript"><span class="hljs-comment">/*global define */</span>
 define([
-    <span class="string">'sandbox!main'</span>
-], <span class="function"><span class="keyword">function</span> <span class="params">(
+    <span class="hljs-string">'sandbox!main'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
     sandbox
 )</span> {</span>
-    <span class="string">'use strict'</span>;
+<span class="hljs-pi">    'use strict'</span>;
 
-    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-        <span class="keyword">var</span> <span class="comment">// imports</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
             observable = sandbox.mvvm.observable,
-            <span class="comment">// properties</span>
+            <span class="hljs-comment">// properties</span>
             todoItems = observable(),
             todoInput = observable();
 
-        <span class="keyword">return</span> {
+        <span class="hljs-keyword">return</span> {
             todoItems: todoItems,
             todoInput: todoInput
         };
     };
-});</code></pre>
+});
+</code></pre>
 <p>The view is bound to <code>todoItems</code> and <code>todoInput</code> which is why they must be returned at the bottom of the viewmodel.
 If we did not return them here, the view would not be able to access it. It is best practice to only return variables 
 that are needed in another file within the module. In this case, we need it in the view. We could also access these from
@@ -200,43 +203,44 @@ If used properly, this what allows modules to affect one another while still bei
 <p>Adding properties to the statechart is very simple; the context of the statechart is exposed via <code>this</code> 
 within the functions of the statechart (i.e. <code>onEntry</code>). </p>
 <p><strong>main/mainModule.js</strong></p>
-<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
+<pre><code class="lang-javascript"><span class="hljs-comment">/*global define */</span>
 define([
-    <span class="string">'sandbox!main'</span>,
-    <span class="string">'app/main/viewmodels/mainViewModel'</span>,
-    <span class="string">'views!main'</span>,
-    <span class="string">'bindings!main'</span>,
-    <span class="string">'styles!main'</span>
-], <span class="function"><span class="keyword">function</span> <span class="params">(
+    <span class="hljs-string">'sandbox!main'</span>,
+    <span class="hljs-string">'app/main/viewmodels/mainViewModel'</span>,
+    <span class="hljs-string">'views!main'</span>,
+    <span class="hljs-string">'bindings!main'</span>,
+    <span class="hljs-string">'styles!main'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
     sandbox,
     mainViewModel
 )</span> {</span>
-    <span class="string">'use strict'</span>;
+<span class="hljs-pi">    'use strict'</span>;
 
-    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span><span class="params">()</span> {</span>
-        <span class="keyword">var</span> <span class="comment">// imports</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
             root = sandbox.mvvm.root,
             template = sandbox.mvvm.template,
             registerStates = sandbox.state.registerStates,
             state = sandbox.state.builder.state,
             onEntry = sandbox.state.builder.onEntry,
-            <span class="comment">// vars</span>
+            <span class="hljs-comment">// vars</span>
             mainVM = mainViewModel();
 
-        <span class="comment">// Register application state for the module.</span>
-        registerStates(<span class="string">'root'</span>,
-            state(<span class="string">'app'</span>,
-                state(<span class="string">'main'</span>,
-                    onEntry(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-                        <span class="comment">// create state properties for rendering todo module templates</span>
-                        <span class="keyword">this</span>.todoItems = mainVM.todoItems;
-                        <span class="keyword">this</span>.todoInput = mainVM.todoInput;
-                        <span class="comment">// Render viewModel using 'main_template' template </span>
-                        <span class="comment">// (defined in main.html) and show it in the `root` region.</span>
-                        root(template(<span class="string">'main_template'</span>, mainVM));
+        <span class="hljs-comment">// Register application state for the module.</span>
+        registerStates(<span class="hljs-string">'root'</span>,
+            state(<span class="hljs-string">'app'</span>,
+                state(<span class="hljs-string">'main'</span>,
+                    onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+                        <span class="hljs-comment">// create state properties for rendering todo module templates</span>
+                        <span class="hljs-keyword">this</span>.todoItems = mainVM.todoItems;
+                        <span class="hljs-keyword">this</span>.todoInput = mainVM.todoInput;
+                        <span class="hljs-comment">// Render viewModel using 'main_template' template </span>
+                        <span class="hljs-comment">// (defined in main.html) and show it in the `root` region.</span>
+                        root(template(<span class="hljs-string">'main_template'</span>, mainVM));
                     }))));
     };
-});</code></pre>
+});
+</code></pre>
 <p><em>Note: We renamed</em> <code>viewModel</code> <em>to</em> <code>mainVM</code> <em>to avoid ambiguity</em></p>
 <p>Recall that when we created the <code>todoItems</code> and <code>todoInput</code> properties, we assign them to an empty observable. 
 These observables can now be accessed and updated by another module, but <em>main</em> doesn&#39;t know anything about this 
@@ -264,15 +268,16 @@ From the Add New Item window, search for <em>scalejs</em> and select the
 <p><img src="./module1.png" alt="Creating a new Module"></p>
 <p>Once we create a module we need include it in the <strong>app.js</strong> file by appending a comma and the name of the module
 to the <code>scalejs!application</code> argument within the <code>require</code> function.</p>
-<pre><code class="lang-javascript">require([
-    <span class="string">'scalejs!application/main,todo'</span>
-], <span class="function"><span class="keyword">function</span> <span class="params">(
+<pre><code class="lang-javascript"><span class="hljs-built_in">require</span>([
+    <span class="hljs-string">'scalejs!application/main,todo'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
     application
 )</span> {</span>
-    <span class="string">'use strict'</span>;
+<span class="hljs-pi">    'use strict'</span>;
 
     application.run();
-});</code></pre>
+});
+</code></pre>
 <p>This will not allow the todo module to work as intended as <strong>todoModule.js</strong> is generated by the item template, 
 but it needs to be modified slightly so that we are adding the todo state to the correct parent state.</p>
 <p>!!SHOW CODE!!</p>
@@ -284,14 +289,15 @@ the app can only be in either the <em>main</em> state or the <em>todo</em> state
 <p><img src="./statechart1.png" alt="Bad statechart"></p>
 <p>To remedy this, we can make <em>todo</em> a child of the <em>main</em> state by changing the statechart in <strong>todoModule.js</strong>.</p>
 <p><strong>todo/todoModule.js</strong></p>
-<pre><code class="lang-javascript">        registerStates(<span class="string">'main'</span>,
-            state(<span class="string">'todo'</span>,
-                onEntry(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-                    <span class="comment">// Render viewModel using 'main_template' template </span>
-                    <span class="comment">// (defined in main.html) and show it in the `root` region.</span>
-                    todo.text(<span class="string">'Hello World from todo!'</span>);
-                    root(template(<span class="string">'todo_template'</span>, todo));
-                })));</code></pre>
+<pre><code class="lang-javascript">        registerStates(<span class="hljs-string">'main'</span>,
+            state(<span class="hljs-string">'todo'</span>,
+                onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+                    <span class="hljs-comment">// Render viewModel using 'main_template' template </span>
+                    <span class="hljs-comment">// (defined in main.html) and show it in the `root` region.</span>
+                    todo.text(<span class="hljs-string">'Hello World from todo!'</span>);
+                    root(template(<span class="hljs-string">'todo_template'</span>, todo));
+                })));
+</code></pre>
 <p>Now we have created this statechart.</p>
 <p>!!REPLACE THIS PICTURE!!</p>
 <p><img src="./statechart2" alt="Good Statechart"></p>
@@ -302,68 +308,70 @@ todo list, and the other for the todo input.</p>
 <p>The template for the list is a little more complex than the
 one for main. For now, we won&#39;t add any bindings; we will do that as we add functionality.</p>
 <p>For now all we need to do is define the template so they can be rendered in the <code>todoItems</code> and <code>todoInput</code> regions defined in the <em>main</em> view above.</p>
-<pre><code class="lang-xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"todo_items_template"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"main"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"toggle-all"</span> <span class="attribute">type</span>=<span class="value">"checkbox"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">label</span> <span class="attribute">for</span>=<span class="value">"toggle-all"</span>&gt;</span>Mark all as complete<span class="tag">&lt;/<span class="title">label</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"todo-list"</span>&gt;</span>
-            <span class="comment">&lt;!-- These are here just to show the structure of the list items --&gt;</span>
-            <span class="comment">&lt;!-- List items should get the class `editing` when editing and `completed` when marked as completed --&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span> <span class="attribute">class</span>=<span class="value">"completed"</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"view"</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"toggle"</span> <span class="attribute">type</span>=<span class="value">"checkbox"</span> <span class="attribute">checked</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">label</span>&gt;</span>Create a TodoMVC template<span class="tag">&lt;/<span class="title">label</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"destroy"</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-                <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"edit"</span> <span class="attribute">value</span>=<span class="value">"Create a TodoMVC template"</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"view"</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"toggle"</span> <span class="attribute">type</span>=<span class="value">"checkbox"</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">label</span>&gt;</span>Rule the web<span class="tag">&lt;/<span class="title">label</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"destroy"</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-                <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"edit"</span> <span class="attribute">value</span>=<span class="value">"Rule the web"</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">section</span>&gt;</span>
-    <span class="comment">&lt;!-- This footer should hidden by default and shown when there are todos --&gt;</span>
-    <span class="tag">&lt;<span class="title">footer</span> <span class="attribute">id</span>=<span class="value">"footer"</span>&gt;</span>
-        <span class="comment">&lt;!-- This should be `0 items left` by default --&gt;</span>
-        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">id</span>=<span class="value">"todo-count"</span>&gt;</span><span class="tag">&lt;<span class="title">strong</span>&gt;</span>1<span class="tag">&lt;/<span class="title">strong</span>&gt;</span> item left<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
-        <span class="comment">&lt;!-- Remove this if you don't implement routing --&gt;</span>
-        <span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"filters"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">a</span> <span class="attribute">class</span>=<span class="value">"selected"</span> <span class="attribute">href</span>=<span class="value">"#/"</span>&gt;</span>All<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#/active"</span>&gt;</span>Active<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#/completed"</span>&gt;</span>Completed<span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-        <span class="comment">&lt;!-- Hidden if no completed items are left --&gt;</span>
-        <span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"clear-completed"</span>&gt;</span>Clear completed (1)<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">footer</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"toggle-all"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"toggle-all"</span>&gt;</span>Mark all as complete<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo-list"</span>&gt;</span>
+            <span class="hljs-comment">&lt;!-- These are here just to show the structure of the list items --&gt;</span>
+            <span class="hljs-comment">&lt;!-- List items should get the class `editing` when editing and `completed` when marked as completed --&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"completed"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"view"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"toggle"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span> <span class="hljs-attribute">checked</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">label</span>&gt;</span>Create a TodoMVC template<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"destroy"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"edit"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"Create a TodoMVC template"</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"view"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"toggle"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">label</span>&gt;</span>Rule the web<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"destroy"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"edit"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"Rule the web"</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">section</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- This footer should hidden by default and shown when there are todos --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">footer</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"footer"</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- This should be `0 items left` by default --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo-count"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">strong</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-title">strong</span>&gt;</span> item left<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- Remove this if you don't implement routing --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"filters"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"selected"</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"#/"</span>&gt;</span>All<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"#/active"</span>&gt;</span>Active<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"#/completed"</span>&gt;</span>Completed<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- Hidden if no completed items are left --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"clear-completed"</span>&gt;</span>Clear completed (1)<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">footer</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"todo_input_template"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"new-todo"</span> <span class="attribute">placeholder</span>=<span class="value">"What needs to be done?"</span> <span class="attribute">autofocus</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_input_template"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"new-todo"</span> <span class="hljs-attribute">placeholder</span>=<span class="hljs-value">"What needs to be done?"</span> <span class="hljs-attribute">autofocus</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
 <p>In the boilerplate code for the <em>todo</em> state we are passing the template (which no longer have defined within our view) to the
 <code>root</code> which is wrong. It will cause the whole root element to be rendered to that view.
  Instead we should be passing the <code>todo_items_template</code> and the <code>todo_input_template</code> 
 into the <code>todoItems</code> and <code>todoInput</code> observables we defined in the <em>main</em> state.</p>
 <p><strong>todo/todoModule.js</strong></p>
-<pre><code class="lang-javascript">        registerStates(<span class="string">'main'</span>,
-            state(<span class="string">'todo'</span>,
-                onEntry(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-                    <span class="comment">// pass the template bindings to the appropriate property</span>
-                    <span class="keyword">this</span>.todoItems(template(<span class="string">'todo_items_template'</span>, todo));
-                    <span class="keyword">this</span>.todoInput(template(<span class="string">'todo_input_template'</span>, todo));
+<pre><code class="lang-javascript">        registerStates(<span class="hljs-string">'main'</span>,
+            state(<span class="hljs-string">'todo'</span>,
+                onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+                    <span class="hljs-comment">// pass the template bindings to the appropriate property</span>
+                    <span class="hljs-keyword">this</span>.todoItems(template(<span class="hljs-string">'todo_items_template'</span>, todo));
+                    <span class="hljs-keyword">this</span>.todoInput(template(<span class="hljs-string">'todo_input_template'</span>, todo));
                 })));
-});</code></pre>
+});
+</code></pre>
 <p>This is all you need to display the <em>todo</em> module in your app. Now if you refresh
 your browser you will see a static version of the <em>todo</em> module. </p>
 <p><img src="./todo1.png" alt="A Useless Web App!"></p>
@@ -382,45 +390,48 @@ Like with <code>observables</code>, if you are familiar with knockout.js this sh
 learn about them in more detail <a href="./mvvm.html#obseravles">here</a> and also on <a href="linktowebsite">knockout&#39;s website</a>.
 Since this is a requirement for the functionality of the <em>todo</em> module it must be declared in the ViewModel.</p>
 <p><strong>todo/viewmodels/todoViewModel.js</strong></p>
-<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
+<pre><code class="lang-javascript"><span class="hljs-comment">/*global define */</span>
 define([
-    <span class="string">'sandbox!todo'</span>
-], <span class="function"><span class="keyword">function</span> <span class="params">(
+    <span class="hljs-string">'sandbox!todo'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
     sandbox
 )</span> {</span>
-    <span class="string">'use strict'</span>;
+<span class="hljs-pi">    'use strict'</span>;
 
-    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-        <span class="keyword">var</span> observableArray = sandbox.mvvm.observableArray,
-            <span class="comment">//properties</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> observableArray = sandbox.mvvm.observableArray,
+            <span class="hljs-comment">//properties</span>
             items = observableArray();
 
-        <span class="keyword">return</span> {
+        <span class="hljs-keyword">return</span> {
             items: items
         };
     };
-});</code></pre>
+});
+</code></pre>
 <p>We need to hide <code>#main</code> and <code>#footer</code> if this array is empty. 
 We can do this by defining a special data-class. 
 To add a data-class to an element in your template is very simple and straightforward. 
 We will add the data-class <code>todo-visible</code> in the <code>todo_items_template</code>.</p>
 <p><strong>todo/views/todo.html</strong></p>
-<pre><code class="lang-xml"><span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"main"</span> <span class="attribute">data-class</span>=<span class="value">"todo-visible"</span>&gt;</span>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-visible"</span>&gt;</span>
 ...
-<span class="tag">&lt;<span class="title">footer</span> <span class="attribute">id</span>=<span class="value">"footer"</span> <span class="attribute">data-class</span>=<span class="value">"todo-visible"</span>&gt;</span></code></pre>
+<span class="hljs-tag">&lt;<span class="hljs-title">footer</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"footer"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-visible"</span>&gt;</span>
+</code></pre>
 <p>The reason we use data-class instead of data-bind is so that we do not have to include complicated
 JavaScript within the html of our app. We can define the data-class in our bindings file.</p>
 <p>Now we can define the logic behind the <code>todo-visible</code> data-class in <strong>todoBindings.js</strong>.</p>
 <p><strong>todo/bindings/todoBindings.js</strong></p>
-<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
-<span class="comment">/*jslint sloppy: true*/</span>
+<pre><code class="lang-javascript"><span class="hljs-comment">/*global define */</span>
+<span class="hljs-comment">/*jslint sloppy: true*/</span>
 define({
-    <span class="string">'todo-visible'</span>: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-        <span class="keyword">return</span> {
-            visible: <span class="keyword">this</span>.items().length &gt; <span class="number">0</span>
+    <span class="hljs-string">'todo-visible'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">return</span> {
+            visible: <span class="hljs-keyword">this</span>.items().length &gt; <span class="hljs-number">0</span>
         };
     }
-});</code></pre>
+});
+</code></pre>
 <p>After saving these files, refresh the browsers to observe the appropriate divs being hidden.</p>
 <p><img src="./todohidden.png" alt="Nothing to do!"></p>
 <h3 id="adding-a-new-todo">Adding a new todo</h3>
@@ -428,27 +439,28 @@ define({
 For this functionality, we need to bind the input to a new property of the viewmodel which will be implemented
 using an observable. Let&#39;s call it <code>newItem</code>.</p>
 <p><strong>todo/viewmodels/todoViewModel.js</strong></p>
-<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
+<pre><code class="lang-javascript"><span class="hljs-comment">/*global define */</span>
 define([
-    <span class="string">'sandbox!todo'</span>
-], <span class="function"><span class="keyword">function</span> <span class="params">(
+    <span class="hljs-string">'sandbox!todo'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
     sandbox
 )</span> {</span>
-    <span class="string">'use strict'</span>;
+<span class="hljs-pi">    'use strict'</span>;
 
-    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-        <span class="keyword">var</span> observable = sandbox.mvvm.observable,
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> observable = sandbox.mvvm.observable,
             observableArray = sandbox.mvvm.observableArray,
-            <span class="comment">//properties</span>
+            <span class="hljs-comment">//properties</span>
             items = observableArray(),
             newItem = observable();
 
-        <span class="keyword">return</span> {
+        <span class="hljs-keyword">return</span> {
             items: items,
             newItem: newItem
         };
     };
-});</code></pre>
+});
+</code></pre>
 <p><code>newItem</code> must be bound to the <em>value</em> binding of the input box so that as the user types,
 the observale gets updated with what they type. We also need to instruct this observable
 to update whenever a user hits a key (<code>afterkeydown</code> event) and to listen for the
@@ -458,26 +470,28 @@ to it and name the data-class <code>todo-input</code>. This time, we are using a
 there are so many bindings on this element and it will be cleaner to define
 them outside of the html.</p>
 <p><strong>todo/views/todo.html</strong></p>
-<pre><code class="lang-xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"todo_input_template"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"new-todo"</span> <span class="attribute">data-class</span>=<span class="value">"todo-input"</span> <span class="attribute">placeholder</span>=<span class="value">"What needs to be done?"</span> <span class="attribute">autofocus</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_input_template"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"new-todo"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-input"</span> <span class="hljs-attribute">placeholder</span>=<span class="hljs-value">"What needs to be done?"</span> <span class="hljs-attribute">autofocus</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
 <p>Similarly to <code>todo-visible</code>, we must add a definition for this class in <strong>todoBindings.js</strong></p>
 <p><strong>todo/bindings/todoBindings.html</strong></p>
-<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
-<span class="comment">/*jslint sloppy: true*/</span>
+<pre><code class="lang-javascript"><span class="hljs-comment">/*global define */</span>
+<span class="hljs-comment">/*jslint sloppy: true*/</span>
 define({
-    <span class="string">'todo-visible'</span>: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-        <span class="keyword">return</span> {
-            visible: <span class="keyword">this</span>.items().length &gt; <span class="number">0</span>
+    <span class="hljs-string">'todo-visible'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">return</span> {
+            visible: <span class="hljs-keyword">this</span>.items().length &gt; <span class="hljs-number">0</span>
         };
     },
-    <span class="string">'todo-input'</span>: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-        <span class="keyword">return</span> {
-            value: <span class="keyword">this</span>.newItem,
-            valueUpdate: <span class="string">'afterkeydown'</span>
+    <span class="hljs-string">'todo-input'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">return</span> {
+            value: <span class="hljs-keyword">this</span>.newItem,
+            valueUpdate: <span class="hljs-string">'afterkeydown'</span>
         };
     }
-});</code></pre>
+});
+</code></pre>
 <p>With these bindings, we are listening for user input and updating <code>newItem</code> whenever
 the user presses a key.</p>
 <p>You might be wondering a few things about how <a href="./bindings.html">bindings</a> work.
@@ -491,61 +505,62 @@ data-class belongs to by looking at its class name.</p>
 <p>Now we need to add the logic so that when one presses enter a new todo is added to the list. 
 First lets create a function in <strong>todoViewModel.js</strong> to do so. We will call it <code>addItem</code>.</p>
 <p><strong>todo/viewmodels/todoViewModel.js</strong></p>
-<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
+<pre><code class="lang-javascript"><span class="hljs-comment">/*global define */</span>
 define([
-    <span class="string">'sandbox!todo'</span>
-], <span class="function"><span class="keyword">function</span> <span class="params">(
+    <span class="hljs-string">'sandbox!todo'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
     sandbox
 )</span> {</span>
-    <span class="string">'use strict'</span>;
+<span class="hljs-pi">    'use strict'</span>;
 
-    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-        <span class="keyword">var</span> observable = sandbox.mvvm.observable,
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> observable = sandbox.mvvm.observable,
             observableArray = sandbox.mvvm.observableArray,
             has = sandbox.object.has,
-            <span class="comment">//properties</span>
+            <span class="hljs-comment">//properties</span>
             items = observableArray(),
             newItem = observable();
 
-        <span class="function"><span class="keyword">function</span> <span class="title">addItem</span><span class="params">()</span> {</span>
-            <span class="keyword">var</span> item = newItem();
-            <span class="keyword">if</span> (has(item, <span class="string">"trim"</span>) &amp;&amp; item.trim()) {
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addItem</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> item = newItem();
+            <span class="hljs-keyword">if</span> (has(item, <span class="hljs-string">"trim"</span>) &amp;&amp; item.trim()) {
                 items.push(item.trim());
             }
-            newItem(<span class="string">""</span>);
+            newItem(<span class="hljs-string">""</span>);
         }
 
-        <span class="keyword">return</span> {
+        <span class="hljs-keyword">return</span> {
             items: items,
             newItem: newItem,
             addItem: addItem
         };
     };
-});</code></pre>
+});
+</code></pre>
 <p>In <code>addItem</code> we use the <a href="./api.html#has">has</a> function so
 be sure to include it from the sandbox. <code>has</code> can be found in the <code>object</code> namespace and we
 use it to make sure that the item has the <code>trim</code> function before we attempt to call it.</p>
 <p>The next step is making sure this function gets called when the user hits enter. We can do that by defining an
 event binding in the <code>todo-input</code> data-class we defined from before.</p>
 <p><strong>todo/bindings/todoBindings.js</strong></p>
-<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
-<span class="comment">/*jslint sloppy: true,unparam: true*/</span>
-define(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-    <span class="keyword">var</span> ENTER_KEY = <span class="number">13</span>;
-    <span class="keyword">return</span> {
-        <span class="string">'todo-visible'</span>: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-            <span class="keyword">return</span> {
-                visible: <span class="keyword">this</span>.items().length &gt; <span class="number">0</span>
+<pre><code class="lang-javascript"><span class="hljs-comment">/*global define */</span>
+<span class="hljs-comment">/*jslint sloppy: true,unparam: true*/</span>
+define(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+    <span class="hljs-keyword">var</span> ENTER_KEY = <span class="hljs-number">13</span>;
+    <span class="hljs-keyword">return</span> {
+        <span class="hljs-string">'todo-visible'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">return</span> {
+                visible: <span class="hljs-keyword">this</span>.items().length &gt; <span class="hljs-number">0</span>
             };
         },
-        <span class="string">'todo-input'</span>: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-            <span class="keyword">var</span> addItem = <span class="keyword">this</span>.addItem;
-            <span class="keyword">return</span> {
-                value: <span class="keyword">this</span>.newItem,
-                valueUpdate: <span class="string">'afterkeydown'</span>,
+        <span class="hljs-string">'todo-input'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> addItem = <span class="hljs-keyword">this</span>.addItem;
+            <span class="hljs-keyword">return</span> {
+                value: <span class="hljs-keyword">this</span>.newItem,
+                valueUpdate: <span class="hljs-string">'afterkeydown'</span>,
                 event: {
-                    keyup: <span class="function"><span class="keyword">function</span> <span class="params">(data, e)</span> {</span>
-                        <span class="keyword">if</span> (e.keyCode === ENTER_KEY) {
+                    keyup: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(data, e)</span> {</span>
+                        <span class="hljs-keyword">if</span> (e.keyCode === ENTER_KEY) {
                             addItem();
                         }
                     }
@@ -553,7 +568,8 @@ define(<span class="function"><span class="keyword">function</span> <span class=
             };
         }
     };
-});</code></pre>
+});
+</code></pre>
 <p>Since we defined a function for the event, we lost the context of the outer function so we 
 cannot use <code>this</code> to get our viewModel properties. To fix this we define a var at the top of the data-class
 with the same name as the function 
@@ -571,20 +587,21 @@ We can bind the <code>ul</code> element to the items array using the <code>forea
 of the <code>ul</code> will be repeated for each item in the list, with the item providing the 
 context for the binding.</p>
 <p><strong>todo/views/todo.html</strong></p>
-<pre><code class="lang-xml">    <span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"main"</span> <span class="attribute">data-class</span>=<span class="value">"todo-visible"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"toggle-all"</span> <span class="attribute">type</span>=<span class="value">"checkbox"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">label</span> <span class="attribute">for</span>=<span class="value">"toggle-all"</span>&gt;</span>Mark all as complete<span class="tag">&lt;/<span class="title">label</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"todo-list"</span> <span class="attribute">data-bind</span>=<span class="value">"foreach: items"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span> <span class="attribute">class</span>=<span class="value">"completed"</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"view"</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"toggle"</span> <span class="attribute">type</span>=<span class="value">"checkbox"</span> <span class="attribute">checked</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">label</span> <span class="attribute">data-bind</span>=<span class="value">"text: $data"</span>&gt;</span><span class="tag">&lt;/<span class="title">label</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"destroy"</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-                <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"edit"</span> <span class="attribute">value</span>=<span class="value">"Create a TodoMVC template"</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">section</span>&gt;</span></code></pre>
+<pre><code class="lang-xml">    <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-visible"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"toggle-all"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"toggle-all"</span>&gt;</span>Mark all as complete<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo-list"</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"foreach: items"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"completed"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"view"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"toggle"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span> <span class="hljs-attribute">checked</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"text: $data"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"destroy"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"edit"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"Create a TodoMVC template"</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">section</span>&gt;</span>
+</code></pre>
 <p>Instead of using a data-class we just used a <code>data-bind</code> attribute like we did in the <code>main_template</code> with <code>render</code>. 
 <code>foreach</code> is a knockout binding which will take the contents of the div and render it as a template for each
 item within the array <code>foreach</code> is bound to. You can learn more about it <a href="http://knockoutjs.com/documentation/foreach-binding.html">here</a></p>
@@ -595,27 +612,29 @@ as completed only when it is completed. To do this, we need to alter the item so
 it is an object with two properties: <code>title</code> and <code>completed</code>.. 
 In <strong>todoViewModel.js</strong> make the following change to the item when it is pushed to the items array.</p>
 <p><strong>todo/viewmodels/todoViewModel.js</strong></p>
-<pre><code class="lang-javascript">        <span class="function"><span class="keyword">function</span> <span class="title">addItem</span><span class="params">()</span> {</span>
-            <span class="keyword">var</span> item = newItem();
-            <span class="keyword">if</span> (has(item, <span class="string">"trim"</span>) &amp;&amp; item.trim()) {
+<pre><code class="lang-javascript">        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addItem</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> item = newItem();
+            <span class="hljs-keyword">if</span> (has(item, <span class="hljs-string">"trim"</span>) &amp;&amp; item.trim()) {
                 items.push({
                     title: item.trim(),
-                    completed: observable(<span class="literal">false</span>)
+                    completed: observable(<span class="hljs-literal">false</span>)
                 });
             }
-            newItem(<span class="string">""</span>);
-        }</code></pre>
+            newItem(<span class="hljs-string">""</span>);
+        }
+</code></pre>
 <p>In <code>todo_items_template</code> also edit the li element so that it is being bound to the title
 and the completed properties.</p>
 <p><strong>todo/views/todo.html</strong></p>
-<pre><code class="lang-xml">            <span class="tag">&lt;<span class="title">li</span> <span class="attribute">data-bind</span>=<span class="value">"css: { completed: completed }"</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"view"</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"toggle"</span> <span class="attribute">type</span>=<span class="value">"checkbox"</span> <span class="attribute">data-bind</span>=<span class="value">"checked: completed"</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">label</span> <span class="attribute">data-bind</span>=<span class="value">"text: title"</span>&gt;</span><span class="tag">&lt;/<span class="title">label</span>&gt;</span>
-                    <span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"destroy"</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-                <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"edit"</span> <span class="attribute">value</span>=<span class="value">"Create a TodoMVC template"</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">li</span>&gt;</span></code></pre>
+<pre><code class="lang-xml">            <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"css: { completed: completed }"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"view"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"toggle"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"checked: completed"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"text: title"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"destroy"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"edit"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"Create a TodoMVC template"</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+</code></pre>
 <p>Now the completed class is only added if the item&#39;s <code>completed</code>
 property is true. At the same time, we are also able to toggle this class on and off when we check or uncheck 
 the item because we have bound the checkbox input to the <code>checked</code> binding. Since <code>completed</code> is an observable, 
@@ -632,49 +651,50 @@ You can read more about computed properties <a href="linktocomputed">here</a>. <
 We can use this to react to the <code>items</code> and return true when they are all checked
 to indicate to the &#39;mark all as complete&#39; arrow that it should be &#39;checked&#39;</p>
 <p><strong>todo/viewmodels/todoViewModel.js</strong></p>
-<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
+<pre><code class="lang-javascript"><span class="hljs-comment">/*global define */</span>
 define([
-    <span class="string">'sandbox!todo'</span>
-], <span class="function"><span class="keyword">function</span> <span class="params">(
+    <span class="hljs-string">'sandbox!todo'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
     sandbox
 )</span> {</span>
-    <span class="string">'use strict'</span>;
+<span class="hljs-pi">    'use strict'</span>;
 
-    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-        <span class="keyword">var</span> observableArray = sandbox.mvvm.observableArray,
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> observableArray = sandbox.mvvm.observableArray,
             observable = sandbox.mvvm.observable,
             has = sandbox.object.has,
             computed = sandbox.mvvm.computed,
-            <span class="comment">//properties</span>
+            <span class="hljs-comment">//properties</span>
             items = observableArray(),
             newItem = observable(),
             checkAll;
 
-        <span class="function"><span class="keyword">function</span> <span class="title">addItem</span><span class="params">()</span> {</span>
-            <span class="keyword">var</span> item = newItem();
-            <span class="keyword">if</span> (has(item, <span class="string">"trim"</span>) &amp;&amp; item.trim()) {
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addItem</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> item = newItem();
+            <span class="hljs-keyword">if</span> (has(item, <span class="hljs-string">"trim"</span>) &amp;&amp; item.trim()) {
                 items.push({
                     title: item.trim(),
-                    completed: observable(<span class="literal">false</span>)
+                    completed: observable(<span class="hljs-literal">false</span>)
                 });
             }
-            newItem(<span class="string">""</span>);
+            newItem(<span class="hljs-string">""</span>);
         }
 
         checkAll = computed({
-            read: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-                <span class="keyword">return</span> items().all(<span class="string">"$.completed()"</span>);
+            read: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+                <span class="hljs-keyword">return</span> items().all(<span class="hljs-string">"$.completed()"</span>);
             }
         });
 
-        <span class="keyword">return</span> {
+        <span class="hljs-keyword">return</span> {
             items: items,
             newItem: newItem,
             addItem: addItem,
             checkAll: checkAll
         };
     };
-});</code></pre>
+});
+</code></pre>
 <p>An interesting thing to note about our implementation of the <code>read</code> function is that we
 are using the <code>all</code> function which we get from <a href="linktolinq">linq.js</a>. In JavaScript apps you need to
 manipulate arrays/lists/collections quite
@@ -682,7 +702,8 @@ often and therefore need more sophisticated functionality than what is provided 
 This is why we expose all of linq&#39;s functions on the Array&#39;s prototype. </p>
 <p>We bind the computed property to the <code>toggle-all</code> checkbox like so:</p>
 <p><strong>todo/views/todo.html</strong></p>
-<pre><code class="lang-xml"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"toggle-all"</span> <span class="attribute">type</span>=<span class="value">"checkbox"</span> <span class="attribute">data-bind</span>=<span class="value">"checked: checkAll"</span>&gt;</span></code></pre>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"toggle-all"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"checked: checkAll"</span>&gt;</span>
+</code></pre>
 <p>Now if you add a new item then mark it as complete, you will see the toggle-all 
 checkbox is darker (e.g. it is checked). This checkbox will be checked if and
 only if all the items in the list are checked. But if you click on this checkbox,
@@ -692,13 +713,14 @@ which will take whatever value it is given and apply it to all the items&#39; <c
 properties.</p>
 <p><strong>todo/viewmodels/todoViewModel.js</strong></p>
 <pre><code class="lang-javascript">        checkAll = computed({
-            read: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-                <span class="keyword">return</span> items().all(<span class="string">"$.completed()"</span>);
+            read: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+                <span class="hljs-keyword">return</span> items().all(<span class="hljs-string">"$.completed()"</span>);
             },
-            write: <span class="function"><span class="keyword">function</span> <span class="params">(value)</span> {</span>
-                items().forEach(<span class="function"><span class="keyword">function</span> <span class="params">(item)</span> {</span> item.completed(value); });
+            write: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(value)</span> {</span>
+                items().forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> {</span> item.completed(value); });
             }
-        });</code></pre>
+        });
+</code></pre>
 <p>Now your app can mark/unmark all items as completed. Save and refresh to see it
 in action.</p>
 <h3 id="editing-a-todo">Editing a todo</h3>
@@ -708,30 +730,32 @@ one or two bindings on an html element looks ugly. We will give it the <code>tod
 <p>We also need to add a data-class to the input element so that we can toggle editing on
 and off. We will call this the <code>todo-edit</code> class.</p>
 <p><strong>todo/views/todo.html</strong></p>
-<pre><code class="lang-xml">    <span class="tag">&lt;<span class="title">li</span> <span class="attribute">data-class</span>=<span class="value">"todo-item"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"view"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"toggle"</span> <span class="attribute">type</span>=<span class="value">"checkbox"</span> <span class="attribute">data-bind</span>=<span class="value">"checked: completed"</span> /&gt;</span>
-            <span class="tag">&lt;<span class="title">label</span> <span class="attribute">data-bind</span>=<span class="value">"text: title"</span>&gt;</span><span class="tag">&lt;/<span class="title">label</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"destroy"</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">input</span> <span class="attribute">class</span>=<span class="value">"edit"</span> <span class="attribute">data-class</span>=<span class="value">"todo-edit"</span> /&gt;</span>
-    <span class="tag">&lt;/<span class="title">li</span>&gt;</span></code></pre>
+<pre><code class="lang-xml">    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-item"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"view"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"toggle"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"checked: completed"</span> /&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"text: title"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"destroy"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"edit"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-edit"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+</code></pre>
 <p>In the <code>todo-item</code> data-class, not only do we need to repeat the binding we had previously
 defined inline in the html, we also need to apply an <code>editing</code> class if the item is being 
 edited. We begin editing an item when we double-click on an item, so we also bind a function 
 called <code>beginEdit</code> to this event.</p>
 <p><strong>todo/bindings/todoBindings.html</strong></p>
-<pre><code class="lang-javascript">    <span class="string">'todo-item'</span>: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-            <span class="keyword">return</span> {
+<pre><code class="lang-javascript">    <span class="hljs-string">'todo-item'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">return</span> {
                 css: {
-                    completed: <span class="keyword">this</span>.completed,
-                    editing: <span class="keyword">this</span>.editMode
+                    completed: <span class="hljs-keyword">this</span>.completed,
+                    editing: <span class="hljs-keyword">this</span>.editMode
                 },
                 event: {
-                    dblclick: <span class="keyword">this</span>.beginEdit
+                    dblclick: <span class="hljs-keyword">this</span>.beginEdit
                 }
             };
-        },</code></pre>
+        },
+</code></pre>
 <p>Since the <code>li</code> element is bound to an item, this means we have created two new properties
 which need to be exposed on an item: <code>editMode</code> which is a boolean indicating if the item
 is currently being editted, and <code>beginEdit</code> which is a function which will begin editing
@@ -743,139 +767,143 @@ to implement functionality, so the wise thing to do is to move the item to its o
 Copy and paste the code below or follow the pattern that the <em>main</em> and <em>todo</em> viewmodels use,
 except do not declare any properties or return anything.</p>
 <p><strong>todo/viewmodels/itemViewModel.js</strong></p>
-<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
+<pre><code class="lang-javascript"><span class="hljs-comment">/*global define */</span>
 define([
-    <span class="string">'sandbox!todo'</span>
-], <span class="function"><span class="keyword">function</span> <span class="params">(
+    <span class="hljs-string">'sandbox!todo'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
     sandbox
 )</span> {</span>
-    <span class="string">'use strict'</span>;
+<span class="hljs-pi">    'use strict'</span>;
 
-    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
 
-        <span class="keyword">return</span> {
+        <span class="hljs-keyword">return</span> {
 
         };
     };
-});</code></pre>
+});
+</code></pre>
 <p>We will reference this viewmodel from the <strong>todoViewModel</strong> when we make a new item. 
 We need to pass to this viewmodel the title of the item and the status of its
 completion (when we create an item, it will always be false - but making
 this a parameter will come in handy when we implement persistance)</p>
 <p><strong>todo/viewmodels/todoViewModel.js</strong></p>
-<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
+<pre><code class="lang-javascript"><span class="hljs-comment">/*global define */</span>
 define([
-    <span class="string">'sandbox!todo'</span>,
-    <span class="string">'app/todo/viewmodels/itemViewModel'</span>
-], <span class="function"><span class="keyword">function</span> <span class="params">(
+    <span class="hljs-string">'sandbox!todo'</span>,
+    <span class="hljs-string">'app/todo/viewmodels/itemViewModel'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
     sandbox,
     itemViewModel
 )</span> {</span>
-    <span class="string">'use strict'</span>;
+<span class="hljs-pi">    'use strict'</span>;
 
-    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-        <span class="keyword">var</span> observableArray = sandbox.mvvm.observableArray,
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> observableArray = sandbox.mvvm.observableArray,
             observable = sandbox.mvvm.observable,
             has = sandbox.object.has,
             computed = sandbox.mvvm.computed,
-            <span class="comment">//properties</span>
+            <span class="hljs-comment">//properties</span>
             items = observableArray(),
             newItem = observable(),
             checkAll;
 
-        <span class="function"><span class="keyword">function</span> <span class="title">addItem</span><span class="params">()</span> {</span>
-            <span class="keyword">var</span> item = newItem();
-            <span class="keyword">if</span> (has(item, <span class="string">"trim"</span>) &amp;&amp; item.trim()) {
-                items.push(itemViewModel({ title: item, completed: <span class="literal">false</span> }));
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addItem</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> item = newItem();
+            <span class="hljs-keyword">if</span> (has(item, <span class="hljs-string">"trim"</span>) &amp;&amp; item.trim()) {
+                items.push(itemViewModel({ title: item, completed: <span class="hljs-literal">false</span> }));
             }
-            newItem(<span class="string">""</span>);
-        }</code></pre>
+            newItem(<span class="hljs-string">""</span>);
+        }
+</code></pre>
 <p>Now we can recreate the functionality from before, and also add the new properties <code>editMode</code> and <code>beginEdit</code></p>
 <p><strong>todo/viewmodels/itemViewModel.js</strong></p>
-<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
+<pre><code class="lang-javascript"><span class="hljs-comment">/*global define */</span>
 define([
-    <span class="string">'sandbox!todo'</span>
-], <span class="function"><span class="keyword">function</span> <span class="params">(
+    <span class="hljs-string">'sandbox!todo'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
     sandbox
 )</span> {</span>
-    <span class="string">'use strict'</span>;
+<span class="hljs-pi">    'use strict'</span>;
 
-    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">(item)</span> {</span>
-        <span class="keyword">var</span> observable = sandbox.mvvm.observable,
-            <span class="comment">//properties</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> {</span>
+        <span class="hljs-keyword">var</span> observable = sandbox.mvvm.observable,
+            <span class="hljs-comment">//properties</span>
             title = observable(item.title),
             completed = observable(item.completed),
-            editMode = observable(<span class="literal">false</span>);
+            editMode = observable(<span class="hljs-literal">false</span>);
 
-        <span class="function"><span class="keyword">function</span> <span class="title">beginEdit</span><span class="params">()</span> {</span>
-            editMode(<span class="literal">true</span>);
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">beginEdit</span><span class="hljs-params">()</span> {</span>
+            editMode(<span class="hljs-literal">true</span>);
         }
 
-        <span class="keyword">return</span> {
+        <span class="hljs-keyword">return</span> {
             title: title,
             completed: completed,
             editMode: editMode,
             beginEdit: beginEdit
         };
     };
-});</code></pre>
+});
+</code></pre>
 <p>This time, we made <code>title</code> an observable because when we are editing an item, presumably
 we will need to change its title. <code>beginEdit</code> simply sets the <code>editMode</code> observable to true.</p>
 <p>Beginning an edit is rather useless if we are unable to end it. To do this, we now will 
 define the data-class <code>todo-edit</code> to listen for user input, update the value of title, and
 end edit mode.</p>
 <p><strong>todo/bindings/todoBindings.js</strong></p>
-<pre><code class="lang-javascript">        <span class="string">'todo-edit'</span>: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-            <span class="keyword">var</span> item = <span class="keyword">this</span>;
+<pre><code class="lang-javascript">        <span class="hljs-string">'todo-edit'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> item = <span class="hljs-keyword">this</span>;
 
-            <span class="keyword">return</span> {
-                value: <span class="keyword">this</span>.title,
-                valueUpdate: <span class="string">'afterkeydown'</span>,
+            <span class="hljs-keyword">return</span> {
+                value: <span class="hljs-keyword">this</span>.title,
+                valueUpdate: <span class="hljs-string">'afterkeydown'</span>,
                 event: {
-                    keyup: <span class="function"><span class="keyword">function</span> <span class="params">(data, e)</span> {</span>
-                        <span class="keyword">if</span> (e.keyCode === ENTER_KEY) {
+                    keyup: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(data, e)</span> {</span>
+                        <span class="hljs-keyword">if</span> (e.keyCode === ENTER_KEY) {
                             item.endEdit();
                         }
                     }
                 },
-                hasFocus: <span class="keyword">this</span>.editMode
+                hasFocus: <span class="hljs-keyword">this</span>.editMode
             };
-        }</code></pre>
+        }
+</code></pre>
 <p><code>value</code> and <code>valueUpdate</code> should be ring a bell. <code>hasFocus</code> is bound to the <code>editMode</code> property
 so that when <code>editMode</code> is entered, the input automatically is given focus. <code>endEdit</code> still
 needs to be defined in order for this to come full-circle.</p>
 <p><strong>todo/viewmodels/itemViewModel.js</strong></p>
-<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
+<pre><code class="lang-javascript"><span class="hljs-comment">/*global define */</span>
 define([
-    <span class="string">'sandbox!todo'</span>
-], <span class="function"><span class="keyword">function</span> <span class="params">(
+    <span class="hljs-string">'sandbox!todo'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
     sandbox
 )</span> {</span>
-    <span class="string">'use strict'</span>;
+<span class="hljs-pi">    'use strict'</span>;
 
-    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">(item)</span> {</span>
-        <span class="keyword">var</span> observable = sandbox.mvvm.observable,
-            <span class="comment">//properties</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> {</span>
+        <span class="hljs-keyword">var</span> observable = sandbox.mvvm.observable,
+            <span class="hljs-comment">//properties</span>
             title = observable(item.title),
             completed = observable(item.completed),
-            editMode = observable(<span class="literal">false</span>);
+            editMode = observable(<span class="hljs-literal">false</span>);
 
-        <span class="function"><span class="keyword">function</span> <span class="title">beginEdit</span><span class="params">()</span> {</span>
-            editMode(<span class="literal">true</span>);
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">beginEdit</span><span class="hljs-params">()</span> {</span>
+            editMode(<span class="hljs-literal">true</span>);
         }
 
-        <span class="function"><span class="keyword">function</span> <span class="title">endEdit</span><span class="params">()</span> {</span>
-            <span class="keyword">var</span> newTitle = title().trim();
-            <span class="keyword">if</span> (newTitle) {
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">endEdit</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> newTitle = title().trim();
+            <span class="hljs-keyword">if</span> (newTitle) {
                 title(newTitle);
-                editMode(<span class="literal">false</span>);
-            } <span class="keyword">else</span> {
-                <span class="comment">//we need to remove the item</span>
-                <span class="comment">//if the title is an empty string</span>
+                editMode(<span class="hljs-literal">false</span>);
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-comment">//we need to remove the item</span>
+                <span class="hljs-comment">//if the title is an empty string</span>
             }
         }
 
-        <span class="keyword">return</span> {
+        <span class="hljs-keyword">return</span> {
             title: title,
             completed: completed,
             editMode: editMode,
@@ -883,7 +911,8 @@ define([
             endEdit: endEdit
         };
     };
-});</code></pre>
+});
+</code></pre>
 <p>Now you can edit an item by double clicking on it, entering a new title, and hitting &#39;enter&#39;. </p>
 <h3 id="removing-an-item">Removing an item</h3>
 <p>An item can be removed in two ways: by clicking on the &#39;x&#39; that appears when you move the mouse over it, or
@@ -894,40 +923,40 @@ a reference to the item. We can use this function to remove our items by calling
 However the itemViewModel does not have <code>items</code> so we must pass the <code>items</code> to the <code>itemViewModel</code> so
 we can access the remove function.</p>
 <p><strong>todo/viewmodels/itemViewModel.js</strong></p>
-<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
+<pre><code class="lang-javascript"><span class="hljs-comment">/*global define */</span>
 define([
-    <span class="string">'sandbox!todo'</span>
-], <span class="function"><span class="keyword">function</span> <span class="params">(
+    <span class="hljs-string">'sandbox!todo'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
     sandbox
 )</span> {</span>
-    <span class="string">'use strict'</span>;
+<span class="hljs-pi">    'use strict'</span>;
 
-    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">(item, items)</span> {</span>
-        <span class="keyword">var</span> observable = sandbox.mvvm.observable,
-            <span class="comment">//properties</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item, items)</span> {</span>
+        <span class="hljs-keyword">var</span> observable = sandbox.mvvm.observable,
+            <span class="hljs-comment">//properties</span>
             title = observable(item.title),
             completed = observable(item.completed),
-            editMode = observable(<span class="literal">false</span>);
+            editMode = observable(<span class="hljs-literal">false</span>);
 
-        <span class="function"><span class="keyword">function</span> <span class="title">beginEdit</span><span class="params">()</span> {</span>
-            editMode(<span class="literal">true</span>);
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">beginEdit</span><span class="hljs-params">()</span> {</span>
+            editMode(<span class="hljs-literal">true</span>);
         }
 
-        <span class="function"><span class="keyword">function</span> <span class="title">endEdit</span><span class="params">()</span> {</span>
-            <span class="keyword">var</span> newTitle = title().trim();
-            <span class="keyword">if</span> (newTitle) {
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">endEdit</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> newTitle = title().trim();
+            <span class="hljs-keyword">if</span> (newTitle) {
                 title(newTitle);
-                editMode(<span class="literal">false</span>);
-            } <span class="keyword">else</span> {
-                items.remove(<span class="keyword">this</span>);
+                editMode(<span class="hljs-literal">false</span>);
+            } <span class="hljs-keyword">else</span> {
+                items.remove(<span class="hljs-keyword">this</span>);
             }
         }
 
-        <span class="function"><span class="keyword">function</span> <span class="title">remove</span><span class="params">()</span> {</span>
-            items.remove(<span class="keyword">this</span>);
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">remove</span><span class="hljs-params">()</span> {</span>
+            items.remove(<span class="hljs-keyword">this</span>);
         }
 
-        <span class="keyword">return</span> {
+        <span class="hljs-keyword">return</span> {
             title: title,
             completed: completed,
             editMode: editMode,
@@ -936,19 +965,22 @@ define([
             remove: remove
         };
     };
-});</code></pre>
+});
+</code></pre>
 <p>Now we also need to modify the <strong>todoViewModel</strong> so that we are passing the items to the viewmodel.</p>
 <p><strong>todo/viewmodels/todoViewModel.js</strong></p>
-<pre><code class="lang-javascript">         <span class="function"><span class="keyword">function</span> <span class="title">addItem</span><span class="params">()</span> {</span>
-            <span class="keyword">var</span> item = newItem();
-            <span class="keyword">if</span> (has(item, <span class="string">"trim"</span>) &amp;&amp; item.trim()) {
-                items.push(itemViewModel({ title: item, completed: <span class="literal">false</span> }, items));
+<pre><code class="lang-javascript">         <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addItem</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> item = newItem();
+            <span class="hljs-keyword">if</span> (has(item, <span class="hljs-string">"trim"</span>) &amp;&amp; item.trim()) {
+                items.push(itemViewModel({ title: item, completed: <span class="hljs-literal">false</span> }, items));
             }
-            newItem(<span class="string">""</span>);
-        }</code></pre>
+            newItem(<span class="hljs-string">""</span>);
+        }
+</code></pre>
 <p>Now all we need to do is bind the &#39;x&#39; button in the view to this function</p>
 <p><strong>todo/views/todo.html</strong></p>
-<pre><code class="lang-xml"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">class</span>=<span class="value">"destroy"</span> <span class="attribute">data-bind</span>=<span class="value">"click: remove"</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span></code></pre>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"destroy"</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"click: remove"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+</code></pre>
 <p>When the <code>remove</code> function is called, it will have the item passed to it (this is default behavior),
 so it will work as expected. Refresh the page and try to remove an item if you do not believe me. 
 Do this by clicking on the x, or editing an item and making it an empty string.</p>
@@ -957,35 +989,35 @@ Do this by clicking on the x, or editing an item and making it an empty string.<
 in our itemViewModel which stores the current title when an edit begins. We also need to implement
 a <code>cancelEdit</code> function which will restore the previous title.</p>
 <p><strong>todo/viewmodels/itemViewModel.js</strong></p>
-<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
+<pre><code class="lang-javascript"><span class="hljs-comment">/*global define */</span>
 define([
-    <span class="string">'sandbox!todo'</span>
-], <span class="function"><span class="keyword">function</span> <span class="params">(
+    <span class="hljs-string">'sandbox!todo'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
     sandbox
 )</span> {</span>
-    <span class="string">'use strict'</span>;
+<span class="hljs-pi">    'use strict'</span>;
 
-    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">(item, items)</span> {</span>
-        <span class="keyword">var</span> observable = sandbox.mvvm.observable,
-            <span class="comment">//properties</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item, items)</span> {</span>
+        <span class="hljs-keyword">var</span> observable = sandbox.mvvm.observable,
+            <span class="hljs-comment">//properties</span>
             title = observable(item.title),
             completed = observable(item.completed),
-            editMode = observable(<span class="literal">false</span>),
+            editMode = observable(<span class="hljs-literal">false</span>),
             previousTitle;
 
-        <span class="function"><span class="keyword">function</span> <span class="title">beginEdit</span><span class="params">()</span> {</span>
-            previousTitle = <span class="keyword">this</span>.title();
-            editMode(<span class="literal">true</span>);
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">beginEdit</span><span class="hljs-params">()</span> {</span>
+            previousTitle = <span class="hljs-keyword">this</span>.title();
+            editMode(<span class="hljs-literal">true</span>);
         }
 
          ...
 
-        <span class="function"><span class="keyword">function</span> <span class="title">cancelEdit</span><span class="params">()</span> {</span>
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cancelEdit</span><span class="hljs-params">()</span> {</span>
             title(previousTitle);
-            editMode(<span class="literal">false</span>);
+            editMode(<span class="hljs-literal">false</span>);
         }
 
-        <span class="keyword">return</span> {
+        <span class="hljs-keyword">return</span> {
             title: title,
             completed: completed,
             editMode: editMode,
@@ -995,39 +1027,41 @@ define([
             cancelEdit: cancelEdit
         };
     };
-});</code></pre>
+});
+</code></pre>
 <p>Also we have to modify the binding to call &#39;cancelEdit&#39; if the user presses the <code>ESCAPE_KEY</code></p>
 <p><strong>todo/viewmodels/todoBindings.js</strong></p>
-<pre><code class="lang-javascript"><span class="comment">/*global define */</span>
-<span class="comment">/*jslint sloppy: true,unparam: true*/</span>
-define(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-    <span class="keyword">var</span> ENTER_KEY = <span class="number">13</span>,
-        ESCAPE_KEY = <span class="number">27</span>;
+<pre><code class="lang-javascript"><span class="hljs-comment">/*global define */</span>
+<span class="hljs-comment">/*jslint sloppy: true,unparam: true*/</span>
+define(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+    <span class="hljs-keyword">var</span> ENTER_KEY = <span class="hljs-number">13</span>,
+        ESCAPE_KEY = <span class="hljs-number">27</span>;
 
-    <span class="keyword">return</span> {
+    <span class="hljs-keyword">return</span> {
 
         ...
 
-        <span class="string">'todo-edit'</span>: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-            <span class="keyword">var</span> item = <span class="keyword">this</span>;
+        <span class="hljs-string">'todo-edit'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> item = <span class="hljs-keyword">this</span>;
 
-            <span class="keyword">return</span> {
-                value: <span class="keyword">this</span>.title,
-                valueUpdate: <span class="string">'afterkeydown'</span>,
+            <span class="hljs-keyword">return</span> {
+                value: <span class="hljs-keyword">this</span>.title,
+                valueUpdate: <span class="hljs-string">'afterkeydown'</span>,
                 event: {
-                    keyup: <span class="function"><span class="keyword">function</span> <span class="params">(data, e)</span> {</span>
-                        <span class="keyword">if</span> (e.keyCode === ENTER_KEY) {
+                    keyup: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(data, e)</span> {</span>
+                        <span class="hljs-keyword">if</span> (e.keyCode === ENTER_KEY) {
                             item.endEdit();
-                        } <span class="keyword">else</span> <span class="keyword">if</span> (e.keyCode === ESCAPE_KEY) {
+                        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (e.keyCode === ESCAPE_KEY) {
                             item.cancelEdit();
                         }
                     }
                 },
-                hasFocus: <span class="keyword">this</span>.editMode
+                hasFocus: <span class="hljs-keyword">this</span>.editMode
             };
         }
     };
-});</code></pre>
+});
+</code></pre>
 <p>This can be tested by editing an item and instead of hitting the enter key, hit the escape key. 
 The previous title will be restored.</p>
 <p>There are still some issues with the view not displaying the correct data so this is next on our list.</p>
@@ -1038,24 +1072,27 @@ to bind something without introducing a new parent div. We will define a data-cl
 which will display the gramatically correct form of &#39;items&#39; based on the #. We will bind the <code>&lt;strong&gt;</code> element
 directly to the number of items (e.g. <code>length</code>)</p>
 <p><strong>todo/views/todo.html</strong></p>
-<pre><code class="lang-xml">        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">id</span>=<span class="value">"todo-count"</span>&gt;</span><span class="tag">&lt;<span class="title">strong</span> <span class="attribute">data-bind</span>=<span class="value">"text: items().length"</span>&gt;</span><span class="tag">&lt;/<span class="title">strong</span>&gt;</span>
-            <span class="comment">&lt;!-- ko class:todo-count-text --&gt;</span>
-            <span class="comment">&lt;!-- /ko --&gt;</span>
-        <span class="tag">&lt;/<span class="title">span</span>&gt;</span></code></pre>
+<pre><code class="lang-xml">        <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo-count"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">strong</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"text: items().length"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">strong</span>&gt;</span>
+            <span class="hljs-comment">&lt;!-- ko class:todo-count-text --&gt;</span>
+            <span class="hljs-comment">&lt;!-- /ko --&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+</code></pre>
 <p><code>todo-count-text</code> needs to be defined:</p>
 <p><strong>todo/bindings/todoBindings.js</strong></p>
-<pre><code class="lang-javascript">        <span class="string">'todo-count-text'</span>: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-            <span class="keyword">return</span> {
-                text: (<span class="keyword">this</span>.items().length === <span class="number">1</span> ? <span class="string">'item'</span> : <span class="string">'items'</span>) + <span class="string">' left'</span>
+<pre><code class="lang-javascript">        <span class="hljs-string">'todo-count-text'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">return</span> {
+                text: (<span class="hljs-keyword">this</span>.items().length === <span class="hljs-number">1</span> ? <span class="hljs-string">'item'</span> : <span class="hljs-string">'items'</span>) + <span class="hljs-string">' left'</span>
             };
-        }</code></pre>
+        }
+</code></pre>
 <p>Now the count has been implemented:</p>
 <p><img src="./count.png" alt="Now I know how many items there are!"></p>
 <h3 id="clear-completed">Clear completed</h3>
 <p>We will introduce a new data-class, <code>todo-clear-completed</code>, to allow the users to clear all of the
 completed items with just one click.</p>
 <p><strong>todo/views/todo.html</strong></p>
-<pre><code class="lang-xml">        <span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"clear-completed"</span> <span class="attribute">data-class</span>=<span class="value">"todo-clear-completed"</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span></code></pre>
+<pre><code class="lang-xml">        <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"clear-completed"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-clear-completed"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+</code></pre>
 <p>This data class needs to support 3 things:</p>
 <ul>
 <li>Hide the element if there are no completed items</li>
@@ -1064,55 +1101,56 @@ completed items with just one click.</p>
 </ul>
 <p>We implement the binding like so:</p>
 <p><strong>todo/bindings/todoBindings.js</strong></p>
-<pre><code class="lang-javascript">        <span class="string">'todo-clear-completed'</span>: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-            <span class="keyword">return</span> {
-                visible: <span class="keyword">this</span>.completedItems().length &gt; <span class="number">0</span>,
-                text: <span class="string">'Clear completed ('</span> + <span class="keyword">this</span>.completedItems().length + <span class="string">')'</span>,
-                click: <span class="keyword">this</span>.removeCompletedItems
+<pre><code class="lang-javascript">        <span class="hljs-string">'todo-clear-completed'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">return</span> {
+                visible: <span class="hljs-keyword">this</span>.completedItems().length &gt; <span class="hljs-number">0</span>,
+                text: <span class="hljs-string">'Clear completed ('</span> + <span class="hljs-keyword">this</span>.completedItems().length + <span class="hljs-string">')'</span>,
+                click: <span class="hljs-keyword">this</span>.removeCompletedItems
             };
-        }</code></pre>
+        }
+</code></pre>
 <p>We referenced two new things here: a <code>completedItems</code> variable and a <code>removeCompletedItems</code> function,
 therefore we must define them in the viewmodel.</p>
 <p><strong>todo/viewmodels/todoViewModels.js</strong></p>
-<pre><code class="lang-javascript"> <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-        <span class="keyword">var</span> observableArray = sandbox.mvvm.observableArray,
+<pre><code class="lang-javascript"> <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> observableArray = sandbox.mvvm.observableArray,
             observable = sandbox.mvvm.observable,
             has = sandbox.object.has,
             computed = sandbox.mvvm.computed,
-            <span class="comment">//properties</span>
+            <span class="hljs-comment">//properties</span>
             items = observableArray(),
             newItem = observable(),
             checkAll,
             completedItems;
 
-        <span class="function"><span class="keyword">function</span> <span class="title">addItem</span><span class="params">()</span> {</span>
-            <span class="keyword">var</span> item = newItem();
-            <span class="keyword">if</span> (has(item, <span class="string">"trim"</span>) &amp;&amp; item.trim()) {
-                items.push(itemViewModel({ title: item, completed: <span class="literal">false</span> }, items));
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addItem</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> item = newItem();
+            <span class="hljs-keyword">if</span> (has(item, <span class="hljs-string">"trim"</span>) &amp;&amp; item.trim()) {
+                items.push(itemViewModel({ title: item, completed: <span class="hljs-literal">false</span> }, items));
             }
-            newItem(<span class="string">""</span>);
+            newItem(<span class="hljs-string">""</span>);
         }
 
-        <span class="function"><span class="keyword">function</span> <span class="title">removeCompletedItems</span><span class="params">()</span> {</span>
-            completedItems().forEach(<span class="function"><span class="keyword">function</span> <span class="params">(item)</span> {</span>
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeCompletedItems</span><span class="hljs-params">()</span> {</span>
+            completedItems().forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> {</span>
                 item.remove();
             });
         }
 
         checkAll = computed({
-            read: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-                <span class="keyword">return</span> items().all(<span class="string">"$.completed()"</span>);
+            read: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+                <span class="hljs-keyword">return</span> items().all(<span class="hljs-string">"$.completed()"</span>);
             },
-            write: <span class="function"><span class="keyword">function</span> <span class="params">(value)</span> {</span>
-                items().forEach(<span class="function"><span class="keyword">function</span> <span class="params">(item)</span> {</span> item.completed(value); });
+            write: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(value)</span> {</span>
+                items().forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> {</span> item.completed(value); });
             }
         });
 
-        completedItems = computed(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-            <span class="keyword">return</span> items().where(<span class="string">"$.completed()"</span>).toArray();
+        completedItems = computed(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">return</span> items().where(<span class="hljs-string">"$.completed()"</span>).toArray();
         });
 
-        <span class="keyword">return</span> {
+        <span class="hljs-keyword">return</span> {
             items: items,
             newItem: newItem,
             addItem: addItem,
@@ -1120,7 +1158,8 @@ therefore we must define them in the viewmodel.</p>
             completedItems: completedItems,
             removeCompletedItems: removeCompletedItems
         };
-    };</code></pre>
+    };
+</code></pre>
 <p>As per scalejs convention, we define our funtions after we define vars, and leave business logic to the end. </p>
 <p>For <code>removeCompletedItems</code>, we simply iterate through each item (using <code>Array.prototype.forEach</code>) and
 pass an annonymous function which will call <code>remove()</code> on each completed item.</p>
@@ -1134,113 +1173,117 @@ the value of <em>clear completed</em> changing. Click on the button to remove al
 using <code>linq</code> and functional programming concepts.</p>
 <p>Since we are using <code>localStorage</code> we need to add it to the global vars so that JSLint won&#39;t complain.</p>
 <p><strong>todos/viewmodels/todoViewModel.js</strong></p>
-<pre><code class="lang-javascript"><span class="comment">/*global define,localStorage */</span></code></pre>
+<pre><code class="lang-javascript"><span class="hljs-comment">/*global define,localStorage */</span>
+</code></pre>
 <p>We create two helper functions: <code>toItem</code> so that we can convert the <code>itemViewModel</code> to a plain object literal (so we
 can stringify it and store it in <code>localStorage</code>) and <code>toItemViewModel</code> so we can convert items from <code>localStorage</code>
 to an <code>itemViewModel</code></p>
 <p><strong>todos/viewmodels/todoViewModel.js</strong></p>
-<pre><code class="lang-javascript">        <span class="function"><span class="keyword">function</span> <span class="title">toItem</span><span class="params">(itemVM)</span> {</span>
-            <span class="keyword">return</span> {
+<pre><code class="lang-javascript">        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toItem</span><span class="hljs-params">(itemVM)</span> {</span>
+            <span class="hljs-keyword">return</span> {
                 title: itemVM.title(),
                 completed: itemVM.completed()
             };
         }
 
-        <span class="function"><span class="keyword">function</span> <span class="title">toItemViewModel</span><span class="params">(item)</span> {</span>
-            <span class="keyword">return</span> itemViewModel(item, items);
-        }</code></pre>
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toItemViewModel</span><span class="hljs-params">(item)</span> {</span>
+            <span class="hljs-keyword">return</span> itemViewModel(item, items);
+        }
+</code></pre>
 <p>Now we also need to perform the logic that will store and retrive items to/from <code>localStorage</code>. We use the
 <code>computed</code> to keep track of changes to items, stringify items and add them to <code>localStorage</code>. We
 do not need to return anything.</p>
 <p>Also, if our <code>localStorage</code> is defined, then we need to <code>map</code> all of the to an <code>itemViewModel</code> using <code>toItemViewModel</code>.</p>
 <p><strong>todos/viewmodels/todoViewModel.js</strong></p>
-<pre><code class="lang-javascript">        <span class="keyword">if</span> (has(localStorage[<span class="string">'todos-scalejs'</span>])) {
-            items(JSON.parse(localStorage[<span class="string">'todos-scalejs'</span>]).map(toItemViewModel));
+<pre><code class="lang-javascript">        <span class="hljs-keyword">if</span> (has(localStorage[<span class="hljs-string">'todos-scalejs'</span>])) {
+            items(<span class="hljs-built_in">JSON</span>.parse(localStorage[<span class="hljs-string">'todos-scalejs'</span>]).map(toItemViewModel));
         }
 
-        computed(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-            localStorage[<span class="string">'todos-scalejs'</span>] = JSON.stringify(items().map(toItem));
-        });</code></pre>
+        computed(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+            localStorage[<span class="hljs-string">'todos-scalejs'</span>] = <span class="hljs-built_in">JSON</span>.stringify(items().map(toItem));
+        });
+</code></pre>
 <p>Since we have a <code>toItemViewModel</code> function, we can also simplify our <code>addItem</code> function by using that
 instead of calling <code>itemViewModel</code> and passing the items.</p>
 <p><strong>todos/viewmodels/todoViewModel.js</strong></p>
-<pre><code class="lang-javascript">        <span class="function"><span class="keyword">function</span> <span class="title">addItem</span><span class="params">()</span> {</span>
-            <span class="keyword">var</span> item = newItem();
-            <span class="keyword">if</span> (has(item, <span class="string">"trim"</span>) &amp;&amp; item.trim()) {
-                items.push(toItemViewModel({ title: item, completed: <span class="literal">false</span> }));
+<pre><code class="lang-javascript">        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addItem</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> item = newItem();
+            <span class="hljs-keyword">if</span> (has(item, <span class="hljs-string">"trim"</span>) &amp;&amp; item.trim()) {
+                items.push(toItemViewModel({ title: item, completed: <span class="hljs-literal">false</span> }));
             }
-            newItem(<span class="string">""</span>);
-        }</code></pre>
+            newItem(<span class="hljs-string">""</span>);
+        }
+</code></pre>
 <p>This is what our <strong>todoViewModel</strong> looks like after making all of these changes:</p>
 <p><strong>todos/viewmodels/todoViewModel.js</strong></p>
-<pre><code class="lang-javascript"><span class="comment">/*global define,localStorage */</span>
+<pre><code class="lang-javascript"><span class="hljs-comment">/*global define,localStorage */</span>
 define([
-    <span class="string">'sandbox!todo'</span>,
-    <span class="string">'app/todo/viewmodels/itemViewModel'</span>
-], <span class="function"><span class="keyword">function</span> <span class="params">(
+    <span class="hljs-string">'sandbox!todo'</span>,
+    <span class="hljs-string">'app/todo/viewmodels/itemViewModel'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
     sandbox,
     itemViewModel
 )</span> {</span>
-    <span class="string">'use strict'</span>;
+<span class="hljs-pi">    'use strict'</span>;
 
-    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-        <span class="keyword">var</span> observableArray = sandbox.mvvm.observableArray,
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> observableArray = sandbox.mvvm.observableArray,
             observable = sandbox.mvvm.observable,
             has = sandbox.object.has,
             computed = sandbox.mvvm.computed,
-            <span class="comment">//properties</span>
+            <span class="hljs-comment">//properties</span>
             items = observableArray(),
             newItem = observable(),
             checkAll,
             completedItems;
 
-        <span class="function"><span class="keyword">function</span> <span class="title">toItem</span><span class="params">(itemVM)</span> {</span>
-            <span class="keyword">return</span> {
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toItem</span><span class="hljs-params">(itemVM)</span> {</span>
+            <span class="hljs-keyword">return</span> {
                 title: itemVM.title(),
                 completed: itemVM.completed()
             };
         }
 
-        <span class="function"><span class="keyword">function</span> <span class="title">toItemViewModel</span><span class="params">(item)</span> {</span>
-            <span class="keyword">return</span> itemViewModel(item, items);
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toItemViewModel</span><span class="hljs-params">(item)</span> {</span>
+            <span class="hljs-keyword">return</span> itemViewModel(item, items);
         }
 
-        <span class="function"><span class="keyword">function</span> <span class="title">addItem</span><span class="params">()</span> {</span>
-            <span class="keyword">var</span> item = newItem();
-            <span class="keyword">if</span> (has(item, <span class="string">"trim"</span>) &amp;&amp; item.trim()) {
-                items.push(toItemViewModel({ title: item, completed: <span class="literal">false</span> }));
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addItem</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> item = newItem();
+            <span class="hljs-keyword">if</span> (has(item, <span class="hljs-string">"trim"</span>) &amp;&amp; item.trim()) {
+                items.push(toItemViewModel({ title: item, completed: <span class="hljs-literal">false</span> }));
             }
-            newItem(<span class="string">""</span>);
+            newItem(<span class="hljs-string">""</span>);
         }
 
-        <span class="function"><span class="keyword">function</span> <span class="title">removeCompletedItems</span><span class="params">()</span> {</span>
-            completedItems().forEach(<span class="function"><span class="keyword">function</span> <span class="params">(item)</span> {</span>
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeCompletedItems</span><span class="hljs-params">()</span> {</span>
+            completedItems().forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> {</span>
                 item.remove();
             });
         }
 
         checkAll = computed({
-            read: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-                <span class="keyword">return</span> items().all(<span class="string">"$.completed()"</span>);
+            read: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+                <span class="hljs-keyword">return</span> items().all(<span class="hljs-string">"$.completed()"</span>);
             },
-            write: <span class="function"><span class="keyword">function</span> <span class="params">(value)</span> {</span>
-                items().forEach(<span class="function"><span class="keyword">function</span> <span class="params">(item)</span> {</span> item.completed(value); });
+            write: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(value)</span> {</span>
+                items().forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> {</span> item.completed(value); });
             }
         });
 
-        completedItems = computed(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-            <span class="keyword">return</span> items().where(<span class="string">"$.completed()"</span>).toArray();
+        completedItems = computed(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">return</span> items().where(<span class="hljs-string">"$.completed()"</span>).toArray();
         });
 
-        <span class="keyword">if</span> (has(localStorage[<span class="string">'todos-scalejs'</span>])) {
-            items(JSON.parse(localStorage[<span class="string">'todos-scalejs'</span>]).map(toItemViewModel));
+        <span class="hljs-keyword">if</span> (has(localStorage[<span class="hljs-string">'todos-scalejs'</span>])) {
+            items(<span class="hljs-built_in">JSON</span>.parse(localStorage[<span class="hljs-string">'todos-scalejs'</span>]).map(toItemViewModel));
         }
 
-        computed(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-            localStorage[<span class="string">'todos-scalejs'</span>] = JSON.stringify(items().map(toItem));
+        computed(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+            localStorage[<span class="hljs-string">'todos-scalejs'</span>] = <span class="hljs-built_in">JSON</span>.stringify(items().map(toItem));
         });
 
-        <span class="keyword">return</span> {
+        <span class="hljs-keyword">return</span> {
             items: items,
             newItem: newItem,
             addItem: addItem,
@@ -1249,7 +1292,8 @@ define([
             removeCompletedItems: removeCompletedItems
         };
     };
-});</code></pre>
+});
+</code></pre>
 <p>Now we have implemented persistence. </p>
 <h3 id="routing">Routing</h3>
 <p>Routing can be implemented via a scalejs <a href="./extension.html">extension</a>, <a href="./routing.html">&#39;scalejs.routing-history&#39;</a>.
@@ -1269,7 +1313,7 @@ the state becomes active.</p>
 we can get from <code>sandbox.routing</code> as a child of the <code>app</code> state. Then we must define our <code>main</code> state as 
 a child of the <code>router</code> state.</p>
 <p><strong>main/mainModule.js</strong></p>
-<pre><code class="lang-javascript">        <span class="keyword">var</span> <span class="comment">// imports</span>
+<pre><code class="lang-javascript">        <span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
             root = sandbox.mvvm.root,
             template = sandbox.mvvm.template,
             registerStates = sandbox.state.registerStates,
@@ -1277,40 +1321,42 @@ a child of the <code>router</code> state.</p>
             onEntry = sandbox.state.builder.onEntry,
             routerState = sandbox.routing.routerState,
             route = sandbox.routing.route,
-            <span class="comment">// vars</span>
+            <span class="hljs-comment">// vars</span>
             mainVM = mainViewModel();
 
-        <span class="comment">// Register application state for the module.</span>
-        registerStates(<span class="string">'root'</span>,
-            state(<span class="string">'app'</span>,
+        <span class="hljs-comment">// Register application state for the module.</span>
+        registerStates(<span class="hljs-string">'root'</span>,
+            state(<span class="hljs-string">'app'</span>,
                 routerState(
-                    state(<span class="string">'main'</span>,
-                        onEntry(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-                            <span class="comment">// create state properties for rendering todo module templates</span>
-                            <span class="keyword">this</span>.todoItems = mainVM.todoItems;
-                            <span class="keyword">this</span>.todoInput = mainVM.todoInput;
-                            <span class="comment">// Render viewModel using 'main_template' template </span>
-                            <span class="comment">// (defined in main.html) and show it in the `root` region.</span>
-                            root(template(<span class="string">'main_template'</span>, mainVM));
-                        })))));</code></pre>
+                    state(<span class="hljs-string">'main'</span>,
+                        onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+                            <span class="hljs-comment">// create state properties for rendering todo module templates</span>
+                            <span class="hljs-keyword">this</span>.todoItems = mainVM.todoItems;
+                            <span class="hljs-keyword">this</span>.todoInput = mainVM.todoInput;
+                            <span class="hljs-comment">// Render viewModel using 'main_template' template </span>
+                            <span class="hljs-comment">// (defined in main.html) and show it in the `root` region.</span>
+                            root(template(<span class="hljs-string">'main_template'</span>, mainVM));
+                        })))));
+</code></pre>
 <p>To make it possible to switch between <em>all</em>, <em>active</em> and <em>completed</em>, we need to introduce an array containing
 these options in viewmodel that the view will bind to using <code>foreach</code>.</p>
 <p><strong>todo/views/todo.html</strong></p>
-<pre><code class="lang-xml">        <span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"filters"</span> <span class="attribute">data-bind</span>=<span class="value">"foreach: viewableOptions"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">li</span>&gt;</span>
-                <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">data-class</span>=<span class="value">"todo-view"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-            <span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span></code></pre>
+<pre><code class="lang-xml">        <span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"filters"</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"foreach: viewableOptions"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"#"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-view"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+</code></pre>
 <p>We need to define <code>viewableOptions</code> in the viewmodel. Each viewableOption has the name of what will be
 displayed in the footer of our todo list (e.g. &#39;All&#39;, &#39;Active&#39;, and &#39;Completed&#39;) as well as a function
 which will raise a statechart event. We will need to subscribe to and react to this event in our statechart.</p>
 <p><strong>todo/viewmodel/todoViewModel.js</strong></p>
-<pre><code class="lang-javascript">        <span class="keyword">var</span> observableArray = sandbox.mvvm.observableArray,
+<pre><code class="lang-javascript">        <span class="hljs-keyword">var</span> observableArray = sandbox.mvvm.observableArray,
             observable = sandbox.mvvm.observable,
             has = sandbox.object.has,
             computed = sandbox.mvvm.computed,
             raise = sandbox.state.raise,
-            <span class="comment">//properties</span>
+            <span class="hljs-comment">//properties</span>
             items = observableArray(),
             newItem = observable(),
             checkAll,
@@ -1319,16 +1365,16 @@ which will raise a statechart event. We will need to subscribe to and react to t
 
         ...
 
-        viewableOptions = [<span class="string">'All'</span>, <span class="string">'Active'</span>, <span class="string">'Completed'</span>].map(<span class="function"><span class="keyword">function</span> <span class="params">(name)</span> {</span>
-            <span class="keyword">return</span> {
+        viewableOptions = [<span class="hljs-string">'All'</span>, <span class="hljs-string">'Active'</span>, <span class="hljs-string">'Completed'</span>].map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(name)</span> {</span>
+            <span class="hljs-keyword">return</span> {
                 name: name,
-                raiseEvent: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-                    raise(<span class="string">'todo.'</span> + name);
+                raiseEvent: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+                    raise(<span class="hljs-string">'todo.'</span> + name);
                 }
             };
         });
 
-        <span class="keyword">return</span> {
+        <span class="hljs-keyword">return</span> {
             items: items,
             newItem: newItem,
             addItem: addItem,
@@ -1336,63 +1382,66 @@ which will raise a statechart event. We will need to subscribe to and react to t
             completedItems: completedItems,
             removeCompletedItems: removeCompletedItems,
             viewableOptions: viewableOptions;
-        };</code></pre>
+        };
+</code></pre>
 <p>We also need to define the <code>todo-view</code> data-class.</p>
 <p><strong>todo/bindings/todoBindings.js</strong></p>
-<pre><code class="lang-javascript">        <span class="string">'todo-view'</span>: <span class="function"><span class="keyword">function</span> <span class="params">(ctx)</span> {</span>
-            <span class="keyword">return</span> {
-                text: <span class="keyword">this</span>.name,
-                click: <span class="keyword">this</span>.raiseEvent,
-                css: { selected: ctx.$parent.currentView() === <span class="keyword">this</span>.name }
+<pre><code class="lang-javascript">        <span class="hljs-string">'todo-view'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(ctx)</span> {</span>
+            <span class="hljs-keyword">return</span> {
+                text: <span class="hljs-keyword">this</span>.name,
+                click: <span class="hljs-keyword">this</span>.raiseEvent,
+                css: { selected: ctx.$parent.currentView() === <span class="hljs-keyword">this</span>.name }
             };
-        }</code></pre>
+        }
+</code></pre>
 <p>We will define three children states in our <code>todo</code> state: <code>todo.all</code>, <code>todo.active</code> and <code>todo.completed</code>.</p>
 <p>When we enter these states, we need to update our viewModel to reflect the state that is entered.</p>
 <p>We also need to define the transition that will occur when the events are raised. We use <code>gotoInternally</code> because
 we do not want to exit the child state when we are switching between two child states.</p>
 <p><strong>todo/todoModule.js</strong></p>
-<pre><code class="lang-javascript">        <span class="keyword">var</span> <span class="comment">// imports</span>
+<pre><code class="lang-javascript">        <span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
             template = sandbox.mvvm.template,
             registerStates = sandbox.state.registerStates,
             state = sandbox.state.builder.state,
             onEntry = sandbox.state.builder.onEntry,
             on = sandbox.state.builder.on,
             gotoInternally = sandbox.state.builder.gotoInternally,
-            <span class="comment">// vars</span>
+            <span class="hljs-comment">// vars</span>
             todo = todoViewModel(sandbox);
 
-        <span class="comment">// Register application state for the module.</span>
-        registerStates(<span class="string">'main'</span>,
-            state(<span class="string">'todo'</span>,
-                onEntry(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-                    <span class="comment">// pass the template bindings to the appropriate property</span>
-                    <span class="keyword">this</span>.todoItems(template(<span class="string">'todo_items_template'</span>, todo));
-                    <span class="keyword">this</span>.todoInput(template(<span class="string">'todo_input_template'</span>, todo));
+        <span class="hljs-comment">// Register application state for the module.</span>
+        registerStates(<span class="hljs-string">'main'</span>,
+            state(<span class="hljs-string">'todo'</span>,
+                onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+                    <span class="hljs-comment">// pass the template bindings to the appropriate property</span>
+                    <span class="hljs-keyword">this</span>.todoItems(template(<span class="hljs-string">'todo_items_template'</span>, todo));
+                    <span class="hljs-keyword">this</span>.todoInput(template(<span class="hljs-string">'todo_input_template'</span>, todo));
                 }),
-                on(<span class="string">'todo.All'</span>, gotoInternally(<span class="string">'todo.all'</span>)),
-                on(<span class="string">'todo.Active'</span>, gotoInternally(<span class="string">'todo.active'</span>)),
-                on(<span class="string">'todo.Completed'</span>, gotoInternally(<span class="string">'todo.completed'</span>)),
-                state(<span class="string">'todo.all'</span>,
-                    onEntry(<span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-                        todo.currentView(<span class="string">"All"</span>);
+                on(<span class="hljs-string">'todo.All'</span>, gotoInternally(<span class="hljs-string">'todo.all'</span>)),
+                on(<span class="hljs-string">'todo.Active'</span>, gotoInternally(<span class="hljs-string">'todo.active'</span>)),
+                on(<span class="hljs-string">'todo.Completed'</span>, gotoInternally(<span class="hljs-string">'todo.completed'</span>)),
+                state(<span class="hljs-string">'todo.all'</span>,
+                    onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                        todo.currentView(<span class="hljs-string">"All"</span>);
                     })),
-                state(<span class="string">'todo.active'</span>,
-                    onEntry(<span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-                        todo.currentView(<span class="string">"Active"</span>);
+                state(<span class="hljs-string">'todo.active'</span>,
+                    onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                        todo.currentView(<span class="hljs-string">"Active"</span>);
                     })),
-                state(<span class="string">'todo.completed'</span>,
-                    onEntry(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+                state(<span class="hljs-string">'todo.completed'</span>,
+                    onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
                         todo.currentView
-                    }))));</code></pre>
+                    }))));
+</code></pre>
 <p>Which means we need to define <code>currentView</code> in our viewmodel.</p>
 <p><strong>todo/viewmodel/todoViewModel.js</strong></p>
-<pre><code class="lang-javascript"> <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-        <span class="keyword">var</span> observableArray = sandbox.mvvm.observableArray,
+<pre><code class="lang-javascript"> <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> observableArray = sandbox.mvvm.observableArray,
             observable = sandbox.mvvm.observable,
             has = sandbox.object.has,
             computed = sandbox.mvvm.computed,
             raise = sandbox.state.raise,
-            <span class="comment">//properties</span>
+            <span class="hljs-comment">//properties</span>
             items = observableArray(),
             newItem = observable(),
             checkAll,
@@ -1402,7 +1451,7 @@ we do not want to exit the child state when we are switching between two child s
 
         ...
 
-        <span class="keyword">return</span> {
+        <span class="hljs-keyword">return</span> {
             items: items,
             newItem: newItem,
             addItem: addItem,
@@ -1411,17 +1460,18 @@ we do not want to exit the child state when we are switching between two child s
             removeCompletedItems: removeCompletedItems,
             viewableOptions: viewableOptions,
             currentView: currentView
-        };</code></pre>
+        };
+</code></pre>
 <p>We need to modify how we are showing the items so that the correct items are being displayed while
 also maintaining a list of all of the items. We will define a new computed, <code>viewableItems</code> which will
 react to changes in <code>currentView</code> and <code>items</code>.</p>
 <p><strong>todo/viewmodel/todoViewModel.js</strong></p>
-<pre><code class="lang-javascript">        <span class="keyword">var</span> observableArray = sandbox.mvvm.observableArray,
+<pre><code class="lang-javascript">        <span class="hljs-keyword">var</span> observableArray = sandbox.mvvm.observableArray,
             observable = sandbox.mvvm.observable,
             has = sandbox.object.has,
             computed = sandbox.mvvm.computed,
             raise = sandbox.state.raise,
-            <span class="comment">//properties</span>
+            <span class="hljs-comment">//properties</span>
             items = observableArray(),
             newItem = observable(),
             checkAll,
@@ -1432,21 +1482,21 @@ react to changes in <code>currentView</code> and <code>items</code>.</p>
 
         ...
 
-        viewableItems = computed(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-            <span class="keyword">var</span> view = currentView();
+        viewableItems = computed(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> view = currentView();
 
-            <span class="keyword">if</span> (view === <span class="string">'Active'</span>) {
-                <span class="keyword">return</span> items().where(<span class="string">"!$.completed()"</span>).toArray();
+            <span class="hljs-keyword">if</span> (view === <span class="hljs-string">'Active'</span>) {
+                <span class="hljs-keyword">return</span> items().where(<span class="hljs-string">"!$.completed()"</span>).toArray();
             }
 
-            <span class="keyword">if</span> (view === <span class="string">'Completed'</span>) {
-                <span class="keyword">return</span> items().where(<span class="string">"$.completed()"</span>).toArray();
+            <span class="hljs-keyword">if</span> (view === <span class="hljs-string">'Completed'</span>) {
+                <span class="hljs-keyword">return</span> items().where(<span class="hljs-string">"$.completed()"</span>).toArray();
             }
 
-            <span class="keyword">return</span> items();
+            <span class="hljs-keyword">return</span> items();
         });
 
-        <span class="keyword">return</span> {
+        <span class="hljs-keyword">return</span> {
             items: items,
             newItem: newItem,
             addItem: addItem,
@@ -1456,14 +1506,16 @@ react to changes in <code>currentView</code> and <code>items</code>.</p>
             viewableOptions: viewableOptions,
             currentView: currentView,
             viewableItems: viewableItems
-        };</code></pre>
+        };
+</code></pre>
 <p>Now we need to bind our list to <code>viewableItems</code> instead of <code>items</code>.</p>
 <p><strong>todo/views/todo.html</strong></p>
-<pre><code class="lang-xml">      <span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"todo-list"</span> <span class="attribute">data-bind</span>=<span class="value">"foreach: viewableItems"</span>&gt;</span></code></pre>
+<pre><code class="lang-xml">      <span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo-list"</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"foreach: viewableItems"</span>&gt;</span>
+</code></pre>
 <p>So far, so good. Now we will begin to introduce our routing into our states by simply passing <code>route</code> into the state
 with the text we would like to see in our URL. For the root, we specifiy &#39;/&#39;.</p>
 <p><strong>todo/todoModule.js</strong></p>
-<pre><code class="lang-javascript">        <span class="keyword">var</span> <span class="comment">// imports</span>
+<pre><code class="lang-javascript">        <span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
             template = sandbox.mvvm.template,
             registerStates = sandbox.state.registerStates,
             state = sandbox.state.builder.state,
@@ -1471,35 +1523,36 @@ with the text we would like to see in our URL. For the root, we specifiy &#39;/&
             on = sandbox.state.builder.on,
             gotoInternally = sandbox.state.builder.gotoInternally,
             route = sandbox.routing.route,
-            <span class="comment">// vars</span>
+            <span class="hljs-comment">// vars</span>
             todo = todoViewModel(sandbox);
 
-        <span class="comment">// Register application state for the module.</span>
-        registerStates(<span class="string">'main'</span>,
-            state(<span class="string">'todo'</span>,
-                onEntry(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-                    <span class="comment">// pass the template bindings to the appropriate property</span>
-                    <span class="keyword">this</span>.todoItems(template(<span class="string">'todo_items_template'</span>, todo));
-                    <span class="keyword">this</span>.todoInput(template(<span class="string">'todo_input_template'</span>, todo));
+        <span class="hljs-comment">// Register application state for the module.</span>
+        registerStates(<span class="hljs-string">'main'</span>,
+            state(<span class="hljs-string">'todo'</span>,
+                onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+                    <span class="hljs-comment">// pass the template bindings to the appropriate property</span>
+                    <span class="hljs-keyword">this</span>.todoItems(template(<span class="hljs-string">'todo_items_template'</span>, todo));
+                    <span class="hljs-keyword">this</span>.todoInput(template(<span class="hljs-string">'todo_input_template'</span>, todo));
                 }),
-                on(<span class="string">'todo.All'</span>, gotoInternally(<span class="string">'todo.all'</span>)),
-                on(<span class="string">'todo.Active'</span>, gotoInternally(<span class="string">'todo.active'</span>)),
-                on(<span class="string">'todo.Completed'</span>, gotoInternally(<span class="string">'todo.completed'</span>)),
-                state(<span class="string">'todo.all'</span>,
-                    route(<span class="string">'/'</span>),
-                    onEntry(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-                        todo.currentView(<span class="string">"All"</span>);
+                on(<span class="hljs-string">'todo.All'</span>, gotoInternally(<span class="hljs-string">'todo.all'</span>)),
+                on(<span class="hljs-string">'todo.Active'</span>, gotoInternally(<span class="hljs-string">'todo.active'</span>)),
+                on(<span class="hljs-string">'todo.Completed'</span>, gotoInternally(<span class="hljs-string">'todo.completed'</span>)),
+                state(<span class="hljs-string">'todo.all'</span>,
+                    route(<span class="hljs-string">'/'</span>),
+                    onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+                        todo.currentView(<span class="hljs-string">"All"</span>);
                     })),
-                state(<span class="string">'todo.active'</span>,
-                    route(<span class="string">'active'</span>),
-                    onEntry(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-                        todo.currentView(<span class="string">"Active"</span>);
+                state(<span class="hljs-string">'todo.active'</span>,
+                    route(<span class="hljs-string">'active'</span>),
+                    onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+                        todo.currentView(<span class="hljs-string">"Active"</span>);
                     })),
-                state(<span class="string">'todo.completed'</span>,
-                    route(<span class="string">'completed'</span>),
-                    onEntry(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-                        todo.currentView(<span class="string">"Completed"</span>);
-                    }))));</code></pre>
+                state(<span class="hljs-string">'todo.completed'</span>,
+                    route(<span class="hljs-string">'completed'</span>),
+                    onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+                        todo.currentView(<span class="hljs-string">"Completed"</span>);
+                    }))));
+</code></pre>
 <p>This is all that is needed to implement routing. Check it out for yourself! </p>
 <h2 id="summary">Summary</h2>
 <p>You have completed the ToDoMVC tutorial. Have a Cookie!</p>
