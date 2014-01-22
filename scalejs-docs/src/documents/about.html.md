@@ -19,6 +19,7 @@ Prerequisites
 4. requirejs optimizer (once node.js is installed run in console: npm install -g requirejs)
 5. PowerShell 3.0 (http://www.microsoft.com/en-us/download/details.aspx?id=34595)
 6. JSLint.VS2012 extension for Visual Studio (in Visual Studio go to TOOLS -> Extensions and Updates... -> Visual Studio Gallery and type `JSLint` in search box)
+7. LESS
 
 Installation
 ============
