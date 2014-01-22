@@ -2,7 +2,7 @@
 
 ## Prerequisites
 1. Visual Studio 2012 or 2013
-2. IIS Express (via Web Platform Installer)
+2. [IIS Express](http://www.iis.net/learn/extensions/introduction-to-iis-express/iis-express-overview) (via Web Platform Installer)
 3. node.js (http://nodejs.org/)
 4. requirejs optimizer (once node.js is installed run in console: npm install -g requirejs)
 5. PowerShell 3.0 (http://www.microsoft.com/en-us/download/details.aspx?id=34595)
