@@ -1,3 +1,7 @@
+---
+title: "ScaleJS Practices"
+isPage: true
+---
 # Best Practices
 
 Scalejs does not strictly force you to follow a particular style or format. However, when we created the framework,

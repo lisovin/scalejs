@@ -1,3 +1,7 @@
+---
+title: "ScaleJS Install"
+isPage: true
+---
 #Installation
 
 ## Prerequisites

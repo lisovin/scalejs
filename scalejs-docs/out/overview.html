@@ -1,4 +1,93 @@
-<h1 id="explanation-and-overview">Explanation and Overview</h1>
+<!doctype html>
+<html>
+<head>
+	<meta name="generator" content="DocPad v6.60.3" />
+	<link  rel="stylesheet" href="global.css" />
+	<style>
+	#head {
+		position: absolute;
+		height: 50px;
+		top: 0%;
+		left: 0%;
+		right: 0%;
+		overflow: hidden;
+		background: #EEE;
+	}
+	#menu {
+		position: absolute;
+		top: 50px;
+		left: 0%;
+		bottom: 0%;
+		right: 80%;
+		overflow: auto;
+		background: #FFF;
+	}
+	#page {
+		position: absolute;
+		top: 50px;
+		left: 20%;
+		bottom: 0%;
+		right: 0%;
+		overflow: auto;
+		background: #DDD;
+	}
+	</style>
+</head>
+<body>
+	<div id="head">
+		<div style="position:absolute;top:0%;bottom:0%;left:0%;right:0%;text-align:center;">Header</div>
+	</div>
+	<div id="menu">
+		<ul>
+<li>Why Choose Scalejs?</li>
+<li>Install Scalejs</li>
+<li>Quick Start</li>
+<li>Overview and Explaination<ul>
+<li>Hello World!</li>
+<li>Modules<ul>
+<li>ViewModels</li>
+<li>Views</li>
+<li>Bindings</li>
+<li>Styles</li>
+</ul>
+</li>
+<li>Statechart</li>
+<li>Layout</li>
+<li>Extensions<ul>
+<li>Routing</li>
+<li>Ajax</li>
+<li>Signalr</li>
+</ul>
+</li>
+<li>Best Practices<ul>
+<li>Debugging Code</li>
+<li>Using Linq</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Tutorials<ul>
+<li><a href="./todomvc.html">ToDoMVC</a></li>
+</ul>
+</li>
+<li>Supplemental<ul>
+<li>MVVM with Knockoutjs<ul>
+<li>Observables</li>
+<li>Rendering and Templating</li>
+<li>Virtual Bindings</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Samples</li>
+<li>Building and Deploying</li>
+<li>Testing</li>
+<li>API Documentation</li>
+</ul>
+
+	</div>
+	<div id="page">
+		<h1 id="explanation-and-overview">Explanation and Overview</h1>
 <p><link rel="stylesheet" type="text/css" href="global.css">
   <link rel="stylesheet" href="highlight.css"></p>
 <p>To create a scalejs application requires an understanding of the how things are done. 
@@ -38,7 +127,7 @@ Projects can be run by pressing <strong>ctrl + f5</strong>. </p>
 <h3 id="index-html-and-config-js">index.html and config.js</h3>
 <p>index.html is the starting point for your app. </p>
 <p><strong>index.html</strong></p>
-<pre><code class="lang-xml"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
+<pre class="highlight"><code class="xml"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"config.js"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/javascript"</span>&gt;</span><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
@@ -71,7 +160,7 @@ of scalejs and are ready to <a href="./extension.html">build your own extension<
 <h3 id="app-folder-and-app-js">app folder and app.js</h3>
 <p>The app folder contains a single file <strong>app.js</strong> as well as folders for the modules in your application.</p>
 <p><strong>app.js</strong></p>
-<pre><code class="lang-javascript"><span class="hljs-comment">/*global require*/</span>
+<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global require*/</span>
 <span class="hljs-built_in">require</span>([
     <span class="hljs-string">'scalejs!application/main'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -98,7 +187,7 @@ It also can define styles specific to your application.</p>
 In the case of main, this file is called <strong>mainModule.js</strong>.
 Similarly, additional modules will follow the naming convention <strong><moduleName>Module.js</strong></p>
 <p><strong>mainModule.js</strong></p>
-<pre><code class="lang-javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!main'</span>,
     <span class="hljs-string">'app/main/viewmodels/mainViewModel'</span>,
@@ -144,7 +233,7 @@ at the top of define as seen above and define the <a href="./overview.html#state
 <h3 id="view-folder-and-main-html">view folder and main.html</h3>
 <p>The view folder is a container of <a href="./overview.thml#views">views</a> and includes one view file for the main module:</p>
 <p><strong>main.html</strong></p>
-<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main_template"</span>&gt;</span>
+<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"main text"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"main-text"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span> from helloworld.
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </code></pre>
@@ -158,7 +247,7 @@ of templates to data which is signified by <code>data-class</code>.
 they are always referenced by a view. Since <strong>main.html</strong> defines a <code>data-class</code> property,
 it <em>must</em> be created in the bindings. This data-class is defined in <strong>mainBindings.js</strong></p>
 <p><strong>mainBindings.js</strong></p>
-<pre><code class="lang-javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
 <span class="hljs-comment">/*jslint sloppy: true*/</span>
 define({
     <span class="hljs-string">'main-text'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
@@ -179,7 +268,7 @@ Viewmodels also define the model for your view; e.g. whatever needs to be in you
 which is data-centric or requires dynamic modification must be defined and exposed by a viewmodel.
 The viewmodel used in the main module is <strong>mainViewModel.js</strong></p>
 <p><strong>mainViewModel.js</strong></p>
-<pre><code class="lang-javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!main'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -215,7 +304,7 @@ If you&#39;re not sure why, make sure to read about it <a href="./power.html#sca
 <p>The test folder contains unit tests which are provided by the <a href="http://pivotal.github.io/jasmine/">jasmine</a>
 testing framework. </p>
 <p><strong>all.tests.js</strong></p>
-<pre><code class="lang-javascript"><span class="hljs-comment">/*global define,jasmine*/</span>
+<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define,jasmine*/</span>
 define([
     <span class="hljs-string">'jasmine-html'</span>,
     <span class="hljs-string">'scalejs!application'</span>,
@@ -239,7 +328,7 @@ define([
 <p>This file starts the tests. Add new tests by referencing them in the first argument of <code>define</code>
 like how <code>./mainViewModel.test</code> is defined.</p>
 <p><strong>mainViewModel.test.js</strong></p>
-<pre><code class="lang-javascript"><span class="hljs-comment">/*global define,describe,expect,it*/</span>
+<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define,describe,expect,it*/</span>
 <span class="hljs-comment">/*jslint sloppy: true*/</span>
 <span class="hljs-comment">/// &lt;reference path="../Scripts/jasmine.js"/&gt;</span>
 define([
@@ -267,3 +356,7 @@ define([
 <h2 id="sandbox">Sandbox</h2>
 <h2 id="statechart">Statechart</h2>
 <h2 id="extensions">Extensions</h2>
+
+	</div>
+</body>
+</html>

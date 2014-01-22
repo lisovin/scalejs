@@ -1,9 +1,9 @@
-
-
+---
+title: "ToDo MVC"
+isPage: true
+styles: ["highlight.css"]
+---
 # ToDo MVC Application
-
-<link rel="stylesheet" type="text/css" href="global.css">
-  <link rel="stylesheet" href="highlight.css">
     
 We will demonstrate how to create a Scalejs application by creating a ToDo MVC app. Scalejs is better suited for creating large and scalable applications, but we will cover some basics with the ToDo MVC app such as:
 
@@ -209,7 +209,7 @@ module's sandbox.  `observable` is included in the `mvvm` extension. You can lea
 more about the [sandbox](./overview.html#sandbox) and the [mvvm extension](./mvvm.html)
 in our docs. 
 
-![Magicall](./intellisense1)
+![Magicall](./intellisense1.png)
 
 One of the great benefits to scalejs is that we have [intellisense](./best.html#intellisense)
 for all of extensions and functions in the sandbox. Keep a look out for what happens as 

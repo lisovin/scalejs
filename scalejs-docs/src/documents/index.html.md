@@ -1,7 +1,8 @@
-Scalejs Docs
-=======
+---
+title: "ScaleJS Docs"
+isPage: true
+---
 
-<link rel="stylesheet" type="text/css" href="global.css">
 
 
 * [Scalejs Introduction](./intro.html)
@@ -21,5 +22,5 @@ Scalejs Docs
 * [Best Practices](./best.html)
 * [Testing](./test.html)
 * Tutorials & Samples
-  * [ToDoMVC](./todomvc.html)
+    * [ToDoMVC](./todomvc.html)
 * [API Documentation](./api.html)

@@ -1,3 +1,7 @@
+---
+title: "ScaleJS MVVM"
+isPage: true
+---
 # MVVM Primer
 
 ## Virtual Bindings

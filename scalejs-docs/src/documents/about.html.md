@@ -1,3 +1,7 @@
+---
+title: "ScaleJS About"
+isPage: true
+---
 Scalejs
 =======
 

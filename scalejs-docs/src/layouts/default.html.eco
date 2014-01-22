@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+	<%- @getBlock("meta").toHTML() %>
+	<%- @getBlock("styles").add(["global.css"]).add(@document.styles).toHTML() %>
+	<style>
+	#head {
+		position: absolute;
+		height: 50px;
+		top: 0%;
+		left: 0%;
+		right: 0%;
+		overflow: hidden;
+		background: #EEE;
+	}
+	#menu {
+		position: absolute;
+		top: 50px;
+		left: 0%;
+		bottom: 0%;
+		right: 80%;
+		overflow: auto;
+		background: #FFF;
+	}
+	#page {
+		position: absolute;
+		top: 50px;
+		left: 20%;
+		bottom: 0%;
+		right: 0%;
+		overflow: auto;
+		background: #DDD;
+	}
+	</style>
+</head>
+<body>
+	<div id="head">
+		<div style="position:absolute;top:0%;bottom:0%;left:0%;right:0%;text-align:center;">Header</div>
+	</div>
+	<div id="menu">
+		<%- @include('menu.html') %>
+	</div>
+	<div id="page">
+		<%- @content %>
+	</div>
+</body>
+</html>
