@@ -1,25 +1,25 @@
-.lang-javascript .string {
+.lang-javascript .hljs-string {
     color: rgb(163,21,21)
 }
-.lang-javascript .keyword {
+.lang-javascript .hljs-keyword {
     color: rgb(0,0,255)
 }
-.lang-javascript .literal {
+.lang-javascript .hljs-literal {
     color: rgb(0,0,255)
 }
-.lang-javascript .comment {
+.lang-javascript .hljs-comment {
     color: rgb(0,136,0)
 }
 
-.lang-xml .tag {
+.lang-xml .hljs-tag {
     color: rgb(0,0,255)
 }
-.lang-xml .title {
+.lang-xml .hljs-title {
     color: rgb(163,21,21)
 }
-.lang-xml .attribute {
+.lang-xml .hljs-attribute {
     color: red
 }
-.lang-xml .comment {
+.lang-xml .hljs-comment {
     color: rgb(0,136,0)
 }
