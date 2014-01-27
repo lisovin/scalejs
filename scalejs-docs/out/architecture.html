@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="generator" content="DocPad v6.60.3" />
+	<link  rel="stylesheet" href="global.css" />
+	<style>
+	#head {
+		position: absolute;
+		height: 50px;
+		top: 0%;
+		left: 0%;
+		right: 0%;
+		overflow: hidden;
+		background: #EEE;
+	}
+	#menu {
+		position: absolute;
+		top: 50px;
+		left: 0%;
+		bottom: 0%;
+		right: 80%;
+		overflow: auto;
+		background: #FFF;
+	}
+	#page {
+		position: absolute;
+		top: 50px;
+		left: 20%;
+		bottom: 0%;
+		right: 0%;
+		overflow: auto;
+		background: #DDD;
+	}
+	</style>
+</head>
+<body>
+	<div id="head">
+		<div style="position:absolute;top:0%;bottom:0%;left:0%;right:0%;text-align:center;">Header</div>
+	</div>
+	<div id="menu">
+		<ul>
+<li><a href="./index.html">Scalejs Introduction</a></li>
+<li><a href="./install.html">Install Scalejs</a></li>
+<li><a href="./project.html">Create an Application Project</a></li>
+<li>Explaination and Overview<ul>
+<li><a href="./template.html">Project Template</a></li>
+<li><a href="./architecture.html">Architecture</a></li>
+<li><a href="./statechart.html">Statechart</a></li>
+<li><a href="./mvvm.html">Model-View-ViewModel</a></li>
+<li><a href="./routing.html">Routing</a></li>
+<li><a href="./layout.html">Layout</a></li>
+<li><a href="./styles.html">Styles</a></li>
+<li><a href="./extensions.html">Extensions</a></li>
+</ul>
+</li>
+<li><a href="./build.html">Build and Deployment</a></li>
+<li><a href="./best.html">Best Practices</a></li>
+<li><a href="./test.html">Testing</a></li>
+<li>Tutorials &amp; Samples<ul>
+<li><a href="./todomvc.html">ToDoMVC</a></li>
+</ul>
+</li>
+<li><a href="./api.html">API Documentation</a></li>
+</ul>
+
+	</div>
+	<div id="page">
+		<h2 id="application-architecture">Application Architecture</h2>
+<p>The architecture of your application is one the core freatures of scalejs. 
+Scalejs application architecture was inspired by Nicholas Zakas&#39; <a href="http://www.slideshare.net/nzakas/scalable-javascript-application-architecture">Scalable JavaScript Application Architecure</a>
+seminar. Scalejs took these concepts and implemented them. Along the way, minor adjustments to the
+made, but overall, the architecture will follow what you see in the slides.</p>
+<h2 id="core">Core</h2>
+<p>The core of the application has only two responsibilities:</p>
+<ol>
+<li>Abstracting functions away from base libraries</li>
+<li>Registering and Starting Modules</li>
+</ol>
+<p>A visual representation of the core would look like this:</p>
+<p><img src="./architecture1.png" alt="The core"></p>
+<p>One of the major advantages of this pattern is that your application code is not closely coupled to base libraries.
+For example, let&#39;s say we wanted to use a jQuery UI component like tabs.
+In order to do that without scalejs, you would need to write your application in such a way that it would
+directly interface with the jQuery UI API. The issue with this is that it is not maintainable or scalable. 
+It is difficult to change or update the tab control without having to rewrite your application code as well.</p>
+<p>This is why scalejs enforces the abstraction of base libraries away from the application. The application
+will interface with the core and never with the base libraries themselves.</p>
+<p>The application also is responsible for registering and starting modules. This is done in <strong>app.js</strong> in the app folder
+for a scalejs project. It looks like this:</p>
+<p><strong>app.js</strong></p>
+<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global require*/</span>
+<span class="hljs-built_in">require</span>([
+    <span class="hljs-string">'scalejs!application/main'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
+    application
+)</span> {</span>
+<span class="hljs-pi">    'use strict'</span>;
+
+    application.run();
+});
+</code></pre>
+<p>To add additional modules, you just need to append a comma and the name of the module to this string: <code>scalejs!application/main</code>. 
+Scalejs uses requirejs plugins (that is what <code>scalejs!application</code> is) to register the modules; all you need to do is reference them.
+The application is started using the <code>run</code> method. Before <code>run</code> happens, all of modules are registered and bootstrapped so that they are ready to run.</p>
+<h2 id="modules">Modules</h2>
+<p>A scalejs Module is a self-containing component of your application. Modules consist of one of more files that define the
+behaviour of the component. Modules should be able to live on their own - with the exception being a module which is
+in charge of the <a href="./layout.html">layout</a>, which will have the job of setting up regions for other modules to appear. 
+Modules are loosely coupled with other modules, allowing you to develop, test, and change modules independently 
+from others without affecting how the other modules function.</p>
+<p>Each module has its own sandbox which gives the module access to core functions.
+The sandbox is similar to the core in the way that it abstracts base libraries away from the app.
+But it adds an additional step of security, because each function in the sandbox is a <em>copy</em>, and not
+a direct reference to the original function. Since each module gets its own sandbox, which is its own
+copy of functions for it to use, there is no possibility that a module will interfere with another module
+by modifying the sandbox. </p>
+<p><img src="./architecture1.png" alt="The core"></p>
+<p>All modules also have access to an application-wide <a href="./statechart.html">statechart</a> which defines the flow
+of the application. By using the statechart, a module can react to events from other modules, or access properties
+of the state of the application. </p>
+<p>Even though the scalejs core does not depend on the MVVM library, it is common that a developer will want to use MVVM.
+If using <a href="./mvvm.html">MVVM</a>, each module will contain its own viewmodels, styles, views and bindings. </p>
+<h2 id="sandbox">Sandbox</h2>
+<p>The sandbox is the container for all of the functions and tools modules can make use of.
+It is a consistent interface that provides everything a module needs. The sandbox can be extended with
+<a href="./extension.html">extensions</a>. Functions within the sandbox live within the namespace of the extension
+which created them. </p>
+<pre class="highlight"><code class="javascript">    <span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
+            root = sandbox.mvvm.root,
+            template = sandbox.mvvm.template,
+            registerStates = sandbox.state.registerStates,
+            state = sandbox.state.builder.state,
+           onEntry = sandbox.state.builder.onEntry;
+</code></pre>
+<p>It is common in your files that to make use of the sandbox, create a new variable to reference the function you would
+like to use. This is similar to &quot;importing&quot; the function like you would in Java or C#. This provides two immediate benefits:
+you will always be aware of what functions from the sandbox you are using by looking at the beginning of the file,
+and you won&#39;t have to write as much code in order to use a function which improves readability.</p>
+
+	</div>
+</body>
+</html>

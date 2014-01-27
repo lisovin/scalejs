@@ -6,11 +6,10 @@ isPage: false
 * [Create an Application Project](./project.html)
 * Explaination and Overview
   * [Project Template](./template.html)
-  * [Modules](./modules.html)
-  * [Sandbox](./sandbox.html)
+  * [Architecture](./architecture.html)
   * [Statechart](./statechart.html)
-  * [Routing](./routing.html)
   * [Model-View-ViewModel](./mvvm.html)
+  * [Routing](./routing.html)
   * [Layout](./layout.html)
   * [Styles](./styles.html)
   * [Extensions](./extensions.html)
