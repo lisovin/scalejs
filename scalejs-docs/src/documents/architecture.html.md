@@ -67,7 +67,7 @@ a direct reference to the original function. Since each module gets its own sand
 copy of functions for it to use, there is no possibility that a module will interfere with another module
 by modifying the sandbox. 
 
-![The core](./architecture1.png)
+![The core](./architecture2.png)
 
 All modules also have access to an application-wide [statechart](./statechart.html) which defines the flow
 of the application. By using the statechart, a module can react to events from other modules, or access properties

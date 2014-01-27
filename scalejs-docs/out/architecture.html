@@ -114,7 +114,7 @@ But it adds an additional step of security, because each function in the sandbox
 a direct reference to the original function. Since each module gets its own sandbox, which is its own
 copy of functions for it to use, there is no possibility that a module will interfere with another module
 by modifying the sandbox. </p>
-<p><img src="./architecture1.png" alt="The core"></p>
+<p><img src="./architecture2.png" alt="The core"></p>
 <p>All modules also have access to an application-wide <a href="./statechart.html">statechart</a> which defines the flow
 of the application. By using the statechart, a module can react to events from other modules, or access properties
 of the state of the application. </p>
