@@ -1,6 +1,7 @@
 ---
 title: "ScaleJS Docs"
 isPage: true
+styles: ["highlight.css"]
 ---
 
 ## Application Architecture

@@ -1,6 +1,7 @@
 ---
 title: "ScaleJS Overview"
 isPage: true
+styles: ["highlight.css"]
 ---
 ## Project Template
 
