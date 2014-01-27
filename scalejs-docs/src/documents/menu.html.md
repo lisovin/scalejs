@@ -1,33 +1,22 @@
 ---
 isPage: false
 ---
-* Why Choose Scalejs?
-* Install Scalejs
-* Quick Start
-* Overview and Explaination
-    * Hello World!
-    * Modules
-        * ViewModels
-        * Views
-        * Bindings
-        * Styles
-    * Statechart
-    * Layout
-    * Extensions
-        * Routing
-        * Ajax
-        * Signalr
-    * Best Practices
-		* Debugging Code
-        * Using Linq
-* Tutorials
+* [Scalejs Introduction](./intro.html)
+* [Install Scalejs](./install.html)
+* [Create an Application Project](./project.html)
+* Explaination and Overview
+  * [Project Template Overview](./template.html)
+  * [Modules](./modules.html)
+  * [Sandbox](./sandbox.html)
+  * [Statechart](./statechart.html)
+  * [Routing](./routing.html)
+  * [Model-View-ViewModel](./mvvm.html)
+  * [Layout](./layout.html)
+  * [Styles](./styles.html)
+  * [Extensions](./extensions.html)
+* [Build and Deployment](./build.html)
+* [Best Practices](./best.html)
+* [Testing](./test.html)
+* Tutorials & Samples
     * [ToDoMVC](./todomvc.html)
-* Supplemental
-    * MVVM with Knockoutjs
-        * Observables
-        * Rendering and Templating
-        * Virtual Bindings
-* Samples
-* Building and Deploying
-* Testing
-* API Documentation
+* [API Documentation](./api.html)
