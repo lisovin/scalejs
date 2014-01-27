@@ -2,28 +2,6 @@
 title: "ScaleJS Overview"
 isPage: true
 ---
-# Explanation and Overview
-
-<link rel="stylesheet" type="text/css" href="global.css">
-  <link rel="stylesheet" href="highlight.css">
-
-To create a scalejs application requires an understanding of the how things are done. 
-If you are seeking a deeper understanding of the various components of a scalejs application, you're in the right place. 
-If you are still unfamilular with scalejs and what it can do, check out the [Intro to Scalejs](./power.html)
-
-This section will cover in detail
-
-* The __Project Template__ and all of the files within it
-* __Modules__ and how they can be created
-* What the __Sandbox__ is used for
-* The purpose of the __Statechart__
-* What __Views__ are is and how to make one
-* What __ViewModels__ do and how to develop them
-* How to create __Bindings__
-* The proper way to approach __Styles__
-* How we can create a __Layout__
-* What __Extensions__ are and how to install them or create one
-
 ## Project Template
 
 The first thing you will be exposed to after [creating a project](./project.html) is the file structure of the project.
@@ -328,19 +306,4 @@ This test checks if the mainViewModel was loaded and text observable from the ma
 
 _Read more about [testing](./best#testing)_
 
-## Module
-
-## View
-
-## ViewModel
-
-## Styles
-
-## Layout
-
-## Sandbox
-
-## Statechart
-
-## Extensions
 

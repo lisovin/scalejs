@@ -1,11 +1,11 @@
 ---
 isPage: false
 ---
-* [Scalejs Introduction](./intro.html)
+* [Scalejs Introduction](./index.html)
 * [Install Scalejs](./install.html)
 * [Create an Application Project](./project.html)
 * Explaination and Overview
-  * [Project Template Overview](./template.html)
+  * [Project Template](./template.html)
   * [Modules](./modules.html)
   * [Sandbox](./sandbox.html)
   * [Statechart](./statechart.html)

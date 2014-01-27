@@ -1,4 +1,8 @@
-# Create a New Project
+---
+title: "Create a Project"
+isPage: true
+---
+## Create a New Project
 
 Open Visual Studio and select __Create a New Project__. 
 Search for __scalejs__ and select either the _Scalejs MVVM Application (CSS)_ project template
@@ -6,7 +10,7 @@ or the _Scalejs MVVM Application (LESS)_ project template.
 
 ![Search for Scalejs Project templates from the Project creation Menu](./project1.png)
 
-# Run your Project
+## Run your Project
 
 Press __CTRL + F5__ to run the project. Navigate to http://localhost:8888/ in your browser in order to view it.
 

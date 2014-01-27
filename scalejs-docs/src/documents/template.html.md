@@ -1,4 +1,8 @@
-# Project Template
+---
+title: "ScaleJS Overview"
+isPage: true
+---
+## Project Template
 
 The first thing you will be exposed to after [creating a project](./project.html) is the file structure of the project.
 
@@ -21,7 +25,7 @@ The project template consists of:
 
 This section will introduce you to the code and purpose of these files. How you can expand to these files to do more complex things will be covered in another section.
 
-## index.html and config.js
+### index.html and config.js
 
 index.html is the starting point for your app. 
 
@@ -64,7 +68,7 @@ so you will not need to edit this file unless you are have an intermidiate under
 of scalejs and are ready to [build your own extension](./extension.html). 
 
 
-## app folder and app.js
+### app folder and app.js
 
 The app folder contains a single file __app.js__ as well as folders for the modules in your application.
 
@@ -91,7 +95,7 @@ and selecting the appropriate template for a Scalejs Module.
 If you are using a project with LESS, select a __Scalejs LESS Module__, and if you are using a project with CSS,
 select __Scalejs CSS Module__. 
 
-## main folder and mainModule.js
+### main folder and mainModule.js
 
 The main folder contains the files needed for the main module.
 Typically, the main module is the shell of your application and will be used to define the layout for your app
@@ -150,7 +154,7 @@ at the top of define as seen above and define the [statechart](./overview.html#s
 
 _Read more about [Modules](./overview.html#modules)_
 
-## view folder and main.html
+### view folder and main.html
 
 The view folder is a container of [views](./overview.thml#views) and includes one view file for the main module:
 
@@ -195,7 +199,7 @@ Bindings are what connects your view to your viewmodel. The viewmodel is covered
 
 _Read more about [Bindings](./overview.html#bindings)_
 
-## viewmodels folder and mainViewModel.js
+### viewmodels folder and mainViewModel.js
 
 Viewmodels are what perform the logical and functional tasks of your module.
 Viewmodels also define the model for your view; e.g. whatever needs to be in your view
@@ -239,13 +243,13 @@ These recommendations can be found in the styles section.
 
 _Read more about [Styles](./overview.html#styles)_
 
-## Scripts
+### Scripts
 
 The Scripts folder contains a combination of core scalejs files, scalejs extensions, and base libraries.
 The difference between extensions and base libraries are one of the key advantages of scalejs.
 If you're not sure why, make sure to read about it [here](./power.html#scalable)
 
-## test
+### test
 
 The test folder contains unit tests which are provided by the [jasmine](http://pivotal.github.io/jasmine/)
 testing framework. 
@@ -301,3 +305,5 @@ define([
 This test checks if the mainViewModel was loaded and text observable from the mainViewModel is 'Hello World!'
 
 _Read more about [testing](./best#testing)_
+
+
