@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta name="generator" content="DocPad v6.60.3" />
-	<link  rel="stylesheet" href="global.css" />
+	<link  rel="stylesheet" href="global.css" /><link  rel="stylesheet" href="highlight.css" />
 	<style>
 	#head {
 		position: absolute;
@@ -45,8 +45,8 @@
 <li>Explaination and Overview<ul>
 <li><a href="./template.html">Project Template</a></li>
 <li><a href="./architecture.html">Architecture</a></li>
-<li><a href="./statechart.html">Statechart</a></li>
 <li><a href="./mvvm.html">Model-View-ViewModel</a></li>
+<li><a href="./statechart.html">Statechart</a></li>
 <li><a href="./routing.html">Routing</a></li>
 <li><a href="./layout.html">Layout</a></li>
 <li><a href="./styles.html">Styles</a></li>
@@ -65,14 +65,120 @@
 
 	</div>
 	<div id="page">
-		<h1 id="mvvm-primer">MVVM Primer</h1>
-<h2 id="virtual-bindings">Virtual Bindings</h2>
-<h2 id="render">Render</h2>
-<h2 id="observables">Observables</h2>
+		<h1 id="model-view-viewmodel-mvvm-">Model-View-ViewModel (MVVM)</h1>
+<p>MVVM stands for <strong>M</strong>odel-<strong>V</strong>iew-<strong>V</strong>iew<strong>M</strong>odel and enforces <a href="http://en.wikipedia.org/wiki/Separation_of_concerns">seperation of concerns</a>
+so that the User Interface, or &quot;View&quot; is seperated from the data, or &quot;Model&quot;. This requires the
+use of an aditional layer which provides the interface between View and Model while also
+keeping the View and Model agnostic to eachother: the &quot;ViewModel&quot;.
+There are many patterns which solve this problem that fall into the umbrella of <strong>MV*</strong> frameworks,
+including the MVC pattern. The <strong>ViewModel</strong> is an efficient and effective way of representing
+the data and functions of your view, while keeping the Model abstracted away. </p>
+<p>How does MVVM have to do with scalejs? The core of scalejs, although small, only provides the <a href="./architecture.html">architecture</a>
+of the application. This leaves the implementation details of modules up to the developer. 
+The developers of scalejs felt that their applications would need a pattern like MVVM for
+the creation of the UI layer, so they created a <strong>scalejs.mvvm</strong> to extend scalejs.
+This adds additional complexity to a module&#39;s structure by giving each module its own 
+ViewModels, Views, and Bindings. <strong>scalejs.mvvm</strong> leverages <a href="http://knockoutjs.com/">knockoutjs</a>
+to provide the data-binding between the View and the ViewModel using observable properties.
+The Bindings are an extra (optional) layer between the View and the ViewModel which allows
+you to create complex bindings.</p>
+<p>This extension proved to be essential for creating applications so it is included in the <a href="template.html">project template</a>.
+If you know knockoutjs already then learning how to use this extension will not be difficult.
+If you have an understanding of MV* patterns but know nothing about knockout, it could be useful for
+you to read about knockoutjs in order to get a better understanding of what bindings and observables are.
+If you&#39;re still a bit confused on what MVVM even is, check it out on <a href="http://en.wikipedia.org/wiki/Model_View_ViewModel">wikipedia</a></p>
+<p><img src="http://www.codeproject.com/KB/applications/424656/MVVM.png" alt="Model-View-ViewModel"></p>
+<h2 id="view">View</h2>
+<p><em>The view consists of elements displayed by the UI such as buttons, labels, regions, and other controls.</em> 
+In scalejs we specify the View using <strong>HTML</strong>. The View consists of <strong>templates</strong> which
+are reusable, small blocks of HTML code that have no parent container and a
+unique identifier that has the post-fix <code>_template</code>. Data-binding can be applied to the
+elements within a view using inline <code>data-bind</code> or the abstrated <code>data-class</code>.</p>
+<p>Here is an example of a View:</p>
+<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_input_template"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-input"</span> <span class="hljs-attribute">placeholder</span>=<span class="hljs-value">"What needs to be done?"</span> <span class="hljs-attribute">autofocus</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo-list"</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"foreach: viewableItems"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-item"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
+<p>As we can see by the example,</p>
+<ul>
+<li>The view is specified by HTML</li>
+<li>There are two distinct templates in this view, <code>todo_input_template</code> and <code>todo_items_template</code></li>
+<li>A template consists of HTML elements which can have a <code>data-bind</code> attribute or a <code>data-class</code> attribute.</li>
+</ul>
+<h3 id="-data-bind-"><code>data-bind</code></h3>
+<p>A binding consists of two items, the binding name and value, separated by a colon. 
+In the above example, the data-bind used was <a href="http://knockoutjs.com/documentation/foreach-binding.html">foreach</a>
+to show all of the <code>viewableItems</code> from the <a href="./mvvm.html#viewmodel">ViewModel</a>.</p>
+<p><strong>scalejs.mvvm</strong> gives you the ability to use all of the bindings provided by knockoutjs. There
+are also some new bindings provided by <strong>scalejs.mvvm</strong> which can be found in the <a href="./api.html#mvvm">scalejs.mvvm API docs</a>.</p>
+<p><em>Read more about <a href="http://knockoutjs.com/documentation/binding-syntax.html">knockoutjs binding syntax</a></em></p>
+<h3 id="-data-class-"><code>data-class</code></h3>
+<p>A <code>data-class</code> is to <code>data-bind</code> as <code>class</code> is to the <code>style</code> attribute. 
+In other words, you have two choices on how to apply your bindings to your elements.
+For example you can bind the ViewModel property <code>title</code> to the <code>text</code> of an element
+by specifying in the HTML <code>data-bind=&quot;text: title&quot;</code>. Similarly, you could make the 
+text red by specifying <code>style=&quot;color: red&quot;</code>. But if your element where to have many
+different bindings or complex bindngs, it would be ugly to code all of them inline.
+The same way you can abstract all the styles of an element into a <code>class</code> in a CSS file
+and reference the class name is how you do it with bindings, too. <a href="./mvvm.html#bindings">Bindings</a>
+are an abstraction of the inline <code>data-bind</code> attribute to an external JavaScript file.</p>
+<h2 id="viewmodel">ViewModel</h2>
+<p>The <strong>ViewModel</strong> is a &quot;model of the view&quot; meaning it is an abstraction of the view that also 
+serves in mediating between the view and the model. The <strong>Model</strong> is your Data-Access-Layer
+and the ViewModel is a conceptual representation of the data from the model so that it can
+be represented by the View.</p>
+<p>In a scalejs ViewModel you can create observable properties
+and functions that can be used to bind to the View.</p>
+<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+define([
+    <span class="hljs-string">'sandbox!main'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
+    sandbox
+)</span> {</span>
+<span class="hljs-pi">    'use strict'</span>;
+
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
+            observable = sandbox.mvvm.observable,
+            <span class="hljs-comment">// properties</span>
+            todoItems = observable(),
+            todoInput = observable();
+
+        <span class="hljs-keyword">return</span> {
+            todoItems: todoItems,
+            todoInput: todoInput
+        };
+    };
+});
+</code></pre>
+<p>In this example, you can see we declared two observable properties and returned them at the end of the function.
+What is returned at the end <em>is the ViewModel</em>. Everything which is not included by the return statement is
+encapsulated by the ViewModel function and therefore cannot be used to bind to the View. </p>
 <h2 id="bindings">Bindings</h2>
-<h2 id="foreach">Foreach</h2>
-<h2 id="data-class">Data-class</h2>
-<h2 id="computed">Computed</h2>
+<p>If the use of <code>data-bind</code> does not suit your needs, you can use a <code>data-class</code> to define the bindings for an element.
+This is done in an external JavaScript bindings file, which typically will look something like this:</p>
+<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<span class="hljs-comment">/*jslint sloppy: true*/</span>
+define({
+    <span class="hljs-string">'main-text'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(ctx)</span> {</span>
+        <span class="hljs-keyword">return</span> {
+            text: <span class="hljs-keyword">this</span>.text
+        };
+    }
+});
+</code></pre>
+<p>The bindings gets the ViewModel from <code>this</code>. The binding context can also be used if you define
+an argument for the <code>main-text</code> function. This context gives you access to the same context
+that knockout provides with things like <code>$parent</code>. </p>
+<p>This classes were implemented using the <a href="https://github.com/rniemeyer/knockout-classBindingProvider">knockout binding class provider</a>
+so it might be useful for you to take a look at some of those examples. As per scalejs convention,
+the key for the binding is in single quotes and is lower-case and delimitted by &quot;-&quot;.</p>
 
 	</div>
 </body>

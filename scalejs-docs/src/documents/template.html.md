@@ -52,7 +52,7 @@ as it provides function scope.
 
 __require.js__
 
-The most important aspect of this file is that it tells requirejs that our starting point is the [app folder](./overview.html#app)
+The most important aspect of this file is that it tells requirejs that our starting point is the [app folder](./template.html#app-folder-and-app-js)
 You also will notice we have other index files, e.g. _index.debug.html_, _index.release.html_, and _index.test.html_.
 _index.release_ and _index.debug_ serve a similar purpose as _index_ but they load concatenated versions of your
 application where as _index.html_ will load files in their respective directories. 

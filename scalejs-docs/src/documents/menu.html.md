@@ -7,8 +7,8 @@ isPage: false
 * Explaination and Overview
   * [Project Template](./template.html)
   * [Architecture](./architecture.html)
-  * [Statechart](./statechart.html)
   * [Model-View-ViewModel](./mvvm.html)
+  * [Statechart](./statechart.html)
   * [Routing](./routing.html)
   * [Layout](./layout.html)
   * [Styles](./styles.html)

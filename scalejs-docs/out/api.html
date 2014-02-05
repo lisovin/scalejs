@@ -45,8 +45,8 @@
 <li>Explaination and Overview<ul>
 <li><a href="./template.html">Project Template</a></li>
 <li><a href="./architecture.html">Architecture</a></li>
-<li><a href="./statechart.html">Statechart</a></li>
 <li><a href="./mvvm.html">Model-View-ViewModel</a></li>
+<li><a href="./statechart.html">Statechart</a></li>
 <li><a href="./routing.html">Routing</a></li>
 <li><a href="./layout.html">Layout</a></li>
 <li><a href="./styles.html">Styles</a></li>
@@ -65,8 +65,275 @@
 
 	</div>
 	<div id="page">
-		<h1 id="api">API</h1>
-<h2 id="has">Has</h2>
+		<h1 id="scalejs-api">Scalejs API</h1>
+<p>This Document contains all of the methods exposed by scalejs and most used extensions</p>
+<h2 id="application">application</h2>
+<p>Coming soon!</p>
+<h2 id="sandbox-namespaces">sandbox namespaces</h2>
+<h3 id="type">type</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>is</code></td>
+<td><strong>With 1 parameter</strong> will check that the value is neither null nor undefined. <strong>With more then 1 parameter</strong>, &#39;is&#39; can be used to type-check a value and also be able to check if a nested property of an object exists or if it has a certain type.</td>
+</tr>
+<tr>
+<td><code>typeOf</code></td>
+<td>Takes any value and returns type e.g. &quot;undefined&quot;, &quot;null&quot;, &quot;object&quot;, &quot;number&quot;, &quot;string&quot; and &quot;array&quot;.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="object">object</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>has</code></td>
+<td>Checks whether an object property is present and not null nor undefined. A chain of nested properties may be checked by providing more than two arguments.</td>
+</tr>
+<tr>
+<td><code>valueOrDefault</code></td>
+<td>When passed a value, it checks if the value (1st paramenter) is neither null nor undefined. If it exists, it returns the value (1st parameter) and if it does not, it returns the default Value (2nd parameter)</td>
+</tr>
+<tr>
+<td><code>merge</code></td>
+<td>Merges an object with the next object in the argument list, reducing all arguments into a single object. Objects provided later in the chain of arguments will overwrite existing properties.</td>
+</tr>
+<tr>
+<td><code>extend</code></td>
+<td>??</td>
+</tr>
+<tr>
+<td><code>clone</code></td>
+<td>Makes a new copy of an object and all of its nested properties.</td>
+</tr>
+<tr>
+<td><code>get</code></td>
+<td>??</td>
+</tr>
+</tbody>
+</table>
+<h3 id="array">array</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addOne</code></td>
+<td>??</td>
+</tr>
+<tr>
+<td><code>removeOne</code></td>
+<td>??</td>
+</tr>
+<tr>
+<td><code>removeAll</code></td>
+<td>??</td>
+</tr>
+<tr>
+<td><code>copy</code></td>
+<td>Makes a new copy of an array</td>
+</tr>
+<tr>
+<td><code>find</code></td>
+<td>??</td>
+</tr>
+<tr>
+<td><code>toArray</code></td>
+<td>??</td>
+</tr>
+</tbody>
+</table>
+<h3 id="debug">debug</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>log</code></td>
+<td>same as console.log</td>
+</tr>
+<tr>
+<td><code>info</code></td>
+<td>same as console.info</td>
+</tr>
+<tr>
+<td><code>warn</code></td>
+<td>same as console.warn</td>
+</tr>
+<tr>
+<td><code>error</code></td>
+<td>same as console.error</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mvvm">mvvm</h3>
+<p><em>*requires scalejs.mvvm</em></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>observable</code></td>
+<td>same as ko.observable</td>
+</tr>
+<tr>
+<td><code>observableArray</code></td>
+<td>same as ko.observableArray</td>
+</tr>
+<tr>
+<td><code>computed</code></td>
+<td>same as ko.computed</td>
+</tr>
+<tr>
+<td><code>registerBindings</code></td>
+<td>can be used to register bindings <em>*Note: this has been depreciated. Use <a href="./api.html#plugins">plugins</a> to register bindings.</em></td>
+</tr>
+<tr>
+<td><code>registerTemplates</code></td>
+<td>can be used to register templates. <em>*Note: this has been depreciated. Use <a href="./api.html#plugins">plugins</a> to register bindings.</em></td>
+</tr>
+<tr>
+<td><code>toJson</code></td>
+<td>converts object to JSON notation</td>
+</tr>
+<tr>
+<td><code>toViewModel</code></td>
+<td>converts an object to a ViewModel (creates observable properties for each property)</td>
+</tr>
+<tr>
+<td><code>toObject</code></td>
+<td>converts a ViewModel to an object</td>
+</tr>
+<tr>
+<td><code>dataClass</code></td>
+<td>??</td>
+</tr>
+<tr>
+<td><code>template</code></td>
+<td>??</td>
+</tr>
+<tr>
+<td><code>dataBinding</code></td>
+<td>??</td>
+</tr>
+<tr>
+<td><code>selectableArray</code></td>
+<td>??</td>
+</tr>
+<tr>
+<td><code>root</code></td>
+<td>??</td>
+</tr>
+</tbody>
+</table>
+<h3 id="state">state</h3>
+<p><em>*requires scalejs.statechart-scion</em></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>registerStates</code></td>
+<td>Registers states onto parent state. First argument is the parent state id. Additional arguments are state builder functions.</td>
+</tr>
+<tr>
+<td><code>registerTransition</code></td>
+<td>??</td>
+</tr>
+<tr>
+<td><code>unregisterStates</code></td>
+<td>??</td>
+</tr>
+<tr>
+<td><code>raise</code></td>
+<td>Raises an event on the statechart. First argument is the event name. A second argument may be provided to pass data associated with the event.</td>
+</tr>
+<tr>
+<td><code>observe</code></td>
+<td>??</td>
+</tr>
+<tr>
+<td><code>onState</code></td>
+<td>??</td>
+</tr>
+<tr>
+<td><code>builder.builder</code></td>
+<td>??</td>
+</tr>
+<tr>
+<td><code>builder.state</code></td>
+<td>State builder function. First argument is the state id. Additional arguments can be either state builders or transition builders.</td>
+</tr>
+<tr>
+<td><code>builder.parallel</code></td>
+<td>Same as state builder, except it creates a parallel state.</td>
+</tr>
+<tr>
+<td><code>builder.initial</code></td>
+<td>??</td>
+</tr>
+<tr>
+<td><code>builder.onEntry</code></td>
+<td>On Entry transition builder. Takes a single argument (a function) which will be evaluated whenever the state it is defined on is entered.</td>
+</tr>
+<tr>
+<td><code>builder.onExit</code></td>
+<td>Same as onEntry, except it runs when the state is exitted.</td>
+</tr>
+<tr>
+<td><code>builder.on</code></td>
+<td>An event transition builer. There are two necessary arguments: The first argument should be the event name (string) and the last argument should be a <code>goto</code> function. There can be an optional second argument which should return true if the goto function should run, or return false to cancel the transition.</td>
+</tr>
+<tr>
+<td><code>builder.whenInStates</code></td>
+<td>??</td>
+</tr>
+<tr>
+<td><code>builder.whenNotInStates</code></td>
+<td>??</td>
+</tr>
+<tr>
+<td><code>builder.goto</code></td>
+<td>First argument is the state id of the desired destination state. An additional argument may be past which gets evaluated when the transition occurs.</td>
+</tr>
+<tr>
+<td><code>builder.gotoInternally</code></td>
+<td>Same as goto, except it does not re-enter parent states when entering children states.</td>
+</tr>
+<tr>
+<td><code>builder.statechart</code></td>
+<td>Can be used to create a new statechart.</td>
+</tr>
+</tbody>
+</table>
 
 	</div>
 </body>

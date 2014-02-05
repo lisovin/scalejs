@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="generator" content="DocPad v6.60.3" />
+	<link  rel="stylesheet" href="global.css" /><link  rel="stylesheet" href="highlight.css" />
+	<style>
+	#head {
+		position: absolute;
+		height: 50px;
+		top: 0%;
+		left: 0%;
+		right: 0%;
+		overflow: hidden;
+		background: #EEE;
+	}
+	#menu {
+		position: absolute;
+		top: 50px;
+		left: 0%;
+		bottom: 0%;
+		right: 80%;
+		overflow: auto;
+		background: #FFF;
+	}
+	#page {
+		position: absolute;
+		top: 50px;
+		left: 20%;
+		bottom: 0%;
+		right: 0%;
+		overflow: auto;
+		background: #DDD;
+	}
+	</style>
+</head>
+<body>
+	<div id="head">
+		<div style="position:absolute;top:0%;bottom:0%;left:0%;right:0%;text-align:center;">Header</div>
+	</div>
+	<div id="menu">
+		<ul>
+<li><a href="./index.html">Scalejs Introduction</a></li>
+<li><a href="./install.html">Install Scalejs</a></li>
+<li><a href="./project.html">Create an Application Project</a></li>
+<li>Explaination and Overview<ul>
+<li><a href="./template.html">Project Template</a></li>
+<li><a href="./architecture.html">Architecture</a></li>
+<li><a href="./mvvm.html">Model-View-ViewModel</a></li>
+<li><a href="./statechart.html">Statechart</a></li>
+<li><a href="./routing.html">Routing</a></li>
+<li><a href="./layout.html">Layout</a></li>
+<li><a href="./styles.html">Styles</a></li>
+<li><a href="./extensions.html">Extensions</a></li>
+</ul>
+</li>
+<li><a href="./build.html">Build and Deployment</a></li>
+<li><a href="./best.html">Best Practices</a></li>
+<li><a href="./test.html">Testing</a></li>
+<li>Tutorials &amp; Samples<ul>
+<li><a href="./todomvc.html">ToDoMVC</a></li>
+</ul>
+</li>
+<li><a href="./api.html">API Documentation</a></li>
+</ul>
+
+	</div>
+	<div id="page">
+		<h1 id="statechart-and-states">Statechart and States</h1>
+<p>Every interface has certain states which determine what is currently displayed on the UI. 
+Originally state was managed indirectly with the <a href="./reactive.html">reactive</a> pattern by publishing events and
+notifying subscribers. For instance, when a user logs in, modules which needed to show
+user-related information would need to respond to this event and change their view. At the same time,
+the layout needed to respond to this change to hide/show modules as neccessary. </p>
+<p>It was soon found that without the concept of &quot;state&quot; this process became cumbersome to maintain.
+This is why the scalejs devs decided to incorporate <a href="http://www.w3.org/TR/scxml/">Harel Statecharts</a>
+to manage state. The way Statecharts differ from typical state machines is that they allow
+for more complex states which is suited for User Interface design. The main differences is that
+it allows you to create hierarchical states and parallel states. This will be elaborated on further below.</p>
+<p>The statechart is one of the most original aspects of scalejs. Of course, the statechart isn&#39;t
+part of the scalejs core, but it is already included for your convience in the <a href="./project.html">project template</a>.
+It can be found in the <strong>scalejs.statechart-scion</strong> extension. This extension adapts <a href="https://github.com/jbeard4/SCION">scion statecharts</a>
+so that they can be defined using builder functions.</p>
+<h2 id="statechart-implementation">Statechart implementation</h2>
+<p>The statechart is a <strong>monad</strong> which in computer science is a functional programming structure which allows you to
+define computations as a sequence of steps. It allows you to nest and chain operations together which creates
+pipelines to process the data in steps, which each step having its own processing rules. This is a very convienient 
+structure for building a statechart due to is clean and concise syntax.</p>
+<h3 id="registerstates">registerStates</h3>
+<p>The first step in the statechart building process is registering states onto the application state. </p>
+<p><strong>Example mainModule.js snippet</strong></p>
+<pre class="highlight"><code class="javascript">    <span class="hljs-keyword">var</span> registerStates = sandbox.state.registerStates,
+        state = sandbox.state.builder.state;
+
+    <span class="hljs-comment">// Add the "main" state as a child to the application state</span>
+    registerStates(<span class="hljs-string">"app"</span>, state(<span class="hljs-string">"main"</span>))
+</code></pre>
+<p><code>registerStates</code> takes at least one argument. It expects a <code>state()</code> builder to be passed into it.</p>
+<p>Use this function when registering states from the module. Ensure loose coupling by having states add <em>themselves</em> to the &quot;app&quot; state.</p>
+<h3 id="state">state</h3>
+<p>The second argument to <code>registerStates</code> should be a <code>state()</code> builder. Create hierarchical
+structures by defining states as children or siblings of other states.</p>
+<p> <strong>Example statechart</strong></p>
+<pre class="highlight"><code class="javascript">    <span class="hljs-keyword">var</span> registerStates = sandbox.state.registerStates,
+         state = sandbox.state.builder.state;
+
+    <span class="hljs-comment">// hierarchical structure with 3 levels</span>
+
+    registerStates(<span class="hljs-string">"app"</span>,                <span class="hljs-comment">//app state will be parent state</span>
+        state(<span class="hljs-string">"A"</span>,                                <span class="hljs-comment">// State A - First Level State with 2 children</span>
+            state(<span class="hljs-string">"A.1"</span>),                                <span class="hljs-comment">//State A.1 &amp; A.2 - Second level sibling states</span>
+            state(<span class="hljs-string">"A.2"</span>)),
+        state(<span class="hljs-string">"B"</span>,                                <span class="hljs-comment">// State B - Another First Level State with 3 children and 1 grandchild</span>
+            state(<span class="hljs-string">"B.1"</span>),                            <span class="hljs-comment">// State B.1, B.2, &amp; B.3 - Second level sibling states</span>
+            state(<span class="hljs-string">"B.2"</span>),
+            state(<span class="hljs-string">"B.3"</span>,                            <span class="hljs-comment">// State B.3 - 2 children states</span>
+                state(<span class="hljs-string">"B.3.a"</span>),                        <span class="hljs-comment">//State B.3.1 &amp; State B.3.b - Third level sibling states</span>
+                state(<span class="hljs-string">"B.3.b"</span>s))),
+        state(<span class="hljs-string">"c"</span>));
+</code></pre>
+<p>You can create infinitely long statecharts, or create and organized structure with abstracted code</p>
+<p> <strong>Example statechart</strong></p>
+<pre class="highlight"><code class="javascript">
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stateA</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">return</span> state(<span class="hljs-string">"A"</span>,                                
+            state(<span class="hljs-string">"A.1"</span>), state(<span class="hljs-string">"A.2"</span>));
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stateB</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">return</span> state(<span class="hljs-string">"B"</span>,                                
+            state(<span class="hljs-string">"B.1"</span>),                            
+            state(<span class="hljs-string">"B.2"</span>),
+            state(<span class="hljs-string">"B.3"</span>,                            
+                state(<span class="hljs-string">"B.3.a"</span>),                        
+                state(<span class="hljs-string">"B.3.b"</span>))));
+    }
+
+
+    registerStates(<span class="hljs-string">"app"</span>,            
+        stateA(), stateB(), state(<span class="hljs-string">"c"</span>);
+</code></pre>
+<p>Statecharts are prebuilt before the application runs. This allows modules to set up their states
+in advance. Assume modules to be loaded dynamically because they are independent of one another.
+This means you cannot have control over the <em>order</em> of the states being registered parent state.</p>
+<p> <strong>Example mainModule.js</strong></p>
+<pre class="highlight"><code class="javascript">    registerStates(<span class="hljs-string">"app"</span>, <span class="hljs-string">"main"</span>);
+</code></pre>
+<p><strong>Example genericModule.js</strong></p>
+<pre class="highlight"><code class="javascript">    registerStates(<span class="hljs-string">"app"</span>, <span class="hljs-string">"generic"</span>);
+</code></pre>
+<p>In these snippits of code note that:</p>
+<ul>
+<li>They are evaluated in the module js file, which means they are added to the state when the module is created (before the app runs)</li>
+<li>Modules which are independent of other modules can load asynchonously </li>
+<li>Therefore when the application starts it will be either enter the &quot;main&quot; state or the &quot;generic&quot; state</li>
+<li>This is because when a normal state defines children, these children are mutually exclusive and the first child state is automatically entered.</li>
+<li>The state of the application is always a &quot;leaf&quot; state - it must have NO children</li>
+</ul>
+<p>In order to preserve order, you can define a state in a module which is a child of a state created in another module</p>
+<p> <strong>Example mainModule.js</strong></p>
+<pre class="highlight"><code class="javascript">    registerStates(<span class="hljs-string">"app"</span>, <span class="hljs-string">"main"</span>);
+</code></pre>
+<p><strong>Example genericModule.js</strong></p>
+<pre class="highlight"><code class="javascript">    registerStates(<span class="hljs-string">"main"</span>, <span class="hljs-string">"generic"</span>);
+</code></pre>
+<p>This brings us to some statechart &quot;rules&quot;</p>
+<ul>
+<li>The application state must always be a <strong>childless state</strong></li>
+<li>The application state always a parent state before it enters the child state</li>
+<li>The application always exits a child state before it exits the parent state</li>
+<li>The statechart is built before the application runs and <em>after</em> all modules have been created.</li>
+</ul>
+<p>This means it doesn&#39;t matter if the &quot;genericModule&quot; is created before the &quot;mainModule&quot; - the statechart is smart enough to know to build the statechart in the correct order!</p>
+<p>But making a state a child state is not the only way to preserve order. In fact, it is far from the recommended way.
+Let&#39;s postulate that there is no &quot;mainModule&quot; at all. This would cause the statechart build step to fail, because there is no &quot;main&quot; state defined but
+&quot;generic&quot; is defined as a child for the &quot;main&quot; state. In order to ensure that order and loose coupling are enforced, it is best to have
+a base state and have modules define themselves on that state. That way you do not have a huge chain of depencies with your modules.</p>
+<p>This leads to the problem we saw in the previous code snippet in which the first state which is defined is the state which is entered.
+In order to create a predictable flow and order of your statechart, you can use <em>events</em> and <em>transitions</em> to hop from state to state!</p>
+<h3 id="onentry">onEntry</h3>
+<p>There has so far been one major thing missing from our discussion of states. We&#39;ve told you
+how to create states and nest states, but we haven&#39;t told you what you can <em>do</em> with states.</p>
+<p>When a state is entered, typically the following can be done:</p>
+<ul>
+<li>Set application state properties to be accesible to all other states</li>
+<li>Update the module&#39;s ViewModel so that it shows the appropriate View for the state</li>
+</ul>
+<p>This can be done by calling <code>onEntry</code> and passing a function.</p>
+<p><strong>Example mainModule.js</strong></p>
+<pre class="highlight"><code class="javascript">    <span class="hljs-keyword">var</span> registerStates = sandbox.state.registerStates,
+         state = sandbox.state.builder.state,
+         onEntry = sandbox.state.builder.onEntry;
+
+    registerStates(<span class="hljs-string">"app"</span>,
+        state(<span class="hljs-string">"main"</span>,
+            onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                <span class="hljs-comment">// do stuff here!</span>
+                sandbox.debug.log(<span class="hljs-string">"onEntry of main state called"</span>);
+            })));
+</code></pre>
+<p>When you enter a state, you can set a property of your viewModel to be a property of your state.</p>
+<p><strong>Example mainModule.js</strong></p>
+<pre class="highlight"><code class="javascript">    <span class="hljs-keyword">var</span>  <span class="hljs-comment">// imports</span>
+         registerStates = sandbox.state.registerStates,
+         state = sandbox.state.builder.state,
+         onEntry = sandbox.state.builder.onEntry;
+         <span class="hljs-comment">// viewModel</span>
+         viewModel = mainViewModel();
+
+    registerStates(<span class="hljs-string">"app"</span>,
+        state(<span class="hljs-string">"main"</span>,
+            onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                <span class="hljs-comment">// you can set state properties by adding them to "this"</span>
+
+                <span class="hljs-keyword">this</span>.region = viewModel.region;
+            })));
+</code></pre>
+<p>In this example, the mainViewModel defines a &quot;region&quot; property. This is a property of the state
+because it is being used to define a region in the template which can be used to render templates
+from other modules. In order for other modules to have access to this property, it must be made
+part of the state. </p>
+<p>We go more in depth about regions and how to use them in the statechart in the <a href=".layout.html">layout</a> section.</p>
+
+	</div>
+</body>
+</html>

@@ -30,8 +30,8 @@ which is explained in more details [here](./template.html).
 
 Your application code, which we will be editing in this tutorial, is within the _app_ folder. 
 This folder contains the [modules](./architecture.html#modules) for your project. 
-A module contains [bindings](./mvvm.html#bindings), [viewmodels](./mvvm.html#viewmodels),
-[styles](./mvvm.html#styles) and [views](./mvvm.html#views) for your project. 
+A module contains [bindings](./mvvm.html#bindings), [viewmodels](./mvvm.html#viewmodel),
+[styles](./styles.html) and [views](./mvvm.html#view) for your project. 
 
 
 To view and run the project, simply press __ctrl + f5__. Then open a browser with a [debugging console](./best.html#debug) (press F12 to open)
