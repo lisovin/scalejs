@@ -74,25 +74,25 @@ Method | Description
 
 _*requires scalejs.statechart-scion_
 
-Method | Description
+Method | Description | 
 ---|---|
-`registerStates` | Registers states onto parent state. First argument is the parent state id. Additional arguments are state builder functions.
+`registerStates` | Registers states onto parent state. First argument is the parent state id. Additional arguments are state builder functions. _[Read More](./statechart.html#registerstates)_
 `registerTransition` | ??
 `unregisterStates` | ??
-`raise` | Raises an event on the statechart. First argument is the event name. A second argument may be provided to pass data associated with the event.
+`raise` | Raises an event on the statechart. First argument is the event name. A second argument may be provided to pass data associated with the event. _[Read More](./statechart.html#raise)_
 `observe` | ??
 `onState` | ??
 `builder.builder` | ??
-`builder.state` | State builder function. First argument is the state id. Additional arguments can be either state builders or transition builders.
-`builder.parallel` | Same as state builder, except it creates a parallel state.
+`builder.state` | State builder function. First argument is the state id. Additional arguments can be either state builders or transition builders. _[Read More](./statechart.html#state)_
+`builder.parallel` | Same as state builder, except it creates a parallel state. _[Read More](./statechart.html#parallel)_
 `builder.initial` | ??
-`builder.onEntry` | On Entry transition builder. Takes a single argument (a function) which will be evaluated whenever the state it is defined on is entered.
-`builder.onExit` | Same as onEntry, except it runs when the state is exitted.
-`builder.on` | An event transition builer. There are two necessary arguments: The first argument should be the event name (string) and the last argument should be a `goto` function. There can be an optional second argument which should return true if the goto function should run, or return false to cancel the transition.
+`builder.onEntry` | On Entry transition builder. Takes a single argument (a function) which will be evaluated whenever the state it is defined on is entered. _[Read More](./statechart.html#onentry)_
+`builder.onExit` | Same as onEntry, except it runs when the state is exitted. _[Read More](./statechart.html#onexit)_
+`builder.on` | An event transition builer. There are two necessary arguments: The first argument should be the event name (string) and the last argument should be a `goto` function. There can be an optional second argument which should return true if the goto function should run, or return false to cancel the transition. _[Read More](./statechart.html#on)_
 `builder.whenInStates` | ??
 `builder.whenNotInStates` | ??
-`builder.goto` | First argument is the state id of the desired destination state. An additional argument may be past which gets evaluated when the transition occurs.
-`builder.gotoInternally` | Same as goto, except it does not re-enter parent states when entering children states.
+`builder.goto` | First argument is the state id of the desired destination state. An additional argument may be past which gets evaluated when the transition occurs. _[Read More](./statechart.html#goto)_
+`builder.gotoInternally` | Same as goto, except it does not re-enter parent states when entering children states. _[Read More](./statechart.html#gotointernally)_
 `builder.statechart` | Can be used to create a new statechart. 
 
 

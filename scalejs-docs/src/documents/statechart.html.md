@@ -34,7 +34,7 @@ structure for building a statechart due to is clean and concise syntax.
 
 The first step in the statechart building process is registering states onto the application state. 
 
-__Example mainModule.js snippet__
+__Example: adding the "main" state to "app" state in mainModule.js__
 ```javascript
     var registerStates = sandbox.state.registerStates,
 		state = sandbox.state.builder.state;
@@ -52,7 +52,7 @@ Use this function when registering states from the module. Ensure loose coupling
 The second argument to `registerStates` should be a `state()` builder. Create hierarchical
 structures by defining states as children or siblings of other states.
 
- __Example statechart__
+ __Example: creating a hierarchical statechart__
 ```javascript
     var registerStates = sandbox.state.registerStates,
 		 state = sandbox.state.builder.state;
@@ -74,7 +74,7 @@ structures by defining states as children or siblings of other states.
 
 You can create infinitely long statecharts, or create and organized structure with abstracted code
 
- __Example statechart__
+ __Example: abstracting states into functions__
 ```javascript
 
 	function stateA() {
@@ -101,11 +101,12 @@ in advance. Assume modules to be loaded dynamically because they are independent
 This means you cannot have control over the _order_ of the states being registered parent state.
 
 
- __Example mainModule.js__
+ __Example: registering states from 2 different modules on the same parent state__
+_mainModule.js_
 ```javascript
 	registerStates("app", "main");
 ```
-__Example genericModule.js__
+_genericModule.js_
 
 ```javascript
 	registerStates("app", "generic");
@@ -121,11 +122,12 @@ In these snippits of code note that:
 
 In order to preserve order, you can define a state in a module which is a child of a state created in another module
 
- __Example mainModule.js__
+ __Example: registering a state from one module as a child to the state of another module__
+_mainModule.js_
 ```javascript
 	registerStates("app", "main");
 ```
-__Example genericModule.js__
+_genericModule.js_
 
 ```javascript
 	registerStates("main", "generic");
@@ -160,7 +162,7 @@ When a state is entered, typically the following can be done:
 
 This can be done by calling `onEntry` and passing a function.
 
-__Example mainModule.js__
+__Example: defing an onEntry transition__
 ```javascript
 	var registerStates = sandbox.state.registerStates,
 		 state = sandbox.state.builder.state,
@@ -176,12 +178,12 @@ __Example mainModule.js__
 
 When you enter a state, you can set a property of your viewModel to be a property of your state.
 
-__Example mainModule.js__
+__Example: creating a property on the statechart__
 ```javascript
 	var  // imports
 		 registerStates = sandbox.state.registerStates,
 		 state = sandbox.state.builder.state,
-		 onEntry = sandbox.state.builder.onEntry;
+		 onEntry = sandbox.state.builder.onEntry,
 		 // viewModel
 		 viewModel = mainViewModel();
 
@@ -201,4 +203,252 @@ part of the state.
 
 We go more in depth about regions and how to use them in the statechart in the [layout](.layout.html) section.
 
+In the following example, you can see how easy it is to update the viewModel from the statechart.
+This gives you control over what is displayed in the view when in certain states.
 
+__Example: updating a viewModel property from the state__
+```javascript
+	var  // imports
+		 registerStates = sandbox.state.registerStates,
+		 state = sandbox.state.builder.state,
+		 onEntry = sandbox.state.builder.onEntry,
+		 // viewModel
+		 viewModel = mainViewModel();
+
+	registerStates("app",
+		state("main",
+			onEntry(function() {
+				// when entering a state, you can choose to update the viewModel to reflect that state
+				
+				viewModel.entered(true);
+			})));
+```
+
+You can also modify state properties when the state is entered as well.
+Because of this, the properties of your viewModels and statechart can be strictly controlled by what you do when states are entered.
+
+### onExit
+
+onExit is pretty much the same as onEntry, except it runs after a state is exitted.
+You can use this to remove any changes to the statechart and viewModel that were done in onEntry,
+so that states only need to worry about how to display themselves!
+
+For example, if you want to hide the mainModule when you enter/exit the main application, you might do something like this:
+
+__Example: using onExit to undo changes made by onEntry__
+```javascript
+	var  // imports
+		 registerStates = sandbox.state.registerStates,
+		 state = sandbox.state.builder.state,
+		 onEntry = sandbox.state.builder.onEntry,
+		 onExit = sandbox.state.builder.onExit,
+		 // viewModel
+		 viewModel = mainViewModel();
+
+	registerStates("app",
+		state("main",
+			onEntry(function() {
+				// when entering a state, you can choose to update the viewModel to reflect that state
+				viewModel.entered(true);
+			}),
+			onExit(function() {
+				// when exiting a state, you can update the viewModel so it no londer indicates that it is in this state
+				viewModel.entered(false);
+			}));
+```
+
+For this to toggle the visibility on the main module, you can bind the `entered` property to a visible binding.
+_*Note: more programming is required to actually render the templates for the main module, which is elaborated on in [layout](./layout.html)_
+
+[To be continued: Using arguments passed on onEntry and onExit)
+
+### on
+
+The next step in building the statechart is telling the statechart how to transition from state to state.
+To specify a transition on a state, you can pass the `on` function to a state. `on` takes up to 3 parameters.
+There are two required arguments: the first argument is a string which specified the event hook (created with `raise`).
+The second (optional) argument can be a function which allows this transition to be conditional (e.g. if the function returns
+true then the transition runs, if not it does not run). The last argument is a `goto` builder which
+specifies the destination state. 
+
+__Example: defining a transition__
+```javascript
+	var  // imports
+		 registerStates = sandbox.state.registerStates,
+		 state = sandbox.state.builder.state,
+		 on = sandbox.state.builder.on,
+		 goto = sandbox.state.builder.goto;
+
+	registerStates("app",
+		state("main",
+			state("main.loading"),
+			state("main.loaded"),
+			on("main.loaded.completed", goto("main.loaded"))));
+```
+
+When `on` is defined on a state, that event is only triggered if the application is in the state.
+This allows you to ensure transitions are run when you are in the correct state. If the application
+is not in the `main` state and `main.loaded.completed` event is raised, the transition will
+not occur. This solves many application development headaches by simplifying the logic needed
+to determine the flow of the application.
+
+Transions can also be conditional.
+
+__Example: defining a transition__
+```javascript
+	var  // imports
+		 registerStates = sandbox.state.registerStates,
+		 state = sandbox.state.builder.state,
+		 on = sandbox.state.builder.on,
+		 goto = sandbox.state.builder.goto;
+
+	registerStates("app",
+		state("main",
+			state("main.loading"),
+			state("main.loaded"),
+			state("main.error"),
+			on("main.loaded.completed", function(data) {
+				return data.success;
+			}, goto("main.loaded")),
+			on("main.loaded.completed", function(data) {
+				return !data.success;
+			}, goto("main.error"))));
+```
+
+In this example, when `raise` is called it is also passed some data. This data
+is provided to the transition so that it can be processed. For example,
+in the "loading" state, the data may load but it might be successful or unsuccessful.
+Passing additional data when the `main.loaded.completed` event is raised allows
+you to react to the data being passed and prevent the evaluation of the transition if neccesary by
+having it return a falsey value, or continue the evaluation of the transition by returning a true value.
+
+Using events and transitions allow you to jump from state to state. In order to activate these transitions,
+your application needs to raise events so that the statechart can respond.
+
+### raise
+
+`raise` is pretty straightforward: it creates an event that your statechart listens for. 
+If a transition is defined for the event in the current state that it's in, then the transition runs.
+
+__Example: using raise to create an event__
+```javascript
+	var  // imports
+		 registerStates = sandbox.state.registerStates,
+		 state = sandbox.state.builder.state,
+		 onEntry = sandboxstate.builder.onEntry,
+		 on = sandbox.state.builder.on,
+		 goto = sandbox.state.builder.goto
+		 raise = sandbox.state.raise,
+		 // viewmodel
+		 viewModel = mainViewModel();
+
+	registerStates("app",
+		state("main",
+			state("main.loading",
+				onEntry(function() {
+					viewModel.load(function () {
+						raise("main.loaded.completed")
+					});
+				})),
+			state("main.loaded"),
+			on("main.loaded.completed", goto("main.loaded"))));
+```
+
+In this example, when the `main.loading` state is entered, it calls a function
+defined in the viewModel called `load`. It passes to `load` a callback
+that will raise the `main.loaded.completed` after load completes. Since the application
+enters the `main` state, the transition defined on this state is evaluated as it matches
+the event. This will transition the application from the `main.loading` state to the `main.loaded`
+state.
+
+`raise` can also be called with some additional data which can allow you to create conditional transitions.
+
+__Example: using raise to create an event with additional data__
+```javascript
+	var  // imports
+		 registerStates = sandbox.state.registerStates,
+		 state = sandbox.state.builder.state,
+		 onEntry = sandboxstate.builder.onEntry,
+		 on = sandbox.state.builder.on,
+		 goto = sandbox.state.builder.goto
+		 raise = sandbox.state.raise,
+		 // viewmodel
+		 viewModel = mainViewModel();
+
+	registerStates("app",
+		state("main",
+			state("main.loading",
+				onEntry(function() {
+					viewModel.load(function (success) {
+						raise("main.loaded.completed", { success: success })
+					});
+				})),
+			state("main.loaded"),			
+			state("main.error"),
+			on("main.loaded.completed", function(data) {
+				return data.success;
+			}, goto("main.loaded")),
+			on("main.loaded.completed", function(data) {
+				return !data.success;
+			}, goto("main.error"))));
+```
+
+In this example, the the viewModel fails to load, it can transition to the `main.error` state
+as opposed to the `main.loaded` state.
+
+## goto
+
+So far you've seen how to create transitions using `on`. One of the required parameters of `on`
+is a `goto` builder. `goto` requires a state id. If the transition runs, the application
+leaves the current state and enters the new state.
+
+`goto` is implemented in such a way that if you were to try to use it to transition to a child state,
+it exits and re-enters the current state.
+
+## gotoInternally
+
+Almost exactly the same as goto, except it can transition from a parent state to a child state without
+first having to re-enter the state it is in. It transitions the app directly to the child state.
+
+This is used almost as often as `goto` so knowing the difference is important.
+
+## parallel
+
+`parallel` is similar to `state` but instead of expecting mutually exclusive child states,
+it allows all of its children states to run in parallel to eachother. 
+
+Parallel states can be very useful when implementing authentication. When a user logs in,
+how does the application react? What visual aspects change? This can be managed by having two
+parallel states defined on main like so:
+
+__Example: defining parallel states__
+```javascript
+	var registerStates = sandbox.state.registerStates,
+		parallel = sandbox.state.builder.parallel,
+		state = sandbox.state.builder.state;
+
+	registerStates('root', parallel('app',
+		state('authentication'),
+		state('main')));
+```
+
+In this example, the app now has two parallel states: an authentication state and the main state which 
+controls the UI/Layout. These states themselves can have mutually exclusive children:
+
+__Example: a benefit of parallel states - convienience__
+```javascript
+	var registerStates = sandbox.state.registerStates,
+		parallel = sandbox.state.builder.parallel,
+		state = sandbox.state.builder.state;
+
+	registerStates('root', parallel('app',
+		state('authentication',
+			state('logged.in'),
+			state('logged.out')),
+		state('layout',
+			state('dashboard'),
+			state('main'))));
+```
+
+This means your app is in both a child state of "authentication" and "layout" throughout its lifecycle.
+You can easily go from logged in to logged out with minimal amount of code. 
