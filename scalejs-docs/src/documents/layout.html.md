@@ -11,5 +11,5 @@ extension allows you to create regions for modules to render themselves without 
 any modules "know" about other modules. It enforces loose-coupling and therefore is the
 recommended approach to doing your layout. 
 
-For more advanced layouts, there is also __scalejs.layout-cssgrid
+For more advanced layouts, there is also __scalejs.layout-cssgrid__
 

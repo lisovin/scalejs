@@ -398,14 +398,12 @@ __todo/todoModule.js__
 
 Now we have created this statechart.
 
-![Good Statechart](./statechart2)
+![Good Statechart](./statechart2.png)
 
 ### Todo View
 
 While _main_ view was responsible for the overall app layout, _todo_ is responsible for two views: one for the 
 todo list, and the other for the todo input.
-
-!!Show picture!!
 
 The template for the list is a little more complex than the
 one for main. For now, we won't add any bindings; we will do that as we add functionality.
