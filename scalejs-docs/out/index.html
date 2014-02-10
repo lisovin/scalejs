@@ -1,101 +1,76 @@
 <!doctype html>
 <html>
 <head>
+    <link rel="stylesheet" href="style/metro-bootstrap.min.css">
+	    <link rel="stylesheet" href="style/metro-bootstrap-responsive.min.css">
+    <script src="style/jquery.min.js"></script>
+	<script src="style/jquery.ui.widget.js"></script>	
+    <script src="style/metro.min.js"></script>
+
 	<meta name="generator" content="DocPad v6.60.3" />
-	<link  rel="stylesheet" href="global.css" />
+	
 	<style>
-	#head {
-		position: absolute;
-		height: 50px;
-		top: 0%;
-		left: 0%;
-		right: 0%;
-		overflow: hidden;
-		background: #EEE;
-	}
-	#menu {
-		position: absolute;
-		top: 50px;
-		left: 0%;
-		bottom: 0%;
-		right: 80%;
-		overflow: auto;
-		background: #FFF;
-	}
-	#page {
-		position: absolute;
-		top: 50px;
-		left: 20%;
-		bottom: 0%;
-		right: 0%;
-		overflow: auto;
-		background: #DDD;
+	#callout {
+		width: 100%;
+		height: 300px;
+		padding: 100px;
 	}
 	</style>
 </head>
-<body>
-	<div id="head">
-		<div style="position:absolute;top:0%;bottom:0%;left:0%;right:0%;text-align:center;">Header</div>
-	</div>
-	<div id="menu">
-		<ul>
-<li><a href="./index.html">Scalejs Introduction</a></li>
-<li><a href="./install.html">Install Scalejs</a></li>
-<li><a href="./project.html">Create an Application Project</a></li>
-<li>Explaination and Overview<ul>
-<li><a href="./template.html">Project Template</a></li>
-<li><a href="./architecture.html">Architecture</a></li>
-<li><a href="./mvvm.html">Model-View-ViewModel</a></li>
-<li><a href="./statechart.html">Statechart</a></li>
-<li><a href="./routing.html">Routing</a></li>
-<li><a href="./layout.html">Layout</a></li>
-<li><a href="./styles.html">Styles</a></li>
-<li><a href="./extensions.html">Extensions</a></li>
-</ul>
-</li>
-<li><a href="./build.html">Build and Deployment</a></li>
-<li><a href="./best.html">Best Practices</a></li>
-<li><a href="./test.html">Testing</a></li>
-<li>Tutorials &amp; Samples<ul>
-<li><a href="./todomvc.html">ToDoMVC</a></li>
-</ul>
-</li>
-<li><a href="./api.html">API Documentation</a></li>
-</ul>
+<body class="metro">
 
+    <nav class="navigation-bar dark">
+        <div class="navigation-bar-content container">
+            <a href="/" class="element"><span class="icon-home"></span> SCALEJS</a>
+			<span class="element-divider"></span>
+
+   			<a title="Visual Studio Gallery" href="http://visualstudiogallery.msdn.microsoft.com/2a3d0050-ccab-458f-8bfc-2f2aca73e631" class="element place-right"><span class="icon-box-add"></span></a>
+            <span class="element-divider place-right"></span>
+                     
+			<a title="GitHub" href="https://github.com/lisovin/scalejs/tree/master" class="element place-right"><span class="icon-github-3"></span></a>
+            <span class="element-divider place-right"></span>
+
+        </div>
+    </nav>
+
+	<div id="callout" class="bg-cyan">
+		<div class="container">
+			<span id="callout-text" class="fg-white header">scalejs 0.3.5</span>
+			<div style="height:10px"></div>
+			<span id="callout-subtext" class="fg-white">
+				A robust JavaScript framework for building versatile web and mobile applications in Visual Studio.
+			</span>
+		</div>
 	</div>
-	<div id="page">
-		<h1 id="introducing-scalejs">Introducing Scalejs</h1>
-<p>Scalejs offers many unique features to aid in the development of Singe Page JavaScript Apps which run within a .NET enviroment.
-With Scalejs you will not only get a robust JavaScript framework for building versatile web and mobile applications, but also the benefits of the Visual Studio IDE.</p>
-<h2 id="extendable">Extendable</h2>
-<p>Extensibility is essential for building maintainble and scalable applications. 
-The scalejs core is small and is designed to be extended to provide the features your application needs.
-Extensions are designed to create a consistent API your applications can use, regardless of whatever
-base JavaScript libraries you use. They can be installed and updated via NuGet which allows you to focus
-less on maintaining and updating old code, and more on writing new code.</p>
-<h2 id="build-large-applications">Build Large Applications</h2>
-<p>Scalejs is designed for building large and robust applications. It allows you to create modular applications
-which allows you to develop in an organized manner while also giving you the ability to 
-develop loosely-coupled features independently. As your applications grow larger, you will need to write
-tests and scalejs lets you do that too.</p>
-<h2 id="visual-studio-integration">Visual Studio Integration</h2>
-<p>Scalejs stands out from other JavaScript frameworks by providing full access to the features in Visual Studio througout
-the development lifecycle. Scalejs comes with Visual Studio templates to get you started with your development. 
-You can manage packages with NuGet easily, and also develop your own. Building and Running your project
-is a breeze and does the work of starting up a web server and creating deployable packages for you. 
-Intellisense, a much beloved and useful feature, is provided for the entire scalejs API as well as code you write yourself.
-Not to mention that if your application relies on a .NET backend, you do not need to maintain seperate development
-enviroments and your team can code in one place.</p>
-<h2 id="mobile">Mobile</h2>
-<p>Scalejs is optimized to run anywhere. When you build your application, you will wind up with seperate packages for
-Web, Android, IPad, and Windows 8. These will allow your web applications to have a native mobile feel to them;
-the user won&#39;t even know they&#39;re actually running an application created by HTML5 and JavaScript. Code once, deploy
-anywhere will allow your team to be more productive and efficient. </p>
-<h2 id="extensive">Extensive</h2>
-<p>Scalejs core will allow you to add extensions as needed, and everything you need is already there for you to use.
-Most applications will make use of the MVVM pattern, state management, layout, and routing, so we&#39;ve already created
-these extensions. We also have developed various UI components such as grids.</p>
+
+	<div class="container">
+		<h1 id="extendable">Extendable</h1>
+<h2 id="extensibility-is-essential-for-building-maintainble-and-scalable-applications-">Extensibility is essential for building maintainble and scalable applications.</h2>
+<h3 id="the-scalejs-core-is-small-and-is-designed-to-be-extended-to-provide-the-features-your-application-needs-">The scalejs core is small and is designed to be extended to provide the features your application needs.</h3>
+<h3 id="they-are-installed-and-updated-via-nuget-which-allows-you-to-focus-less-on-maintaining-old-code-and-more-on-writing-new-code-">They are installed and updated via NuGet which allows you to focus less on maintaining old code, and more on writing new code.</h3>
+<p><br></p>
+<h1 id="build-large-applications">Build Large Applications</h1>
+<h2 id="scalejs-is-designed-for-building-large-and-robust-applications-">Scalejs is designed for building large and robust applications.</h2>
+<h3 id="it-allows-you-to-create-modular-apps-which-mean-organized-and-loosely-coupled-code-">It allows you to create modular apps which mean organized and loosely-coupled code.</h3>
+<h3 id="you-also-can-write-and-run-tests-for-your-app-">You also can write and run tests for your app.</h3>
+<p><br></p>
+<h1 id="visual-studio-integration">Visual Studio Integration</h1>
+<h2 id="you-gain-full-access-to-the-features-in-visual-studio-througout-the-development-lifecycle-scalejs-comes-with-visual-studio-templates-to-get-you-started-with-your-development-">You gain full access to the features in Visual Studio througout the development lifecycle. Scalejs comes with Visual Studio templates to get you started with your development.</h2>
+<h3 id="you-can-manage-packages-with-nuget-easily-and-also-develop-your-own-">You can manage packages with NuGet easily, and also develop your own.</h3>
+<h3 id="building-and-running-your-project-is-a-breeze-and-does-the-work-of-starting-up-a-web-server-and-creating-deployable-packages-for-you-">Building and Running your project is a breeze and does the work of starting up a web server and creating deployable packages for you.</h3>
+<h3 id="intellisense-a-much-beloved-and-useful-feature-is-provided-for-the-entire-scalejs-api-as-well-as-code-you-write-yourself-">Intellisense, a much beloved and useful feature, is provided for the entire scalejs API as well as code you write yourself.</h3>
+<h3 id="not-to-mention-that-if-your-application-relies-on-a-net-backend-you-do-not-need-to-maintain-seperate-development-enviroments-and-your-team-can-code-in-one-place-">Not to mention that if your application relies on a .NET backend, you do not need to maintain seperate development enviroments and your team can code in one place.</h3>
+<p><br></p>
+<h1 id="mobile">Mobile</h1>
+<h2 id="scalejs-is-optimized-to-run-anywhere-">Scalejs is optimized to run anywhere.</h2>
+<h3 id="when-you-build-your-application-you-will-wind-up-with-seperate-packages-for-web-android-ipad-and-windows-8-">When you build your application, you will wind up with seperate packages for Web, Android, IPad, and Windows 8.</h3>
+<h3 id="these-will-allow-your-web-applications-to-have-a-native-mobile-feel-to-them-the-user-won-t-even-know-they-re-actually-running-an-application-created-by-html5-and-javascript-">These will allow your web applications to have a native mobile feel to them; the user won&#39;t even know they&#39;re actually running an application created by HTML5 and JavaScript.</h3>
+<h3 id="code-once-deploy-anywhere-will-allow-your-team-to-be-more-productive-and-efficient-">Code once, deploy anywhere will allow your team to be more productive and efficient.</h3>
+<p><br></p>
+<h1 id="extensive">Extensive</h1>
+<h2 id="scalejs-core-will-allow-you-to-add-extensions-as-needed-and-everything-you-need-is-already-there-for-you-to-use-">Scalejs core will allow you to add extensions as needed, and everything you need is already there for you to use.</h2>
+<h3 id="most-applications-will-make-use-of-the-mvvm-pattern-state-management-layout-and-routing-so-we-ve-already-created-these-extensions-">Most applications will make use of the MVVM pattern, state management, layout, and routing, so we&#39;ve already created these extensions.</h3>
+<h3 id="we-also-have-developed-various-ui-components-such-as-grids-treemaps-and-charts-">We also have developed various UI components such as grids, treemaps, and charts.</h3>
 
 	</div>
 </body>

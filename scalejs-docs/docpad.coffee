@@ -7,6 +7,8 @@ docpadConfig = {
         pages: ->
             @getCollection("html").findAllLive({isPage:true}).on "add", (model) ->
                 model.setMetaDefaults({layout:"default", styles:[]})
+            @getCollection("html").findAllLive({isHomePage:true}).on "add", (model) ->
+                model.setMetaDefaults({layout:"home", styles:[]})
 }
 
 # Export the DocPad Configuration

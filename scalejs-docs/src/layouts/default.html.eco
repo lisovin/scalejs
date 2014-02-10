@@ -1,8 +1,14 @@
 <!doctype html>
 <html>
 <head>
+    <link rel="stylesheet" href="style/metro-bootstrap.min.css">
+	    <link rel="stylesheet" href="style/metro-bootstrap-responsive.min.css">
+    <script src="style/jquery.min.js"></script>
+	<script src="style/jquery.ui.widget.js"></script>	
+    <script src="style/metro.min.js"></script>
+
 	<%- @getBlock("meta").toHTML() %>
-	<%- @getBlock("styles").add(["global.css"]).add(@document.styles).toHTML() %>
+	<%- @getBlock("styles").add(@document.styles).toHTML() %>
 	<style>
 	#head {
 		position: absolute;
@@ -33,10 +39,21 @@
 	}
 	</style>
 </head>
-<body>
-	<div id="head">
-		<div style="position:absolute;top:0%;bottom:0%;left:0%;right:0%;text-align:center;">Header</div>
-	</div>
+<body class="metro">
+
+            <nav class="navigation-bar dark">
+                <div class="navigation-bar-content container">
+                    <a href="/" class="element"><span class="icon-home"></span> SCALEJS</a>
+					<span class="element-divider"></span>
+
+   					<a title="Visual Studio Gallery" href="http://visualstudiogallery.msdn.microsoft.com/2a3d0050-ccab-458f-8bfc-2f2aca73e631" class="element place-right"><span class="icon-box-add"></span></a>
+                    <span class="element-divider place-right"></span>
+                     
+					<a title="GitHub" href="https://github.com/lisovin/scalejs/tree/master" class="element place-right"><span class="icon-github-3"></span></a>
+                    <span class="element-divider place-right"></span>
+
+                </div>
+            </nav>
 	<div id="menu">
 		<%- @include('menu.html') %>
 	</div>
