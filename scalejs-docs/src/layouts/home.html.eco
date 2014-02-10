@@ -2,7 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="style/metro-bootstrap.min.css">
-	    <link rel="stylesheet" href="style/metro-bootstrap-responsive.min.css">
+	<link rel="stylesheet" href="style/metro-bootstrap-responsive.min.css">
     <script src="style/jquery.min.js"></script>
 	<script src="style/jquery.ui.widget.js"></script>	
     <script src="style/metro.min.js"></script>

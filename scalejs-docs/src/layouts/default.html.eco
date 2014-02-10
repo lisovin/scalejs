@@ -2,10 +2,11 @@
 <html>
 <head>
     <link rel="stylesheet" href="style/metro-bootstrap.min.css">
-	    <link rel="stylesheet" href="style/metro-bootstrap-responsive.min.css">
+	<link rel="stylesheet" href="style/metro-bootstrap-responsive.min.css">
     <script src="style/jquery.min.js"></script>
 	<script src="style/jquery.ui.widget.js"></script>	
     <script src="style/metro.min.js"></script>
+	<link rel="stylesheet" href="highlight.css">
 
 	<%- @getBlock("meta").toHTML() %>
 	<%- @getBlock("styles").add(@document.styles).toHTML() %>
@@ -53,7 +54,8 @@
                     <span class="element-divider place-right"></span>
 
                 </div>
-            </nav>
+            </nav>
+
 	<div id="menu">
 		<%- @include('menu.html') %>
 	</div>

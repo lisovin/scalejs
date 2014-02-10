@@ -1,7 +1,6 @@
 ---
 title: "ToDo MVC"
 isPage: true
-styles: ["highlight.css"]
 ---
 # ToDo MVC Application
     
