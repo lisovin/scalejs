@@ -1,7 +1,6 @@
 ---
 isPage: false
 ---
-* [Scalejs Introduction](./index.html)
 * [Install Scalejs](./install.html)
 * [Create an Application Project](./project.html)
 * Explaination and Overview

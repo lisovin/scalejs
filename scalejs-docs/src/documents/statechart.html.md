@@ -4,7 +4,7 @@ isPage: true
 styles: ["highlight.css"]
 ---
 
-# Statechart and States
+## Statechart and States
 
 Every interface has certain states which determine what is currently displayed on the UI. 
 Originally state was managed indirectly with the [reactive](./reactive.html) pattern by publishing events and
@@ -23,6 +23,8 @@ part of the scalejs core, but it is already included for your convience in the [
 It can be found in the __scalejs.statechart-scion__ extension. This extension adapts [scion statecharts](https://github.com/jbeard4/SCION)
 so that they can be defined using builder functions.
 
+<br>
+
 ## Statechart implementation
 
 The statechart is a __monad__ which in computer science is a functional programming structure which allows you to
@@ -30,11 +32,13 @@ define computations as a sequence of steps. It allows you to nest and chain oper
 pipelines to process the data in steps, which each step having its own processing rules. This is a very convienient 
 structure for building a statechart due to is clean and concise syntax.
 
+<br>
+
 ### registerStates
 
 The first step in the statechart building process is registering states onto the application state. 
 
-__Example: adding the "main" state to "app" state in mainModule.js__
+##### Example: adding the "main" state to "app" state
 ```javascript
     var registerStates = sandbox.state.registerStates,
 		state = sandbox.state.builder.state;
@@ -47,12 +51,14 @@ __Example: adding the "main" state to "app" state in mainModule.js__
 
 Use this function when registering states from the module. Ensure loose coupling by having states add *themselves* to the "app" state.
 
+<br>
+
 ### state
 
 The second argument to `registerStates` should be a `state()` builder. Create hierarchical
 structures by defining states as children or siblings of other states.
 
- __Example: creating a hierarchical statechart__
+##### Example: creating a hierarchical statechart
 ```javascript
     var registerStates = sandbox.state.registerStates,
 		 state = sandbox.state.builder.state;
@@ -74,7 +80,7 @@ structures by defining states as children or siblings of other states.
 
 You can create infinitely long statecharts, or create and organized structure with abstracted code
 
- __Example: abstracting states into functions__
+##### Example: abstracting states into functions
 ```javascript
 
 	function stateA() {
@@ -101,7 +107,7 @@ in advance. Assume modules to be loaded dynamically because they are independent
 This means you cannot have control over the _order_ of the states being registered parent state.
 
 
- __Example: registering states from 2 different modules on the same parent state__
+##### Example: registering states from 2 different modules on the same parent state
 _mainModule.js_
 ```javascript
 	registerStates("app", "main");
@@ -122,7 +128,7 @@ In these snippits of code note that:
 
 In order to preserve order, you can define a state in a module which is a child of a state created in another module
 
- __Example: registering a state from one module as a child to the state of another module__
+##### Example: registering a state from one module as a child to the state of another module
 _mainModule.js_
 ```javascript
 	registerStates("app", "main");
@@ -150,6 +156,8 @@ a base state and have modules define themselves on that state. That way you do n
 This leads to the problem we saw in the previous code snippet in which the first state which is defined is the state which is entered.
 In order to create a predictable flow and order of your statechart, you can use _events_ and _transitions_ to hop from state to state!
 
+<br>
+
 ### onEntry
 
 There has so far been one major thing missing from our discussion of states. We've told you
@@ -162,7 +170,7 @@ When a state is entered, typically the following can be done:
 
 This can be done by calling `onEntry` and passing a function.
 
-__Example: defing an onEntry transition__
+##### Example: defing an onEntry transition
 ```javascript
 	var registerStates = sandbox.state.registerStates,
 		 state = sandbox.state.builder.state,
@@ -178,7 +186,7 @@ __Example: defing an onEntry transition__
 
 When you enter a state, you can set a property of your viewModel to be a property of your state.
 
-__Example: creating a property on the statechart__
+##### Example: creating a property on the statechart
 ```javascript
 	var  // imports
 		 registerStates = sandbox.state.registerStates,
@@ -206,7 +214,7 @@ We go more in depth about regions and how to use them in the statechart in the [
 In the following example, you can see how easy it is to update the viewModel from the statechart.
 This gives you control over what is displayed in the view when in certain states.
 
-__Example: updating a viewModel property from the state__
+##### Example: updating a viewModel property from the state
 ```javascript
 	var  // imports
 		 registerStates = sandbox.state.registerStates,
@@ -227,6 +235,8 @@ __Example: updating a viewModel property from the state__
 You can also modify state properties when the state is entered as well.
 Because of this, the properties of your viewModels and statechart can be strictly controlled by what you do when states are entered.
 
+<br>
+
 ### onExit
 
 onExit is pretty much the same as onEntry, except it runs after a state is exitted.
@@ -235,7 +245,7 @@ so that states only need to worry about how to display themselves!
 
 For example, if you want to hide the mainModule when you enter/exit the main application, you might do something like this:
 
-__Example: using onExit to undo changes made by onEntry__
+##### Example: using onExit to undo changes made by onEntry
 ```javascript
 	var  // imports
 		 registerStates = sandbox.state.registerStates,
@@ -262,6 +272,8 @@ _*Note: more programming is required to actually render the templates for the ma
 
 [To be continued: Using arguments passed on onEntry and onExit)
 
+<br>
+
 ### on
 
 The next step in building the statechart is telling the statechart how to transition from state to state.
@@ -271,7 +283,7 @@ The second (optional) argument can be a function which allows this transition to
 true then the transition runs, if not it does not run). The last argument is a `goto` builder which
 specifies the destination state. 
 
-__Example: defining a transition__
+##### Example: defining a transition
 ```javascript
 	var  // imports
 		 registerStates = sandbox.state.registerStates,
@@ -294,7 +306,7 @@ to determine the flow of the application.
 
 Transions can also be conditional.
 
-__Example: defining a transition__
+##### Example: defining a transition
 ```javascript
 	var  // imports
 		 registerStates = sandbox.state.registerStates,
@@ -325,12 +337,14 @@ having it return a falsey value, or continue the evaluation of the transition by
 Using events and transitions allow you to jump from state to state. In order to activate these transitions,
 your application needs to raise events so that the statechart can respond.
 
+<br>
+
 ### raise
 
 `raise` is pretty straightforward: it creates an event that your statechart listens for. 
 If a transition is defined for the event in the current state that it's in, then the transition runs.
 
-__Example: using raise to create an event__
+##### Example: using raise to create an event
 ```javascript
 	var  // imports
 		 registerStates = sandbox.state.registerStates,
@@ -363,7 +377,7 @@ state.
 
 `raise` can also be called with some additional data which can allow you to create conditional transitions.
 
-__Example: using raise to create an event with additional data__
+##### Example: using raise to create an event with additional data
 ```javascript
 	var  // imports
 		 registerStates = sandbox.state.registerStates,
@@ -396,7 +410,9 @@ __Example: using raise to create an event with additional data__
 In this example, the the viewModel fails to load, it can transition to the `main.error` state
 as opposed to the `main.loaded` state.
 
-## goto
+<br>
+
+### goto
 
 So far you've seen how to create transitions using `on`. One of the required parameters of `on`
 is a `goto` builder. `goto` requires a state id. If the transition runs, the application
@@ -405,14 +421,18 @@ leaves the current state and enters the new state.
 `goto` is implemented in such a way that if you were to try to use it to transition to a child state,
 it exits and re-enters the current state.
 
-## gotoInternally
+<br>
+
+### gotoInternally
 
 Almost exactly the same as goto, except it can transition from a parent state to a child state without
 first having to re-enter the state it is in. It transitions the app directly to the child state.
 
 This is used almost as often as `goto` so knowing the difference is important.
 
-## parallel
+<br>
+
+### parallel
 
 `parallel` is similar to `state` but instead of expecting mutually exclusive child states,
 it allows all of its children states to run in parallel to eachother. 
@@ -421,7 +441,7 @@ Parallel states can be very useful when implementing authentication. When a user
 how does the application react? What visual aspects change? This can be managed by having two
 parallel states defined on main like so:
 
-__Example: defining parallel states__
+##### Example: defining parallel states
 ```javascript
 	var registerStates = sandbox.state.registerStates,
 		parallel = sandbox.state.builder.parallel,
@@ -435,7 +455,7 @@ __Example: defining parallel states__
 In this example, the app now has two parallel states: an authentication state and the main state which 
 controls the UI/Layout. These states themselves can have mutually exclusive children:
 
-__Example: a benefit of parallel states - convienience__
+##### Example: a benefit of parallel states - convienience
 ```javascript
 	var registerStates = sandbox.state.registerStates,
 		parallel = sandbox.state.builder.parallel,

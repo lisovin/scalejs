@@ -11,15 +11,6 @@
 	<%- @getBlock("meta").toHTML() %>
 	<%- @getBlock("styles").add(@document.styles).toHTML() %>
 	<style>
-	#head {
-		position: absolute;
-		height: 50px;
-		top: 0%;
-		left: 0%;
-		right: 0%;
-		overflow: hidden;
-		background: #EEE;
-	}
 	#menu {
 		position: absolute;
 		top: 50px;
@@ -29,37 +20,17 @@
 		overflow: auto;
 		background: #FFF;
 	}
-	#page {
-		position: absolute;
-		top: 50px;
-		left: 20%;
-		bottom: 0%;
-		right: 0%;
-		overflow: auto;
-		background: #DDD;
-	}
 	</style>
 </head>
 <body class="metro">
 
-            <nav class="navigation-bar dark">
-                <div class="navigation-bar-content container">
-                    <a href="/" class="element"><span class="icon-home"></span> SCALEJS</a>
-					<span class="element-divider"></span>
-
-   					<a title="Visual Studio Gallery" href="http://visualstudiogallery.msdn.microsoft.com/2a3d0050-ccab-458f-8bfc-2f2aca73e631" class="element place-right"><span class="icon-box-add"></span></a>
-                    <span class="element-divider place-right"></span>
-                     
-					<a title="GitHub" href="https://github.com/lisovin/scalejs/tree/master" class="element place-right"><span class="icon-github-3"></span></a>
-                    <span class="element-divider place-right"></span>
-
-                </div>
-            </nav>
+	<%- @include('nav.html') %>
 
 	<div id="menu">
 		<%- @include('menu.html') %>
 	</div>
-	<div id="page">
+
+	<div class="container">
 		<%- @content %>
 	</div>
 </body>

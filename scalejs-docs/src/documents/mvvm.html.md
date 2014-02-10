@@ -3,7 +3,7 @@ title: "ScaleJS MVVM"
 isPage: true
 styles: ["highlight.css"]
 ---
-# Model-View-ViewModel (MVVM)
+## Model-View-ViewModel (MVVM)
 
 MVVM stands for __M__odel-__V__iew-__V__iew__M__odel and enforces [seperation of concerns](http://en.wikipedia.org/wiki/Separation_of_concerns)
 so that the User Interface, or "View" is seperated from the data, or "Model". This requires the
