@@ -21,7 +21,7 @@
 
 	<%- @include('nav.html') %>
 
-	<div id="callout" class="bg-cyan">
+	<div id="callout" class="bg-crimson">
 		<div class="container">
 			<span id="callout-text" class="fg-white header">scalejs 0.3.5</span>
 			<div style="height:10px"></div>
