@@ -1,82 +1,148 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="style/metro-bootstrap.min.css">
-	<link rel="stylesheet" href="style/metro-bootstrap-responsive.min.css">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <link rel="stylesheet" href="style/metro-bootstrap.min.css" />
+	  <link rel="stylesheet" href="style/metro-bootstrap-responsive.min.css" />
     <script src="style/jquery.min.js"></script>
-	<script src="style/jquery.ui.widget.js"></script>	
+	  <script src="style/jquery.ui.widget.js"></script>	
     <script src="style/metro.min.js"></script>
-	<link rel="stylesheet" href="highlight.css">
+	  <link rel="stylesheet" href="highlight.css" />
 
 	<meta name="generator" content="DocPad v6.60.3" />
 	
+    
 	<style>
-	#menu {
-		position: fixed;
-		width: 300px;
-		overflow: hidden;
-		top: 45px;
-	}
-	#content {
-		margin: 0 auto;
-		max-width: 960px;
-		position: absolute;
-		left: 350px;
-		overflow: auto;
-		top: 45px;
-	}
-	</style>
+    #container {
+      margin-top: 45px;
+    }
+    #content {
+      overflow-y: scroll;
+      margin-left: 20px;
+    }
+    #sidebar {
+      display: block;
+      float: left;
+      width: 300px;
+      overflow-y: scroll;
+      margin-right:20px;
+    }
+    body {
+      overflow-y: hidden;
+      }
+  </style>
+    
 	<script>
-		$(document).ready(function() {
-			$('body').find("a[href='." + window.location.pathname +"']").parent().addClass("active");
-		})
-	</script>
+    function adjustHeight() {
+      $("#content").outerHeight(window.innerHeight -45);
+      $("#sidebar").outerHeight(window.innerHeight -45);
+    }
+    $(document).ready(function() {
+      $("a[href='." + window.location.pathname +"']").parent().addClass("active");
+        $("#content").outerHeight(window.innerHeight -45);
+        $("#sidebar").outerHeight(window.innerHeight -45);
+        
+        $(window).resize(function() {
+          $("#content").outerHeight(window.innerHeight -45);
+          $("#sidebar").outerHeight(window.innerHeight -45);
+        });
+    });
+
+  </script>
 </head>
 <body class="metro">
-
-	<nav class="navigation-bar dark" style="position:fixed;z-index:99999">
-    <div class="navigation-bar-content container">
+  <header>
+	  <nav class="navigation-bar dark fixed-top">
+    <div class="navigation-bar-content">
         <a href="./" class="element"><span class="icon-home"></span> SCALEJS</a>
         <span class="element-divider"></span>
 
-        <a href="./docs.html" class="element"><span class="icon-layers"></span> Docs</a>
-        <span class="element-divider"></span>
+        <a class="element1 pull-menu" href="#"></a>
 
-        <a title="Visual Studio Gallery" href="http://visualstudiogallery.msdn.microsoft.com/2a3d0050-ccab-458f-8bfc-2f2aca73e631" class="element place-right"><span class="icon-box-add"></span> Visual Studio</a>
-        <span class="element-divider place-right"></span>
+        <ul class="element-menu no-desktop">
+            <li>
+                <a class="dropdown-toggle" href="#"><span class="icon-layers"></span> Docs</a>
+                <ul class="dropdown-menu dark" data-role="dropdown">
+                    <li>
+                        <a href="#" class="dropdown-toggle">Getting Started</a>
+                        <ul class="dropdown-menu dark" data-role="dropdown">
+                            <li><a href="./docs.html"><i class="icon-star-3"></i>Introduction</a></li>
+                            <li><a href="./install.html"><i class="icon-download-2"></i>Install Scalejs</a></li>
+                            <li><a href="./project.html"><i class="icon-new"></i>Create an Application Project</a></li>
+                            <li><a href="./build.html"><i class="icon-cloud"></i>Build and Deployment</a></li>
+                            <li><a href="./test.html"><i class="icon-checkmark"></i>Testing</a></li>
+                            <li><a href="./best.html"><i class="icon-thumbs-up"></i>Best Practices</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle">Overview</a>
+                        <ul class="dropdown-menu dark" data-role="dropdown">
+                            <li><a href="./docs.html"><i class="icon-star-3"></i>Introduction</a></li>
+                            <li><a href="./install.html"><i class="icon-download-2"></i>Install Scalejs</a></li>
+                            <li><a href="./project.html"><i class="icon-new"></i>Create an Application Project</a></li>
+                            <li><a href="./build.html"><i class="icon-cloud"></i>Build and Deployment</a></li>
+                            <li><a href="./test.html"><i class="icon-checkmark"></i>Testing</a></li>
+                            <li><a href="./best.html"><i class="icon-thumbs-up"></i>Best Practices</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle">Tutorials</a>
+                        <ul class="dropdown-menu dark" data-role="dropdown">
+                            <li><a href="./todomvc.html">ToDoMVC</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="divider"></li>
+            <li><a title="Visual Studio Gallery" href="http://visualstudiogallery.msdn.microsoft.com/2a3d0050-ccab-458f-8bfc-2f2aca73e631"><span class="icon-box-add"></span> Visual Studio</a></li>
+            <li class="divider"></li>
+            <li><a title="GitHub" href="https://github.com/lisovin/scalejs/tree/master"><span class="icon-github-3"></span> GitHub</a></li>
+        </ul>
 
-        <a title="GitHub" href="https://github.com/lisovin/scalejs/tree/master" class="element place-right"><span class="icon-github-3"></span> GitHub</a>
-        <span class="element-divider place-right"></span>
+        <div class="no-tablet-portrait no-phone">
+            <a href="./docs.html" class="element"><span class="icon-layers"></span> Docs</a>
+            <span class="element-divider"></span>
 
+            <a title="Visual Studio Gallery" href="http://visualstudiogallery.msdn.microsoft.com/2a3d0050-ccab-458f-8bfc-2f2aca73e631" class="element place-right"><span class="icon-box-add"></span> Visual Studio</a>
+            <span class="element-divider place-right"></span>
+
+            <a title="GitHub" href="https://github.com/lisovin/scalejs/tree/master" class="element place-right"><span class="icon-github-3"></span> GitHub</a>
+            <span class="element-divider place-right"></span>
+        </div>
     </div>
 </nav>
+  </header>
+  
+  <div id="container">
+     
+       <div id="sidebar" class="sidebar no-tablet-portrait no-phone">
+		      <ul>
+			      <li class="title">Getting Started</li>
+				      <li><a href="./docs.html"><i class="icon-star-3"></i>Introduction</a></li>
+				      <li><a href="./install.html"><i class="icon-download-2"></i>Install Scalejs</a></li>
+				      <li><a href="./project.html"><i class="icon-new"></i>Create an Application Project</a></li>
+				      <li><a href="./build.html"><i class="icon-cloud"></i>Build and Deployment</a></li>
+				      <li><a href="./test.html"><i class="icon-checkmark"></i>Testing</a></li>
+				      <li><a href="./best.html"><i class="icon-thumbs-up"></i>Best Practices</a></li>
+			      <li class="title">Overview</li>
+				      <li><a href="./template.html">Project Template</a></li>
+				      <li><a href="./architecture.html">Architecture</a></li>
+				      <li><a href="./mvvm.html">Model-View-ViewModel</a></li>
+				      <li><a href="./statechart.html">Statechart</a></li>
+				      <li><a href="./routing.html">Routing</a></li>
+				      <li><a href="./layout.html">Layout</a></li>
+				      <li><a href="./styles.html">Styles</a></li>
+				      <li><a href="./extensions.html">Extensions</a></li>
+				      <li><a href="./api.html">API Documentation</a></li>
+			      <li class="title">Tutorials</li>
+				      <li><a href="./todomvc.html">ToDoMVC</a></li>
+		      </ul>
+	      </div>
 
-	<nav id="menu" class="sidebar">
-		<ul>
-			<li class="title">Getting Started</li>
-				<li><a href="./docs.html"><i class="icon-star-3"></i>Introduction</a></li>
-				<li><a href="./install.html"><i class="icon-download-2"></i>Install Scalejs</a></li>
-				<li><a href="./project.html"><i class="icon-new"></i>Create an Application Project</a></li>
-				<li><a href="./build.html"><i class="icon-cloud"></i>Build and Deployment</a></li>
-				<li><a href="./test.html"><i class="icon-checkmark"></i>Testing</a></li>
-				<li><a href="./best.html"><i class="icon-thumbs-up"></i>Best Practices</a></li>
-			<li class="title">Overview</li>
-				<li><a href="./template.html">Project Template</a></li>
-				<li><a href="./architecture.html">Architecture</a></li>
-				<li><a href="./mvvm.html">Model-View-ViewModel</a></li>
-				<li><a href="./statechart.html">Statechart</a></li>
-				<li><a href="./routing.html">Routing</a></li>
-				<li><a href="./layout.html">Layout</a></li>
-				<li><a href="./styles.html">Styles</a></li>
-				<li><a href="./extensions.html">Extensions</a></li>
-				<li><a href="./api.html">API Documentation</a></li>
-			<li class="title">Tutorials</li>
-				<li><a href="./todomvc.html">ToDoMVC</a></li>
-		</ul>
-	</nav>
-
-	<div id="content">
-		<h1 id="todo-mvc-application">ToDo MVC Application</h1>
+	    <div id="content">
+		    <h1 id="todo-mvc-application">ToDo MVC Application</h1>
 <p>We will demonstrate how to create a Scalejs application by creating a ToDo MVC app. Scalejs is better suited for creating large and scalable applications, but we will cover some basics with the ToDo MVC app such as:</p>
 <ul>
 <li>Composition of Modules</li>
@@ -1635,6 +1701,10 @@ with the text we would like to see in our URL. For the root, we specifiy &#39;/&
 <p>You have completed the ToDoMVC tutorial. Have a Cookie!</p>
 <p><img src="https://fling.seas.upenn.edu/~asme/dynamic/wordpress/wp-content/uploads/2012/09/cookie.jpg" alt="YUMM"></p>
 
-	</div>
+	    </div>
+
+  </div>
+</div>
+    
 </body>
 </html>

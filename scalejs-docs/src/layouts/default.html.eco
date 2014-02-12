@@ -1,67 +1,94 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="style/metro-bootstrap.min.css">
-	<link rel="stylesheet" href="style/metro-bootstrap-responsive.min.css">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <link rel="stylesheet" href="style/metro-bootstrap.min.css" />
+	  <link rel="stylesheet" href="style/metro-bootstrap-responsive.min.css" />
     <script src="style/jquery.min.js"></script>
-	<script src="style/jquery.ui.widget.js"></script>	
+	  <script src="style/jquery.ui.widget.js"></script>	
     <script src="style/metro.min.js"></script>
-	<link rel="stylesheet" href="highlight.css">
+	  <link rel="stylesheet" href="highlight.css" />
 
 	<%- @getBlock("meta").toHTML() %>
 	<%- @getBlock("styles").add(@document.styles).toHTML() %>
+    
 	<style>
-	#menu {
-		position: fixed;
-		width: 300px;
-		overflow: hidden;
-		top: 45px;
-	}
-	#content {
-		margin: 0 auto;
-		max-width: 960px;
-		position: absolute;
-		left: 350px;
-		overflow: auto;
-		top: 45px;
-	}
-	</style>
+    #container {
+      margin-top: 45px;
+    }
+    #content {
+      overflow-y: scroll;
+      margin-left: 20px;
+    }
+    #sidebar {
+      display: block;
+      float: left;
+      width: 300px;
+      overflow-y: scroll;
+      margin-right:20px;
+    }
+    body {
+      overflow-y: hidden;
+      }
+  </style>
+    
 	<script>
-		$(document).ready(function() {
-			$('body').find("a[href='." + window.location.pathname +"']").parent().addClass("active");
-		})
-	</script>
+    function adjustHeight() {
+      $("#content").outerHeight(window.innerHeight -45);
+      $("#sidebar").outerHeight(window.innerHeight -45);
+    }
+    $(document).ready(function() {
+      $("a[href='." + window.location.pathname +"']").parent().addClass("active");
+        $("#content").outerHeight(window.innerHeight -45);
+        $("#sidebar").outerHeight(window.innerHeight -45);
+        
+        $(window).resize(function() {
+          $("#content").outerHeight(window.innerHeight -45);
+          $("#sidebar").outerHeight(window.innerHeight -45);
+        });
+    });
+
+  </script>
 </head>
 <body class="metro">
+  <header>
+	  <%- @include('nav.html') %>
+  </header>
+  
+  <div id="container">
+     
+       <div id="sidebar" class="sidebar no-tablet-portrait no-phone">
+		      <ul>
+			      <li class="title">Getting Started</li>
+				      <li><a href="./docs.html"><i class="icon-star-3"></i>Introduction</a></li>
+				      <li><a href="./install.html"><i class="icon-download-2"></i>Install Scalejs</a></li>
+				      <li><a href="./project.html"><i class="icon-new"></i>Create an Application Project</a></li>
+				      <li><a href="./build.html"><i class="icon-cloud"></i>Build and Deployment</a></li>
+				      <li><a href="./test.html"><i class="icon-checkmark"></i>Testing</a></li>
+				      <li><a href="./best.html"><i class="icon-thumbs-up"></i>Best Practices</a></li>
+			      <li class="title">Overview</li>
+				      <li><a href="./template.html">Project Template</a></li>
+				      <li><a href="./architecture.html">Architecture</a></li>
+				      <li><a href="./mvvm.html">Model-View-ViewModel</a></li>
+				      <li><a href="./statechart.html">Statechart</a></li>
+				      <li><a href="./routing.html">Routing</a></li>
+				      <li><a href="./layout.html">Layout</a></li>
+				      <li><a href="./styles.html">Styles</a></li>
+				      <li><a href="./extensions.html">Extensions</a></li>
+				      <li><a href="./api.html">API Documentation</a></li>
+			      <li class="title">Tutorials</li>
+				      <li><a href="./todomvc.html">ToDoMVC</a></li>
+		      </ul>
+	      </div>
 
-	<%- @include('nav.html') %>
+	    <div id="content">
+		    <%- @content %>
+	    </div>
 
-	<nav id="menu" class="sidebar">
-		<ul>
-			<li class="title">Getting Started</li>
-				<li><a href="./docs.html"><i class="icon-star-3"></i>Introduction</a></li>
-				<li><a href="./install.html"><i class="icon-download-2"></i>Install Scalejs</a></li>
-				<li><a href="./project.html"><i class="icon-new"></i>Create an Application Project</a></li>
-				<li><a href="./build.html"><i class="icon-cloud"></i>Build and Deployment</a></li>
-				<li><a href="./test.html"><i class="icon-checkmark"></i>Testing</a></li>
-				<li><a href="./best.html"><i class="icon-thumbs-up"></i>Best Practices</a></li>
-			<li class="title">Overview</li>
-				<li><a href="./template.html">Project Template</a></li>
-				<li><a href="./architecture.html">Architecture</a></li>
-				<li><a href="./mvvm.html">Model-View-ViewModel</a></li>
-				<li><a href="./statechart.html">Statechart</a></li>
-				<li><a href="./routing.html">Routing</a></li>
-				<li><a href="./layout.html">Layout</a></li>
-				<li><a href="./styles.html">Styles</a></li>
-				<li><a href="./extensions.html">Extensions</a></li>
-				<li><a href="./api.html">API Documentation</a></li>
-			<li class="title">Tutorials</li>
-				<li><a href="./todomvc.html">ToDoMVC</a></li>
-		</ul>
-	</nav>
-
-	<div id="content">
-		<%- @content %>
-	</div>
+  </div>
+</div>
+    
 </body>
 </html>

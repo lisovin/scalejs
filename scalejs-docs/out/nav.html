@@ -1,16 +1,59 @@
-<nav class="navigation-bar dark" style="position:fixed;z-index:99999">
-    <div class="navigation-bar-content container">
+<nav class="navigation-bar dark fixed-top">
+    <div class="navigation-bar-content">
         <a href="./" class="element"><span class="icon-home"></span> SCALEJS</a>
         <span class="element-divider"></span>
 
-        <a href="./docs.html" class="element"><span class="icon-layers"></span> Docs</a>
-        <span class="element-divider"></span>
+        <a class="element1 pull-menu" href="#"></a>
 
-        <a title="Visual Studio Gallery" href="http://visualstudiogallery.msdn.microsoft.com/2a3d0050-ccab-458f-8bfc-2f2aca73e631" class="element place-right"><span class="icon-box-add"></span> Visual Studio</a>
-        <span class="element-divider place-right"></span>
+        <ul class="element-menu no-desktop">
+            <li>
+                <a class="dropdown-toggle" href="#"><span class="icon-layers"></span> Docs</a>
+                <ul class="dropdown-menu dark" data-role="dropdown">
+                    <li>
+                        <a href="#" class="dropdown-toggle">Getting Started</a>
+                        <ul class="dropdown-menu dark" data-role="dropdown">
+                            <li><a href="./docs.html"><i class="icon-star-3"></i>Introduction</a></li>
+                            <li><a href="./install.html"><i class="icon-download-2"></i>Install Scalejs</a></li>
+                            <li><a href="./project.html"><i class="icon-new"></i>Create an Application Project</a></li>
+                            <li><a href="./build.html"><i class="icon-cloud"></i>Build and Deployment</a></li>
+                            <li><a href="./test.html"><i class="icon-checkmark"></i>Testing</a></li>
+                            <li><a href="./best.html"><i class="icon-thumbs-up"></i>Best Practices</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle">Overview</a>
+                        <ul class="dropdown-menu dark" data-role="dropdown">
+                            <li><a href="./docs.html"><i class="icon-star-3"></i>Introduction</a></li>
+                            <li><a href="./install.html"><i class="icon-download-2"></i>Install Scalejs</a></li>
+                            <li><a href="./project.html"><i class="icon-new"></i>Create an Application Project</a></li>
+                            <li><a href="./build.html"><i class="icon-cloud"></i>Build and Deployment</a></li>
+                            <li><a href="./test.html"><i class="icon-checkmark"></i>Testing</a></li>
+                            <li><a href="./best.html"><i class="icon-thumbs-up"></i>Best Practices</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle">Tutorials</a>
+                        <ul class="dropdown-menu dark" data-role="dropdown">
+                            <li><a href="./todomvc.html">ToDoMVC</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="divider"></li>
+            <li><a title="Visual Studio Gallery" href="http://visualstudiogallery.msdn.microsoft.com/2a3d0050-ccab-458f-8bfc-2f2aca73e631"><span class="icon-box-add"></span> Visual Studio</a></li>
+            <li class="divider"></li>
+            <li><a title="GitHub" href="https://github.com/lisovin/scalejs/tree/master"><span class="icon-github-3"></span> GitHub</a></li>
+        </ul>
 
-        <a title="GitHub" href="https://github.com/lisovin/scalejs/tree/master" class="element place-right"><span class="icon-github-3"></span> GitHub</a>
-        <span class="element-divider place-right"></span>
+        <div class="no-tablet-portrait no-phone">
+            <a href="./docs.html" class="element"><span class="icon-layers"></span> Docs</a>
+            <span class="element-divider"></span>
 
+            <a title="Visual Studio Gallery" href="http://visualstudiogallery.msdn.microsoft.com/2a3d0050-ccab-458f-8bfc-2f2aca73e631" class="element place-right"><span class="icon-box-add"></span> Visual Studio</a>
+            <span class="element-divider place-right"></span>
+
+            <a title="GitHub" href="https://github.com/lisovin/scalejs/tree/master" class="element place-right"><span class="icon-github-3"></span> GitHub</a>
+            <span class="element-divider place-right"></span>
+        </div>
     </div>
 </nav>
