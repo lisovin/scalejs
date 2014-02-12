@@ -53,9 +53,8 @@
   </script>
 </head>
 <body class="metro">
-  <header>
-	  <%- @include('nav.html') %>
-  </header>
+  
+	<%- @include('nav.html') %>
   
   <div id="container">
      
