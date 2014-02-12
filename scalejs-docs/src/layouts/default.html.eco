@@ -35,19 +35,19 @@
   </style>
     
 	<script>
-    function adjustHeight() {
-    $("#content").outerHeight(window.innerHeight -45);
-    $("#sidebar").outerHeight(window.innerHeight -45);
-    }
     $(document).ready(function() {
-    $("a[href='." + window.location.pathname.replace("/scalejs/scalejs-docs/out","") +"']").parent().addClass("active");
-    $("#content").outerHeight(window.innerHeight -45);
-    $("#sidebar").outerHeight(window.innerHeight -45);
+		$("a[href='." + window.location.pathname.replace("/scalejs/scalejs-docs/out","") +"']").parent().addClass("active");
+		$("#content").outerHeight(window.innerHeight -45);
+		$("#sidebar").outerHeight(window.innerHeight -45);
 
-    $(window).resize(function() {
-    $("#content").outerHeight(window.innerHeight -45);
-    $("#sidebar").outerHeight(window.innerHeight -45);
-    });
+		$('pre').each(function() {
+			$(this).html($(this).html().replace(/!!\*/g, "<i style='background-color:#FFFF99'>").replace(/\*\*!/g, "</i>"));
+		});
+
+		$(window).resize(function() {
+			$("#content").outerHeight(window.innerHeight -45);
+			$("#sidebar").outerHeight(window.innerHeight -45);
+		});
     });
 
   </script>
@@ -63,12 +63,12 @@
        <div id="sidebar" class="sidebar no-tablet-portrait no-phone">
 		      <ul>
 			      <li class="title">Getting Started</li>
-				      <li><a href="./docs.html"><i class="icon-star-3"></i>Introduction</a></li>
-				      <li><a href="./install.html"><i class="icon-download-2"></i>Install Scalejs</a></li>
-				      <li><a href="./project.html"><i class="icon-new"></i>Create an Application Project</a></li>
-				      <li><a href="./build.html"><i class="icon-cloud"></i>Build and Deployment</a></li>
-				      <li><a href="./test.html"><i class="icon-checkmark"></i>Testing</a></li>
-				      <li><a href="./best.html"><i class="icon-thumbs-up"></i>Best Practices</a></li>
+				      <li><a href="./docs.html"><i class="icon-star-3"></i> Introduction</a></li>
+				      <li><a href="./install.html"><i class="icon-download-2"></i> Install Scalejs</a></li>
+				      <li><a href="./project.html"><i class="icon-new"></i> Create an Application Project</a></li>
+				      <li><a href="./build.html"><i class="icon-cloud"></i> Build and Deployment</a></li>
+				      <li><a href="./test.html"><i class="icon-checkmark"></i> Testing</a></li>
+				      <li><a href="./best.html"><i class="icon-thumbs-up"></i> Best Practices</a></li>
 			      <li class="title">Overview</li>
 				      <li><a href="./template.html">Project Template</a></li>
 				      <li><a href="./architecture.html">Architecture</a></li>

@@ -1,5 +1,6 @@
 .javascript {
     color: #000 !important;
+    line-height: 120% !important;
 }
 .javascript .hljs-string {
     color: rgb(163,21,21);
@@ -16,6 +17,7 @@
 
 .xml {
     color: #000 !important;
+    line-height: 120% !important;
 }
 .xml .hljs-tag {
     color: rgb(0,0,255);
