@@ -15,8 +15,8 @@
 	<%- @getBlock("styles").add(@document.styles).toHTML() %>
     
 	<style>
-    #container {
-      margin-top: 45px;
+    header {
+      height: 45px;
     }
     #content {
       overflow-y: scroll;
@@ -36,25 +36,27 @@
     
 	<script>
     function adjustHeight() {
-      $("#content").outerHeight(window.innerHeight -45);
-      $("#sidebar").outerHeight(window.innerHeight -45);
+    $("#content").outerHeight(window.innerHeight -45);
+    $("#sidebar").outerHeight(window.innerHeight -45);
     }
     $(document).ready(function() {
-      $("a[href='." + window.location.pathname +"']").parent().addClass("active");
-        $("#content").outerHeight(window.innerHeight -45);
-        $("#sidebar").outerHeight(window.innerHeight -45);
-        
-        $(window).resize(function() {
-          $("#content").outerHeight(window.innerHeight -45);
-          $("#sidebar").outerHeight(window.innerHeight -45);
-        });
+    $("a[href='." + window.location.pathname.replace("scalejs/scalejs-docs/out","") +"']").parent().addClass("active");
+    $("#content").outerHeight(window.innerHeight -45);
+    $("#sidebar").outerHeight(window.innerHeight -45);
+
+    $(window).resize(function() {
+    $("#content").outerHeight(window.innerHeight -45);
+    $("#sidebar").outerHeight(window.innerHeight -45);
+    });
     });
 
   </script>
 </head>
 <body class="metro">
-  
-	<%- @include('nav.html') %>
+
+  <header>
+	  <%- @include('nav.html') %>
+  </header>
   
   <div id="container">
      
