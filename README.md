@@ -29,6 +29,7 @@ After installation you'll have 3 project templates (Scalejs MMVM Application (CS
 Tutorials
 =========
 1. [Quick Start](https://github.com/lisovin/scalejs/wiki/Quick-Start)
+2. [TodoMVC](http://lisovin.github.io/scalejs/scalejs-docs/out/todomvc)
 
 Examples
 ========
