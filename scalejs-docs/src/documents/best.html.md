@@ -2,9 +2,10 @@
 title: "ScaleJS Practices"
 isPage: true
 ---
-# Best Practices
+<div class="popout h-white bg-crimson">
+<h1>Best Practices</h1>
+</div>
 
-(needs visuals)
 
 Scalejs does not strictly force you to follow a particular style or format. However, when we created the framework,
 we believed there were certain best practices that could be followed to make writing and maintaing code not only

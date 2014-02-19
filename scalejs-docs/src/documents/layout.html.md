@@ -3,7 +3,9 @@ title: "Layout"
 isPage: true
 ---
 
-# Layout
+<div class="popout h-white bg-crimson">
+<h1>Layout</h1>
+</div>
 
 As we developed more applications with scalejs, we developed a solid way to manage the layout
 without closely-coupling modules together. Using a combination of the mvvm and statechart

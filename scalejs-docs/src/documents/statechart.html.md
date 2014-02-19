@@ -4,7 +4,10 @@ isPage: true
 styles: ["highlight.css"]
 ---
 
-## Statechart and States
+<div class="popout h-white bg-crimson">
+<h1>Statechart</h1>
+</div>
+
 
 Every interface has certain states which determine what is currently displayed on the UI. 
 Originally state was managed indirectly with the [reactive](./reactive.html) pattern by publishing events and
@@ -34,7 +37,7 @@ structure for building a statechart due to is clean and concise syntax.
 
 <br>
 
-### registerStates
+## registerStates
 
 The first step in the statechart building process is registering states onto the application state. 
 
@@ -53,7 +56,7 @@ Use this function when registering states from the module. Ensure loose coupling
 
 <br>
 
-### state
+## state
 
 The second argument to `registerStates` should be a `state()` builder. Create hierarchical
 structures by defining states as children or siblings of other states.
@@ -158,7 +161,7 @@ In order to create a predictable flow and order of your statechart, you can use 
 
 <br>
 
-### onEntry
+## onEntry
 
 There has so far been one major thing missing from our discussion of states. We've told you
 how to create states and nest states, but we haven't told you what you can *do* with states.
@@ -237,7 +240,7 @@ Because of this, the properties of your viewModels and statechart can be strictl
 
 <br>
 
-### onExit
+## onExit
 
 onExit is pretty much the same as onEntry, except it runs after a state is exitted.
 You can use this to remove any changes to the statechart and viewModel that were done in onEntry,
@@ -274,7 +277,7 @@ _*Note: more programming is required to actually render the templates for the ma
 
 <br>
 
-### on
+## on
 
 The next step in building the statechart is telling the statechart how to transition from state to state.
 To specify a transition on a state, you can pass the `on` function to a state. `on` takes up to 3 parameters.
@@ -339,7 +342,7 @@ your application needs to raise events so that the statechart can respond.
 
 <br>
 
-### raise
+## raise
 
 `raise` is pretty straightforward: it creates an event that your statechart listens for. 
 If a transition is defined for the event in the current state that it's in, then the transition runs.
@@ -412,7 +415,7 @@ as opposed to the `main.loaded` state.
 
 <br>
 
-### goto
+## goto
 
 So far you've seen how to create transitions using `on`. One of the required parameters of `on`
 is a `goto` builder. `goto` requires a state id. If the transition runs, the application
@@ -423,7 +426,7 @@ it exits and re-enters the current state.
 
 <br>
 
-### gotoInternally
+## gotoInternally
 
 Almost exactly the same as goto, except it can transition from a parent state to a child state without
 first having to re-enter the state it is in. It transitions the app directly to the child state.
@@ -432,7 +435,7 @@ This is used almost as often as `goto` so knowing the difference is important.
 
 <br>
 
-### parallel
+## parallel
 
 `parallel` is similar to `state` but instead of expecting mutually exclusive child states,
 it allows all of its children states to run in parallel to eachother. 

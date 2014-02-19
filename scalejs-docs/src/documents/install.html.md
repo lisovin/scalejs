@@ -2,6 +2,12 @@
 title: "ScaleJS Install"
 isPage: true
 ---
+
+<div class="popout h-white bg-crimson">
+<h1> Install Scalejs</h1>
+</div>
+
+<br>
 ## Prerequisites
 1. Visual Studio 2012 or 2013
 2. [IIS Express](http://www.iis.net/learn/extensions/introduction-to-iis-express/iis-express-overview) (via Web Platform Installer)
