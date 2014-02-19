@@ -2,9 +2,10 @@
 title: "Create a Project"
 isPage: true
 ---
-<div class="popout h-white bg-crimson">
-<h1> Create a New Project</h1>
-</div>
+
+# Create a New Project
+
+<hr>
 
 Open Visual Studio and select __Create a New Project__. 
 Search for __scalejs__ and select either the _Scalejs MVVM Application (CSS)_ project template

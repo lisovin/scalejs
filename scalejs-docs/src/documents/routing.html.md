@@ -3,9 +3,9 @@ title: "Routing"
 isPage: true
 ---
 
-<div class="popout h-white bg-crimson">
-<h1>Routing</h1>
-</div>
+# Routing
+
+<hr>
 
 To enable routing:
 

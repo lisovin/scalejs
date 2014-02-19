@@ -3,9 +3,9 @@ title: "Build and Deployment"
 isPage: true
 ---
 
-<div class="popout h-white bg-crimson">
-<h1>Build and Deployment</h1>
-</div>
+# Build and Deployment
+
+<hr>
 
 1. Dev mode: press __CTRL + F5__ to run your project on http://localhost:8888/
 

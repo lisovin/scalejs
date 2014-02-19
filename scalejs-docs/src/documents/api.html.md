@@ -6,6 +6,8 @@ isPage: true
 
 This Document contains all of the methods exposed by scalejs and most used extensions
 
+<hr>
+
 ## application 
 
 Coming soon!

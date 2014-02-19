@@ -3,10 +3,9 @@ title: "ToDo MVC"
 isPage: true
 ---
 
-<div class="popout h-white bg-crimson">
-<h1>ToDoMVC App Tutorial</h1>
-</div>    
+#ToDoMVC App Tutorial
 
+<hr>
 
 We will demonstrate how to create a Scalejs application by creating a ToDo MVC app. Scalejs is better suited for creating large and scalable applications, but we will cover some basics with the ToDo MVC app such as:
 

@@ -4,10 +4,9 @@ isPage: true
 styles: ["highlight.css"]
 ---
 
-<div class="popout h-white bg-crimson">
-<h1>Statechart</h1>
-</div>
+# Statechart
 
+<hr>
 
 Every interface has certain states which determine what is currently displayed on the UI. 
 Originally state was managed indirectly with the [reactive](./reactive.html) pattern by publishing events and

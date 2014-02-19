@@ -3,10 +3,10 @@ title: "ScaleJS Overview"
 isPage: true
 styles: ["highlight.css"]
 ---
-<div class="popout h-white bg-crimson">
-<h1>Project Template</h1>
-</div>
 
+# Project Template
+
+<hr>
 
 The first thing you will be exposed to after [creating a project](./project.html) is the file structure of the project.
 

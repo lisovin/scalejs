@@ -3,95 +3,17 @@ title: "Scalejs Docs"
 isPage: true
 ---
 
-<div class="popout h-white bg-crimson">
-<h1> Scalejs</h1>
+
+# Scalejs
+
+<hr>
 
 <h3>Scalejs is a robust JavaScript framwework for creating web and mobile appications.
 It is designed for .NET developers or those who come from a WPF os Silverlight background.
 It is the _only_ JavaScript framework which is optimized to run in Visual Studio and
 allows you to program using the software patterns you know and love.</h3>
 
-</div>
-
-<br>
-
-<div class="grid fluid">
-
-	<div class="row">
-		<div class="span4  bg-lime padding20 text-center">
-			<h2><a class="fg-white" href="#scalable-architecture">Scalable Architecture</a></h2>
-		</div>
-		<div class="span4 bg-cyan padding20 text-center">
-			<h2><a class="fg-white" href="#project-templates">Project Templates</a></h2>
-		</div>
-		<div class="span4 bg-darkIndigo padding20 text-center">
-			<h2><a class="fg-white" href="#modular">Modular</a></h2>
-		</div>
-	</div>
-
-<div class="row">
-		<div class="span4  bg-amber padding20 text-center">
-			<h2><a class="fg-white" href="#extendable">Extendable</a></h2>
-		</div>
-		<div class="span4 bg-lightPink padding20 text-center">
-			<h2><a class="fg-white" href="#nuget-package-management">Nuget Packages</a></h2>
-		</div>
-		<div class="span4 bg-green padding20 text-center">
-			<h2><a class="fg-white" href="#intellisense">Intellisense</a></h2>
-		</div>
-	</div>
-
-<div class="row">
-		<div class="span4  bg-darkCyan padding20 text-center">
-			<h2><a class="fg-white" href="#mondel-view-viewmodel">Model-View-ViewModel</a></h2>
-		</div>
-		<div class="span4 bg-lightGreen padding20 text-center">
-			<h2><a class="fg-white" href="#statechart">Statechart</a></h2>
-		</div>
-		<div class="span4 bg-lightRed padding20 text-center">
-			<h2><a class="fg-white" href="#routing">Routing</a></h2>
-		</div>
-</div>
-
-<div class="row">
-		<div class="span4  bg-magenta padding20 text-center">
-			<h2><a class="fg-white" href="#reactive">Reactive</a></h2>
-		</div>
-		<div class="span4 bg-violet padding20 text-center">
-			<h2><a class="fg-white" href="#organized-stylesheets">Organized Stylesheets</a></h2>
-		</div>
-		<div class="span4 bg-yellow padding20 text-center">
-			<h2><a class="fg-white" href="#layout">Layout</a></h2>
-		</div>
-</div>
-
-<div class="row">
-		<div class="span4  bg-orange padding20 text-center">
-			<h2><a class="fg-white" href="#linq">linq</a></h2>
-		</div>
-		<div class="span4 bg-cobalt padding20 text-center">
-			<h2><a class="fg-white" href="#data-driven">Data-driven</a></h2>
-		</div>
-		<div class="span4 bg-lightOlive padding20 text-center">
-			<h2><a class="fg-white" href="#ui-components">UI Components</a></h2>
-		</div>
-</div>
-
-<div class="row">
-		<div class="span4  bg-teal padding20 text-center">
-			<h2><a class="fg-white" href="#build-and-deployment">Build and Deployment</a></h2>
-		</div>
-		<div class="span4 bg-pink padding20 text-center">
-			<h2><a class="fg-white" href="#data-driven">Mobile</a></h2>
-		</div>
-		<div class="span4 bg-lightBlue padding20 text-center">
-			<h2><a class="fg-white" href="#ui-components">Testable</a></h2>
-		</div>
-</div>
-
-</div>
-
-<br>
+<hr>
 
 ## Scalable Architecture
 

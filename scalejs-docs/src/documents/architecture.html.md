@@ -4,10 +4,9 @@ isPage: true
 styles: ["highlight.css"]
 ---
 
-<div class="popout h-white bg-crimson">
-<h1>Architecture</h1>
-</div>
+# Architecture
 
+<hr>
 
 The architecture of your application is one the core freatures of scalejs. 
 Scalejs application architecture was inspired by Nicholas Zakas' [Scalable JavaScript Application Architecure](http://www.slideshare.net/nzakas/scalable-javascript-application-architecture)
