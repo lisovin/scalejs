@@ -27,12 +27,14 @@ so that they can be defined using builder functions.
 
 <br>
 
-## Statechart implementation
+## Statechart Builder
 
-The statechart is a __monad__ which in computer science is a functional programming structure which allows you to
-define computations as a sequence of steps. It allows you to nest and chain operations together which creates
-pipelines to process the data in steps, which each step having its own processing rules. This is a very convienient 
-structure for building a statechart due to is clean and concise syntax.
+The statechart is created using builder functions which allow you to define states, transitions, and other
+statechart-related properties. These builder functions are defined in the __state.builder__ namespace
+and can be nested so that complex hierarchical structures can be created.  The statechart builder
+runs and creates the statechart before your application starts. The statechart cannot be altered
+after the app runs. Therefore, the statechart is a deterministic function that for any given input
+has a predictable output. This makes creating states very easy, clean, and concise.
 
 <br>
 

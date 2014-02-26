@@ -1,0 +1,33 @@
+.javascript {
+    color: #000 !important;
+    line-height: 120% !important;
+}
+.javascript .hljs-string {
+    color: rgb(163,21,21);
+}
+.javascript .hljs-keyword {
+    color: rgb(0,0,255);
+}
+.javascript .hljs-literal {
+    color: rgb(0,0,255);
+}
+.javascript .hljs-comment {
+    color: rgb(0,136,0);
+}
+
+.xml {
+    color: #000 !important;
+    line-height: 120% !important;
+}
+.xml .hljs-tag {
+    color: rgb(0,0,255);
+}
+.xml .hljs-title {
+    color: rgb(163,21,21);
+}
+.xml .hljs-attribute {
+    color: red;
+}
+.xml .hljs-comment {
+    color: rgb(0,136,0);
+}
