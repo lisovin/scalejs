@@ -201,14 +201,14 @@ elements within a view using inline <code>data-bind</code> or the abstrated <cod
 <li>There are two distinct templates in this view, <code>todo_input_template</code> and <code>todo_items_template</code></li>
 <li>A template consists of HTML elements which can have a <code>data-bind</code> attribute or a <code>data-class</code> attribute.</li>
 </ul>
-<h3 id="-data-bind-"><code>data-bind</code></h3>
+<h3 id="data-bind">data-bind</h3>
 <p>A binding consists of two items, the binding name and value, separated by a colon. 
 In the above example, the data-bind used was <a href="http://knockoutjs.com/documentation/foreach-binding.html">foreach</a>
 to show all of the <code>viewableItems</code> from the <a href="./mvvm.html#viewmodel">ViewModel</a>.</p>
 <p><strong>scalejs.mvvm</strong> gives you the ability to use all of the bindings provided by knockoutjs. There
 are also some new bindings provided by <strong>scalejs.mvvm</strong> which can be found in the <a href="./api.html#mvvm">scalejs.mvvm API docs</a>.</p>
 <p><em>Read more about <a href="http://knockoutjs.com/documentation/binding-syntax.html">knockoutjs binding syntax</a></em></p>
-<h3 id="-data-class-"><code>data-class</code></h3>
+<h3 id="data-class">data-class</h3>
 <p>A <code>data-class</code> is to <code>data-bind</code> as <code>class</code> is to the <code>style</code> attribute. 
 In other words, you have two choices on how to apply your bindings to your elements.
 For example you can bind the ViewModel property <code>title</code> to the <code>text</code> of an element

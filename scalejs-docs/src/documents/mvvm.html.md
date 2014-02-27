@@ -62,7 +62,7 @@ As we can see by the example,
 * There are two distinct templates in this view, `todo_input_template` and `todo_items_template`
 * A template consists of HTML elements which can have a `data-bind` attribute or a `data-class` attribute.
 
-### `data-bind`
+### data-bind
 
 A binding consists of two items, the binding name and value, separated by a colon. 
 In the above example, the data-bind used was [foreach](http://knockoutjs.com/documentation/foreach-binding.html)
@@ -73,7 +73,7 @@ are also some new bindings provided by __scalejs.mvvm__ which can be found in th
 
 _Read more about [knockoutjs binding syntax](http://knockoutjs.com/documentation/binding-syntax.html)_
 
-### `data-class`
+### data-class
 
 A `data-class` is to `data-bind` as `class` is to the `style` attribute. 
 In other words, you have two choices on how to apply your bindings to your elements.
@@ -147,3 +147,4 @@ that knockout provides with things like `$parent`.
 This classes were implemented using the [knockout binding class provider](https://github.com/rniemeyer/knockout-classBindingProvider)
 so it might be useful for you to take a look at some of those examples. As per scalejs convention,
 the key for the binding is in single quotes and is lower-case and delimitted by "-".
+

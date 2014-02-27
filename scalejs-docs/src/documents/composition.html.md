@@ -179,7 +179,7 @@ In the following example we have created a module called __foobar__.
 ```javascript
 /*global require*/
 require([
-    'scalejs!application/main,todo'
+    'scalejs!application/main,foobar'
 ], function (
     application
 ) {
