@@ -89,8 +89,8 @@
                             <li><a href="./architecture.html"><i class="icon-stats-up"></i> Architecture</a></li>
                             <li><a href="./mvvm.html"><i class="icon-tree-view"></i> Model-View-ViewModel</a></li>
                             <li><a href="./statechart.html"><i class="icon-tab"></i> Statechart</a></li>
-                            <!--<li><a href="./routing.html"><i class="icon-share"></i> Routing</a></li>
-                            <li><a href="./layout.html"><i class="icon-screen"></i> Layout</a></li>
+                            <li><a href="./routing.html"><i class="icon-share"></i> Routing</a></li>
+                            <!--<li><a href="./layout.html"><i class="icon-screen"></i> Layout</a></li>
                             <li><a href="./styles.html"><i class="icon-droplet"></i> Styles</a></li>
                             <li><a href="./extensions.html"><i class="icon-wrench"></i> Extensions</a></li>
                             <li><a href="./api.html"><i class="icon-book"></i> API Documentation</a></li>-->
@@ -140,8 +140,8 @@
                             <li><a href="./architecture.html"><i class="icon-stats-up"></i> Architecture</a></li>
                             <li><a href="./mvvm.html"><i class="icon-tree-view"></i> Model-View-ViewModel</a></li>
                             <li><a href="./statechart.html"><i class="icon-tab"></i> Statechart</a></li>
-                            <!--<li><a href="./routing.html"><i class="icon-share"></i> Routing</a></li>
-                            <li><a href="./layout.html"><i class="icon-screen"></i> Layout</a></li>
+                            <li><a href="./routing.html"><i class="icon-share"></i> Routing</a></li>
+                            <!--<li><a href="./layout.html"><i class="icon-screen"></i> Layout</a></li>
                             <li><a href="./styles.html"><i class="icon-droplet"></i> Styles</a></li>
                             <li><a href="./extensions.html"><i class="icon-wrench"></i> Extensions</a></li>
                             <li><a href="./api.html"><i class="icon-book"></i> API Documentation</a></li>-->
@@ -152,15 +152,201 @@
 
 	    <div id="content">
 		    <h1 id="routing">Routing</h1>
-<hr>
+<p><hr>
+Routing is an essential aspect of any Single Page Application, but it is not always the easiest thing to implement.
+This is why statechart-integrated routing makes it very convienient to code your app without routing in mind, and drop it in
+when you feel like you need it.</p>
+<p>Routing allows you to give states their own URL so that users of you app can bookmark or link others to these states.
+This gives the appearance of having distinct pages for certain states, without the need to retrieve a new page from the server.</p>
+<p><br></p>
+<h2 id="routerstate">routerState</h2>
+<p>To enable routing in your app, you need to specify which state will be your router state.
+The router state is an ancestor to all routable states. This could be your <code>main</code> or <code>app</code> state for example.</p>
+<p>After deciding on which state will be the router state, simply change the <code>state()</code> builder to
+<code>routerState()</code> builder.</p>
+<h5 id="example-declaring-the-routerstate-of-your-app">Example: Declaring the routerState of your app</h5>
+<pre class="highlight"><code class="javascript"><span class="hljs-keyword">var</span> routerState = sandbox.routing.routerState;
 
-<p>To enable routing:</p>
-<ol>
-<li>Make your <em>main</em> state the child of the <em>router</em> state (using <code>routerState</code> to register the state instead of <code>state</code>)</li>
-<li>Make sure any routable state is has the <em>main</em> state as its ancestor</li>
-<li>Make a state routable by passing it the <code>route()</code> builder with the name of the url hook you would like it to use (e.g. http:\web.url\?home would be registed as <code>route(&#39;home&#39;)</code></li>
-<li>Make a &quot;default&quot; route state by passing it <code>route(&#39;\&#39;)</code></li>
-</ol>
+registerStates(<span class="hljs-string">'root'</span>, routerState(<span class="hljs-string">'app'</span>));
+</code></pre>
+<p><br></p>
+<h3 id="baseurl">baseUrl</h3>
+<p>There are situations where the root of your app is not in the root of your domain. (e.g. <a href="http://yourapp.com">http://yourapp.com</a>)
+For example, if you are building a marketplace app, you might place the app in a directory called &#39;<em>store</em>&#39; (e.g. <a href="http://yourapp.com/store">http://yourapp.com/store</a>)
+In this situation, the second parameter of the <code>routerState</code> function needs to be an options object specifying the baseUrl.</p>
+<h5 id="example-specifying-a-baseurl-for-your-app-">Example: Specifying a baseUrl for your app.</h5>
+<pre class="highlight"><code class="javascript"><span class="hljs-keyword">var</span> routerState = sandbox.routing.routerState;
+
+registerStates(<span class="hljs-string">'root'</span>, routerState(<span class="hljs-string">'app'</span>, { baseUrl: <span class="hljs-string">'store'</span> }));
+</code></pre>
+<p><br></p>
+<h2 id="route">route</h2>
+<p>To make a specific state routable, you must pass the <code>route()</code> builder function to the <code>state()</code> builder.
+There are many ways to specify a route for a state. Remember that the state which recieves the <code>route()</code>
+builder must be a descendant of a state created using the <code>routerState()</code> builder.</p>
+<p><br></p>
+<h3 id="root">Root</h3>
+<p>When you open your application without a URL, the router needs to know which state should be shown.
+This is known as the <strong>root</strong> of you application. The to make a state the root, you need to pass <code>router(&#39;/&#39;)</code> to the <code>state()</code> builder.</p>
+<h5 id="example-declaring-the-root-state">Example: Declaring the root state</h5>
+<pre class="highlight"><code class="javascript"><span class="hljs-keyword">var</span> routerState = sandbox.routing.routerState,
+    route = sandbox.routing.route;
+
+registerStates(<span class="hljs-string">'root'</span>, routerState(<span class="hljs-string">'app'</span>,
+    state(<span class="hljs-string">'a'</span>, route(<span class="hljs-string">'/'</span>))));
+</code></pre>
+<p><br></p>
+<h3 id="a-static-route-url">A Static Route URL</h3>
+<p>There are many different ways to specify a route.
+The most simple way to do this is to specify a static name for the route.
+An example of a URL created with a static name would be <a href="http://yourapp.com/?b">http://yourapp.com/?b</a>.</p>
+<h5 id="example-creating-a-static-route">Example: Creating a static route</h5>
+<pre class="highlight"><code class="javascript"><span class="hljs-keyword">var</span> routerState = sandbox.routing.routerState,
+    route = sandbox.routing.route;
+
+registerStates(<span class="hljs-string">'root'</span>, routerState(<span class="hljs-string">'app'</span>,
+    state(<span class="hljs-string">'a'</span>, route(<span class="hljs-string">'/'</span>)),
+    state(<span class="hljs-string">'b'</span>, route(<span class="hljs-string">'b'</span>))));
+</code></pre>
+<p><br></p>
+<h3 id="a-dynamic-route-url">A Dynamic Route URL</h3>
+<p>In some situations, you would like to pass some data to the routed state depending on the URL.
+An example of this would be a state that expects an <code>id</code> to be specifed when it is entered.
+In this situation, if the id is 1, the url would be <a href="http://yourapp.com/?b/1">http://yourapp.com/?b/1</a>, but if the
+id is 2, then the url would be <a href="http://yourapp.com/?b/2">http://yourapp.com/?b/2</a>.</p>
+<p>In this situation, you need to specify in the <code>route()</code> string as before, except with an aditional <code>&#39;/{id}&#39;</code>
+at the end so that the router knows to expect a value after <code>&#39;b/&#39;</code> that will be a part of the event data.</p>
+<h5 id="example-creating-a-dynamic-route">Example: Creating a dynamic route</h5>
+<pre class="highlight"><code class="javascript"><span class="hljs-keyword">var</span> routerState = sandbox.routing.routerState,
+    route = sandbox.routing.route;
+
+registerStates(<span class="hljs-string">'root'</span>, routerState(<span class="hljs-string">'app'</span>,
+    state(<span class="hljs-string">'a'</span>, route(<span class="hljs-string">'/'</span>)),
+    state(<span class="hljs-string">'b'</span>, 
+        route(<span class="hljs-string">'b/{id}'</span>),
+        onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> {</span>
+            console.log(e.data.id);
+        }))));
+</code></pre>
+<p>If internally you are navigating to this state, you must pass the value when you call <code>raise()</code> or else the <code>id</code> in your URL will be undefined.</p>
+<h5 id="example-navigating-to-a-dynamic-route-using-raise">Example: Navigating to a dynamic route using raise</h5>
+<pre class="highlight"><code class="javascript"><span class="hljs-keyword">var</span> routerState = sandbox.routing.routerState,
+    route = sandbox.routing.route;
+
+registerStates(<span class="hljs-string">'root'</span>, routerState(<span class="hljs-string">'app'</span>,
+    state(<span class="hljs-string">'a'</span>, 
+        route(<span class="hljs-string">'/'</span>),
+        on(<span class="hljs-string">'b.open'</span>, goto(<span class="hljs-string">'b'</span>))),
+    state(<span class="hljs-string">'b'</span>, 
+        route(<span class="hljs-string">'b/{id}'</span>),
+        onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> {</span>
+            console.log(e.data.id);
+        }))));
+
+raise(<span class="hljs-string">'b.open'</span>, { id: <span class="hljs-number">1</span> });
+</code></pre>
+<p>If you use the URL <a href="http://yourapp.com/?b/1">http://yourapp.com/?b/1</a> to navigate to your app, the event data will automatically contain the id.</p>
+<p>Dynamic routes can go as many levels deep as you need. For example, if you would like to pass additional data
+when routing to your app, you can specify the url as <a href="http://yourapp.com/?b/1/2">http://yourapp.com/?b/1/2</a>.</p>
+<h5 id="example-creating-a-dynamic-route-with-more-than-1-parameter">Example: Creating a dynamic route with more than 1 parameter</h5>
+<pre class="highlight"><code class="javascript"><span class="hljs-keyword">var</span> routerState = sandbox.routing.routerState,
+    route = sandbox.routing.route;
+
+registerStates(<span class="hljs-string">'root'</span>, routerState(<span class="hljs-string">'app'</span>,
+    state(<span class="hljs-string">'a'</span>, route(<span class="hljs-string">'/'</span>)),
+    state(<span class="hljs-string">'b'</span>, 
+        route(<span class="hljs-string">'b/{x}/{y}'</span>),
+        onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> {</span>
+            console.log(e.data.x); <span class="hljs-comment">//1</span>
+            console.log(e.data.y); <span class="hljs-comment">//2 </span>
+        }))));
+</code></pre>
+<p><br></p>
+<h3 id="a-route-url-with-paremeters">A route URL with paremeters</h3>
+<p>In addition to the syntax <a href="http://yourapp.com/?b/{id}">http://yourapp.com/?b/{id}</a>, you can also specify the parameter in the following manner:
+<a href="http://yourapp.com/?b?id={id}">http://yourapp.com/?b?id={id}</a>.</p>
+<h5 id="example-creating-a-route-that-expects-a-named-parameter">Example: Creating a route that expects a named parameter</h5>
+<pre class="highlight"><code class="javascript"><span class="hljs-keyword">var</span> routerState = sandbox.routing.routerState,
+    route = sandbox.routing.route;
+
+registerStates(<span class="hljs-string">'root'</span>, routerState(<span class="hljs-string">'app'</span>,
+    state(<span class="hljs-string">'a'</span>, route(<span class="hljs-string">'/'</span>)),
+    state(<span class="hljs-string">'b'</span>, 
+        route(<span class="hljs-string">'b?x={x}'</span>),
+        onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> {</span>
+            console.log(e.data.x);
+        }))));
+</code></pre>
+<p>Like the dynamic route path, you can specify as many parameters as you would like.</p>
+<h5 id="example-creating-a-route-that-expects-a-more-than-1-named-parameter">Example: Creating a route that expects a more than 1 named parameter</h5>
+<pre class="highlight"><code class="javascript"><span class="hljs-keyword">var</span> routerState = sandbox.routing.routerState,
+    route = sandbox.routing.route;
+
+registerStates(<span class="hljs-string">'root'</span>, routerState(<span class="hljs-string">'app'</span>,
+    state(<span class="hljs-string">'a'</span>, route(<span class="hljs-string">'/'</span>)),
+    state(<span class="hljs-string">'b'</span>, 
+        route(<span class="hljs-string">'b?x={x}&amp;y={y}'</span>),
+        onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> {</span>
+            console.log(e.data.x);
+            console.log(e.data.y);
+        }))));
+</code></pre>
+<p>You can also combine dynamic paths and parameters to create complex URLs</p>
+<h5 id="example-creating-a-dynamic-route-that-expects-parameters">Example: Creating a dynamic route that expects parameters</h5>
+<pre class="highlight"><code class="javascript"><span class="hljs-keyword">var</span> routerState = sandbox.routing.routerState,
+    route = sandbox.routing.route;
+
+registerStates(<span class="hljs-string">'root'</span>, routerState(<span class="hljs-string">'app'</span>,
+    state(<span class="hljs-string">'a'</span>, route(<span class="hljs-string">'/'</span>)),
+    state(<span class="hljs-string">'b'</span>, 
+        route(<span class="hljs-string">'b/{x}?y={y}'</span>),
+        onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> {</span>
+            console.log(e.data.x);
+            console.log(e.data.y);
+        }))));
+</code></pre>
+<p>Dynamic routes and parameterized routes both have their own use cases. 
+The former is useful for clean urls.
+The latter is useful for making it clear exactly which properties will be expecting values.</p>
+<p><br></p>
+<h2 id="routing-expectations">Routing Expectations</h2>
+<p>There is one routing expectation which must be known as it is non-obvious but makes sense once it is explained.
+Due to the nature of routing&#39;s implementation, you may easily make the mistake of giving a descendant of a routed state
+a route itself.</p>
+<h5 id="example-incorrect-usage-of-routing">Example: Incorrect usage of routing</h5>
+<pre class="highlight"><code class="javascript"><span class="hljs-keyword">var</span> routerState = sandbox.routing.routerState,
+    route = sandbox.routing.route;
+
+registerStates(<span class="hljs-string">'root'</span>, routerState(<span class="hljs-string">'app'</span>
+    state(<span class="hljs-string">'main'</span>,
+        route(<span class="hljs-string">'/'</span>),
+        state(<span class="hljs-string">'a'</span>),
+        state(<span class="hljs-string">'b'</span>, route(<span class="hljs-string">'b'</span>)))));
+</code></pre>
+<p>In this situation, you might expect the root to be routed to state <strong>a</strong>
+and when the url for state <strong>b</strong> is entered, to be routed to state <strong>b</strong>.</p>
+<p>In this case, it is entirely unclear which state is <em>actually</em> the root state, since both state <strong>a</strong> and <strong>b</strong> are children
+of the state routed to root.</p>
+<p>In order to fix this, if need to explicitly define which child state of &#39;main&#39; is the root. </p>
+<h5 id="example-correct-usage-of-routing">Example: Correct usage of routing</h5>
+<pre class="highlight"><code class="javascript"><span class="hljs-keyword">var</span> routerState = sandbox.routing.routerState,
+    route = sandbox.routing.route;
+
+registerStates(<span class="hljs-string">'root'</span>, routerState(<span class="hljs-string">'app'</span>
+    state(<span class="hljs-string">'main'</span>,
+        state(<span class="hljs-string">'a'</span>, route(<span class="hljs-string">'/'</span>)),
+        state(<span class="hljs-string">'b'</span>, route(<span class="hljs-string">'b'</span>)))));
+</code></pre>
+<p><br></p>
+<h2 id="summary">Summary</h2>
+<ul>
+<li>Routing is easily implemented due to it being integrated with the statechart</li>
+<li>Routed states must be descendants of the <code>routerState()</code></li>
+<li>Routed states must be passed the <code>route()</code> builder</li>
+<li>The root of your app must be specified with <code>route(&#39;/&#39;)</code></li>
+<li>Dynamic and parameterized routes can be specified so states can recieve data</li>
+<li>Routed states must not be descendants of a routed state due to ambiguity</li>
+</ul>
 
 	    </div>
 
