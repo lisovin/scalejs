@@ -1,3 +1,6 @@
 [submodule "scalejs-examples"]
 	path = scalejs-examples
 	url = https://github.com/lisovin/scalejs-examples.git
+[submodule "extensions/scalejs.statechart-scion"]
+	path = extensions/scalejs.statechart-scion
+	url = https://github.com/lisovin/scalejs.statechart-scion.git

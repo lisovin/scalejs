@@ -8,6 +8,11 @@ styles: ["highlight.css"]
 
 <hr>
 
+[UI Composition Sample](http://scalejs.com/scalejs-examples/UIComposition/UIComposition/) |
+[UI Composition GitHub](https://github.com/lisovin/scalejs-examples/tree/master/UIComposition)
+
+<hr>
+
 With scalejs there is a solid way to manage the layout in a decoupled manner. 
 Using a combination of the mvvm and statechart
 extensions allows you to create regions for modules to render themselves without having
