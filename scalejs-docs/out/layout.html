@@ -153,15 +153,28 @@
 	      </div>
 
 	    <div id="content">
-		    <h1 id="layout">Layout</h1>
+		    <h1 id="grid-layout">Grid Layout</h1>
 <hr>
 
-<p>As we developed more applications with scalejs, we developed a solid way to manage the layout
-without closely-coupling modules together. Using a combination of the mvvm and statechart
-extension allows you to create regions for modules to render themselves without having
-any modules &quot;know&quot; about other modules. It enforces loose-coupling and therefore is the
-recommended approach to doing your layout. </p>
-<p>For more advanced layouts, there is also <strong>scalejs.layout-cssgrid</strong></p>
+<p>One of the most frustrating aspects of developing in HTML5 is creating the layout of your app.
+Due to the nature of CSS, conceptually simple layouts are hard, and complex layouts are near impossible.
+We decided to adopt the <a href="http://www.w3.org/TR/css-grid-1/">CSS Grid Layout Module</a> pattern by
+creating a polyfill of <a href="http://msdn.microsoft.com/en-us/library/ie/hh673533(v=vs.85">Microsoft&#39;s Grid Layout</a>.aspx).
+Although the polyfill can be used as a stand-alone script for basic HTML5 applications, here we will
+explain hot to use the CSS Grid Layout in your own scalejs app.</p>
+<p>Install the <strong>scalejs.layout-cssgrid</strong> extension with NuGet to import the <strong>layout</strong> namespace.</p>
+<p><br></p>
+<h2 id="css-that-makes-sense">CSS that makes sense</h2>
+<p>Use CSS to create grids without the frustration of using CSS - the grid layout is very easy to grasp,
+and does not take guess-work to position things correctly. </p>
+<p>If you developed for IE then you may already know how to use the -ms-grid styles attribute.
+There are some things that our grid cannot do, such as alignment.</p>
+<p>(Fullscreen without code, fullscreen with code) (other fullscreen with code is for ui composition)</p>
+<h3 id="html">HTML</h3>
+<p>After [composing your UI] to contain all of the regions it needs, you can easily define where they are positioned
+by applying some styles to them. </p>
+<p>The [CSSGridLayout](</p>
+<h3 id="main">main</h3>
 
 	    </div>
 
