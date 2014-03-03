@@ -23,21 +23,19 @@ Install the __scalejs.layout-cssgrid__ extension with NuGet to import the __layo
 
 <br>
 
-## CSS that makes sense
+## CSS/HTML that makes sense
 
 Use CSS to create grids without the frustration of using CSS - the grid layout is very easy to grasp,
 and does not take guess-work to position things correctly. 
 
 If you developed for IE then you may already know how to use the `-ms-grid` styles attribute.
 
-<br>
+### A simple grid
 
-### HTML
+This is a simpe grid showing some of Grid Layout's basic features.
 
-##### Example: Simple grid
-
-This is a very simple grid demonstrating spanning of rows/columns, and various alignment properties.
-```
+##### Example: A demo of Grid Layout's basic features
+```css
 .tut-grid {
 	height: 300px;
 	width: 400px;
@@ -62,7 +60,6 @@ This is a very simple grid demonstrating spanning of rows/columns, and various a
 	-ms-grid-row-align: center;
 }
 ```
-
 ```xml
 <div class="tut-grid">
 	<div class="tut-grid__spanned" style="background: blue;"></div>
@@ -71,14 +68,16 @@ This is a very simple grid demonstrating spanning of rows/columns, and various a
 	<div class="tut-grid__aligned" style="background: red; width: 20px; height: 30px;"></div>
 </div>
 ```
+##### Result: 
 ![A simple grid](./grid_example.png)
 
 
-##### Example: Regions in a view
+### How to organize your page
 
 After [composing your UI](./composition.html) to contain all of the regions it needs, you can easily define where they are positioned
 by applying some styles to them. 
 
+##### Example: Regions in a view
 ```xml
 <div id="main_template">
     <div id="main">
@@ -96,14 +95,10 @@ This UI contains some typical regions you'd expect to find in an app such as lef
 
 Left Splitter and Header Splitter are margin areas which lie inbetween regions, but can also be [splitters](./gridlayout.html#splitters).
 
-<br>
-
-### main
-
 We will inspect the `#main` div and discuss how it sets up the Grid Layout.
 
 ##### Example: Setting up the Grid
-```
+```css
 #main {
     display: -ms-grid;
 	-ms-grid-columns: 300px auto 1fr 1fr; 
@@ -135,7 +130,7 @@ Also, the first row is 100px, the second automatically sizes to its content,
 the third one takes up the remaining space, and the last row is 100px tall.
 
 To create a full-page grid, add the following css.
-```
+```css
 html, body {
 	margin: 0px;
 	height: 100%;
@@ -148,6 +143,7 @@ html, body {
 To use our polyfill extension (replicate the grid behavior in non microsoft browsers) you must add the 'scalejs.layout-cssgrid' nuget package to your project. 
 
 Since the extension parses the pages css (from the header and inline styles) to get all the css properties describing the grid, you will need to notify the extension when you've added a style that could affect the grid. Additionally, you can register a callback to respond to the layout being recalculated (including page resizing). Use the following functions.
+##### Example: basic usages of exposed functions
 ```javascript
 /*
  * add style foo to page head. style includes grid rules
@@ -170,7 +166,28 @@ sandbox.layout.onLayoutDone(function () {
 });
 ```
 
-##### Limitations
+Whenever your ScaleJS modules add templates to the page, you will have to consider whether the layout needs to be recalculated. If your template contains elements that will match to grid-layout css rules, you will need to call sandbox.layout.invalidate. Consider the following code snippet.
+
+##### mainModule.js
+```javascript
+registerStates('root',
+	state('app',
+		parallel('main',
+			onEntry(function () {
+				this.main_header = viewModel.main_header;
+				this.main_content = viewModel.main_content;
+
+				// Render viewModel using 'main_template' template 
+				// (defined in main.html) and show it in the `root` region.
+				root(template('main_template', viewModel));
+
+				layout.invalidate(true);
+			}))));
+```
+In this example, the main template places two elements that will be layed out by a grid. Therefore, we call layout.invalidate(true) to recalculate the grid, and correctly lay out those elements.
+
+
+### Limitations
 
 Our extension has a few limitations compared to the full -ms-grid spec. For auto-width columns, members should have a defined width (either inline style or css), otherwise they will extend to far beyond their intended width. Additionally, grid elements that span multiple auto-sized rows or columns will result in incorrectly sized rows/columns.
 
