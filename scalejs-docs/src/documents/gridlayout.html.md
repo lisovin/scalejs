@@ -102,11 +102,11 @@ html, body {
 }
 ```
 
-##### Using the extension
+### Using the extension
 
 To use our polyfill extension (replicate the grid behavior in non microsoft browsers) you must add the 'scalejs.layout-cssgrid' nuget package to your project. 
 
-####### Limitations
+##### Limitations
 
 Our extension has a few limitations compared to the full -ms-grid spec. For auto-width columns, members should have a defined width (either inline style or css), otherwise they will extend to far beyond their intended width. Additionally, grid elements that span multiple auto-sized rows or columns will result in incorrectly sized rows/columns.
 
