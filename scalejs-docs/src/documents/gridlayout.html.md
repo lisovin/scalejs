@@ -17,7 +17,7 @@ Due to the nature of CSS, conceptually simple layouts are hard, and complex layo
 We decided to adopt the [CSS Grid Layout Module](http://www.w3.org/TR/css-grid-1/) pattern by
 creating a polyfill of Microsoft's Grid Layout.
 Although the polyfill can be used as a stand-alone script for basic HTML5 applications, here we will
-explain hot to use the CSS Grid Layout in your own scalejs app.
+explain how to use the CSS Grid Layout in your own scalejs app.
 
 Install the __scalejs.layout-cssgrid__ extension with NuGet to import the __layout__ namespace.
 
@@ -29,7 +29,6 @@ Use CSS to create grids without the frustration of using CSS - the grid layout i
 and does not take guess-work to position things correctly. 
 
 If you developed for IE then you may already know how to use the `-ms-grid` styles attribute.
-There are some things that our grid cannot do, such as alignment.
 
 <br>
 
@@ -93,4 +92,22 @@ In our 4x4 example, the first column has a fixed with of 300px, the second autom
 resizes to fit its content, and the last 2 take up 1/2 of the remaining space. 
 Also, the first row is 100px, the second automatically sizes to its content, 
 the third one takes up the remaining space, and the last row is 100px tall.
+
+To create a full-page grid, add the following css.
+```
+html, body {
+	margin: 0px;
+	height: 100%;
+	width: 100%;
+}
+```
+
+##### Using the extension
+
+To use our polyfill extension (replicate the grid behavior in non microsoft browsers) you must add the 'scalejs.layout-cssgrid' nuget package to your project. 
+
+####### Limitations
+
+Our extension has a few limitations compared to the full -ms-grid spec. For auto-width columns, members should have a defined width (either inline style or css), otherwise they will extend to far beyond their intended width. Additionally, grid elements that span multiple auto-sized rows or columns will result in incorrectly sized rows/columns.
+
 
