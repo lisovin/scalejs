@@ -129,7 +129,7 @@ resizes to fit its content, and the last 2 take up 1/2 of the remaining space.
 Also, the first row is 100px, the second automatically sizes to its content, 
 the third one takes up the remaining space, and the last row is 100px tall.
 
-To create a full-page grid, add the following css.
+##### For a full page grid
 ```css
 html, body {
 	margin: 0px;
@@ -168,7 +168,7 @@ sandbox.layout.onLayoutDone(function () {
 
 Whenever your ScaleJS modules add templates to the page, you will have to consider whether the layout needs to be recalculated. If your template contains elements that will match to grid-layout css rules, you will need to call sandbox.layout.invalidate. Consider the following code snippet.
 
-##### mainModule.js
+##### Calling invalidate from mainModule.js
 ```javascript
 registerStates('root',
 	state('app',
