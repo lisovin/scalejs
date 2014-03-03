@@ -34,10 +34,50 @@ If you developed for IE then you may already know how to use the `-ms-grid` styl
 
 ### HTML
 
+##### Example: Simple grid
+
+This is a very simple grid demonstrating spanning of rows/columns, and various alignment properties.
+```
+.tut-grid {
+	height: 300px;
+	width: 400px;
+	display: -ms-grid;
+	-ms-grid-columns: 2fr 1fr;
+	-ms-grid-rows: 80px 1fr auto;
+}
+.tut-grid__header {
+	-ms-grid-column-span: 2;
+}
+.tut-grid__text {
+	-ms-grid-row: 3;
+}
+.tut-grid__spanned {
+	-ms-grid-row: 2;
+	-ms-grid-column: 2;
+	-ms-grid-row-span: 2; 
+}
+.tut-grid__aligned {
+	-ms-grid-row: 2;
+	-ms-grid-column-align: end;
+	-ms-grid-row-align: center;
+}
+```
+```
+<div class="tut-grid">
+	<div class="tut-grid__spanned" style="background: blue;"></div>
+	<div class="tut-grid__header" style="background: green;"></div>
+	<div class="tut-grid__text" style="background: yellow;">I'm defining the height of this row!</div>
+	<div class="tut-grid__aligned" style="background: red; width: 20px; height: 30px;"></div>
+</div>
+```
+![A simple grid](./grid_example.png)
+
+
+##### Example: Regions in a view
+
 After [composing your UI](./composition.html) to contain all of the regions it needs, you can easily define where they are positioned
 by applying some styles to them. 
 
-##### Example: Regions in a view
 ```xml
 <div id="main_template">
     <div id="main">
@@ -105,6 +145,29 @@ html, body {
 ### Using the extension
 
 To use our polyfill extension (replicate the grid behavior in non microsoft browsers) you must add the 'scalejs.layout-cssgrid' nuget package to your project. 
+
+Since the extension parses the pages css (from the header and inline styles) to get all the css properties describing the grid, you will need to notify the extension when you've added a style that could affect the grid. Additionally, you can register a callback to respond to the layout being recalculated (including page resizing). Use the following functions.
+```
+/*
+ * add style foo to page head. style includes grid rules
+ */
+ 
+sandbox.layout.invalidate(true);
+```
+```
+/*
+ * resize elements, but dont change any grid rules
+ */
+ 
+//wont reparse styles now, better performance
+sandbox.layout.invalidate();
+```
+```
+// any js that needs to know about the layout can register a callback
+sandbox.layout.onLayoutDone(function () {
+	console.log("layout has been recalculated");
+});
+```
 
 ##### Limitations
 
