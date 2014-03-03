@@ -62,7 +62,8 @@ This is a very simple grid demonstrating spanning of rows/columns, and various a
 	-ms-grid-row-align: center;
 }
 ```
-```
+
+```xml
 <div class="tut-grid">
 	<div class="tut-grid__spanned" style="background: blue;"></div>
 	<div class="tut-grid__header" style="background: green;"></div>
@@ -147,14 +148,14 @@ html, body {
 To use our polyfill extension (replicate the grid behavior in non microsoft browsers) you must add the 'scalejs.layout-cssgrid' nuget package to your project. 
 
 Since the extension parses the pages css (from the header and inline styles) to get all the css properties describing the grid, you will need to notify the extension when you've added a style that could affect the grid. Additionally, you can register a callback to respond to the layout being recalculated (including page resizing). Use the following functions.
-```
+```javascript
 /*
  * add style foo to page head. style includes grid rules
  */
  
 sandbox.layout.invalidate(true);
 ```
-```
+```javascript
 /*
  * resize elements, but dont change any grid rules
  */
@@ -162,7 +163,7 @@ sandbox.layout.invalidate(true);
 //wont reparse styles now, better performance
 sandbox.layout.invalidate();
 ```
-```
+```javascript
 // any js that needs to know about the layout can register a callback
 sandbox.layout.onLayoutDone(function () {
 	console.log("layout has been recalculated");

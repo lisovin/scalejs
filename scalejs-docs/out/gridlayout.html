@@ -35,8 +35,7 @@
      }
 	.metro h1 {
 		color: #9a1616 !important;
-	}
-	
+	}	
   </style>
     
 	<script>
@@ -165,19 +164,51 @@ Due to the nature of CSS, conceptually simple layouts are hard, and complex layo
 We decided to adopt the <a href="http://www.w3.org/TR/css-grid-1/">CSS Grid Layout Module</a> pattern by
 creating a polyfill of Microsoft&#39;s Grid Layout.
 Although the polyfill can be used as a stand-alone script for basic HTML5 applications, here we will
-explain hot to use the CSS Grid Layout in your own scalejs app.</p>
+explain how to use the CSS Grid Layout in your own scalejs app.</p>
 <p>Install the <strong>scalejs.layout-cssgrid</strong> extension with NuGet to import the <strong>layout</strong> namespace.</p>
 <p><br></p>
 <h2 id="css-that-makes-sense">CSS that makes sense</h2>
 <p>Use CSS to create grids without the frustration of using CSS - the grid layout is very easy to grasp,
 and does not take guess-work to position things correctly. </p>
-<p>If you developed for IE then you may already know how to use the <code>-ms-grid</code> styles attribute.
-There are some things that our grid cannot do, such as alignment.</p>
+<p>If you developed for IE then you may already know how to use the <code>-ms-grid</code> styles attribute.</p>
 <p><br></p>
 <h3 id="html">HTML</h3>
+<h5 id="example-simple-grid">Example: Simple grid</h5>
+<p>This is a very simple grid demonstrating spanning of rows/columns, and various alignment properties.</p>
+<pre class="highlight"><code class="css"><span class="hljs-class">.tut-grid</span> <span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-number">300</span>px</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">400</span>px</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> -ms-grid</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">-ms-grid-columns</span>:<span class="hljs-value"> <span class="hljs-number">2</span>fr <span class="hljs-number">1</span>fr</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">-ms-grid-rows</span>:<span class="hljs-value"> <span class="hljs-number">80</span>px <span class="hljs-number">1</span>fr auto</span></span>;
+<span class="hljs-rule">}</span></span>
+<span class="hljs-class">.tut-grid__header</span> <span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">-ms-grid-column-span</span>:<span class="hljs-value"> <span class="hljs-number">2</span></span></span>;
+<span class="hljs-rule">}</span></span>
+<span class="hljs-class">.tut-grid__text</span> <span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">-ms-grid-row</span>:<span class="hljs-value"> <span class="hljs-number">3</span></span></span>;
+<span class="hljs-rule">}</span></span>
+<span class="hljs-class">.tut-grid__spanned</span> <span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">-ms-grid-row</span>:<span class="hljs-value"> <span class="hljs-number">2</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">-ms-grid-column</span>:<span class="hljs-value"> <span class="hljs-number">2</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">-ms-grid-row-span</span>:<span class="hljs-value"> <span class="hljs-number">2</span></span></span>; 
+<span class="hljs-rule">}</span></span>
+<span class="hljs-class">.tut-grid__aligned</span> <span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">-ms-grid-row</span>:<span class="hljs-value"> <span class="hljs-number">2</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">-ms-grid-column-align</span>:<span class="hljs-value"> end</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">-ms-grid-row-align</span>:<span class="hljs-value"> center</span></span>;
+<span class="hljs-rule">}</span></span>
+</code></pre><pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"tut-grid"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"tut-grid__spanned"</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"background: blue;"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"tut-grid__header"</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"background: green;"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"tut-grid__text"</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"background: yellow;"</span>&gt;</span>I'm defining the height of this row!<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"tut-grid__aligned"</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"background: red; width: 20px; height: 30px;"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
+<p><img src="./grid_example.png" alt="A simple grid"></p>
+<h5 id="example-regions-in-a-view">Example: Regions in a view</h5>
 <p>After <a href="./composition.html">composing your UI</a> to contain all of the regions it needs, you can easily define where they are positioned
 by applying some styles to them. </p>
-<h5 id="example-regions-in-a-view">Example: Regions in a view</h5>
 <pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"left"</span>&gt;</span>Navigation<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
@@ -217,6 +248,35 @@ indicate that the width fits to its content. You can also divide the remaining s
 resizes to fit its content, and the last 2 take up 1/2 of the remaining space. 
 Also, the first row is 100px, the second automatically sizes to its content, 
 the third one takes up the remaining space, and the last row is 100px tall.</p>
+<p>To create a full-page grid, add the following css.</p>
+<pre class="highlight"><code class="css"><span class="hljs-tag">html</span>, <span class="hljs-tag">body</span> <span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">margin</span>:<span class="hljs-value"> <span class="hljs-number">0</span>px</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-number">100</span>%</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">100</span>%</span></span>;
+<span class="hljs-rule">}</span></span>
+</code></pre><h3 id="using-the-extension">Using the extension</h3>
+<p>To use our polyfill extension (replicate the grid behavior in non microsoft browsers) you must add the &#39;scalejs.layout-cssgrid&#39; nuget package to your project. </p>
+<p>Since the extension parses the pages css (from the header and inline styles) to get all the css properties describing the grid, you will need to notify the extension when you&#39;ve added a style that could affect the grid. Additionally, you can register a callback to respond to the layout being recalculated (including page resizing). Use the following functions.</p>
+<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*
+ * add style foo to page head. style includes grid rules
+ */</span>
+
+sandbox.layout.invalidate(<span class="hljs-literal">true</span>);
+</code></pre>
+<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*
+ * resize elements, but dont change any grid rules
+ */</span>
+
+<span class="hljs-comment">//wont reparse styles now, better performance</span>
+sandbox.layout.invalidate();
+</code></pre>
+<pre class="highlight"><code class="javascript"><span class="hljs-comment">// any js that needs to know about the layout can register a callback</span>
+sandbox.layout.onLayoutDone(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+    console.log(<span class="hljs-string">"layout has been recalculated"</span>);
+});
+</code></pre>
+<h5 id="limitations">Limitations</h5>
+<p>Our extension has a few limitations compared to the full -ms-grid spec. For auto-width columns, members should have a defined width (either inline style or css), otherwise they will extend to far beyond their intended width. Additionally, grid elements that span multiple auto-sized rows or columns will result in incorrectly sized rows/columns.</p>
 
 	    </div>
 

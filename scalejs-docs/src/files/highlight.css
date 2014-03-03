@@ -1,3 +1,7 @@
+.highlight code {
+	font-family: 'Courier New',monospace !important;
+}
+
 .javascript {
     color: #000 !important;
     line-height: 120% !important;
