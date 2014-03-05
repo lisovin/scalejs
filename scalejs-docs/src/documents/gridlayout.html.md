@@ -149,16 +149,34 @@ Since the extension parses the pages css (from the header and inline styles) to 
  * add style foo to page head. style includes grid rules
  */
  
-sandbox.layout.invalidate(true);
+sandbox.layout.invalidate({
+	reparse: true
+});
 ```
+
 ```javascript
 /*
- * resize elements, but dont change any grid rules
+ * response to resize event, use setTimeout(invalidate, 0) for performance
  */
  
-//wont reparse styles now, better performance
-sandbox.layout.invalidate();
+setTimeout(function() {
+	sandbox.layout.invalidate({
+		reparse: true
+	});
+}, 0);
 ```
+
+```javascript
+/*
+ * changed small portion of page, can pass a parent to only resize grids within that container (children etc)
+ */
+ 
+sandbox.layout.invalidate({
+	reparse: true,
+	container: footerElement
+});
+```
+
 ```javascript
 // any js that needs to know about the layout can register a callback
 sandbox.layout.onLayoutDone(function () {
