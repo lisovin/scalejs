@@ -205,8 +205,18 @@ registerStates('root',
 In this example, the main template places two elements that will be layed out by a grid. Therefore, we call layout.invalidate(true) to recalculate the grid, and correctly lay out those elements.
 
 
-### Limitations
 
-Our extension has a few limitations compared to the full -ms-grid spec. For auto-width columns, members should have a defined width (either inline style or css), otherwise they will extend to far beyond their intended width. Additionally, grid elements that span multiple auto-sized rows or columns will result in incorrectly sized rows/columns.
+### Limitations/Differences
 
+Our extension has a few limitations compared to the full -ms-grid spec. 
+For auto-width columns, members should have a defined width (either inline style or css), 
+otherwise they will extend to beyond their intended width. Additionally, grid elements 
+that span multiple auto-sized rows or columns will result in incorrectly sized rows/columns.
+
+As a result of our use of absolute positioning, our grids must explicitly state their width/height.
+In IE, the following div would expand to a height of 300px, but using our extension in chrome/ff, the grid would 
+default to height: 0px. If your grid needs a specific height, you must explicitly declare it.
+```xml
+<div style="display: -ms-grid; -ms-grid-rows: 100px 200px;"></div>
+```
 
