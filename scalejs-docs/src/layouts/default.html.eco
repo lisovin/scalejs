@@ -75,7 +75,7 @@
                             <li><a href="./best.html"><i class="icon-thumbs-up"></i> Best Practices</a></li>-->
 			      <li class="title">Overview</li>
                             <li><a href="./template.html"><i class="icon-clipboard-2"></i> Project Template</a></li>
-                            <li><a href="./architecture.html"><i class="icon-stats-up"></i> Architecture</a></li>
+                            <li><a href="./architecture.html"><i class="icon-puzzle"></i> Architecture</a></li>
                             <li><a href="./mvvm.html"><i class="icon-tree-view"></i> Model-View-ViewModel</a></li>
                             <li><a href="./statechart.html"><i class="icon-tab"></i> Statechart</a></li>
                             <li><a href="./routing.html"><i class="icon-share"></i> Routing</a></li>

@@ -85,7 +85,7 @@
                         <a href="#" class="dropdown-toggle">Overview</a>
                         <ul class="dropdown-menu dark" data-role="dropdown">
                             <li><a href="./template.html"><i class="icon-clipboard-2"></i> Project Template</a></li>
-                            <li><a href="./architecture.html"><i class="icon-stats-up"></i> Architecture</a></li>
+                            <li><a href="./architecture.html"><i class="icon-puzzle"></i> Architecture</a></li>
                             <li><a href="./mvvm.html"><i class="icon-tree-view"></i> Model-View-ViewModel</a></li>
                             <li><a href="./statechart.html"><i class="icon-tab"></i> Statechart</a></li>
                             <li><a href="./routing.html"><i class="icon-share"></i> Routing</a></li>
@@ -137,7 +137,7 @@
                             <li><a href="./best.html"><i class="icon-thumbs-up"></i> Best Practices</a></li>-->
 			      <li class="title">Overview</li>
                             <li><a href="./template.html"><i class="icon-clipboard-2"></i> Project Template</a></li>
-                            <li><a href="./architecture.html"><i class="icon-stats-up"></i> Architecture</a></li>
+                            <li><a href="./architecture.html"><i class="icon-puzzle"></i> Architecture</a></li>
                             <li><a href="./mvvm.html"><i class="icon-tree-view"></i> Model-View-ViewModel</a></li>
                             <li><a href="./statechart.html"><i class="icon-tab"></i> Statechart</a></li>
                             <li><a href="./routing.html"><i class="icon-share"></i> Routing</a></li>
@@ -309,8 +309,16 @@ sandbox.layout.onLayoutDone(<span class="hljs-function"><span class="hljs-keywor
             }))));
 </code></pre>
 <p>In this example, the main template places two elements that will be layed out by a grid. Therefore, we call layout.invalidate(true) to recalculate the grid, and correctly lay out those elements.</p>
-<h3 id="limitations">Limitations</h3>
-<p>Our extension has a few limitations compared to the full -ms-grid spec. For auto-width columns, members should have a defined width (either inline style or css), otherwise they will extend to far beyond their intended width. Additionally, grid elements that span multiple auto-sized rows or columns will result in incorrectly sized rows/columns.</p>
+<h3 id="limitations-differences">Limitations/Differences</h3>
+<p>Our extension has a few limitations compared to the full -ms-grid spec. 
+For auto-width columns, members should have a defined width (either inline style or css), 
+otherwise they will extend to beyond their intended width. Additionally, grid elements 
+that span multiple auto-sized rows or columns will result in incorrectly sized rows/columns.</p>
+<p>As a result of our use of absolute positioning, our grids must explicitly state their width/height.
+In IE, the following div would expand to a height of 300px, but using our extension in chrome/ff, the grid would 
+default to height: 0px. If your grid needs a specific height, you must explicitly declare it.</p>
+<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"display: -ms-grid; -ms-grid-rows: 100px 200px;"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
 
 	    </div>
 

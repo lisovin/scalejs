@@ -49,3 +49,7 @@
 .xml .hljs-comment {
     color: rgb(0,136,0);
 }
+
+pre {
+    overflow-x: auto;
+}
