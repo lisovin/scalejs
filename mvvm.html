@@ -35,7 +35,8 @@
      }
 	.metro h1 {
 		color: #9a1616 !important;
-	}	
+	}
+	
   </style>
     
 	<script>
@@ -85,13 +86,13 @@
                         <a href="#" class="dropdown-toggle">Overview</a>
                         <ul class="dropdown-menu dark" data-role="dropdown">
                             <li><a href="./template.html"><i class="icon-clipboard-2"></i> Project Template</a></li>
-                            <li><a href="./architecture.html"><i class="icon-puzzle"></i> Architecture</a></li>
+                            <li><a href="./architecture.html"><i class="icon-stats-up"></i> Architecture</a></li>
                             <li><a href="./mvvm.html"><i class="icon-tree-view"></i> Model-View-ViewModel</a></li>
                             <li><a href="./statechart.html"><i class="icon-tab"></i> Statechart</a></li>
                             <li><a href="./routing.html"><i class="icon-share"></i> Routing</a></li>
                             <li><a href="./composition.html"><i class="icon-screen"></i> UI Composition</a></li>
-                            <li><a href="./gridlayout.html"><i class="icon-grid-view"></i> Grid Layout</a></li>
-                            <!-- <li><a href="./styles.html"><i class="icon-droplet"></i> Styles</a></li>
+                            <!--<li><a href="./gridlayout.html"><i class="icon-grid-view"></i> Grid Layout</a></li>
+                            <li><a href="./styles.html"><i class="icon-droplet"></i> Styles</a></li>
                             <li><a href="./extensions.html"><i class="icon-wrench"></i> Extensions</a></li>
                             <li><a href="./api.html"><i class="icon-book"></i> API Documentation</a></li>-->
                         </ul>
@@ -137,13 +138,13 @@
                             <li><a href="./best.html"><i class="icon-thumbs-up"></i> Best Practices</a></li>-->
 			      <li class="title">Overview</li>
                             <li><a href="./template.html"><i class="icon-clipboard-2"></i> Project Template</a></li>
-                            <li><a href="./architecture.html"><i class="icon-puzzle"></i> Architecture</a></li>
+                            <li><a href="./architecture.html"><i class="icon-stats-up"></i> Architecture</a></li>
                             <li><a href="./mvvm.html"><i class="icon-tree-view"></i> Model-View-ViewModel</a></li>
                             <li><a href="./statechart.html"><i class="icon-tab"></i> Statechart</a></li>
                             <li><a href="./routing.html"><i class="icon-share"></i> Routing</a></li>
                             <li><a href="./composition.html"><i class="icon-screen"></i> UI Composition</a></li>
-                            <li><a href="./gridlayout.html"><i class="icon-grid-view"></i> Grid Layout</a></li>
-                            <!--<li><a href="./styles.html"><i class="icon-droplet"></i> Styles</a></li>
+                            <!--<li><a href="./gridlayout.html"><i class="icon-grid-view"></i> Grid Layout</a></li>
+                            <li><a href="./styles.html"><i class="icon-droplet"></i> Styles</a></li>
                             <li><a href="./extensions.html"><i class="icon-wrench"></i> Extensions</a></li>
                             <li><a href="./api.html"><i class="icon-book"></i> API Documentation</a></li>-->
 			      <li class="title">Tutorials</li>
@@ -200,14 +201,14 @@ elements within a view using inline <code>data-bind</code> or the abstrated <cod
 <li>There are two distinct templates in this view, <code>todo_input_template</code> and <code>todo_items_template</code></li>
 <li>A template consists of HTML elements which can have a <code>data-bind</code> attribute or a <code>data-class</code> attribute.</li>
 </ul>
-<h3 id="data-bind">data-bind</h3>
+<h3 id="-data-bind-"><code>data-bind</code></h3>
 <p>A binding consists of two items, the binding name and value, separated by a colon. 
 In the above example, the data-bind used was <a href="http://knockoutjs.com/documentation/foreach-binding.html">foreach</a>
 to show all of the <code>viewableItems</code> from the <a href="./mvvm.html#viewmodel">ViewModel</a>.</p>
 <p><strong>scalejs.mvvm</strong> gives you the ability to use all of the bindings provided by knockoutjs. There
 are also some new bindings provided by <strong>scalejs.mvvm</strong> which can be found in the <a href="./api.html#mvvm">scalejs.mvvm API docs</a>.</p>
 <p><em>Read more about <a href="http://knockoutjs.com/documentation/binding-syntax.html">knockoutjs binding syntax</a></em></p>
-<h3 id="data-class">data-class</h3>
+<h3 id="-data-class-"><code>data-class</code></h3>
 <p>A <code>data-class</code> is to <code>data-bind</code> as <code>class</code> is to the <code>style</code> attribute. 
 In other words, you have two choices on how to apply your bindings to your elements.
 For example you can bind the ViewModel property <code>title</code> to the <code>text</code> of an element
