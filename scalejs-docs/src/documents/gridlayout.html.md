@@ -32,10 +32,11 @@ If you developed for IE then you may already know how to use the `-ms-grid` styl
 
 ### A simple grid
 
-This is a simpe grid showing some of Grid Layout's basic features.
+This is a simple grid showing some of Grid Layout's basic features.
 
 ##### Example: A demo of Grid Layout's basic features
 ```css
+/*GridLayoutStart*/
 .tut-grid {
 	height: 300px;
 	width: 400px;
@@ -59,6 +60,7 @@ This is a simpe grid showing some of Grid Layout's basic features.
 	-ms-grid-column-align: end;
 	-ms-grid-row-align: center;
 }
+/*GridLayoutEnd*/
 ```
 ```xml
 <div class="tut-grid">
@@ -71,6 +73,7 @@ This is a simpe grid showing some of Grid Layout's basic features.
 ##### Result: 
 ![A simple grid](./grid_example.png)
 
+_Note: The /*GridLayoutStart*/ and /*GridLayoutEnd*/ tags will be explained in the Using the Extension section below
 
 ### How to organize your page
 
@@ -142,69 +145,68 @@ html, body {
 
 To use our polyfill extension (replicate the grid behavior in non microsoft browsers) you must add the 'scalejs.layout-cssgrid' nuget package to your project. 
 
-Since the extension parses the pages css (from the header and inline styles) to get all the css properties describing the grid, you will need to notify the extension when you've added a style that could affect the grid. Additionally, you can register a callback to respond to the layout being recalculated (including page resizing). Use the following functions.
-##### Example: basic usages of exposed functions
+Inside our extension, we use a parser to parse grid-related css rules from the page. To improve performance and mitigate limitations of our parser, our extension only parses text between `/*GridLayoutStart*/` and `/*GridLayoutEnd*/` tags.
+
+Since the extension parses the page's css to get all the css properties describing the grid, you will need to call a function to load the current page's styles into the extension. If you add/change the style elements in your header, you will need to recall this function to load the new styles into the extension.
+
+##### Parse all styles from style elements in header (loads any hrefs)
 ```javascript
-/*
- * add style foo to page head. style includes grid rules
- */
- 
-sandbox.layout.invalidate({
-	reparse: true
+sandbox.layout.parseGridStyles(function () {
+	console.log('styles loaded and parsed');
 });
 ```
 
+At any point after the styles are loaded, you will call `invalidate` to update the positions of elements on your page according to the grid. This function is called automatically when the window is resized.
+
+##### Update elements to adhere to grid
 ```javascript
 /*
- * response to resize event, use setTimeout(invalidate, 0) for performance
+ * add some elements to the page, they need to be placed according to grid rules
  */
- 
-setTimeout(function() {
-	sandbox.layout.invalidate({
-		reparse: true
-	});
-}, 0);
+sandbox.layout.invalidate(); 
+```
+You can pass a specific element to invalidate if you only want to recalculate the grid for that element+children 
+
+##### Redalculating the children of a specific element
+```javascript
+sandbox.layout.invalidate({ container: myDiv });
 ```
 
-```javascript
-/*
- * changed small portion of page, can pass a parent to only resize grids within that container (children etc)
- */
- 
-sandbox.layout.invalidate({
-	reparse: true,
-	container: footerElement
-});
-```
+Additionally, you can register a callback to respond to the layout being recalculated (including page resizing). Use the following functions.
 
+##### A callback for whenever any part of the page is invalidated.
 ```javascript
-// any js that needs to know about the layout can register a callback
 sandbox.layout.onLayoutDone(function () {
 	console.log("layout has been recalculated");
 });
 ```
 
-Whenever your ScaleJS modules add templates to the page, you will have to consider whether the layout needs to be recalculated. If your template contains elements that will match to grid-layout css rules, you will need to call sandbox.layout.invalidate. Consider the following code snippet.
+When you run your scalejs application, it will need to load/parse the styles at least once. Whenever your ScaleJS modules add templates to the page, you will have to consider whether the layout needs to be recalculated. If your template contains elements that will match to grid-layout css rules, you will need to call sandbox.layout.invalidate. Consider the following code snippet.
 
 ##### Calling invalidate from mainModule.js
 ```javascript
 registerStates('root',
 	state('app',
-		parallel('main',
+		state('initialization',
 			onEntry(function () {
-				this.main_header = viewModel.main_header;
-				this.main_content = viewModel.main_content;
+				parseGridStyles(function () {
+					raise('goto.main', 0);
+				});
+			}),
+			on('goto.main', goto('main'))),
+		state('main',
+			onEntry(function () {
+				root(template('main_template', mainVM));
 
-				// Render viewModel using 'main_template' template 
-				// (defined in main.html) and show it in the `root` region.
-				root(template('main_template', viewModel));
-
-				layout.invalidate(true);
+				invalidate();
 			}))));
 ```
-In this example, the main template places two elements that will be layed out by a grid. Therefore, we call layout.invalidate(true) to recalculate the grid, and correctly lay out those elements.
 
+### Helper functions
 
+Due to the behavior of Chrome/FF when dealing with invalid css, we must add -ms-grid styles to elements with special care. Since these tags are invalid css from the perspective of Chrome/FF, something like element.style[-ms-grid-row]: 1 will be ignored. Our solution is to add these style properties directly to the style attribute string, and retrieve them by parsing that string later. `sandbox.layout.utils.safeSetStyle(element, 'height', '100px')` will parse the style attribute, change or set height to 100px, then reset apply the style attribute without touching other properties your style may contain. `sandbox.layout.safeGetStyle` is exposed as well. 
+
+For grid manipulation, `sandbox.layout.setTrackSize(element, track, size)` `sandbox.layout.getTrackSize(element, track)` `sandbox.layout.getComputedTrackSize(element, track)` are also exposed for setting/getting track sizes. `element` will be the element with `display: -ms-grid` on it. 
 
 ### Limitations/Differences
 
