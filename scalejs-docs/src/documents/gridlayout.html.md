@@ -34,7 +34,7 @@ If you developed for IE then you may already know how to use the `-ms-grid` styl
 
 This is a simple grid showing some of Grid Layout's basic features.
 
-##### Example: A demo of Grid Layout's basic features
+##### Example: the css for a simple grid
 ```css
 /*GridLayoutStart*/
 .tut-grid {
@@ -62,6 +62,8 @@ This is a simple grid showing some of Grid Layout's basic features.
 }
 /*GridLayoutEnd*/
 ```
+
+##### Example: the html for a simple grid
 ```xml
 <div class="tut-grid">
 	<div class="tut-grid__spanned" style="background: blue;"></div>
@@ -70,10 +72,11 @@ This is a simple grid showing some of Grid Layout's basic features.
 	<div class="tut-grid__aligned" style="background: red; width: 20px; height: 30px;"></div>
 </div>
 ```
+
 ##### Result: 
 ![A simple grid](./grid_example.png)
 
-_Note: The /*GridLayoutStart*/ and /*GridLayoutEnd*/ tags will be explained in the Using the Extension section below
+_Note: The /*GridLayoutStart*/ and /*GridLayoutEnd*/ tags will be explained in the Using the Extension section below_
 
 ### How to organize your page
 

@@ -1,3 +1,25 @@
+.highlight span {
+	font-family: 'Courier New',monospace !important;
+}
+
+.css {
+    color: rgb(163,21,21) !important;
+    line-height: 120% !important;
+}
+.css .hljs-rules {
+    color: #000;
+}
+.css .hljs-attribute {
+    color: red;
+}
+.css .hljs-value {
+    color: rgb(0,0,255);
+}
+.css .hljs-comment {
+    color: rgb(0,136,0);
+}
+
+
 .javascript {
     color: #000 !important;
     line-height: 120% !important;
@@ -30,4 +52,8 @@
 }
 .xml .hljs-comment {
     color: rgb(0,136,0);
+}
+
+pre {
+    overflow-x: auto;
 }
