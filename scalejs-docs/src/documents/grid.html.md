@@ -7,12 +7,10 @@ isPage: true
 
 <hr>
 
-<!--
-[Grid Layout Sample](http://scalejs.com/scalejs-examples/CssGridLayout/CssGridLayout/) |
-[Grid Layout GitHub](https://github.com/lisovin/scalejs-examples/tree/master/CssGridLayout)
+[Grid Sample](http://scalejs.com/scalejs-examples/Grid/) |
+[Grid GitHub](https://github.com/lisovin/scalejs-examples/tree/master/Grid)
 
 <hr>
--->
 
 One of the UI Components you can install and use in your scalejs projects is a __grid__ which displays data in rows and columns. 
 This page will detail how to include the grid in your project and enable features such as filtering and sorting. 
