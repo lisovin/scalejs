@@ -3,26 +3,34 @@ title: "Layout"
 isPage: true
 ---
 
-# Grid
+<link href="grid/slick/slick.grid.css" rel="stylesheet" type="text/css" />
+<link href="grid/slick/slick-default-theme.css" rel="stylesjeet" type="text/css" />
+<script src="grid/Grid-1.0.0.js" type="text/javascript"></script>
+
+# Grid Introduction
+
 
 <hr>
 
-[Grid Sample](http://scalejs.com/scalejs-examples/Grid/) |
-[Grid GitHub](https://github.com/lisovin/scalejs-examples/tree/master/Grid)
+[Grid Live Sample](http://scalejs.com/scalejs-examples/Grid/) |
+[Grid on GitHub](https://github.com/lisovin/scalejs-examples/tree/master/Grid)
 
 <hr>
 
-One of the UI Components you can install and use in your scalejs projects is a __grid__ which displays data in rows and columns. 
-This page will detail how to include the grid in your project and enable features such as filtering and sorting. 
-Our extension is adapted from the [SlickGrid](https://github.com/mleibman/SlickGrid) extensions.
+One of the UI Components you can install and use in your scalejs projects is a __grid__ which, in its most basic form, displays data in rows and columns.
+This page will detail how to include the grid in your project. 
+Our extension is adapted from the [SlickGrid](https://github.com/mleibman/SlickGrid) library created by [Michael Leibman](https://github.com/mleibman).
+The reason we decided to use SlickGrid was because it is a high performance library which supports customization, virtual scrolling, and other great features.
 
-You can see the code associated with each of the following sections by checking out the appropriate tag in the __scalejs-examples__ repository.
+You can see the code associated with this section by cloning the [scalejs-examples repository](https://github.com/lisovin/scalejs-examples) and running the following command:
+
+`git checkout grid-1`
 
 <br>
 
 ## Getting the Grid extension
 
-Install __scalejs.grid-slick__ from NuGet to get the necessary files for the Grid.
+Install __scalejs.grid-slick__ from NuGet to get the necessary files for the grid.
 Included in these files are the CSS files needed for the grid to function, as well as a default theme.
 You must add a link to these files in you index.html, index.debug.html, and index.release.html files 
 for the grid to work. You can also modify __slick-default-theme.css__ to create your own grid styles.
@@ -161,6 +169,13 @@ One thing which might be weird but is also __required__ for your grid to work is
 This index is leveraged in sorting, and allows the grid to maintain the order of the rows even as new data is added
 and removed. This is why you must set an initial index of each item which can be done easily using `map`. 
 
+
+
+
+
+<div id="grid1" style="width:100%;height:600px"></div>
+
+
 ### Styles
 
 After implementing the code snippets above you might be wondering, why doesnt my grid look sexy? 
@@ -284,10 +299,6 @@ html {
   font-style: normal;
 }
 ```
-
-
-
-
 
 
 
