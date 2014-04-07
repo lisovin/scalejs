@@ -17,12 +17,12 @@ isPage: true
 <hr>
 
 
-In this section we will tell you how to add filtering capabilities to your grid. 
+In this section we will show you how to add filtering capabilities to your [grid](https://github.com/lisovin/scalejs-examples/tree/grid-1/Grid). 
 In order to do this, you should already have a grid in your application. 
-You can learn how to add a grid to your application in the [grid introduction](./grid2.html) tutorial.
+You can learn how to add a grid to your application in the [grid introduction](./grid1.html) tutorial.
 
 Filtering can be done in two ways. You can either use the default filtering which comes with the extension,
-or you can filter the items yourself from the ViewModel. The benefit to the latter is that you have full
+or you can filter the items yourself. The benefit to the latter is that you have full
 control over the data in the grid - meaning you have the option to implement filtering on the server. 
 
 You can view this code on [github](https://github.com/lisovin/scalejs-examples/tree/grid-2/Grid)
@@ -138,10 +138,14 @@ define([
     };
 });
 ```
+<br>
 
 ## Filter Images
 
 You must also include images for the arrow and on/off state of the filter which can be found [here](https://github.com/lisovin/scalejs-examples/tree/grid-2/Grid/images).
+
+<br>
+
 ## Result
 
 Here is the result of those changes.
