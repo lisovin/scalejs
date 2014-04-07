@@ -22,7 +22,10 @@ This page will detail how to include the grid in your project.
 Our extension is adapted from the [SlickGrid](https://github.com/mleibman/SlickGrid) library created by [Michael Leibman](https://github.com/mleibman).
 The reason we decided to use SlickGrid was because it is a high performance library which supports customization, virtual scrolling, and other great features.
 
-You can see the code associated with this section by cloning the [scalejs-examples repository](https://github.com/lisovin/scalejs-examples) and running the following command: `git checkout grid-1`
+You can view this code on [github](https://github.com/lisovin/scalejs-examples/tree/grid-1/Grid)
+or clone [scalejs-examples repository](https://github.com/lisovin/scalejs-examples) and running the following command:
+
+`git checkout grid-1`
 
 <br>
 
