@@ -6,7 +6,6 @@ isPage: true
 <link href="grid/slick/slick.grid.css" rel="stylesheet" type="text/css" />
 <link href="grid/slick/slick-default-theme.css" rel="stylesjeet" type="text/css" />
 <script src="grid/Grid-1.0.2.min.js" type="text/javascript"></script>
-
 # Grid Filtering
 
 <hr>
@@ -118,7 +117,7 @@ define([
             { id: "LastSale", field: "LastSale", name: "Last Sale", cssClass: "money", minWidth: 100!!*, filter: { type: 'number' }**! },
             { id: "MarketCap", field: "MarketCap", name: "Market Cap", cssClass: "money", minWidth: 150!!*, filter: { type: 'mumber' }**! },
             { id: "Sector", field: "Sector", name: "Sector", minWidth: 150!!*, filter: { type: 'string' }**! },
-            { id: "Industry", field: "industry", name: "Industry", minWidth: 350!!*, filter: { type: 'string ' }**! }];
+            { id: "Industry", field: "industry", name: "Industry", minWidth: 350!!*, filter: { type: 'string' }**! }];
 
         ajaxGet('./companylist.txt', {}).subscribe(function (data) {
             itemsSource(JSON.parse(data).map(function (company, index) {
@@ -140,9 +139,10 @@ define([
 ```
 <br>
 
-## Filter Images
+## Filter Images and Styles
 
-You must also include images for the arrow and on/off state of the filter which can be found [here](https://github.com/lisovin/scalejs-examples/tree/grid-2/Grid/images).
+Include the images for the arrow and on/off state of the filter which can be found [here](https://github.com/lisovin/scalejs-examples/tree/grid-2/Grid/images).
+Update your [main.less](https://github.com/lisovin/scalejs-examples/blob/grid-2/Grid/app/main/styles/main.less) file so that it contains styles for grids.
 
 <br>
 
