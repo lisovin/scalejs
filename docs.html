@@ -44,19 +44,30 @@
   </style>
     
 	<script>
-    $(document).ready(function() {
-		$("a[href='." + window.location.pathname.replace("/scalejs/scalejs-docs/out","") +"']").parent().addClass("active");
+	function adjustHeight() {
+		//adjust the height of the content and sidebar
 		$("#content").outerHeight(window.innerHeight -45);
 		$("#sidebar").outerHeight(window.innerHeight -45);
+	}
 
+    $(document).ready(function() {
+		var path = window.location.pathname.replace("/scalejs/scalejs-docs/out","");
+		
+		//make selected page active on sidebar
+		$("a[href='." + path +"']").parent().addClass("active");
+
+		adjustHeight();
+		$(window).resize(adjustHeight);
+
+		//create code highlighting
 		$('pre').each(function() {
 			$(this).html($(this).html().replace(/!!\*/g, "<i style='background-color:#FFFF99'>").replace(/\*\*!/g, "</i>"));
 		});
-
-		$(window).resize(function() {
-			$("#content").outerHeight(window.innerHeight -45);
-			$("#sidebar").outerHeight(window.innerHeight -45);
-		});
+		
+		//if path contains grid then open the link
+		if(/grid\d/.test(path)) {
+			$('.icon-grid').click();
+		}
     });
 
   </script>
@@ -109,6 +120,7 @@
                                 <ul class="dropdown-menu" data-role="dropdown">
                                     <li><a href="./grid1.html">Introduction</a></li>
                                     <li><a href="./grid2.html">Filtering</a></li>
+                                    <li><a href="./grid3.html">Filtering</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -169,6 +181,7 @@
 								<ul class="dropdown-menu" data-role="dropdown">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
+									<li><a href="./grid3.html">Filtering</a></li>
 								</ul>
 							</li>
 			      <li class="title">Tutorials</li>
