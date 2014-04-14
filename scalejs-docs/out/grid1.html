@@ -11,7 +11,7 @@
     <script src="style/metro.min.js"></script>
 	  <link rel="stylesheet" href="highlight.css" />
 
-	<meta name="generator" content="DocPad v6.60.3" />
+	<meta name="generator" content="DocPad v6.60.4" />
 	
     
 	<style>
@@ -211,7 +211,7 @@ You must add a link to these files in you index.html, index.debug.html, and inde
 for the grid to work. You can also modify <strong>slick-default-theme.css</strong> to create your own grid styles.
 In our example we also included a global stylesheet to specify styles for the page.</p>
 <h5 id="example-including-the-css-files-in-index-html">Example: Including the CSS files in index.html</h5>
-<pre class="highlight"><code class="xml"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
         !!*<span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"css/slick/slick.grid.css"</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">"stylesheet"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/css"</span> /&gt;</span>
@@ -233,14 +233,14 @@ to set the behavior of the control, and the <strong>viewmodel</strong> for your 
 You also need to create some <strong>styles</strong> to determine how the grid looks, but that is less important.
 The easiest out of these to code is the view, which in our example, is specified within main.html.</p>
 <h5 id="example-the-view-for-our-grid-main-html-https-github-com-lisovin-scalejs-examples-blob-grid-1-grid-app-main-views-main-html-">Example: the view for our grid (<a href="https://github.com/lisovin/scalejs-examples/blob/grid-1/Grid/app/main/views/main.html">main.html</a>)</h5>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"main grid"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"main-grid"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </code></pre>
 <p>Here you can see we have given this element a <em>data-class</em> called <code>main-grid</code>. 
 We will define this class in the <em>mainBindings.js</em> class as the following:</p>
 <h5 id="example-the-bindings-for-our-grid-mainbindings-js-https-github-com-lisovin-scalejs-examples-blob-grid-1-grid-app-main-bindings-mainbindings-js-">Example: the bindings for our grid (<a href="https://github.com/lisovin/scalejs-examples/blob/grid-1/Grid/app/main/bindings/mainBindings.js">mainBindings.js</a>)</h5>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 <span class="hljs-comment">/*jslint sloppy: true*/</span>
 define({
     <span class="hljs-string">'main-grid'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
@@ -267,7 +267,7 @@ This will be implemented in a later version of our extension, but for now you mu
 For this section, we installed the <strong>scalejs.ajax-jquery</strong> extension as we recieve our data from an external source.
 In this case, it is a file with a list of companies specified in JSON. You can get the file with the codesource.</p>
 <h5 id="example-the-viewmodel-for-itemssource-and-columns-mainviewmodel-js-https-github-com-lisovin-scalejs-examples-blob-grid-1-grid-app-main-viewmodels-mainviewmodel-js-">Example: the viewmodel for itemsSource and columns (<a href="https://github.com/lisovin/scalejs-examples/blob/grid-1/Grid/app/main/viewmodels/mainViewModel.js">mainViewModel.js</a>)</h5>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!main'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(

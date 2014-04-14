@@ -11,7 +11,7 @@
     <script src="style/metro.min.js"></script>
 	  <link rel="stylesheet" href="highlight.css" />
 
-	<meta name="generator" content="DocPad v6.60.3" />
+	<meta name="generator" content="DocPad v6.60.4" />
 	<link  rel="stylesheet" href="highlight.css" />
     
 	<style>
@@ -214,7 +214,7 @@ has a predictable output. This makes creating states very easy, clean, and conci
 <h2 id="registerstates">registerStates</h2>
 <p>The first step in the statechart building process is registering states onto the application state. </p>
 <h5 id="example-adding-the-main-state-to-app-state">Example: adding the &quot;main&quot; state to &quot;app&quot; state</h5>
-<pre class="highlight"><code class="javascript">    <span class="hljs-keyword">var</span> registerStates = sandbox.state.registerStates,
+<pre class="highlight"><code class="hljs javascript">    <span class="hljs-keyword">var</span> registerStates = sandbox.state.registerStates,
         state = sandbox.state.builder.state;
 
     <span class="hljs-comment">// Add the "main" state as a child to the application state</span>
@@ -227,7 +227,7 @@ has a predictable output. This makes creating states very easy, clean, and conci
 <p>The second argument to <code>registerStates</code> should be a <code>state()</code> builder. Create hierarchical
 structures by defining states as children or siblings of other states.</p>
 <h5 id="example-creating-a-hierarchical-statechart">Example: creating a hierarchical statechart</h5>
-<pre class="highlight"><code class="javascript">    <span class="hljs-keyword">var</span> registerStates = sandbox.state.registerStates,
+<pre class="highlight"><code class="hljs javascript">    <span class="hljs-keyword">var</span> registerStates = sandbox.state.registerStates,
          state = sandbox.state.builder.state;
 
     <span class="hljs-comment">// hierarchical structure with 3 levels</span>
@@ -246,7 +246,7 @@ structures by defining states as children or siblings of other states.</p>
 </code></pre>
 <p>You can create infinitely long statecharts, or create and organized structure with abstracted code</p>
 <h5 id="example-abstracting-states-into-functions">Example: abstracting states into functions</h5>
-<pre class="highlight"><code class="javascript">
+<pre class="highlight"><code class="hljs javascript">
     <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stateA</span><span class="hljs-params">()</span> {</span>
         <span class="hljs-keyword">return</span> state(<span class="hljs-string">"A"</span>,                                
             state(<span class="hljs-string">"A.1"</span>), state(<span class="hljs-string">"A.2"</span>));
@@ -270,10 +270,10 @@ in advance. Assume modules to be loaded dynamically because they are independent
 This means you cannot have control over the <em>order</em> of the states being registered parent state.</p>
 <h5 id="example-registering-states-from-2-different-modules-on-the-same-parent-state">Example: registering states from 2 different modules on the same parent state</h5>
 <p><em>mainModule.js</em></p>
-<pre class="highlight"><code class="javascript">    registerStates(<span class="hljs-string">"app"</span>, <span class="hljs-string">"main"</span>);
+<pre class="highlight"><code class="hljs javascript">    registerStates(<span class="hljs-string">"app"</span>, <span class="hljs-string">"main"</span>);
 </code></pre>
 <p><em>genericModule.js</em></p>
-<pre class="highlight"><code class="javascript">    registerStates(<span class="hljs-string">"app"</span>, <span class="hljs-string">"generic"</span>);
+<pre class="highlight"><code class="hljs javascript">    registerStates(<span class="hljs-string">"app"</span>, <span class="hljs-string">"generic"</span>);
 </code></pre>
 <p>In these snippits of code note that:</p>
 <ul>
@@ -286,10 +286,10 @@ This means you cannot have control over the <em>order</em> of the states being r
 <p>In order to preserve order, you can define a state in a module which is a child of a state created in another module</p>
 <h5 id="example-registering-a-state-from-one-module-as-a-child-to-the-state-of-another-module">Example: registering a state from one module as a child to the state of another module</h5>
 <p><em>mainModule.js</em></p>
-<pre class="highlight"><code class="javascript">    registerStates(<span class="hljs-string">"app"</span>, <span class="hljs-string">"main"</span>);
+<pre class="highlight"><code class="hljs javascript">    registerStates(<span class="hljs-string">"app"</span>, <span class="hljs-string">"main"</span>);
 </code></pre>
 <p><em>genericModule.js</em></p>
-<pre class="highlight"><code class="javascript">    registerStates(<span class="hljs-string">"main"</span>, <span class="hljs-string">"generic"</span>);
+<pre class="highlight"><code class="hljs javascript">    registerStates(<span class="hljs-string">"main"</span>, <span class="hljs-string">"generic"</span>);
 </code></pre>
 <p>This brings us to some statechart &quot;rules&quot;</p>
 <ul>
@@ -316,7 +316,7 @@ how to create states and nest states, but we haven&#39;t told you what you can <
 </ul>
 <p>This can be done by calling <code>onEntry</code> and passing a function.</p>
 <h5 id="example-defing-an-onentry-transition">Example: defing an onEntry transition</h5>
-<pre class="highlight"><code class="javascript">    <span class="hljs-keyword">var</span> registerStates = sandbox.state.registerStates,
+<pre class="highlight"><code class="hljs javascript">    <span class="hljs-keyword">var</span> registerStates = sandbox.state.registerStates,
          state = sandbox.state.builder.state,
          onEntry = sandbox.state.builder.onEntry;
 
@@ -329,7 +329,7 @@ how to create states and nest states, but we haven&#39;t told you what you can <
 </code></pre>
 <p>When you enter a state, you can set a property of your viewModel to be a property of your state.</p>
 <h5 id="example-creating-a-property-on-the-statechart">Example: creating a property on the statechart</h5>
-<pre class="highlight"><code class="javascript">    <span class="hljs-keyword">var</span>  <span class="hljs-comment">// imports</span>
+<pre class="highlight"><code class="hljs javascript">    <span class="hljs-keyword">var</span>  <span class="hljs-comment">// imports</span>
          registerStates = sandbox.state.registerStates,
          state = sandbox.state.builder.state,
          onEntry = sandbox.state.builder.onEntry,
@@ -352,7 +352,7 @@ part of the state. </p>
 <p>In the following example, you can see how easy it is to update the viewModel from the statechart.
 This gives you control over what is displayed in the view when in certain states.</p>
 <h5 id="example-updating-a-viewmodel-property-from-the-state">Example: updating a viewModel property from the state</h5>
-<pre class="highlight"><code class="javascript">    <span class="hljs-keyword">var</span>  <span class="hljs-comment">// imports</span>
+<pre class="highlight"><code class="hljs javascript">    <span class="hljs-keyword">var</span>  <span class="hljs-comment">// imports</span>
          registerStates = sandbox.state.registerStates,
          state = sandbox.state.builder.state,
          onEntry = sandbox.state.builder.onEntry,
@@ -376,7 +376,7 @@ You can use this to remove any changes to the statechart and viewModel that were
 so that states only need to worry about how to display themselves!</p>
 <p>For example, if you want to hide the mainModule when you enter/exit the main application, you might do something like this:</p>
 <h5 id="example-using-onexit-to-undo-changes-made-by-onentry">Example: using onExit to undo changes made by onEntry</h5>
-<pre class="highlight"><code class="javascript">    <span class="hljs-keyword">var</span>  <span class="hljs-comment">// imports</span>
+<pre class="highlight"><code class="hljs javascript">    <span class="hljs-keyword">var</span>  <span class="hljs-comment">// imports</span>
          registerStates = sandbox.state.registerStates,
          state = sandbox.state.builder.state,
          onEntry = sandbox.state.builder.onEntry,
@@ -407,7 +407,7 @@ The second (optional) argument can be a function which allows this transition to
 true then the transition runs, if not it does not run). The last argument is a <code>goto</code> builder which
 specifies the destination state. </p>
 <h5 id="example-defining-a-transition">Example: defining a transition</h5>
-<pre class="highlight"><code class="javascript">    <span class="hljs-keyword">var</span>  <span class="hljs-comment">// imports</span>
+<pre class="highlight"><code class="hljs javascript">    <span class="hljs-keyword">var</span>  <span class="hljs-comment">// imports</span>
          registerStates = sandbox.state.registerStates,
          state = sandbox.state.builder.state,
          on = sandbox.state.builder.on,
@@ -426,7 +426,7 @@ not occur. This solves many application development headaches by simplifying the
 to determine the flow of the application.</p>
 <p>Transions can also be conditional.</p>
 <h5 id="example-defining-a-transition">Example: defining a transition</h5>
-<pre class="highlight"><code class="javascript">    <span class="hljs-keyword">var</span>  <span class="hljs-comment">// imports</span>
+<pre class="highlight"><code class="hljs javascript">    <span class="hljs-keyword">var</span>  <span class="hljs-comment">// imports</span>
          registerStates = sandbox.state.registerStates,
          state = sandbox.state.builder.state,
          on = sandbox.state.builder.on,
@@ -457,7 +457,7 @@ your application needs to raise events so that the statechart can respond.</p>
 <p><code>raise</code> is pretty straightforward: it creates an event that your statechart listens for. 
 If a transition is defined for the event in the current state that it&#39;s in, then the transition runs.</p>
 <h5 id="example-using-raise-to-create-an-event">Example: using raise to create an event</h5>
-<pre class="highlight"><code class="javascript">    <span class="hljs-keyword">var</span>  <span class="hljs-comment">// imports</span>
+<pre class="highlight"><code class="hljs javascript">    <span class="hljs-keyword">var</span>  <span class="hljs-comment">// imports</span>
          registerStates = sandbox.state.registerStates,
          state = sandbox.state.builder.state,
          onEntry = sandboxstate.builder.onEntry,
@@ -486,7 +486,7 @@ the event. This will transition the application from the <code>main.loading</cod
 state.</p>
 <p><code>raise</code> can also be called with some additional data which can allow you to create conditional transitions.</p>
 <h5 id="example-using-raise-to-create-an-event-with-additional-data">Example: using raise to create an event with additional data</h5>
-<pre class="highlight"><code class="javascript">    <span class="hljs-keyword">var</span>  <span class="hljs-comment">// imports</span>
+<pre class="highlight"><code class="hljs javascript">    <span class="hljs-keyword">var</span>  <span class="hljs-comment">// imports</span>
          registerStates = sandbox.state.registerStates,
          state = sandbox.state.builder.state,
          onEntry = sandboxstate.builder.onEntry,
@@ -535,7 +535,7 @@ it allows all of its children states to run in parallel to eachother. </p>
 how does the application react? What visual aspects change? This can be managed by having two
 parallel states defined on main like so:</p>
 <h5 id="example-defining-parallel-states">Example: defining parallel states</h5>
-<pre class="highlight"><code class="javascript">    <span class="hljs-keyword">var</span> registerStates = sandbox.state.registerStates,
+<pre class="highlight"><code class="hljs javascript">    <span class="hljs-keyword">var</span> registerStates = sandbox.state.registerStates,
         parallel = sandbox.state.builder.parallel,
         state = sandbox.state.builder.state;
 
@@ -546,7 +546,7 @@ parallel states defined on main like so:</p>
 <p>In this example, the app now has two parallel states: an authentication state and the main state which 
 controls the UI/Layout. These states themselves can have mutually exclusive children:</p>
 <h5 id="example-a-benefit-of-parallel-states-convienience">Example: a benefit of parallel states - convienience</h5>
-<pre class="highlight"><code class="javascript">    <span class="hljs-keyword">var</span> registerStates = sandbox.state.registerStates,
+<pre class="highlight"><code class="hljs javascript">    <span class="hljs-keyword">var</span> registerStates = sandbox.state.registerStates,
         parallel = sandbox.state.builder.parallel,
         state = sandbox.state.builder.state;
 
