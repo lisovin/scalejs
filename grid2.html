@@ -380,7 +380,7 @@ define([
     <span class="hljs-string">'./filtering'</span>**!
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
     sandbox!!*,
-    filtering**!
+    setupFilter**!
 )</span> {</span>
 <span class="hljs-pi">    'use strict'</span>;
 
@@ -392,24 +392,21 @@ define([
             <span class="hljs-comment">// vars</span>
             columns,
             itemsSource = observableArray()!!*,
-            itemsCount = observable();**!
-
-        !!*<span class="hljs-comment">// creates observables needed for filter</span>
-        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createFilter</span><span class="hljs-params">(type)</span> {</span>
-            <span class="hljs-keyword">return</span> {
-                type: type,
-                value: observable(), <span class="hljs-comment">// contains the value of the filter</span>
-                quickSearch: observable(), <span class="hljs-comment">// contains the value of the quickSearch</span>
-                values: observableArray() <span class="hljs-comment">// displays the result of the quickSearch</span>
-            };
-        }**!
-
+            itemsCount = observable();**!\
         <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">moneyFormatter</span><span class="hljs-params">(m)</span> {</span>
             <span class="hljs-keyword">return</span> <span class="hljs-built_in">parseFloat</span>(m).toFixed(<span class="hljs-number">2</span>);
         }
 
         columns = [
-            { id: <span class="hljs-string">"Symbol"</span>, field: <span class="hljs-string">"Symbol"</span>, name: <span class="hljs-string">"Symbol"</span>, minWidth: <span class="hljs-number">75</span>, !!*filter: createFilter(<span class="hljs-string">'string'</span>)**! },
+            {
+                id: <span class="hljs-string">"Symbol"</span>, field: <span class="hljs-string">"Symbol"</span>, name: <span class="hljs-string">"Symbol"</span>, minWidth: <span class="hljs-number">75</span>,
+                !!*filter: {
+                    type: <span class="hljs-string">'string'</span>,
+                    value: observable(), <span class="hljs-comment">// contains the value of the filter</span>
+                    quickSearch: observable(), <span class="hljs-comment">// contains the value of the quickSearch</span>
+                    values: observableArray() <span class="hljs-comment">// displays the result of the quickSearch</span>
+                }**!
+            },
             { id: <span class="hljs-string">"Name"</span>, field: <span class="hljs-string">"Name"</span>, name: <span class="hljs-string">"Name"</span>, minWidth: <span class="hljs-number">300</span> },
             { id: <span class="hljs-string">"LastSale"</span>, field: <span class="hljs-string">"LastSale"</span>, name: <span class="hljs-string">"Last Sale"</span>, cssClass: <span class="hljs-string">"money"</span>, minWidth: <span class="hljs-number">100</span> },
             { id: <span class="hljs-string">"MarketCap"</span>, field: <span class="hljs-string">"MarketCap"</span>, name: <span class="hljs-string">"Market Cap"</span>, cssClass: <span class="hljs-string">"money"</span>, minWidth: <span class="hljs-number">150</span> },
@@ -431,12 +428,7 @@ define([
             itemsSource(companies);
 
             !!*<span class="hljs-comment">// enable filtering using filtering.js</span>
-            filtering({
-                filteredColumn: columns[<span class="hljs-number">0</span>],
-                originalItems: companies,
-                itemsSource: itemsSource,
-                itemsCount: itemsCount
-            })**!
+            setupFilter(columns[<span class="hljs-number">0</span>], companies, itemsSource, itemsCount);**!
         });
 
         <span class="hljs-keyword">return</span> {
@@ -458,38 +450,25 @@ define([
 )</span> {</span>
 <span class="hljs-pi">    'use strict'</span>;
 
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(config)</span> {</span>
-        <span class="hljs-keyword">var</span> column = config.filteredColumn,
-            colFilter = column.filter,
-            originalItems = config.originalItems,
-            itemsSource = config.itemsSource,
-            itemsCount = config.itemsCount,
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(column, originalItems, itemsSource, itemsCount)</span> {</span>
+        <span class="hljs-keyword">var</span> colFilter = column.filter,
             <span class="hljs-comment">// comparison functions needed for string filter</span>
             <span class="hljs-comment">// s is the 'source' items and v are the 'values' in the expression</span>
             comparisons = {
-                In: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(s, v)</span> {</span> <span class="hljs-keyword">return</span> v.indexOf(s) !== -<span class="hljs-number">1</span>; },
-                Contains: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(s, v)</span> {</span> <span class="hljs-keyword">return</span> s.indexOf(v[<span class="hljs-number">0</span>]) !== -<span class="hljs-number">1</span>; },
-                StartsWith: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(s, v)</span> {</span> <span class="hljs-keyword">return</span> s.indexOf(v[<span class="hljs-number">0</span>]) === <span class="hljs-number">0</span>; },
-                EndsWith: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(s, v)</span> {</span> <span class="hljs-keyword">return</span> s.indexOf(v[<span class="hljs-number">0</span>], s.length - v.length) !== -<span class="hljs-number">1</span>; },
+                In: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(s, v)</span> {</span> <span class="hljs-keyword">return</span> v.some(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(x)</span> {</span> <span class="hljs-keyword">return</span> s.match(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'^'</span> + x + <span class="hljs-string">'</span>, <span class="hljs-string">'i'</span>)); }); },
+                Contains: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(s, v)</span> {</span> <span class="hljs-keyword">return</span> s.match(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(v[<span class="hljs-number">0</span>], <span class="hljs-string">'i'</span>)); },
+                StartsWith: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(s, v)</span> {</span> <span class="hljs-keyword">return</span> s.match(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'^'</span> + v[<span class="hljs-number">0</span>], <span class="hljs-string">'i'</span>)); },
+                EndsWith: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(s, v)</span> {</span> <span class="hljs-keyword">return</span> s.match(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(v[<span class="hljs-number">0</span>] + <span class="hljs-string">'</span>, <span class="hljs-string">'i'</span>)); },
                 NotEmpty: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(s)</span> {</span> <span class="hljs-keyword">return</span> s !== <span class="hljs-string">""</span> }
             };
-
-
-        <span class="hljs-comment">// helper function to convert an array of strings to uppercase</span>
-        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">arrayToUpperCase</span><span class="hljs-params">(value)</span> {</span>
-            <span class="hljs-keyword">return</span> value.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(v)</span> {</span>
-                <span class="hljs-keyword">return</span> v.toUpperCase();
-            });
-        }
 
         <span class="hljs-comment">// filterExpression contains the operation (e.g. 'StartsWith') and values</span>
         <span class="hljs-comment">// returns a function which can be used to filter items</span>
         <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">evaluate</span><span class="hljs-params">(filterExpression)</span> {</span>
-            <span class="hljs-keyword">var</span> evaluateOperation = comparisons[filterExpression.op],
-                values = arrayToUpperCase(filterExpression.values);
+            <span class="hljs-keyword">var</span> evaluateOperation = comparisons[filterExpression.op];
 
             <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(item)</span> {</span>
-                <span class="hljs-keyword">return</span> evaluateOperation(item[column.field], values);
+                <span class="hljs-keyword">return</span> evaluateOperation(item[column.field], filterExpression.values);
             }
         }
 

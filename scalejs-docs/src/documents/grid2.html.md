@@ -240,7 +240,7 @@ define([
     './filtering'**!
 ], function (
     sandbox!!*,
-    filtering**!
+    setupFilter**!
 ) {
     'use strict';
 
@@ -252,24 +252,21 @@ define([
             // vars
             columns,
             itemsSource = observableArray()!!*,
-            itemsCount = observable();**!
-   
-        !!*// creates observables needed for filter
-        function createFilter(type) {
-            return {
-                type: type,
-                value: observable(), // contains the value of the filter
-                quickSearch: observable(), // contains the value of the quickSearch
-                values: observableArray() // displays the result of the quickSearch
-            };
-        }**!
-
+            itemsCount = observable();**!\
         function moneyFormatter(m) {
             return parseFloat(m).toFixed(2);
         }
 
-        columns = [
-            { id: "Symbol", field: "Symbol", name: "Symbol", minWidth: 75, !!*filter: createFilter('string')**! },
+		columns = [
+            {
+                id: "Symbol", field: "Symbol", name: "Symbol", minWidth: 75,
+                !!*filter: {
+                    type: 'string',
+                    value: observable(), // contains the value of the filter
+                    quickSearch: observable(), // contains the value of the quickSearch
+                    values: observableArray() // displays the result of the quickSearch
+                }**!
+            },
             { id: "Name", field: "Name", name: "Name", minWidth: 300 },
             { id: "LastSale", field: "LastSale", name: "Last Sale", cssClass: "money", minWidth: 100 },
             { id: "MarketCap", field: "MarketCap", name: "Market Cap", cssClass: "money", minWidth: 150 },
@@ -291,12 +288,7 @@ define([
             itemsSource(companies);
 
             !!*// enable filtering using filtering.js
-            filtering({
-                filteredColumn: columns[0],
-                originalItems: companies,
-                itemsSource: itemsSource,
-                itemsCount: itemsCount
-            })**!
+            setupFilter(columns[0], companies, itemsSource, itemsCount);**!
         });
 
         return {
@@ -322,38 +314,25 @@ define([
 ) {
     'use strict';
 
-    return function (config) {
-        var column = config.filteredColumn,
-            colFilter = column.filter,
-            originalItems = config.originalItems,
-            itemsSource = config.itemsSource,
-            itemsCount = config.itemsCount,
+    return function (column, originalItems, itemsSource, itemsCount) {
+        var colFilter = column.filter,
             // comparison functions needed for string filter
             // s is the 'source' items and v are the 'values' in the expression
             comparisons = {
-                In: function (s, v) { return v.indexOf(s) !== -1; },
-                Contains: function (s, v) { return s.indexOf(v[0]) !== -1; },
-                StartsWith: function (s, v) { return s.indexOf(v[0]) === 0; },
-                EndsWith: function (s, v) { return s.indexOf(v[0], s.length - v.length) !== -1; },
+                In: function (s, v) { return v.some(function (x) { return s.match(new RegExp('^' + x + '$', 'i')); }); },
+                Contains: function (s, v) { return s.match(new RegExp(v[0], 'i')); },
+                StartsWith: function (s, v) { return s.match(new RegExp('^' + v[0], 'i')); },
+                EndsWith: function (s, v) { return s.match(new RegExp(v[0] + '$', 'i')); },
                 NotEmpty: function (s) { return s !== "" }
             };
-
-
-        // helper function to convert an array of strings to uppercase
-        function arrayToUpperCase(value) {
-            return value.map(function (v) {
-                return v.toUpperCase();
-            });
-        }
 
         // filterExpression contains the operation (e.g. 'StartsWith') and values
         // returns a function which can be used to filter items
         function evaluate(filterExpression) {
-            var evaluateOperation = comparisons[filterExpression.op],
-                values = arrayToUpperCase(filterExpression.values);
+            var evaluateOperation = comparisons[filterExpression.op];
 
             return function(item) {
-                return evaluateOperation(item[column.field], values);
+                return evaluateOperation(item[column.field], filterExpression.values);
             }
         }
 
