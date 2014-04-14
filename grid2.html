@@ -346,11 +346,18 @@ define({
 <h3 id="viewmodel">ViewModel</h3>
 <p>Filtering must also be enabled on the columns themselves. This is more complex than the default filtering because
 you must specify observables for the filter to use. </p>
-<h5 id="example-the-observables-that-need-to-be-defined-for-viewmodel-filtering">Example: the observables that need to be defined for ViewModel filtering</h5>
-<pre class="highlight"><code class="hljs javascript">{
-    value: observable(), <span class="hljs-comment">// contains the value of the filter</span>
-    quickSearch: observable(), <span class="hljs-comment">// contains the value of the quickSearch</span>
-    values: observableArray() <span class="hljs-comment">// displays the result of the quickSearch</span>
+<h5 id="example-the-observables-that-need-to-be-defined-on-the-filter-for-the-column">Example: the observables that need to be defined on the filter for the column</h5>
+<pre class="highlight"><code class="hljs javascript">{ 
+    id: <span class="hljs-string">"Symbol"</span>, 
+    field: <span class="hljs-string">"Symbol"</span>, 
+    name: <span class="hljs-string">"Symbol"</span>, 
+    minWidth: <span class="hljs-number">75</span>, 
+    filter: {
+        type: <span class="hljs-string">'string'</span>,
+        !!*value: observable(), <span class="hljs-comment">// contains the value of the filter</span>
+        quickSearch: observable(), <span class="hljs-comment">// contains the value of the quickSearch</span>
+        values: observableArray() <span class="hljs-comment">// displays the result of the quickSearch**!</span>
+    }
 };
 </code></pre>
 <p>For the sake of simplicity, we will only have a filter on the <strong>Symbol</strong> column. 

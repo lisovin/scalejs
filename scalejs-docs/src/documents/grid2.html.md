@@ -197,12 +197,19 @@ define({
 Filtering must also be enabled on the columns themselves. This is more complex than the default filtering because
 you must specify observables for the filter to use. 
 
-##### Example: the observables that need to be defined for ViewModel filtering
+##### Example: the observables that need to be defined on the filter for the column
 ```javascript
-{
-    value: observable(), // contains the value of the filter
-    quickSearch: observable(), // contains the value of the quickSearch
-    values: observableArray() // displays the result of the quickSearch
+{ 
+	id: "Symbol", 
+	field: "Symbol", 
+	name: "Symbol", 
+	minWidth: 75, 
+	filter: {
+		type: 'string',
+		!!*value: observable(), // contains the value of the filter
+		quickSearch: observable(), // contains the value of the quickSearch
+		values: observableArray() // displays the result of the quickSearch**!
+	}
 };
 ```
 
