@@ -11,7 +11,7 @@
     <script src="style/metro.min.js"></script>
 	  <link rel="stylesheet" href="highlight.css" />
 
-	<meta name="generator" content="DocPad v6.60.3" />
+	<meta name="generator" content="DocPad v6.60.4" />
 	<link  rel="stylesheet" href="highlight.css" />
     
 	<style>
@@ -63,11 +63,6 @@
 		$('pre').each(function() {
 			$(this).html($(this).html().replace(/!!\*/g, "<i style='background-color:#FFFF99'>").replace(/\*\*!/g, "</i>"));
 		});
-		
-		//if path contains grid then open the link
-		if(/grid\d/.test(path)) {
-			$('.icon-grid').click();
-		}
     });
 
   </script>
@@ -178,7 +173,7 @@
 				  <li class="title">UI Components</li>
 				            <li>
 								<a class="dropdown-toggle" href=""><i class="icon-grid"></i> Grid</a>
-								<ul class="dropdown-menu" data-role="dropdown">
+								<ul class="dropdown-menu" data-role="dropdown" style="display:block">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
 									<li><a href="./grid3.html">Sorting</a></li>
@@ -215,7 +210,7 @@ will interface with the core and never with the base libraries themselves.</p>
 <p>The application also is responsible for registering and starting modules. This is done in <strong>app.js</strong> in the app folder
 for a scalejs project. It looks like this:</p>
 <p><strong>app.js</strong></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global require*/</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global require*/</span>
 <span class="hljs-built_in">require</span>([
     <span class="hljs-string">'scalejs!application/main'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -252,7 +247,7 @@ If using <a href="./mvvm.html">MVVM</a>, each module will contain its own viewmo
 It is a consistent interface that provides everything a module needs. The sandbox can be extended with
 <a href="./extension.html">extensions</a>. Functions within the sandbox live within the namespace of the extension
 which created them. </p>
-<pre class="highlight"><code class="javascript">    <span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
+<pre class="highlight"><code class="hljs javascript">    <span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
             root = sandbox.mvvm.root,
             template = sandbox.mvvm.template,
             registerStates = sandbox.state.registerStates,

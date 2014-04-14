@@ -11,7 +11,7 @@
     <script src="style/metro.min.js"></script>
 	  <link rel="stylesheet" href="highlight.css" />
 
-	<meta name="generator" content="DocPad v6.60.3" />
+	<meta name="generator" content="DocPad v6.60.4" />
 	<link  rel="stylesheet" href="highlight.css" />
     
 	<style>
@@ -63,11 +63,6 @@
 		$('pre').each(function() {
 			$(this).html($(this).html().replace(/!!\*/g, "<i style='background-color:#FFFF99'>").replace(/\*\*!/g, "</i>"));
 		});
-		
-		//if path contains grid then open the link
-		if(/grid\d/.test(path)) {
-			$('.icon-grid').click();
-		}
     });
 
   </script>
@@ -178,7 +173,7 @@
 				  <li class="title">UI Components</li>
 				            <li>
 								<a class="dropdown-toggle" href=""><i class="icon-grid"></i> Grid</a>
-								<ul class="dropdown-menu" data-role="dropdown">
+								<ul class="dropdown-menu" data-role="dropdown" style="display:block">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
 									<li><a href="./grid3.html">Sorting</a></li>
@@ -216,7 +211,7 @@ This pattern is similar to Microsoft&#39;s prism pattern if you are familular wi
 is convienient as it is included already in the project template.
 This is the starting point of your layout.</p>
 <h5 id="example-the-main-module-boilerplate-code">Example: The main module boilerplate code</h5>
-<pre class="highlight"><code class="javascript"><span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
     root = sandbox.mvvm.root,
     template = sandbox.mvvm.template,
     registerStates = sandbox.state.registerStates,
@@ -251,7 +246,7 @@ contains <em>all</em> of the content on your page.</p>
 <h3 id="template">template</h3>
 <p><code>template</code> is a function which takes 2 parameters: a named template from the view and a viewModel to be passed to it.</p>
 <h5 id="example-rendering-content-using-template-function-in-the-root-region">Example: Rendering content using template function in the root region</h5>
-<pre class="highlight"><code class="javascript"><span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
     root = sandbox.mvvm.root,
     template = sandbox.mvvm.template;
 
@@ -271,7 +266,7 @@ In order to create a region you must:</p>
 <p>The <code>render</code> binding is used to populate regions with content using an observable.
 Much like the <code>root</code> function it expects a <code>dataBinding</code>, <code>dataClass</code>, or a <code>template</code>.</p>
 <h5 id="example-definding-regions-using-render">Example: definding regions using  render</h5>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"render: foo"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     <span class="hljs-comment">&lt;!-- ko render: bar--&gt;</span><span class="hljs-comment">&lt;!-- /ko --&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
@@ -284,7 +279,7 @@ while the latter does not. Depending on what you need in your Layout, you can us
 to define the render binding.</p>
 <p>The next step is defining <strong>foo</strong> and <strong>bar</strong> as observables within your viewModel. </p>
 <h5 id="example-declaring-regions-as-observables-within-the-viewmodel">Example: declaring regions as observables within the viewmodel</h5>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!main'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -311,7 +306,7 @@ define([
 <p>In the previous section we created the regions for your layout, but in order for other modules to access the regions they must
 be exposed to other modules by adding them on the statechart.</p>
 <h5 id="example-adding-regions-to-the-statechart">Example: Adding regions to the statechart</h5>
-<pre class="highlight"><code class="javascript">registerStates(<span class="hljs-string">'root'</span>,
+<pre class="highlight"><code class="hljs javascript">registerStates(<span class="hljs-string">'root'</span>,
     state(<span class="hljs-string">'app'</span>,
         state(<span class="hljs-string">'main'</span>,
             onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
@@ -329,7 +324,7 @@ the statechart that the properties were added. You then can create a transition
 that will allow your module to enter the state in which it tries to use the regions.</p>
 <p>In the following example we have created a module called <strong>foobar</strong>. </p>
 <h5 id="example-adding-foo-module-to-app-js">Example: Adding foo module to app.js</h5>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global require*/</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global require*/</span>
 <span class="hljs-built_in">require</span>([
     <span class="hljs-string">'scalejs!application/main,foobar'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -342,7 +337,7 @@ that will allow your module to enter the state in which it tries to use the regi
 </code></pre>
 <p>It contains 2 templates that are to be rendered inside of the regions.</p>
 <h5 id="example-two-templates-from-the-foobar-module-s-view-foobar-html">Example: Two templates from the foobar module&#39;s view, foobar.html</h5>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"foo_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"foo_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"text: fooText"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"bar_template"</span>&gt;</span>
@@ -351,7 +346,7 @@ that will allow your module to enter the state in which it tries to use the regi
 </code></pre>
 <p>In order to render these templates in the regions, we need to access them similarly to how we are rendering
 the main template in the root, except we are accessing the regions from the statechart.</p>
-<pre class="highlight"><code class="javascript">registerStates(<span class="hljs-string">'main'</span>,
+<pre class="highlight"><code class="hljs javascript">registerStates(<span class="hljs-string">'main'</span>,
     state(<span class="hljs-string">'foobar'</span>,
         onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
             <span class="hljs-keyword">this</span>.foo(template(<span class="hljs-string">'foo_template'</span>, foobar));
@@ -361,7 +356,7 @@ the main template in the root, except we are accessing the regions from the stat
 <p>Do not forget to ensure that the <code>foobar</code> state is entered after the <code>main</code> state.
 Remember that since fooText and barText are bound in the view, they must be exposed within the viewmodel.</p>
 <h5 id="example-declaring-footext-and-bartext-in-foobarviewmodel-js">Example: Declaring fooText and barText in foobarViewModel.js</h5>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!foobar'</span>,
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(

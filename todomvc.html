@@ -11,7 +11,7 @@
     <script src="style/metro.min.js"></script>
 	  <link rel="stylesheet" href="highlight.css" />
 
-	<meta name="generator" content="DocPad v6.60.3" />
+	<meta name="generator" content="DocPad v6.60.4" />
 	
     
 	<style>
@@ -63,11 +63,6 @@
 		$('pre').each(function() {
 			$(this).html($(this).html().replace(/!!\*/g, "<i style='background-color:#FFFF99'>").replace(/\*\*!/g, "</i>"));
 		});
-		
-		//if path contains grid then open the link
-		if(/grid\d/.test(path)) {
-			$('.icon-grid').click();
-		}
     });
 
   </script>
@@ -178,7 +173,7 @@
 				  <li class="title">UI Components</li>
 				            <li>
 								<a class="dropdown-toggle" href=""><i class="icon-grid"></i> Grid</a>
-								<ul class="dropdown-menu" data-role="dropdown">
+								<ul class="dropdown-menu" data-role="dropdown" style="display:block">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
 									<li><a href="./grid3.html">Sorting</a></li>
@@ -271,7 +266,7 @@ are plugged into placeholders.</p>
 <p>A <strong>template</strong> is a parentless div in an html file within your <em>views</em> folder that has an id with the postfix <code>_template</code>.
 We only need to define one template for <em>main</em> which specifies the layout.</p>
 <p><sub><strong>main/views/main.html</strong></sub></p>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todoapp"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">header</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"header"</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>todos<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
@@ -296,7 +291,7 @@ the contents of the view and render them where virtual binding is declared. Had 
 which we will see in the next section, a new html element would need to be created as a wrapper for the
 bound content. </p>
 <p><sub><strong>main/views/main.html</strong></sub></p>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todoapp"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">header</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"header"</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>todos<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
@@ -348,7 +343,7 @@ exposed on the sandbox with the handy dandy intellisense.</p>
 <p>Since we have referenced <code>todoInput</code> and <code>todoItems</code> in the view, we have to define them in the viewmodel. 
 Making the following change will fix the issues we just saw after altering the view.</p>
 <p><sub><strong>main/viewmodels/mainViewModel.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!main'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -394,7 +389,7 @@ If used properly, this what allows modules to affect one another while still bei
 <p>Adding properties to the statechart is very simple; the context of the statechart is exposed via <code>this</code> 
 within the functions of the statechart (i.e. <code>onEntry</code>). </p>
 <p><sub><strong>main/mainModule.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!main'</span>,
     <span class="hljs-string">'app/main/viewmodels/mainViewModel'</span>,
@@ -461,7 +456,7 @@ From the Add New Item window, search for <em>scalejs</em> and select the
 <p>Once we create a module we need include it in the <strong>app.js</strong> file by appending a comma and the name of the module
 to the <code>scalejs!application</code> argument within the <code>require</code> function.</p>
 <p><sub><strong>app.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-built_in">require</span>([
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-built_in">require</span>([
     <span class="hljs-string">'scalejs!application/main!!*,todo**!'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
     application
@@ -475,7 +470,7 @@ to the <code>scalejs!application</code> argument within the <code>require</code>
 but it needs to be modified slightly so that we are adding the todo state to the correct parent state.
 Below is the todoModule.js file which is created by the module template.</p>
 <p><sub><strong>todo/todoModule.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>,
     <span class="hljs-string">'app/todo/viewmodels/todoViewModel'</span>,
@@ -517,7 +512,7 @@ This means that our statechart looks like this:</p>
 <p><img src="./statechart1.png" alt="Bad statechart"></p>
 <p>To remedy this, we can make <em>todo</em> a child of the <em>main</em> state by changing the statechart in <strong>todoModule.js</strong>.</p>
 <p><sub><strong>todo/todoModule.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>,
     <span class="hljs-string">'app/todo/viewmodels/todoViewModel'</span>,
@@ -561,7 +556,7 @@ todo list, and the other for the todo input.</p>
 one for main. For now, we won&#39;t add any bindings; we will do that as we add functionality.</p>
 <p>For now all we need to do is define the template so they can be rendered in the <code>todoItems</code> and <code>todoInput</code> regions defined in the <em>main</em> view above.</p>
 <p><sub><strong>todo/views/todo.html</strong></sub></p>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"toggle-all"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"toggle-all"</span>&gt;</span>Mark all as complete<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
@@ -616,7 +611,7 @@ one for main. For now, we won&#39;t add any bindings; we will do that as we add 
  Instead we should be passing the <code>todo_items_template</code> and the <code>todo_input_template</code> 
 into the <code>todoItems</code> and <code>todoInput</code> observables we defined in the <em>main</em> state.</p>
 <p><sub><strong>todo/todoModule.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>,
     <span class="hljs-string">'app/todo/viewmodels/todoViewModel'</span>,
@@ -670,7 +665,7 @@ Like with <code>observables</code>, if you are familiar with knockout.js this sh
 learn about them in more detail <a href="./mvvm.html#obseravles">here</a> and also on <a href="http://knockoutjs.com/documentation/observables.html">knockout&#39;s website</a>.
 Since this is a requirement for the functionality of the <em>todo</em> module it must be declared in the ViewModel.</p>
 <p><sub><strong>todo/viewmodels/todoViewModel.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -694,7 +689,7 @@ We can do this by defining a special data-class.
 To add a data-class to an element in your template is very simple and straightforward. 
 We will add the data-class <code>todo-visible</code> in the <code>todo_items_template</code>.</p>
 <p><sub><strong>todo/views/todo.html</strong><sub></p>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
     !!*<span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-visible"</span>&gt;</span>**!
         <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"toggle-all"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"toggle-all"</span>&gt;</span>Mark all as complete<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
@@ -748,7 +743,7 @@ We will add the data-class <code>todo-visible</code> in the <code>todo_items_tem
 JavaScript within the html of our app. We can define the data-class in our bindings file.</p>
 <p>Now we can define the logic behind the <code>todo-visible</code> data-class in <strong>todoBindings.js</strong>.</p>
 <p><sub><strong>todo/bindings/todoBindings.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 <span class="hljs-comment">/*jslint sloppy: true*/</span>
 define({
     !!*<span class="hljs-string">'todo-visible'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
@@ -766,7 +761,7 @@ define({
 For this functionality, we need to bind the input to a new property of the viewmodel which will be implemented
 using an observable. Let&#39;s call it <code>newItem</code>.</p>
 <p><sub><strong>todo/viewmodels/todoViewModel.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -797,7 +792,7 @@ to it and name the data-class <code>todo-input</code>. This time, we are using a
 there are so many bindings on this element and it will be cleaner to define
 them outside of the html.</p>
 <p><sub><strong>todo/views/todo.html</strong></sub></p>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-visible"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"toggle-all"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"toggle-all"</span>&gt;</span>Mark all as complete<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
@@ -849,7 +844,7 @@ them outside of the html.</p>
 </code></pre>
 <p>Similarly to <code>todo-visible</code>, we must add a definition for this class in <strong>todoBindings.js</strong></p>
 <p><sub><strong>todo/bindings/todoBindings.html</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 <span class="hljs-comment">/*jslint sloppy: true*/</span>
 define({
     <span class="hljs-string">'todo-visible'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
@@ -878,7 +873,7 @@ data-class belongs to by looking at its class name.</p>
 <p>Now we need to add the logic so that when one presses enter a new todo is added to the list. 
 First lets create a function in <strong>todoViewModel.js</strong> to do so. We will call it <code>addItem</code>.</p>
 <p><sub><strong>todo/viewmodels/todoViewModel.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -916,7 +911,7 @@ use it to make sure that the item has the <code>trim</code> function before we a
 <p>The next step is making sure this function gets called when the user hits enter. We can do that by defining an
 event binding in the <code>todo-input</code> data-class we defined from before.</p>
 <p><sub><strong>todo/bindings/todoBindings.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 <span class="hljs-comment">/*jslint sloppy: true,unparam: true*/</span>
 !!*define(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
     <span class="hljs-keyword">var</span> ENTER_KEY = <span class="hljs-number">13</span>;
@@ -961,7 +956,7 @@ We can bind the <code>ul</code> element to the items array using the <code>forea
 of the <code>ul</code> will be repeated for each item in the list, with the item providing the 
 context for the binding.</p>
 <p><sub><strong>todo/views/todo.html</strong></sub></p>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-visible"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"toggle-all"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"toggle-all"</span>&gt;</span>Mark all as complete<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
@@ -1011,7 +1006,7 @@ as completed only when it is completed. To do this, we need to alter the item so
 it is an object with two properties: <code>title</code> and <code>completed</code>.. 
 In <strong>todoViewModel.js</strong> make the following change to the item when it is pushed to the items array.</p>
 <p><sub><strong>todo/viewmodels/todoViewModel.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -1049,7 +1044,7 @@ define([
 <p>In <code>todo_items_template</code> also edit the li element so that it is being bound to the title
 and the completed properties.</p>
 <p><sub><strong>todo/views/todo.html</strong></sub></p>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-visible"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"toggle-all"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"toggle-all"</span>&gt;</span>Mark all as complete<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
@@ -1106,7 +1101,7 @@ You can read more about computed properties <a href="http://knockoutjs.com/docum
 We can use this to react to the <code>items</code> and return true when they are all checked
 to indicate to the &#39;mark all as complete&#39; arrow that it should be &#39;checked&#39;</p>
 <p><sub><strong>todo/viewmodels/todoViewModel.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -1157,7 +1152,7 @@ often and therefore need more sophisticated functionality than what is provided 
 This is why we expose all of linq&#39;s functions on the Array&#39;s prototype. </p>
 <p>We bind the computed property to the <code>toggle-all</code> checkbox like so:</p>
 <p><sub><strong>todo/views/todo.html</strong></sub></p>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-visible"</span>&gt;</span>
         !!*<span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"toggle-all"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"checked: checkAll"</span>&gt;</span>**!
         <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"toggle-all"</span>&gt;</span>Mark all as complete<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
@@ -1205,7 +1200,7 @@ or not completed. We can fix this by giving this computed property a <code>write
 which will take whatever value it is given and apply it to all the items&#39; <code>completed</code> 
 properties.</p>
 <p><sub><strong>todo/viewmodels/todoViewModel.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -1262,7 +1257,7 @@ one or two bindings on an html element looks ugly. We will give it the <code>tod
 <p>We also need to add a data-class to the input element so that we can toggle editing on
 and off. We will call this the <code>todo-edit</code> class.</p>
 <p><sub><strong>todo/views/todo.html</strong></sub></p>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-visible"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"toggle-all"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"checked: checkAll"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"toggle-all"</span>&gt;</span>Mark all as complete<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
@@ -1307,7 +1302,7 @@ defined inline in the html, we also need to apply an <code>editing</code> class 
 edited. We begin editing an item when we double-click on an item, so we also bind a function 
 called <code>beginEdit</code> to this event.</p>
 <p><sub><strong>todo/bindings/todoBindings.html</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 <span class="hljs-comment">/*jslint sloppy: true,unparam: true*/</span>
 define(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
     <span class="hljs-keyword">var</span> ENTER_KEY = <span class="hljs-number">13</span>;
@@ -1357,7 +1352,7 @@ to implement functionality, so the wise thing to do is to move the item to its o
 <p>Copy and paste the code below or follow the pattern that the <em>main</em> and <em>todo</em> viewmodels use,
 except do not declare any properties or return anything.</p>
 <p><strong>todo/viewmodels/itemViewModel.js</strong></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -1378,7 +1373,7 @@ We need to pass to this viewmodel the title of the item and the status of its
 completion (when we create an item, it will always be false - but making
 this a parameter will come in handy when we implement persistance)</p>
 <p><sub><strong>todo/viewmodels/todoViewModel.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>!!*,
     <span class="hljs-string">'app/todo/viewmodels/itemViewModel'</span>**!
@@ -1426,7 +1421,7 @@ define([
 </code></pre>
 <p>Now we can recreate the functionality from before, and also add the new properties <code>editMode</code> and <code>beginEdit</code></p>
 <p><sub><strong>todo/viewmodels/itemViewModel.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -1460,7 +1455,7 @@ we will need to change its title. <code>beginEdit</code> simply sets the <code>e
 define the data-class <code>todo-edit</code> to listen for user input, update the value of title, and
 end edit mode.</p>
 <p><sub><strong>todo/bindings/todoBindings.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 <span class="hljs-comment">/*jslint sloppy: true,unparam: true*/</span>
 define(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
     <span class="hljs-keyword">var</span> ENTER_KEY = <span class="hljs-number">13</span>;
@@ -1522,7 +1517,7 @@ so that when <code>editMode</code> is entered, the input automatically is given 
 we make sure to call <code>item.endEdit()</code> so that it also ends the edit on blur. <code>endEdit</code> still
 needs to be defined in order for this to come full-circle.</p>
 <p><sub><strong>todo/viewmodels/itemViewModel.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -1573,7 +1568,7 @@ a reference to the item. We can use this function to remove our items by calling
 However the itemViewModel does not have <code>items</code> so we must pass the <code>items</code> to the <code>itemViewModel</code> so
 we can access the remove function.</p>
 <p><sub><strong>todo/viewmodels/itemViewModel.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -1619,7 +1614,7 @@ define([
 </code></pre>
 <p>Now we also need to modify the <strong>todoViewModel</strong> so that we are passing the items to the viewmodel.</p>
 <p><sub><strong>todo/viewmodels/todoViewModel.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>,
     <span class="hljs-string">'app/todo/viewmodels/itemViewModel'</span>
@@ -1667,7 +1662,7 @@ define([
 </code></pre>
 <p>Now all we need to do is bind the &#39;x&#39; button in the view to this function</p>
 <p><sub><strong>todo/views/todo.html</strong></sub></p>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-visible"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"toggle-all"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"checked: checkAll"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"toggle-all"</span>&gt;</span>Mark all as complete<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
@@ -1716,7 +1711,7 @@ Do this by clicking on the x, or editing an item and making it an empty string.<
 in our itemViewModel which stores the current title when an edit begins. We also need to implement
 a <code>cancelEdit</code> function which will restore the previous title.</p>
 <p><sub><strong>todo/viewmodels/itemViewModel.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -1770,7 +1765,7 @@ define([
 </code></pre>
 <p>Also we have to modify the binding to call &#39;cancelEdit&#39; if the user presses the <code>ESCAPE_KEY</code></p>
 <p><sub><strong>todo/viewmodels/todoBindings.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 <span class="hljs-comment">/*jslint sloppy: true,unparam: true*/</span>
 define(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
     <span class="hljs-keyword">var</span> ENTER_KEY = <span class="hljs-number">13</span>!!*,
@@ -1842,7 +1837,7 @@ to bind something without introducing a new parent div. We will define a data-cl
 which will display the gramatically correct form of &#39;items&#39; based on the #. We will bind the <code>&lt;strong&gt;</code> element
 directly to the number of items (e.g. <code>length</code>)</p>
 <p><sub><strong>todo/views/todo.html</strong></sub></p>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-visible"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"toggle-all"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"checked: checkAll"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"toggle-all"</span>&gt;</span>Mark all as complete<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
@@ -1887,7 +1882,7 @@ directly to the number of items (e.g. <code>length</code>)</p>
 </code></pre>
 <p><code>todo-count-text</code> needs to be defined:</p>
 <p><sub><strong>todo/bindings/todoBindings.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 <span class="hljs-comment">/*jslint sloppy: true,unparam: true*/</span>
 define(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
     <span class="hljs-keyword">var</span> ENTER_KEY = <span class="hljs-number">13</span>,
@@ -1960,7 +1955,7 @@ define(<span class="hljs-function"><span class="hljs-keyword">function</span> <s
 <p>We will introduce a new data-class, <code>todo-clear-completed</code>, to allow the users to clear all of the
 completed items with just one click.</p>
 <p><sub><strong>todo/views/todo.html</strong></sub></p>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-visible"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"toggle-all"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"checked: checkAll"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"toggle-all"</span>&gt;</span>Mark all as complete<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
@@ -2010,7 +2005,7 @@ completed items with just one click.</p>
 </ul>
 <p>We implement the binding like so:</p>
 <p><sub><strong>todo/bindings/todoBindings.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 <span class="hljs-comment">/*jslint sloppy: true,unparam: true*/</span>
 define(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
     <span class="hljs-keyword">var</span> ENTER_KEY = <span class="hljs-number">13</span>,
@@ -2086,7 +2081,7 @@ define(<span class="hljs-function"><span class="hljs-keyword">function</span> <s
 <p>We referenced two new things here: a <code>completedItems</code> variable and a <code>removeCompletedItems</code> function,
 therefore we must define them in the viewmodel.</p>
 <p><sub><strong>todo/viewmodels/todoViewModels.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>,
     <span class="hljs-string">'app/todo/viewmodels/itemViewModel'</span>
@@ -2162,7 +2157,7 @@ can stringify it and store it in <code>localStorage</code>) and <code>toItemView
 to an <code>itemViewModel</code></p>
 <p>Since we are using <code>localStorage</code> we need to add it to the global vars so that JSLint won&#39;t complain.</p>
 <p><sub><strong>todos/viewmodels/todoViewModel.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define!!*,localStorage**! */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define!!*,localStorage**! */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>,
     <span class="hljs-string">'app/todo/viewmodels/itemViewModel'</span>
@@ -2237,7 +2232,7 @@ define([
 do not need to return anything.</p>
 <p>Also, if our <code>localStorage</code> is defined, then we need to <code>map</code> all of the to an <code>itemViewModel</code> using <code>toItemViewModel</code>.</p>
 <p><sub><strong>todos/viewmodels/todoViewModel.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define,localStorage */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define,localStorage */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>,
     <span class="hljs-string">'app/todo/viewmodels/itemViewModel'</span>
@@ -2318,7 +2313,7 @@ define([
 <p>Since we have a <code>toItemViewModel</code> function, we can also simplify our <code>addItem</code> function by using that
 instead of calling <code>itemViewModel</code> and passing the items.</p>
 <p><sub><strong>todos/viewmodels/todoViewModel.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define,localStorage */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define,localStorage */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>,
     <span class="hljs-string">'app/todo/viewmodels/itemViewModel'</span>
@@ -2416,7 +2411,7 @@ the state becomes active.</p>
 we can get from <code>sandbox.routing</code> as a child of the <code>app</code> state. Then we must define our <code>main</code> state as 
 a child of the <code>router</code> state.</p>
 <p><sub><strong>main/mainModule.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!main'</span>,
     <span class="hljs-string">'app/main/viewmodels/mainViewModel'</span>,
@@ -2460,7 +2455,7 @@ define([
 <p>To make it possible to switch between <em>all</em>, <em>active</em> and <em>completed</em>, we need to introduce an array containing
 these options in viewmodel that the view will bind to using <code>foreach</code>.</p>
 <p><sub><strong>todo/views/todo.html</strong></sub></p>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-visible"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"toggle-all"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"checked: checkAll"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"toggle-all"</span>&gt;</span>Mark all as complete<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
@@ -2499,7 +2494,7 @@ these options in viewmodel that the view will bind to using <code>foreach</code>
 displayed in the footer of our todo list (e.g. &#39;All&#39;, &#39;Active&#39;, and &#39;Completed&#39;) as well as a function
 which will raise a statechart event. We will need to subscribe to and react to this event in our statechart.</p>
 <p><sub><strong>todo/viewmodel/todoViewModel.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define,localStorage */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define,localStorage */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>,
     <span class="hljs-string">'app/todo/viewmodels/itemViewModel'</span>
@@ -2592,7 +2587,7 @@ define([
 </code></pre>
 <p>We also need to define the <code>todo-view</code> data-class.</p>
 <p><sub><strong>todo/bindings/todoBindings.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 <span class="hljs-comment">/*jslint sloppy: true,unparam: true*/</span>
 define(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
     <span class="hljs-keyword">var</span> ENTER_KEY = <span class="hljs-number">13</span>,
@@ -2677,7 +2672,7 @@ define(<span class="hljs-function"><span class="hljs-keyword">function</span> <s
 <p>We also need to define the transition that will occur when the events are raised. We use <code>gotoInternally</code> because
 we do not want to exit the child state when we are switching between two child states.</p>
 <p><sub><strong>todo/todoModule.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>,
     <span class="hljs-string">'app/todo/viewmodels/todoViewModel'</span>,
@@ -2730,7 +2725,7 @@ define([
 </code></pre>
 <p>Which means we need to define <code>currentView</code> in our viewmodel.</p>
 <p><sub><strong>todo/viewmodel/todoViewModel.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"> <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+<pre class="highlight"><code class="hljs javascript"> <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
 <span class="hljs-comment">/*global define,localStorage */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>,
@@ -2828,7 +2823,7 @@ define([
 also maintaining a list of all of the items. We will define a new computed, <code>viewableItems</code> which will
 react to changes in <code>currentView</code> and <code>items</code>.</p>
 <p><sub><strong>todo/viewmodel/todoViewModel.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define,localStorage */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define,localStorage */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>,
     <span class="hljs-string">'app/todo/viewmodels/itemViewModel'</span>
@@ -2939,7 +2934,7 @@ define([
 </code></pre>
 <p>Now we need to bind our list to <code>viewableItems</code> instead of <code>items</code>.</p>
 <p><sub><strong>todo/views/todo.html</strong></sub></p>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-visible"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"toggle-all"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"checked: checkAll"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"toggle-all"</span>&gt;</span>Mark all as complete<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
@@ -2977,7 +2972,7 @@ define([
 <p>So far, so good. Now we will begin to introduce our routing into our states by simply passing <code>route</code> into the state
 with the text we would like to see in our URL. For the root, we specifiy &#39;/&#39;.</p>
 <p><sub><strong>todo/todoModule.js</strong></sub></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!todo'</span>,
     <span class="hljs-string">'app/todo/viewmodels/todoViewModel'</span>,

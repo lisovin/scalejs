@@ -11,7 +11,7 @@
     <script src="style/metro.min.js"></script>
 	  <link rel="stylesheet" href="highlight.css" />
 
-	<meta name="generator" content="DocPad v6.60.3" />
+	<meta name="generator" content="DocPad v6.60.4" />
 	
     
 	<style>
@@ -63,11 +63,6 @@
 		$('pre').each(function() {
 			$(this).html($(this).html().replace(/!!\*/g, "<i style='background-color:#FFFF99'>").replace(/\*\*!/g, "</i>"));
 		});
-		
-		//if path contains grid then open the link
-		if(/grid\d/.test(path)) {
-			$('.icon-grid').click();
-		}
     });
 
   </script>
@@ -178,7 +173,7 @@
 				  <li class="title">UI Components</li>
 				            <li>
 								<a class="dropdown-toggle" href=""><i class="icon-grid"></i> Grid</a>
-								<ul class="dropdown-menu" data-role="dropdown">
+								<ul class="dropdown-menu" data-role="dropdown" style="display:block">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
 									<li><a href="./grid3.html">Sorting</a></li>
@@ -227,7 +222,7 @@ Multiple columns can be sorted by holding the <strong>shift</strong> key when cl
 In your bindings, you will need to add a new option, <code>sorting</code>, and set it to <code>true</code>.</p>
 <p>Optionally, if you would like to enable multi-column sort, add a <code>multiColumnSort</code> property and set it to <code>true</code>.</p>
 <h5 id="example-adding-sorting-to-grid-bindings-mainbindings-js-https-github-com-lisovin-scalejs-examples-blob-grid-3-grid-app-main-bindings-mainbindings-js-">Example: adding sorting to grid bindings (<a href="https://github.com/lisovin/scalejs-examples/blob/grid-3/Grid/app/main/bindings/mainBindings.js">mainBindings.js</a>)</h5>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 <span class="hljs-comment">/*jslint sloppy: true*/</span>
 define({
     <span class="hljs-string">'main-grid'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
@@ -256,7 +251,7 @@ If you do not want specific columns to be sorted, omit this property.</p>
 and pass either <code>&#39;asc&#39;</code> or <code>&#39;desc&#39;</code>, which will sort that column in ascending order or descending order respectively.
 If you have multi-column sort enabled, you can apply this property to multiple columns.</p>
 <h5 id="example-the-viewmodel-for-itemssource-and-columns-mainviewmodel-js-https-github-com-lisovin-scalejs-examples-blob-grid-3-grid-app-main-viewmodels-mainviewmodel-js-">Example: the viewmodel for itemsSource and columns (<a href="https://github.com/lisovin/scalejs-examples/blob/grid-3/Grid/app/main/viewmodels/mainViewModel.js">mainViewModel.js</a>)</h5>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!main'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(

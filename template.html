@@ -11,7 +11,7 @@
     <script src="style/metro.min.js"></script>
 	  <link rel="stylesheet" href="highlight.css" />
 
-	<meta name="generator" content="DocPad v6.60.3" />
+	<meta name="generator" content="DocPad v6.60.4" />
 	<link  rel="stylesheet" href="highlight.css" />
     
 	<style>
@@ -63,11 +63,6 @@
 		$('pre').each(function() {
 			$(this).html($(this).html().replace(/!!\*/g, "<i style='background-color:#FFFF99'>").replace(/\*\*!/g, "</i>"));
 		});
-		
-		//if path contains grid then open the link
-		if(/grid\d/.test(path)) {
-			$('.icon-grid').click();
-		}
     });
 
   </script>
@@ -178,7 +173,7 @@
 				  <li class="title">UI Components</li>
 				            <li>
 								<a class="dropdown-toggle" href=""><i class="icon-grid"></i> Grid</a>
-								<ul class="dropdown-menu" data-role="dropdown">
+								<ul class="dropdown-menu" data-role="dropdown" style="display:block">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
 									<li><a href="./grid3.html">Sorting</a></li>
@@ -213,7 +208,7 @@ Projects can be run by pressing <strong>ctrl + f5</strong>. </p>
 <h3 id="index-html-and-config-js">index.html and config.js</h3>
 <p>index.html is the starting point for your app. </p>
 <p><strong>index.html</strong></p>
-<pre class="highlight"><code class="xml"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"config.js"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/javascript"</span>&gt;</span><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
@@ -246,7 +241,7 @@ of scalejs and are ready to <a href="./extension.html">build your own extension<
 <h3 id="app-folder-and-app-js">app folder and app.js</h3>
 <p>The app folder contains a single file <strong>app.js</strong> as well as folders for the modules in your application.</p>
 <p><strong>app.js</strong></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global require*/</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global require*/</span>
 <span class="hljs-built_in">require</span>([
     <span class="hljs-string">'scalejs!application/main'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -273,7 +268,7 @@ It also can define styles specific to your application.</p>
 In the case of main, this file is called <strong>mainModule.js</strong>.
 Similarly, additional modules will follow the naming convention <strong><moduleName>Module.js</strong></p>
 <p><strong>mainModule.js</strong></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!main'</span>,
     <span class="hljs-string">'app/main/viewmodels/mainViewModel'</span>,
@@ -319,7 +314,7 @@ at the top of define as seen above and define the <a href="./overview.html#state
 <h3 id="view-folder-and-main-html">view folder and main.html</h3>
 <p>The view folder is a container of <a href="./overview.thml#views">views</a> and includes one view file for the main module:</p>
 <p><strong>main.html</strong></p>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"main text"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"main-text"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span> from helloworld.
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </code></pre>
@@ -333,7 +328,7 @@ of templates to data which is signified by <code>data-class</code>.
 they are always referenced by a view. Since <strong>main.html</strong> defines a <code>data-class</code> property,
 it <em>must</em> be created in the bindings. This data-class is defined in <strong>mainBindings.js</strong></p>
 <p><strong>mainBindings.js</strong></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 <span class="hljs-comment">/*jslint sloppy: true*/</span>
 define({
     <span class="hljs-string">'main-text'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
@@ -354,7 +349,7 @@ Viewmodels also define the model for your view; e.g. whatever needs to be in you
 which is data-centric or requires dynamic modification must be defined and exposed by a viewmodel.
 The viewmodel used in the main module is <strong>mainViewModel.js</strong></p>
 <p><strong>mainViewModel.js</strong></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!main'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -390,7 +385,7 @@ If you&#39;re not sure why, make sure to read about it <a href="./power.html#sca
 <p>The test folder contains unit tests which are provided by the <a href="http://pivotal.github.io/jasmine/">jasmine</a>
 testing framework. </p>
 <p><strong>all.tests.js</strong></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define,jasmine*/</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define,jasmine*/</span>
 define([
     <span class="hljs-string">'jasmine-html'</span>,
     <span class="hljs-string">'scalejs!application'</span>,
@@ -414,7 +409,7 @@ define([
 <p>This file starts the tests. Add new tests by referencing them in the first argument of <code>define</code>
 like how <code>./mainViewModel.test</code> is defined.</p>
 <p><strong>mainViewModel.test.js</strong></p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define,describe,expect,it*/</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define,describe,expect,it*/</span>
 <span class="hljs-comment">/*jslint sloppy: true*/</span>
 <span class="hljs-comment">/// &lt;reference path="../Scripts/jasmine.js"/&gt;</span>
 define([

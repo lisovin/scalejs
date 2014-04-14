@@ -11,7 +11,7 @@
     <script src="style/metro.min.js"></script>
 	  <link rel="stylesheet" href="highlight.css" />
 
-	<meta name="generator" content="DocPad v6.60.3" />
+	<meta name="generator" content="DocPad v6.60.4" />
 	<link  rel="stylesheet" href="highlight.css" />
     
 	<style>
@@ -63,11 +63,6 @@
 		$('pre').each(function() {
 			$(this).html($(this).html().replace(/!!\*/g, "<i style='background-color:#FFFF99'>").replace(/\*\*!/g, "</i>"));
 		});
-		
-		//if path contains grid then open the link
-		if(/grid\d/.test(path)) {
-			$('.icon-grid').click();
-		}
     });
 
   </script>
@@ -178,7 +173,7 @@
 				  <li class="title">UI Components</li>
 				            <li>
 								<a class="dropdown-toggle" href=""><i class="icon-grid"></i> Grid</a>
-								<ul class="dropdown-menu" data-role="dropdown">
+								<ul class="dropdown-menu" data-role="dropdown" style="display:block">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
 									<li><a href="./grid3.html">Sorting</a></li>
@@ -222,7 +217,7 @@ are reusable, small blocks of HTML code that have no parent container and a
 unique identifier that has the post-fix <code>_template</code>. Data-binding can be applied to the
 elements within a view using inline <code>data-bind</code> or the abstrated <code>data-class</code>.</p>
 <p>Here is an example of a View:</p>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_input_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_input_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-input"</span> <span class="hljs-attribute">placeholder</span>=<span class="hljs-value">"What needs to be done?"</span> <span class="hljs-attribute">autofocus</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 
@@ -262,7 +257,7 @@ and the ViewModel is a conceptual representation of the data from the model so t
 be represented by the View.</p>
 <p>In a scalejs ViewModel you can create observable properties
 and functions that can be used to bind to the View.</p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!main'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
@@ -290,7 +285,7 @@ encapsulated by the ViewModel function and therefore cannot be used to bind to t
 <h2 id="bindings">Bindings</h2>
 <p>If the use of <code>data-bind</code> does not suit your needs, you can use a <code>data-class</code> to define the bindings for an element.
 This is done in an external JavaScript bindings file, which typically will look something like this:</p>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*global define */</span>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 <span class="hljs-comment">/*jslint sloppy: true*/</span>
 define({
     <span class="hljs-string">'main-text'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(ctx)</span> {</span>

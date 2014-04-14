@@ -11,7 +11,7 @@
     <script src="style/metro.min.js"></script>
 	  <link rel="stylesheet" href="highlight.css" />
 
-	<meta name="generator" content="DocPad v6.60.3" />
+	<meta name="generator" content="DocPad v6.60.4" />
 	
     
 	<style>
@@ -63,11 +63,6 @@
 		$('pre').each(function() {
 			$(this).html($(this).html().replace(/!!\*/g, "<i style='background-color:#FFFF99'>").replace(/\*\*!/g, "</i>"));
 		});
-		
-		//if path contains grid then open the link
-		if(/grid\d/.test(path)) {
-			$('.icon-grid').click();
-		}
     });
 
   </script>
@@ -178,7 +173,7 @@
 				  <li class="title">UI Components</li>
 				            <li>
 								<a class="dropdown-toggle" href=""><i class="icon-grid"></i> Grid</a>
-								<ul class="dropdown-menu" data-role="dropdown">
+								<ul class="dropdown-menu" data-role="dropdown" style="display:block">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
 									<li><a href="./grid3.html">Sorting</a></li>
@@ -212,7 +207,7 @@ and does not take guess-work to position things correctly. </p>
 <h3 id="a-simple-grid">A simple grid</h3>
 <p>This is a simple grid showing some of Grid Layout&#39;s basic features.</p>
 <h5 id="example-the-css-for-a-simple-grid">Example: the css for a simple grid</h5>
-<pre class="highlight"><code class="css"><span class="hljs-comment">/*GridLayoutStart*/</span>
+<pre class="highlight"><code class="hljs css"><span class="hljs-comment">/*GridLayoutStart*/</span>
 <span class="hljs-class">.tut-grid</span> <span class="hljs-rules">{
     <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-number">300</span>px</span></span>;
     <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">400</span>px</span></span>;
@@ -239,7 +234,7 @@ and does not take guess-work to position things correctly. </p>
 <span class="hljs-comment">/*GridLayoutEnd*/</span>
 </code></pre>
 <h5 id="example-the-html-for-a-simple-grid">Example: the html for a simple grid</h5>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"tut-grid"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"tut-grid"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"tut-grid__spanned"</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"background: blue;"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"tut-grid__header"</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"background: green;"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"tut-grid__text"</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"background: yellow;"</span>&gt;</span>I'm defining the height of this row!<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
@@ -253,7 +248,7 @@ and does not take guess-work to position things correctly. </p>
 <p>After <a href="./composition.html">composing your UI</a> to contain all of the regions it needs, you can easily define where they are positioned
 by applying some styles to them. </p>
 <h5 id="example-regions-in-a-view">Example: Regions in a view</h5>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main_template"</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"left"</span>&gt;</span>Navigation<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"leftSplitter"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
@@ -268,7 +263,7 @@ by applying some styles to them. </p>
 <p>Left Splitter and Header Splitter are margin areas which lie inbetween regions, but can also be <a href="./gridlayout.html#splitters">splitters</a>.</p>
 <p>We will inspect the <code>#main</code> div and discuss how it sets up the Grid Layout.</p>
 <h5 id="example-setting-up-the-grid">Example: Setting up the Grid</h5>
-<pre class="highlight"><code class="css"><span class="hljs-id">#main</span> <span class="hljs-rules">{
+<pre class="highlight"><code class="hljs css"><span class="hljs-id">#main</span> <span class="hljs-rules">{
     <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> -ms-grid</span></span>;
     <span class="hljs-rule"><span class="hljs-attribute">-ms-grid-columns</span>:<span class="hljs-value"> <span class="hljs-number">300</span>px auto <span class="hljs-number">1</span>fr <span class="hljs-number">1</span>fr</span></span>; 
     <span class="hljs-rule"><span class="hljs-attribute">-ms-grid-rows</span>:<span class="hljs-value"> <span class="hljs-number">100</span>px auto <span class="hljs-number">1</span>fr <span class="hljs-number">100</span>px</span></span>; 
@@ -292,7 +287,7 @@ resizes to fit its content, and the last 2 take up 1/2 of the remaining space.
 Also, the first row is 100px, the second automatically sizes to its content, 
 the third one takes up the remaining space, and the last row is 100px tall.</p>
 <h5 id="for-a-full-page-grid">For a full page grid</h5>
-<pre class="highlight"><code class="css"><span class="hljs-tag">html</span>, <span class="hljs-tag">body</span> <span class="hljs-rules">{
+<pre class="highlight"><code class="hljs css"><span class="hljs-tag">html</span>, <span class="hljs-tag">body</span> <span class="hljs-rules">{
     <span class="hljs-rule"><span class="hljs-attribute">margin</span>:<span class="hljs-value"> <span class="hljs-number">0</span>px</span></span>;
     <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-number">100</span>%</span></span>;
     <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">100</span>%</span></span>;
@@ -303,30 +298,30 @@ the third one takes up the remaining space, and the last row is 100px tall.</p>
 <p>Inside our extension, we use a parser to parse grid-related css rules from the page. To improve performance and mitigate limitations of our parser, our extension only parses text between <code>/*GridLayoutStart*/</code> and <code>/*GridLayoutEnd*/</code> tags.</p>
 <p>Since the extension parses the page&#39;s css to get all the css properties describing the grid, you will need to call a function to load the current page&#39;s styles into the extension. If you add/change the style elements in your header, you will need to recall this function to load the new styles into the extension.</p>
 <h5 id="parse-all-styles-from-style-elements-in-header-loads-any-hrefs-">Parse all styles from style elements in header (loads any hrefs)</h5>
-<pre class="highlight"><code class="javascript">sandbox.layout.parseGridStyles(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+<pre class="highlight"><code class="hljs javascript">sandbox.layout.parseGridStyles(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
     console.log(<span class="hljs-string">'styles loaded and parsed'</span>);
 });
 </code></pre>
 <p>At any point after the styles are loaded, you will call <code>invalidate</code> to update the positions of elements on your page according to the grid. This function is called automatically when the window is resized.</p>
 <h5 id="update-elements-to-adhere-to-grid">Update elements to adhere to grid</h5>
-<pre class="highlight"><code class="javascript"><span class="hljs-comment">/*
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*
  * add some elements to the page, they need to be placed according to grid rules
  */</span>
 sandbox.layout.invalidate();
 </code></pre>
 <p>You can pass a specific element to invalidate if you only want to recalculate the grid for that element+children </p>
 <h5 id="redalculating-the-children-of-a-specific-element">Redalculating the children of a specific element</h5>
-<pre class="highlight"><code class="javascript">sandbox.layout.invalidate({ container: myDiv });
+<pre class="highlight"><code class="hljs javascript">sandbox.layout.invalidate({ container: myDiv });
 </code></pre>
 <p>Additionally, you can register a callback to respond to the layout being recalculated (including page resizing). Use the following functions.</p>
 <h5 id="a-callback-for-whenever-any-part-of-the-page-is-invalidated-">A callback for whenever any part of the page is invalidated.</h5>
-<pre class="highlight"><code class="javascript">sandbox.layout.onLayoutDone(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+<pre class="highlight"><code class="hljs javascript">sandbox.layout.onLayoutDone(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
     console.log(<span class="hljs-string">"layout has been recalculated"</span>);
 });
 </code></pre>
 <p>When you run your scalejs application, it will need to load/parse the styles at least once. Whenever your ScaleJS modules add templates to the page, you will have to consider whether the layout needs to be recalculated. If your template contains elements that will match to grid-layout css rules, you will need to call sandbox.layout.invalidate. Consider the following code snippet.</p>
 <h5 id="calling-invalidate-from-mainmodule-js">Calling invalidate from mainModule.js</h5>
-<pre class="highlight"><code class="javascript">registerStates(<span class="hljs-string">'root'</span>,
+<pre class="highlight"><code class="hljs javascript">registerStates(<span class="hljs-string">'root'</span>,
     state(<span class="hljs-string">'app'</span>,
         state(<span class="hljs-string">'initialization'</span>,
             onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
@@ -353,7 +348,7 @@ that span multiple auto-sized rows or columns will result in incorrectly sized r
 <p>As a result of our use of absolute positioning, our grids must explicitly state their width/height.
 In IE, the following div would expand to a height of 300px, but using our extension in chrome/ff, the grid would 
 default to height: 0px. If your grid needs a specific height, you must explicitly declare it.</p>
-<pre class="highlight"><code class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"display: -ms-grid; -ms-grid-rows: 100px 200px;"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"display: -ms-grid; -ms-grid-rows: 100px 200px;"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </code></pre>
 
 	    </div>
