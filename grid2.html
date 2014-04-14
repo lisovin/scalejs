@@ -173,7 +173,7 @@
 				  <li class="title">UI Components</li>
 				            <li>
 								<a class="dropdown-toggle" href=""><i class="icon-grid"></i> Grid</a>
-								<ul class="dropdown-menu" data-role="dropdown" style="display:block">
+								<ul class="dropdown-menu" data-role="dropdown" style="display:block !important">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
 									<li><a href="./grid3.html">Sorting</a></li>
@@ -345,7 +345,8 @@ define({
 </code></pre>
 <h3 id="viewmodel">ViewModel</h3>
 <p>Filtering must also be enabled on the columns themselves. This is more complex than the default filtering because
-you must specify observables for the filter to use. </p>
+you must specify observables for the filter to use. 
+ViewModel filters also need a <code>type</code> propery which can be <code>string</code> or <code>number</code>, and optionally, it can be passed a <code>quickFilterOp</code>.</p>
 <h5 id="example-the-observables-that-need-to-be-defined-on-the-filter-for-the-column">Example: the observables that need to be defined on the filter for the column</h5>
 <pre class="highlight"><code class="hljs javascript">{ 
     id: <span class="hljs-string">"Symbol"</span>, 
@@ -361,8 +362,7 @@ you must specify observables for the filter to use. </p>
 };
 </code></pre>
 <p>For the sake of simplicity, we will only have a filter on the <strong>Symbol</strong> column. 
-Since we do not have a backend service to do the filtering for us, we will do the filtering on the ViewModel.
-ViewModel filters also need a <code>type</code> propery which can be <code>string</code> or <code>number</code>, and optionally, it can be passed a <code>quickFilterOp</code>.</p>
+Since we do not have a backend service to do the filtering for us, we will do the filtering in a seperate file, <strong>filtering.js</strong>.</p>
 <p><strong>Note: do not mix in default filtering with ViewModel filtering.</strong></p>
 <p>The value in the <code>value</code> and the <code>quickSearch</code> observable will <strong>always be an array</strong> which is either empty
 or contains 1 of more of objects with the following format</p>
@@ -376,24 +376,23 @@ or contains 1 of more of objects with the following format</p>
 <h5 id="example-the-viewmodel-for-itemssource-and-columns-mainviewmodel-js-https-github-com-lisovin-scalejs-examples-blob-grid-2b-grid-app-main-viewmodels-mainviewmodel-js-">Example: the viewmodel for itemsSource and columns (<a href="https://github.com/lisovin/scalejs-examples/blob/grid-2b/Grid/app/main/viewmodels/mainViewModel.js">mainViewModel.js</a>)</h5>
 <pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
-    <span class="hljs-string">'sandbox!main'</span>
+    <span class="hljs-string">'sandbox!main'</span>,!!*
+    <span class="hljs-string">'./filtering'</span>**!
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
-    sandbox
+    sandbox!!*,
+    filtering**!
 )</span> {</span>
 <span class="hljs-pi">    'use strict'</span>;
 
     <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
         <span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
-            range = sandbox.linq.enumerable.range,
             observableArray = sandbox.mvvm.observableArray,
-            ajaxGet = sandbox.ajax.jsonpGet,
-            !!*observable = sandbox.mvvm.observable,**!
+            ajaxGet = sandbox.ajax.jsonpGet,!!*
+            observable = sandbox.mvvm.observable,**!
             <span class="hljs-comment">// vars</span>
             columns,
             itemsSource = observableArray()!!*,
-            itemsCount = observable(),
-            evaluate,
-            companies;**!
+            itemsCount = observable();**!
 
         !!*<span class="hljs-comment">// creates observables needed for filter</span>
         <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createFilter</span><span class="hljs-params">(type)</span> {</span>
@@ -419,7 +418,7 @@ define([
 
         ajaxGet(<span class="hljs-string">'./companylist.txt'</span>, {}).subscribe(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(data)</span> {</span>
             !!*<span class="hljs-comment">// maintain original companies for filtering</span>
-            companies = <span class="hljs-built_in">JSON</span>.parse(data).map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(company, index)</span> {</span>**!
+            <span class="hljs-keyword">var</span> companies = <span class="hljs-built_in">JSON</span>.parse(data).map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(company, index)</span> {</span>**!
                 <span class="hljs-comment">// each item in itemsSource needs an index</span>
                 company.index = index;
                 <span class="hljs-comment">// money formatter</span>
@@ -428,66 +427,103 @@ define([
                 <span class="hljs-keyword">return</span> company;
             });
 
-            !!*itemsCount(companies.length);
-            itemsSource(companies);**!
+            !!*itemsCount(companies.length);**!
+            itemsSource(companies);
+
+            !!*<span class="hljs-comment">// enable filtering using filtering.js</span>
+            filtering({
+                filteredColumn: columns[<span class="hljs-number">0</span>],
+                originalItems: companies,
+                itemsSource: itemsSource,
+                itemsCount: itemsCount
+            })**!
         });
-
-        !!*<span class="hljs-comment">// functions needed for string filter</span>
-        evaluate = {
-            In: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(s, v)</span> {</span> <span class="hljs-keyword">return</span> v.indexOf(s) !== -<span class="hljs-number">1</span>; },
-            Contains: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(s, v)</span> {</span> <span class="hljs-keyword">return</span> s.indexOf(v[<span class="hljs-number">0</span>]) !== -<span class="hljs-number">1</span>; },
-            StartsWith: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(s, v)</span> {</span> <span class="hljs-keyword">return</span> s.indexOf(v[<span class="hljs-number">0</span>]) === <span class="hljs-number">0</span>; },
-            EndsWith: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(s, v)</span> {</span> <span class="hljs-keyword">return</span> s.indexOf(v[<span class="hljs-number">0</span>], s.length - v.length) !== -<span class="hljs-number">1</span>; },
-            NotEmpty: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(s)</span> {</span> <span class="hljs-keyword">return</span> s !== <span class="hljs-string">""</span>}
-        }**!
-
-        !!*<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">upperCase</span><span class="hljs-params">(value)</span> {</span>
-            <span class="hljs-keyword">return</span> value.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(v)</span> {</span>
-                <span class="hljs-keyword">return</span> v.toUpperCase();
-            });
-        }**!
-
-        !!*<span class="hljs-comment">// filter is defined on the first column</span>
-        columns[<span class="hljs-number">0</span>].filter.value.subscribe(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(v)</span> {</span>
-            <span class="hljs-comment">// v is an array with objects { op: &lt;filterOperation&gt;, values: [&lt;valuesArray&gt;] }</span>
-            <span class="hljs-keyword">if</span> (v.length === <span class="hljs-number">0</span>) {
-                <span class="hljs-comment">// there are no filters</span>
-                itemsCount(companies.length);
-                itemsSource(companies);
-                <span class="hljs-keyword">return</span>;
-            }
-
-            <span class="hljs-comment">// filtering</span>
-            <span class="hljs-keyword">var</span> filteredItems = v.reduce(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(items, filter)</span> {</span>
-                <span class="hljs-keyword">return</span> items.filter(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> {</span>
-                    <span class="hljs-keyword">return</span> evaluate[filter.op](item.Symbol, upperCase(filter.values))
-                });
-            }, companies).map(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(item, index)</span> {</span>
-                <span class="hljs-comment">// need to set new index</span>
-                item.index = index;
-                <span class="hljs-keyword">return</span> item;
-            });
-            itemsCount(filteredItems.length);
-            itemsSource(filteredItems);
-        });**!
-
-        !!*<span class="hljs-comment">// need to also set the list items</span>
-        columns[<span class="hljs-number">0</span>].filter.quickSearch.subscribe(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(q)</span> {</span>
-            <span class="hljs-keyword">if</span> (q.length === <span class="hljs-number">0</span>) {
-                columns[<span class="hljs-number">0</span>].filter.values(companies.take(<span class="hljs-number">50</span>).toArray());
-            } <span class="hljs-keyword">else</span> {
-                columns[<span class="hljs-number">0</span>].filter.values(companies
-                    .map(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(c)</span> {</span> <span class="hljs-keyword">return</span> c.Symbol; })
-                    .where(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(c)</span> {</span> <span class="hljs-keyword">return</span> evaluate.StartsWith(c, upperCase(q.values)); })
-                    .take(<span class="hljs-number">50</span>).toArray());
-            }
-        });**!
 
         <span class="hljs-keyword">return</span> {
             columns: columns,
             itemsSource: itemsSource!!*,
             itemsCount: itemsCount**!
         };
+    };
+});
+</code></pre>
+<h3 id="filtering-js">filtering.js</h3>
+<p>For clarity, we decided to implement the filtering in a seperate file, filtering.js.</p>
+<h5 id="example-filtering-items-in-filtering-js-https-github-com-lisovin-scalejs-examples-blob-grid-2b-grid-app-main-viewmodels-filtering-js-">Example: filtering items in <a href="https://github.com/lisovin/scalejs-examples/blob/grid-2b/Grid/app/main/viewmodels/filtering.js">filtering.js</a></h5>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
+define([
+    <span class="hljs-string">'sandbox!main'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
+    sandbox
+)</span> {</span>
+<span class="hljs-pi">    'use strict'</span>;
+
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(config)</span> {</span>
+        <span class="hljs-keyword">var</span> column = config.filteredColumn,
+            colFilter = column.filter,
+            originalItems = config.originalItems,
+            itemsSource = config.itemsSource,
+            itemsCount = config.itemsCount,
+            <span class="hljs-comment">// comparison functions needed for string filter</span>
+            <span class="hljs-comment">// s is the 'source' items and v are the 'values' in the expression</span>
+            comparisons = {
+                In: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(s, v)</span> {</span> <span class="hljs-keyword">return</span> v.indexOf(s) !== -<span class="hljs-number">1</span>; },
+                Contains: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(s, v)</span> {</span> <span class="hljs-keyword">return</span> s.indexOf(v[<span class="hljs-number">0</span>]) !== -<span class="hljs-number">1</span>; },
+                StartsWith: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(s, v)</span> {</span> <span class="hljs-keyword">return</span> s.indexOf(v[<span class="hljs-number">0</span>]) === <span class="hljs-number">0</span>; },
+                EndsWith: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(s, v)</span> {</span> <span class="hljs-keyword">return</span> s.indexOf(v[<span class="hljs-number">0</span>], s.length - v.length) !== -<span class="hljs-number">1</span>; },
+                NotEmpty: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(s)</span> {</span> <span class="hljs-keyword">return</span> s !== <span class="hljs-string">""</span> }
+            };
+
+
+        <span class="hljs-comment">// helper function to convert an array of strings to uppercase</span>
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">arrayToUpperCase</span><span class="hljs-params">(value)</span> {</span>
+            <span class="hljs-keyword">return</span> value.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(v)</span> {</span>
+                <span class="hljs-keyword">return</span> v.toUpperCase();
+            });
+        }
+
+        <span class="hljs-comment">// filterExpression contains the operation (e.g. 'StartsWith') and values</span>
+        <span class="hljs-comment">// returns a function which can be used to filter items</span>
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">evaluate</span><span class="hljs-params">(filterExpression)</span> {</span>
+            <span class="hljs-keyword">var</span> evaluateOperation = comparisons[filterExpression.op],
+                values = arrayToUpperCase(filterExpression.values);
+
+            <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(item)</span> {</span>
+                <span class="hljs-keyword">return</span> evaluateOperation(item[column.field], values);
+            }
+        }
+
+        <span class="hljs-comment">// value is the filter expression(s) defined by user</span>
+        <span class="hljs-comment">// subscribe to value to respond to user input</span>
+        colFilter.value.subscribe(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(expressions)</span> {</span>
+            <span class="hljs-keyword">var</span> filteredItems;
+
+            <span class="hljs-comment">// iterate through all expressions, filtering the items each item</span>
+            filteredItems = expressions.reduce(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(items, filterExpression)</span> {</span>
+                <span class="hljs-keyword">return</span> items.filter(evaluate(filterExpression));
+            }, originalItems);
+
+            <span class="hljs-comment">// need to set new index on the filtered items</span>
+            filteredItems = filteredItems.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item, index)</span> {</span>
+                item.index = index;
+                <span class="hljs-keyword">return</span> item;
+            });
+
+            <span class="hljs-comment">// finally, update the itemsSource and itemsCount with the new items</span>
+            itemsCount(filteredItems.length);
+            itemsSource(filteredItems);
+        });
+
+        <span class="hljs-comment">// need to also set the list items by subscribing to quickSearch</span>
+        colFilter.quickSearch.subscribe(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(quickSearchExpression)</span> {</span>
+            <span class="hljs-keyword">var</span> listItems = originalItems
+                .filter(evaluate(quickSearchExpression))
+                .map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(c)</span> {</span> <span class="hljs-keyword">return</span> c[column.field] }); <span class="hljs-comment">// only need the values in the column</span>
+
+            <span class="hljs-comment">// update the list values (filter.values observableArray) with the new list items</span>
+            <span class="hljs-comment">// take 50 for optimization</span>
+            colFilter.values(listItems.take(<span class="hljs-number">50</span>).toArray());
+        });
     };
 });
 </code></pre>

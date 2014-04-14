@@ -196,6 +196,7 @@ define({
 
 Filtering must also be enabled on the columns themselves. This is more complex than the default filtering because
 you must specify observables for the filter to use. 
+ViewModel filters also need a `type` propery which can be `string` or `number`, and optionally, it can be passed a `quickFilterOp`.
 
 ##### Example: the observables that need to be defined on the filter for the column
 ```javascript
@@ -214,8 +215,7 @@ you must specify observables for the filter to use.
 ```
 
 For the sake of simplicity, we will only have a filter on the __Symbol__ column. 
-Since we do not have a backend service to do the filtering for us, we will do the filtering on the ViewModel.
-ViewModel filters also need a `type` propery which can be `string` or `number`, and optionally, it can be passed a `quickFilterOp`.
+Since we do not have a backend service to do the filtering for us, we will do the filtering in a seperate file, __filtering.js__.
 
 __Note: do not mix in default filtering with ViewModel filtering.__
 
@@ -236,24 +236,23 @@ When implementing filtering, make sure to be careful about types and case.
 ```javascript
 /*global define */
 define([
-    'sandbox!main'
+    'sandbox!main',!!*
+    './filtering'**!
 ], function (
-    sandbox
+    sandbox!!*,
+    filtering**!
 ) {
     'use strict';
 
     return function () {
         var // imports
-            range = sandbox.linq.enumerable.range,
             observableArray = sandbox.mvvm.observableArray,
-            ajaxGet = sandbox.ajax.jsonpGet,
-            !!*observable = sandbox.mvvm.observable,**!
+            ajaxGet = sandbox.ajax.jsonpGet,!!*
+            observable = sandbox.mvvm.observable,**!
             // vars
             columns,
             itemsSource = observableArray()!!*,
-            itemsCount = observable(),
-            evaluate,
-            companies;**!
+            itemsCount = observable();**!
    
         !!*// creates observables needed for filter
         function createFilter(type) {
@@ -279,7 +278,7 @@ define([
 
         ajaxGet('./companylist.txt', {}).subscribe(function (data) {
             !!*// maintain original companies for filtering
-            companies = JSON.parse(data).map(function (company, index) {**!
+            var companies = JSON.parse(data).map(function (company, index) {**!
                 // each item in itemsSource needs an index
                 company.index = index;
                 // money formatter
@@ -288,60 +287,17 @@ define([
                 return company;
             });
 
-            !!*itemsCount(companies.length);
-            itemsSource(companies);**!
+            !!*itemsCount(companies.length);**!
+            itemsSource(companies);
+
+            !!*// enable filtering using filtering.js
+            filtering({
+                filteredColumn: columns[0],
+                originalItems: companies,
+                itemsSource: itemsSource,
+                itemsCount: itemsCount
+            })**!
         });
-		
-        !!*// functions needed for string filter
-        evaluate = {
-            In: function (s, v) { return v.indexOf(s) !== -1; },
-            Contains: function (s, v) { return s.indexOf(v[0]) !== -1; },
-            StartsWith: function (s, v) { return s.indexOf(v[0]) === 0; },
-            EndsWith: function (s, v) { return s.indexOf(v[0], s.length - v.length) !== -1; },
-            NotEmpty: function(s) { return s !== ""}
-        }**!
-
-        !!*function upperCase(value) {
-            return value.map(function (v) {
-                return v.toUpperCase();
-            });
-        }**!
-
-        !!*// filter is defined on the first column
-        columns[0].filter.value.subscribe(function (v) {
-            // v is an array with objects { op: <filterOperation>, values: [<valuesArray>] }
-            if (v.length === 0) {
-                // there are no filters
-                itemsCount(companies.length);
-                itemsSource(companies);
-                return;
-            }
-
-            // filtering
-            var filteredItems = v.reduce(function (items, filter) {
-                return items.filter(function (item) {
-                    return evaluate[filter.op](item.Symbol, upperCase(filter.values))
-                });
-            }, companies).map(function(item, index) {
-                // need to set new index
-                item.index = index;
-                return item;
-            });
-            itemsCount(filteredItems.length);
-            itemsSource(filteredItems);
-        });**!
-
-        !!*// need to also set the list items
-        columns[0].filter.quickSearch.subscribe(function (q) {
-            if (q.length === 0) {
-                columns[0].filter.values(companies.take(50).toArray());
-            } else {
-                columns[0].filter.values(companies
-                    .map(function(c) { return c.Symbol; })
-                    .where(function (c) { return evaluate.StartsWith(c, upperCase(q.values)); })
-                    .take(50).toArray());
-            }
-        });**!
 
         return {
             columns: columns,
@@ -351,6 +307,92 @@ define([
     };
 });
 ```
+
+### filtering.js
+
+For clarity, we decided to implement the filtering in a seperate file, filtering.js.
+
+##### Example: filtering items in [filtering.js](https://github.com/lisovin/scalejs-examples/blob/grid-2b/Grid/app/main/viewmodels/filtering.js)
+```javascript
+/*global define */
+define([
+    'sandbox!main'
+], function (
+    sandbox
+) {
+    'use strict';
+
+    return function (config) {
+        var column = config.filteredColumn,
+            colFilter = column.filter,
+            originalItems = config.originalItems,
+            itemsSource = config.itemsSource,
+            itemsCount = config.itemsCount,
+            // comparison functions needed for string filter
+            // s is the 'source' items and v are the 'values' in the expression
+            comparisons = {
+                In: function (s, v) { return v.indexOf(s) !== -1; },
+                Contains: function (s, v) { return s.indexOf(v[0]) !== -1; },
+                StartsWith: function (s, v) { return s.indexOf(v[0]) === 0; },
+                EndsWith: function (s, v) { return s.indexOf(v[0], s.length - v.length) !== -1; },
+                NotEmpty: function (s) { return s !== "" }
+            };
+
+
+        // helper function to convert an array of strings to uppercase
+        function arrayToUpperCase(value) {
+            return value.map(function (v) {
+                return v.toUpperCase();
+            });
+        }
+
+        // filterExpression contains the operation (e.g. 'StartsWith') and values
+        // returns a function which can be used to filter items
+        function evaluate(filterExpression) {
+            var evaluateOperation = comparisons[filterExpression.op],
+                values = arrayToUpperCase(filterExpression.values);
+
+            return function(item) {
+                return evaluateOperation(item[column.field], values);
+            }
+        }
+
+        // value is the filter expression(s) defined by user
+        // subscribe to value to respond to user input
+        colFilter.value.subscribe(function (expressions) {
+            var filteredItems;
+
+            // iterate through all expressions, filtering the items each item
+            filteredItems = expressions.reduce(function (items, filterExpression) {
+                return items.filter(evaluate(filterExpression));
+            }, originalItems);
+
+            // need to set new index on the filtered items
+            filteredItems = filteredItems.map(function (item, index) {
+                item.index = index;
+                return item;
+            });
+
+            // finally, update the itemsSource and itemsCount with the new items
+            itemsCount(filteredItems.length);
+            itemsSource(filteredItems);
+        });
+
+        // need to also set the list items by subscribing to quickSearch
+        colFilter.quickSearch.subscribe(function (quickSearchExpression) {
+            var listItems = originalItems
+                .filter(evaluate(quickSearchExpression))
+                .map(function (c) { return c[column.field] }); // only need the values in the column
+            
+            // update the list values (filter.values observableArray) with the new list items
+            // take 50 for optimization
+            colFilter.values(listItems.take(50).toArray());
+        });
+    };
+});
+```
+
+
 
 Whether you are using the default filtering, or using your ViewModel to filter, your [images-and-styles](./grid2.html#images-and-styles)
 and the [result](./grid2.html#result) will be the same. 
