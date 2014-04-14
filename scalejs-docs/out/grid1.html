@@ -63,11 +63,6 @@
 		$('pre').each(function() {
 			$(this).html($(this).html().replace(/!!\*/g, "<i style='background-color:#FFFF99'>").replace(/\*\*!/g, "</i>"));
 		});
-		
-		//if path contains grid then open the link
-		if(/grid\d/.test(path)) {
-			$('.icon-grid').click();
-		}
     });
 
   </script>
@@ -178,7 +173,7 @@
 				  <li class="title">UI Components</li>
 				            <li>
 								<a class="dropdown-toggle" href=""><i class="icon-grid"></i> Grid</a>
-								<ul class="dropdown-menu" data-role="dropdown">
+								<ul class="dropdown-menu" data-role="dropdown" style="display:block">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
 									<li><a href="./grid3.html">Sorting</a></li>
@@ -321,7 +316,7 @@ define([
 </code></pre>
 <p>In our viewmodel we can see that <code>columns</code> is an array of objects that contain three required properties: <code>id</code>, <code>field</code> and <code>name</code>.
 <code>id</code> is a unique identifier, <code>field</code> is the name of the property that is used by itemsSource,
-and <code>name</code> is the name of the column in the view.
+and <code>name</code> is the name of the column in the view. 
 Each column may also contain optional properties, such as <code>minWidth</code> (which sets the minimum width for the column in pixels)
 and <code>cssClass</code> (which gives that column a class). <code>cssClass</code> is used to give the money columns <code>text-align: right</code>. </p>
 <p>We can also see that our itemsSource can be taken straight from the external source with only a slight modification.

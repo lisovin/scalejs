@@ -63,11 +63,6 @@
 		$('pre').each(function() {
 			$(this).html($(this).html().replace(/!!\*/g, "<i style='background-color:#FFFF99'>").replace(/\*\*!/g, "</i>"));
 		});
-		
-		//if path contains grid then open the link
-		if(/grid\d/.test(path)) {
-			$('.icon-grid').click();
-		}
     });
 
   </script>
@@ -103,7 +98,7 @@
 				  <li class="title">UI Components</li>
 				            <li>
 								<a class="dropdown-toggle" href=""><i class="icon-grid"></i> Grid</a>
-								<ul class="dropdown-menu" data-role="dropdown">
+								<ul class="dropdown-menu" data-role="dropdown" style="display:block">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
 									<li><a href="./grid3.html">Sorting</a></li>

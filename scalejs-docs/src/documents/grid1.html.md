@@ -163,7 +163,7 @@ define([
 
 In our viewmodel we can see that `columns` is an array of objects that contain three required properties: `id`, `field` and `name`.
 `id` is a unique identifier, `field` is the name of the property that is used by itemsSource,
-and `name` is the name of the column in the view.
+and `name` is the name of the column in the view. 
 Each column may also contain optional properties, such as `minWidth` (which sets the minimum width for the column in pixels)
 and `cssClass` (which gives that column a class). `cssClass` is used to give the money columns `text-align: right`. 
 
