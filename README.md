@@ -9,7 +9,7 @@ and is looking for ways to apply same principles and patterns
  to JavaScript client side development. 
 
 It's inspired by Nicholas Zakas <a href="http://www.youtube.com/watch?v=vXjVFPosQHw">"Scalable JavaScript Application Architecture"</a> talk. 
-The framework leverages best tools and libraries such as Knockout, Linq, RxJS, RequireJS, JSLint, SCION statecharts engine, Chutzpah, jasmine, etc. and relies on what's considered as "good parts" of JavaScript language.
+The framework leverages best tools and libraries such as Knockout, Linq, RxJS, RequireJS, JSLint, SCION statecharts engine, jasmine, etc. and relies on what's considered as "good parts" of JavaScript language (aka "functional JavaScript")
 
 (see more at: http://scalejs.com/docs.html)
 
