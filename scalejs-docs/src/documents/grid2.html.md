@@ -163,11 +163,9 @@ or clone [scalejs-examples repository](https://github.com/lisovin/scalejs-exampl
 
 ### Bindings
 
-The changes to the bindings for ViewModel filtering similar to the ones for [default filtering](./default-filtering.html).
+The changes to the bindings for ViewModel filtering identical to the ones for [default filtering](./default-filtering.html).
 In your bindings, you will need to show the header row (the row which contains the quick filter and the icon)
-and also tell the extension to include the 'observableFilters' plugin. __You must also specify a `itemsCount` property.__
-This is because once we have enabled ViewModel filtering or sorting, we also have control of how many items are in the grid
-regardless of how many items there is. This will allow us to implement [virtualization](./grid4.html) in a future tutorial.
+and also tell the extension to include the 'observableFilters' plugin.
 
 ##### Example: adding ViewModel filtering to grid bindings ([mainBindings.js](https://github.com/lisovin/scalejs-examples/blob/grid-2b/Grid/app/main/bindings/mainBindings.js))
 ```javascript
@@ -184,8 +182,7 @@ define({
                 !!*showHeaderRow: true,
                 plugins: {
                     'observableFilters': {}
-                },
-                itemsCount: this.itemsCount**!
+                }**!
             }
         };
     }
@@ -251,8 +248,8 @@ define([
             observable = sandbox.mvvm.observable,**!
             // vars
             columns,
-            itemsSource = observableArray()!!*,
-            itemsCount = observable();**!\
+            itemsSource = observableArray();
+
         function moneyFormatter(m) {
             return parseFloat(m).toFixed(2);
         }
@@ -284,17 +281,15 @@ define([
                 return company;
             });
 
-            !!*itemsCount(companies.length);**!
             itemsSource(companies);
 
             !!*// enable filtering using filtering.js
-            setupFilter(columns[0], companies, itemsSource, itemsCount);**!
+            setupFilter(columns[0], companies, itemsSource);**!
         });
 
         return {
             columns: columns,
-            itemsSource: itemsSource!!*,
-            itemsCount: itemsCount**!
+            itemsSource: itemsSource
         };
     };
 });
@@ -314,7 +309,7 @@ define([
 ) {
     'use strict';
 
-    return function (column, originalItems, itemsSource, itemsCount) {
+    return function (column, originalItems, itemsSource) {
         var colFilter = column.filter,
             // comparison functions needed for string filter
             // s is the 'source' items and v are the 'values' in the expression
@@ -352,8 +347,7 @@ define([
                 return item;
             });
 
-            // finally, update the itemsSource and itemsCount with the new items
-            itemsCount(filteredItems.length);
+            // finally, update the itemsSource with the new items
             itemsSource(filteredItems);
         });
 
