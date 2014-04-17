@@ -195,16 +195,11 @@
 <a href="https://github.com/lisovin/scalejs-examples/tree/master/Grid">Grid on GitHub</a></p>
 <hr>
 
-
-<p>Now that you have created the grid and added <a href="https://github.com/lisovin/scalejs-examples/tree/grid-3/Grid">filtering</a>
-capabilities, we will show you how to add sorting as well. This tutorial should be done after completing
- the <a href="./grid2.html">grid filtering</a> tutorial.</p>
-<p>Sorting, like filtering can be done in two ways. You can either use the default sorting which comes with the extension,
-or you can sort the items yourself. The benefit to the latter is that you have full
-control over the data in the grid - meaning you have the option to implement sorting on the server. </p>
-<p>You can view this code on <a href="https://github.com/lisovin/scalejs-examples/tree/grid-3/Grid">github</a>
-or clone <a href="https://github.com/lisovin/scalejs-examples">scalejs-examples repository</a> and running the following command:</p>
-<p><code>git checkout grid-3</code></p>
+<p>The sorting tutorial will show you how to add sorting to your grid.
+This tutorial is a continuation of the previous tutorial on <a href="./grid2.html">grid filtering</a>.
+You can implement either <a href="./grid3.html#default-sorting">default sorting</a> or <a href="./grid3.html#viewmodel-sorting">viewmodel sorting</a>.
+These two sections add on to the <a href="https://github.com/lisovin/scalejs-examples/tree/grid-2a/Grid">default filtered grid</a>
+or the <a href="https://github.com/lisovin/scalejs-examples/tree/grid-2b/Grid">viewmodel filtered grid</a> respectively.</p>
 <p><br></p>
 <h2 id="sorting-overview">Sorting Overview</h2>
 <p>Sorting your data is much more simple and straight forward than filtering.
@@ -217,40 +212,19 @@ Click on it once again to sort it in the opposite direction.</li>
 Multiple columns can be sorted by holding the <strong>shift</strong> key when clicking on the column headers to sort then.</li>
 </ul>
 <p><br></p>
-<h2 id="sorting-configuration">Sorting Configuration</h2>
-<p>Like filtering, there are a few changes you will need to make to the bindings and your columns in order to enable sorting.
-In your bindings, you will need to add a new option, <code>sorting</code>, and set it to <code>true</code>.</p>
-<p>Optionally, if you would like to enable multi-column sort, add a <code>multiColumnSort</code> property and set it to <code>true</code>.</p>
-<h5 id="example-adding-sorting-to-grid-bindings-mainbindings-js-https-github-com-lisovin-scalejs-examples-blob-grid-3-grid-app-main-bindings-mainbindings-js-">Example: adding sorting to grid bindings (<a href="https://github.com/lisovin/scalejs-examples/blob/grid-3/Grid/app/main/bindings/mainBindings.js">mainBindings.js</a>)</h5>
-<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
-<span class="hljs-comment">/*jslint sloppy: true*/</span>
-define({
-    <span class="hljs-string">'main-grid'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
-        <span class="hljs-keyword">return</span> {
-            slickGrid: {
-                columns: <span class="hljs-keyword">this</span>.columns,
-                itemsSource: <span class="hljs-keyword">this</span>.itemsSource,
-                enableColumnReorder: <span class="hljs-literal">false</span>,
-                forceFitColumns: <span class="hljs-literal">true</span>,
-                rowHeight: <span class="hljs-number">40</span>,
-                showHeaderRow: <span class="hljs-literal">true</span>,
-                !!*sorting: <span class="hljs-literal">true</span>,
-                multiColumnSort: <span class="hljs-literal">true</span>,**!
-                plugins: {
-                    <span class="hljs-string">'observableFilters'</span>: {}
-                }
-            }
-        };
-    }
-});
-</code></pre>
-<p>The next thing which needs to be done is modifying your columns in a similar fashion.
-You can enable specific columns by adding a <code>sortable</code> property and setting it to <code>true</code>.
+<h2 id="default-sorting">Default Sorting</h2>
+<p>Default sorting is provided by the grid if you do not wish to use your own sorting.
+You can view this code on <a href="https://github.com/lisovin/scalejs-examples/tree/grid-3a/Grid">github</a>
+or clone <a href="https://github.com/lisovin/scalejs-examples">scalejs-examples repository</a> and running the following command:</p>
+<p><code>git checkout grid-3a</code></p>
+<h3 id="columns">Columns</h3>
+<p>Life filtering, to enable sorting you only need to modify the columns.
+You can enable specific columns by adding a <code>sort</code> property and setting it to <code>true</code>.
 If you do not want specific columns to be sorted, omit this property.</p>
-<p>Optionally, to set a default sort, you must pass an aditional option called <code>defaultSort</code>
-and pass either <code>&#39;asc&#39;</code> or <code>&#39;desc&#39;</code>, which will sort that column in ascending order or descending order respectively.
-If you have multi-column sort enabled, you can apply this property to multiple columns.</p>
-<h5 id="example-the-viewmodel-for-itemssource-and-columns-mainviewmodel-js-https-github-com-lisovin-scalejs-examples-blob-grid-3-grid-app-main-viewmodels-mainviewmodel-js-">Example: the viewmodel for itemsSource and columns (<a href="https://github.com/lisovin/scalejs-examples/blob/grid-3/Grid/app/main/viewmodels/mainViewModel.js">mainViewModel.js</a>)</h5>
+<p>Optionally, to set a default sort order for a column, 
+and pass either <code>&#39;asc&#39;</code> or <code>&#39;desc&#39;</code> to the <code>sort</code> property instead of <code>true</code>.
+This will sort that column in ascending order or descending order respectively when the grid is initialized.</p>
+<h5 id="example-the-viewmodel-with-the-modified-columns-mainviewmodel-js-https-github-com-lisovin-scalejs-examples-blob-grid-3a-grid-app-main-viewmodels-mainviewmodel-js-">Example: the viewmodel with the modified columns (<a href="https://github.com/lisovin/scalejs-examples/blob/grid-3a/Grid/app/main/viewmodels/mainViewModel.js">mainViewModel.js</a>)</h5>
 <pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!main'</span>
@@ -261,7 +235,6 @@ define([
 
     <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
         <span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
-            range = sandbox.linq.enumerable.range,
             observableArray = sandbox.mvvm.observableArray,
             ajaxGet = sandbox.ajax.jsonpGet,
             <span class="hljs-comment">// vars</span>
@@ -273,12 +246,12 @@ define([
         }
 
         columns = [
-            { id: <span class="hljs-string">"Symbol"</span>, field: <span class="hljs-string">"Symbol"</span>, name: <span class="hljs-string">"Symbol"</span>, minWidth: <span class="hljs-number">75</span>, filter: { type: <span class="hljs-string">'string'</span> }, !!*sortable: <span class="hljs-literal">true</span>, defaultSort: <span class="hljs-string">'asc'</span>**! },
-            { id: <span class="hljs-string">"Name"</span>, field: <span class="hljs-string">"Name"</span>, name: <span class="hljs-string">"Name"</span>, minWidth: <span class="hljs-number">300</span>, filter: { type: <span class="hljs-string">'string'</span> }, !!*sortable: <span class="hljs-literal">true</span>**! },
-            { id: <span class="hljs-string">"LastSale"</span>, field: <span class="hljs-string">"LastSale"</span>, name: <span class="hljs-string">"Last Sale"</span>, cssClass: <span class="hljs-string">"money"</span>, minWidth: <span class="hljs-number">100</span>, filter: { type: <span class="hljs-string">'number'</span> }, !!*sortable: <span class="hljs-literal">true</span>**! },
-            { id: <span class="hljs-string">"MarketCap"</span>, field: <span class="hljs-string">"MarketCap"</span>, name: <span class="hljs-string">"Market Cap"</span>, cssClass: <span class="hljs-string">"money"</span>, minWidth: <span class="hljs-number">150</span>, filter: { type: <span class="hljs-string">'mumber'</span> }, !!*sortable: <span class="hljs-literal">true</span>**! },
-            { id: <span class="hljs-string">"Sector"</span>, field: <span class="hljs-string">"Sector"</span>, name: <span class="hljs-string">"Sector"</span>, minWidth: <span class="hljs-number">150</span>, filter: { type: <span class="hljs-string">'string'</span> }, !!*sortable: <span class="hljs-literal">true</span>**! },
-            { id: <span class="hljs-string">"Industry"</span>, field: <span class="hljs-string">"industry"</span>, name: <span class="hljs-string">"Industry"</span>, minWidth: <span class="hljs-number">350</span>, filter: { type: <span class="hljs-string">'string'</span> }, !!*sortable: <span class="hljs-literal">true</span>**! }];
+            { id: <span class="hljs-string">"Symbol"</span>, field: <span class="hljs-string">"Symbol"</span>, name: <span class="hljs-string">"Symbol"</span>, minWidth: <span class="hljs-number">75</span>, filter: { type: <span class="hljs-string">'string'</span> }, !!*sort: <span class="hljs-string">'asc'</span>**! },
+            { id: <span class="hljs-string">"Name"</span>, field: <span class="hljs-string">"Name"</span>, name: <span class="hljs-string">"Name"</span>, minWidth: <span class="hljs-number">300</span>, filter: { type: <span class="hljs-string">'string'</span> }, !!*sort: <span class="hljs-literal">true</span>**! },
+            { id: <span class="hljs-string">"LastSale"</span>, field: <span class="hljs-string">"LastSale"</span>, name: <span class="hljs-string">"Last Sale"</span>, cssClass: <span class="hljs-string">"money"</span>, minWidth: <span class="hljs-number">100</span>, filter: { type: <span class="hljs-string">'number'</span> }, !!*sort: <span class="hljs-literal">true</span>**! },
+            { id: <span class="hljs-string">"MarketCap"</span>, field: <span class="hljs-string">"MarketCap"</span>, name: <span class="hljs-string">"Market Cap"</span>, cssClass: <span class="hljs-string">"money"</span>, minWidth: <span class="hljs-number">150</span>, filter: { type: <span class="hljs-string">'mumber'</span> }, !!*sort: <span class="hljs-literal">true</span>**! },
+            { id: <span class="hljs-string">"Sector"</span>, field: <span class="hljs-string">"Sector"</span>, name: <span class="hljs-string">"Sector"</span>, minWidth: <span class="hljs-number">150</span>, filter: { type: <span class="hljs-string">'string'</span> }, !!*sort: <span class="hljs-literal">true</span>**! },
+            { id: <span class="hljs-string">"Industry"</span>, field: <span class="hljs-string">"industry"</span>, name: <span class="hljs-string">"Industry"</span>, minWidth: <span class="hljs-number">350</span>, filter: { type: <span class="hljs-string">'string'</span> }, !!*sort: <span class="hljs-literal">true</span>**! }];
 
         ajaxGet(<span class="hljs-string">'./companylist.txt'</span>, {}).subscribe(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(data)</span> {</span>
             itemsSource(<span class="hljs-built_in">JSON</span>.parse(data).map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(company, index)</span> {</span>
@@ -298,10 +271,33 @@ define([
     };
 });
 </code></pre>
-<p><br></p>
+<h3 id="multicolumn-sort">MultiColumn Sort</h3>
+<p>Optionally, if you would like to enable multi-column sort, add a <code>multiColumnSort</code> property to the bindings and set it to <code>true</code>.</p>
+<h5 id="example-adding-sorting-to-grid-bindings-mainbindings-js-https-github-com-lisovin-scalejs-examples-blob-grid-3a-grid-app-main-bindings-mainbindings-js-">Example: adding sorting to grid bindings (<a href="https://github.com/lisovin/scalejs-examples/blob/grid-3a/Grid/app/main/bindings/mainBindings.js">mainBindings.js</a>)</h5>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
+<span class="hljs-comment">/*jslint sloppy: true*/</span>
+define({
+    <span class="hljs-string">'main-grid'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">return</span> {
+            slickGrid: {
+                columns: <span class="hljs-keyword">this</span>.columns,
+                itemsSource: <span class="hljs-keyword">this</span>.itemsSource,
+                enableColumnReorder: <span class="hljs-literal">false</span>,
+                forceFitColumns: <span class="hljs-literal">true</span>,
+                rowHeight: <span class="hljs-number">40</span>,
+                showHeaderRow: <span class="hljs-literal">true</span>,
+                !!*multiColumnSort: <span class="hljs-literal">true</span>;**!
+            }
+        };
+    }
+});
+</code></pre>
+<p>Whether you are using the default sorting, or using your ViewModel to sort, your <a href="./grid3.html#images-and-styles">images and styles</a>
+and the <a href="./grid3.html#result">result</a> will be the same.
+<br></p>
 <h2 id="sorting-images-and-styles">Sorting Images and Styles</h2>
-<p>Include the images for the ascending and descending arrows can be found in the grid styles, <a href="https://github.com/lisovin/scalejs-examples/tree/grid-3/Grid/css/slick/images">here</a>.
-Update your <a href="https://github.com/lisovin/scalejs-examples/blob/grid-3/Grid/app/main/styles/main.less">main.less</a> file so that it contains styles for grids.</p>
+<p>Include the images for the ascending and descending arrows can be found in the grid styles, <a href="https://github.com/lisovin/scalejs-examples/tree/grid-3a/Grid/css/slick/images">here</a>.
+Update your <a href="https://github.com/lisovin/scalejs-examples/blob/grid-3a/Grid/app/main/styles/main.less">main.less</a> file so that it contains styles for grids.</p>
 <p><br></p>
 <h2 id="result">Result</h2>
 <p>Here is the result of those changes.</p>

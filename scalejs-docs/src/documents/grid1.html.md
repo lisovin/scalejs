@@ -5,7 +5,7 @@ isPage: true
 
 <link href="grid/slick/slick.grid.css" rel="stylesheet" type="text/css" />
 <link href="grid/slick/slick-default-theme.css" rel="stylesjeet" type="text/css" />
-<script src="grid/Grid-1.0.0.js" type="text/javascript"></script>
+<script src="grid/Grid-1.0.0.min.js" type="text/javascript"></script>
 
 # Grid Introduction
 
@@ -123,7 +123,6 @@ define([
 
     return function () {
         var // imports
-            range = sandbox.linq.enumerable.range,
             observableArray = sandbox.mvvm.observableArray,
             ajaxGet = sandbox.ajax.jsonpGet,
             // vars
@@ -143,9 +142,7 @@ define([
             { id: "Industry", field: "industry", name: "Industry", minWidth: 350}];
 
         ajaxGet('./companylist.txt', {}).subscribe(function (data) {
-            itemsSource(JSON.parse(data).map(function (company, index) {
-                // each item in itemsSource needs an index
-                company.index = index
+            itemsSource(JSON.parse(data).map(function (company) {
                 // money formatter
                 company.LastSale = moneyFormatter(company.LastSale);
                 company.MarketCap = moneyFormatter(company.MarketCap);
@@ -172,10 +169,6 @@ This is because each item in the array has properties (keys) which map to the fi
 Each item contains (at least) the following properties: Symbol, Name, LastSale, MarketCap, Sector, and Industry.
 Also note since we are using JavaScript that it is case sensitive. The only modification our ViewModel makes to the data from the source
 is parsing the number for the _LastSale_ and _MarketCap_ columns and giving it a fixed number of decimal places.
-
-One thing which might be weird but is also __required__ for your grid to work is giving each item in itemsSource an index.
-This index is leveraged in sorting, and allows the grid to maintain the order of the rows even as new data is added
-and removed. This is why you must set an initial index of each item which can be done easily using `map`. 
 
 Once you add [styles](./grid1.html#styles) your grid will look like this:
 

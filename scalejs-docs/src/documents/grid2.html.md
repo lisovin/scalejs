@@ -59,43 +59,15 @@ or clone [scalejs-examples repository](https://github.com/lisovin/scalejs-exampl
 
 `git checkout grid-2a`
 
-### Bindings
+### Columns
 
-There are a few changes you will need to make to the bindings and your columns in order to enable filtering.
-In your bindings, you will need to show the header row (the row which contains the quick filter and the icon)
-and also tell the extension to include the 'observableFilters' plugin.
-
-##### Example: adding default filtering to grid bindings ([mainBindings.js](https://github.com/lisovin/scalejs-examples/blob/grid-2a/Grid/app/main/bindings/mainBindings.js))
-```javascript
-/*global define */
-/*jslint sloppy: true*/
-define({
-    'main-grid': function () {
-        return {
-            slickGrid: {
-                columns: this.columns,
-                itemsSource: this.itemsSource,
-                enableColumnReorder: false,
-                forceFitColumns: true,
-                !!*showHeaderRow: true,
-                plugins: {
-                    'observableFilters': {}
-                }**!
-            }
-        };
-    }
-});
-```
-
-### ViewModel
-
-The next thing which needs to be done is modifying your columns. 
+The only changes you need to make to enable filtering on the column(s) is by putting a property on the column object.
 You simply need to specify that there is a filter for that column, and pass it an object with some configuration information.
 There are two types of filters - `string` and `number` - you will need to specify which one for each column.
 You may also specify a `quickFilterOp` property to change the default filtering of the quick filter.
 By default, it uses `StartsWith`, but you can specify `Contains`.
 
-##### Example: the viewmodel for itemsSource and columns ([mainViewModel.js](https://github.com/lisovin/scalejs-examples/blob/grid-2a/Grid/app/main/viewmodels/mainViewModel.js))
+##### Example: the viewmodel with the modified columns ([mainViewModel.js](https://github.com/lisovin/scalejs-examples/blob/grid-2a/Grid/app/main/viewmodels/mainViewModel.js))
 ```javascript
 /*global define */
 define([
@@ -107,7 +79,6 @@ define([
 
     return function () {
 		var // imports
-            range = sandbox.linq.enumerable.range,
             observableArray = sandbox.mvvm.observableArray,
             ajaxGet = sandbox.ajax.jsonpGet,
             // vars
@@ -127,9 +98,7 @@ define([
             { id: "Industry", field: "industry", name: "Industry", minWidth: 350!!*, filter: { type: 'string', quickFilterOp: 'Contains' }**! }];
 
         ajaxGet('./companylist.txt', {}).subscribe(function (data) {
-            itemsSource(JSON.parse(data).map(function (company, index) {
-                // each item in itemsSource needs an index
-                company.index = index
+            itemsSource(JSON.parse(data).map(function (company) {
                 // money formatter
                 company.LastSale = moneyFormatter(company.LastSale);
                 company.MarketCap = moneyFormatter(company.MarketCap);
@@ -145,7 +114,7 @@ define([
 });
 ```
 
-Whether you are using the default filtering, or using your ViewModel to filter, your [images-and-styles](./grid2.html#images-and-styles)
+Whether you are using the default filtering, or using your ViewModel to filter, your [images and styles](./grid2.html#images-and-styles)
 and the [result](./grid2.html#result) will be the same.
 
 <br>
@@ -161,35 +130,7 @@ or clone [scalejs-examples repository](https://github.com/lisovin/scalejs-exampl
 
 `git checkout grid-2b`
 
-### Bindings
-
-The changes to the bindings for ViewModel filtering identical to the ones for [default filtering](./default-filtering.html).
-In your bindings, you will need to show the header row (the row which contains the quick filter and the icon)
-and also tell the extension to include the 'observableFilters' plugin.
-
-##### Example: adding ViewModel filtering to grid bindings ([mainBindings.js](https://github.com/lisovin/scalejs-examples/blob/grid-2b/Grid/app/main/bindings/mainBindings.js))
-```javascript
-/*global define */
-/*jslint sloppy: true*/
-define({
-    'main-grid': function () {
-        return {
-            slickGrid: {
-                columns: this.columns,
-                itemsSource: this.itemsSource,
-                enableColumnReorder: false,
-                forceFitColumns: true,
-                !!*showHeaderRow: true,
-                plugins: {
-                    'observableFilters': {}
-                }**!
-            }
-        };
-    }
-});
-```
-
-### ViewModel
+### Columns
 
 Filtering must also be enabled on the columns themselves. This is more complex than the default filtering because
 you must specify observables for the filter to use. 
@@ -272,9 +213,7 @@ define([
 
         ajaxGet('./companylist.txt', {}).subscribe(function (data) {
             !!*// maintain original companies for filtering
-            var companies = JSON.parse(data).map(function (company, index) {**!
-                // each item in itemsSource needs an index
-                company.index = index;
+            var companies = JSON.parse(data).map(function (company) {**!
                 // money formatter
                 company.LastSale = moneyFormatter(company.LastSale);
                 company.MarketCap = moneyFormatter(company.MarketCap);
@@ -340,12 +279,6 @@ define([
             filteredItems = expressions.reduce(function (items, filterExpression) {
                 return items.filter(evaluate(filterExpression));
             }, originalItems);
-
-            // need to set new index on the filtered items
-            filteredItems = filteredItems.map(function (item, index) {
-                item.index = index;
-                return item;
-            });
 
             // finally, update the itemsSource with the new items
             itemsSource(filteredItems);

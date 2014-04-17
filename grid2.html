@@ -228,37 +228,13 @@ your list selection would be removed.</p>
 This requires minimal work on your part. You can view this code on <a href="https://github.com/lisovin/scalejs-examples/tree/grid-2a/Grid">github</a>
 or clone <a href="https://github.com/lisovin/scalejs-examples">scalejs-examples repository</a> and running the following command:</p>
 <p><code>git checkout grid-2a</code></p>
-<h3 id="bindings">Bindings</h3>
-<p>There are a few changes you will need to make to the bindings and your columns in order to enable filtering.
-In your bindings, you will need to show the header row (the row which contains the quick filter and the icon)
-and also tell the extension to include the &#39;observableFilters&#39; plugin.</p>
-<h5 id="example-adding-default-filtering-to-grid-bindings-mainbindings-js-https-github-com-lisovin-scalejs-examples-blob-grid-2a-grid-app-main-bindings-mainbindings-js-">Example: adding default filtering to grid bindings (<a href="https://github.com/lisovin/scalejs-examples/blob/grid-2a/Grid/app/main/bindings/mainBindings.js">mainBindings.js</a>)</h5>
-<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
-<span class="hljs-comment">/*jslint sloppy: true*/</span>
-define({
-    <span class="hljs-string">'main-grid'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
-        <span class="hljs-keyword">return</span> {
-            slickGrid: {
-                columns: <span class="hljs-keyword">this</span>.columns,
-                itemsSource: <span class="hljs-keyword">this</span>.itemsSource,
-                enableColumnReorder: <span class="hljs-literal">false</span>,
-                forceFitColumns: <span class="hljs-literal">true</span>,
-                !!*showHeaderRow: <span class="hljs-literal">true</span>,
-                plugins: {
-                    <span class="hljs-string">'observableFilters'</span>: {}
-                }**!
-            }
-        };
-    }
-});
-</code></pre>
-<h3 id="viewmodel">ViewModel</h3>
-<p>The next thing which needs to be done is modifying your columns. 
+<h3 id="columns">Columns</h3>
+<p>The only changes you need to make to enable filtering on the column(s) is by putting a property on the column object.
 You simply need to specify that there is a filter for that column, and pass it an object with some configuration information.
 There are two types of filters - <code>string</code> and <code>number</code> - you will need to specify which one for each column.
 You may also specify a <code>quickFilterOp</code> property to change the default filtering of the quick filter.
 By default, it uses <code>StartsWith</code>, but you can specify <code>Contains</code>.</p>
-<h5 id="example-the-viewmodel-for-itemssource-and-columns-mainviewmodel-js-https-github-com-lisovin-scalejs-examples-blob-grid-2a-grid-app-main-viewmodels-mainviewmodel-js-">Example: the viewmodel for itemsSource and columns (<a href="https://github.com/lisovin/scalejs-examples/blob/grid-2a/Grid/app/main/viewmodels/mainViewModel.js">mainViewModel.js</a>)</h5>
+<h5 id="example-the-viewmodel-with-the-modified-columns-mainviewmodel-js-https-github-com-lisovin-scalejs-examples-blob-grid-2a-grid-app-main-viewmodels-mainviewmodel-js-">Example: the viewmodel with the modified columns (<a href="https://github.com/lisovin/scalejs-examples/blob/grid-2a/Grid/app/main/viewmodels/mainViewModel.js">mainViewModel.js</a>)</h5>
 <pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!main'</span>
@@ -269,7 +245,6 @@ define([
 
     <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
         <span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
-            range = sandbox.linq.enumerable.range,
             observableArray = sandbox.mvvm.observableArray,
             ajaxGet = sandbox.ajax.jsonpGet,
             <span class="hljs-comment">// vars</span>
@@ -289,9 +264,7 @@ define([
             { id: <span class="hljs-string">"Industry"</span>, field: <span class="hljs-string">"industry"</span>, name: <span class="hljs-string">"Industry"</span>, minWidth: <span class="hljs-number">350</span>!!*, filter: { type: <span class="hljs-string">'string'</span>, quickFilterOp: <span class="hljs-string">'Contains'</span> }**! }];
 
         ajaxGet(<span class="hljs-string">'./companylist.txt'</span>, {}).subscribe(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(data)</span> {</span>
-            itemsSource(<span class="hljs-built_in">JSON</span>.parse(data).map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(company, index)</span> {</span>
-                <span class="hljs-comment">// each item in itemsSource needs an index</span>
-                company.index = index
+            itemsSource(<span class="hljs-built_in">JSON</span>.parse(data).map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(company)</span> {</span>
                 <span class="hljs-comment">// money formatter</span>
                 company.LastSale = moneyFormatter(company.LastSale);
                 company.MarketCap = moneyFormatter(company.MarketCap);
@@ -306,7 +279,7 @@ define([
     };
 });
 </code></pre>
-<p>Whether you are using the default filtering, or using your ViewModel to filter, your <a href="./grid2.html#images-and-styles">images-and-styles</a>
+<p>Whether you are using the default filtering, or using your ViewModel to filter, your <a href="./grid2.html#images-and-styles">images and styles</a>
 and the <a href="./grid2.html#result">result</a> will be the same.</p>
 <p><br></p>
 <h2 id="viewmodel-filtering">ViewModel Filtering</h2>
@@ -316,31 +289,7 @@ For simplicity, our example will do the filtering within the ViewModel, but it w
 <p>You can view this code on <a href="https://github.com/lisovin/scalejs-examples/tree/grid-2b/Grid">github</a>
 or clone <a href="https://github.com/lisovin/scalejs-examples">scalejs-examples repository</a> and running the following command:</p>
 <p><code>git checkout grid-2b</code></p>
-<h3 id="bindings">Bindings</h3>
-<p>The changes to the bindings for ViewModel filtering identical to the ones for <a href="./default-filtering.html">default filtering</a>.
-In your bindings, you will need to show the header row (the row which contains the quick filter and the icon)
-and also tell the extension to include the &#39;observableFilters&#39; plugin.</p>
-<h5 id="example-adding-viewmodel-filtering-to-grid-bindings-mainbindings-js-https-github-com-lisovin-scalejs-examples-blob-grid-2b-grid-app-main-bindings-mainbindings-js-">Example: adding ViewModel filtering to grid bindings (<a href="https://github.com/lisovin/scalejs-examples/blob/grid-2b/Grid/app/main/bindings/mainBindings.js">mainBindings.js</a>)</h5>
-<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
-<span class="hljs-comment">/*jslint sloppy: true*/</span>
-define({
-    <span class="hljs-string">'main-grid'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
-        <span class="hljs-keyword">return</span> {
-            slickGrid: {
-                columns: <span class="hljs-keyword">this</span>.columns,
-                itemsSource: <span class="hljs-keyword">this</span>.itemsSource,
-                enableColumnReorder: <span class="hljs-literal">false</span>,
-                forceFitColumns: <span class="hljs-literal">true</span>,
-                !!*showHeaderRow: <span class="hljs-literal">true</span>,
-                plugins: {
-                    <span class="hljs-string">'observableFilters'</span>: {}
-                }**!
-            }
-        };
-    }
-});
-</code></pre>
-<h3 id="viewmodel">ViewModel</h3>
+<h3 id="columns">Columns</h3>
 <p>Filtering must also be enabled on the columns themselves. This is more complex than the default filtering because
 you must specify observables for the filter to use. 
 ViewModel filters also need a <code>type</code> propery which can be <code>string</code> or <code>number</code>, and optionally, it can be passed a <code>quickFilterOp</code>.</p>
@@ -412,9 +361,7 @@ define([
 
         ajaxGet(<span class="hljs-string">'./companylist.txt'</span>, {}).subscribe(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(data)</span> {</span>
             !!*<span class="hljs-comment">// maintain original companies for filtering</span>
-            <span class="hljs-keyword">var</span> companies = <span class="hljs-built_in">JSON</span>.parse(data).map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(company, index)</span> {</span>**!
-                <span class="hljs-comment">// each item in itemsSource needs an index</span>
-                company.index = index;
+            <span class="hljs-keyword">var</span> companies = <span class="hljs-built_in">JSON</span>.parse(data).map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(company)</span> {</span>**!
                 <span class="hljs-comment">// money formatter</span>
                 company.LastSale = moneyFormatter(company.LastSale);
                 company.MarketCap = moneyFormatter(company.MarketCap);
@@ -476,12 +423,6 @@ define([
             filteredItems = expressions.reduce(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(items, filterExpression)</span> {</span>
                 <span class="hljs-keyword">return</span> items.filter(evaluate(filterExpression));
             }, originalItems);
-
-            <span class="hljs-comment">// need to set new index on the filtered items</span>
-            filteredItems = filteredItems.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item, index)</span> {</span>
-                item.index = index;
-                <span class="hljs-keyword">return</span> item;
-            });
 
             <span class="hljs-comment">// finally, update the itemsSource with the new items</span>
             itemsSource(filteredItems);

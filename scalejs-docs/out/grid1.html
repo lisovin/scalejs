@@ -187,7 +187,7 @@
 	    <div id="content">
 		    <p><link href="grid/slick/slick.grid.css" rel="stylesheet" type="text/css" /></p>
 <p><link href="grid/slick/slick-default-theme.css" rel="stylesjeet" type="text/css" /></p>
-<script src="grid/Grid-1.0.0.js" type="text/javascript"></script>
+<script src="grid/Grid-1.0.0.min.js" type="text/javascript"></script>
 
 <h1 id="grid-introduction">Grid Introduction</h1>
 <hr>
@@ -277,7 +277,6 @@ define([
 
     <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
         <span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
-            range = sandbox.linq.enumerable.range,
             observableArray = sandbox.mvvm.observableArray,
             ajaxGet = sandbox.ajax.jsonpGet,
             <span class="hljs-comment">// vars</span>
@@ -297,9 +296,7 @@ define([
             { id: <span class="hljs-string">"Industry"</span>, field: <span class="hljs-string">"industry"</span>, name: <span class="hljs-string">"Industry"</span>, minWidth: <span class="hljs-number">350</span>}];
 
         ajaxGet(<span class="hljs-string">'./companylist.txt'</span>, {}).subscribe(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(data)</span> {</span>
-            itemsSource(<span class="hljs-built_in">JSON</span>.parse(data).map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(company, index)</span> {</span>
-                <span class="hljs-comment">// each item in itemsSource needs an index</span>
-                company.index = index
+            itemsSource(<span class="hljs-built_in">JSON</span>.parse(data).map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(company)</span> {</span>
                 <span class="hljs-comment">// money formatter</span>
                 company.LastSale = moneyFormatter(company.LastSale);
                 company.MarketCap = moneyFormatter(company.MarketCap);
@@ -324,9 +321,6 @@ This is because each item in the array has properties (keys) which map to the fi
 Each item contains (at least) the following properties: Symbol, Name, LastSale, MarketCap, Sector, and Industry.
 Also note since we are using JavaScript that it is case sensitive. The only modification our ViewModel makes to the data from the source
 is parsing the number for the <em>LastSale</em> and <em>MarketCap</em> columns and giving it a fixed number of decimal places.</p>
-<p>One thing which might be weird but is also <strong>required</strong> for your grid to work is giving each item in itemsSource an index.
-This index is leveraged in sorting, and allows the grid to maintain the order of the rows even as new data is added
-and removed. This is why you must set an initial index of each item which can be done easily using <code>map</code>. </p>
 <p>Once you add <a href="./grid1.html#styles">styles</a> your grid will look like this:</p>
 <div id="grid1" style="width:100%;height:600px"></div>
 
