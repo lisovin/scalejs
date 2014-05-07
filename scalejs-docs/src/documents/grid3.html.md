@@ -38,12 +38,15 @@ Multiple columns can be sorted by holding the __shift__ key when clicking on the
 
 ## Default Sorting
 
-Default sorting is provided by the grid if you do not wish to use your own sorting.
+Default sorting is provided by the grid if you do not wish to use your own sorting. 
+This section ads on to the [grid](https://github.com/lisovin/scalejs-examples/tree/grid-2a/Grid) you created in the [default filtering](./grid2.html#default-filtering) tutorial.
 You can view this code on [github](https://github.com/lisovin/scalejs-examples/tree/grid-3a/Grid)
 or clone [scalejs-examples repository](https://github.com/lisovin/scalejs-examples) and running the following command:
 
+
 `git checkout grid-3a`
 
+<br>
 ### Columns
 
 Life filtering, to enable sorting you only need to modify the columns.
@@ -103,7 +106,7 @@ define([
     };
 });
 ```
-
+<br>
 ### MultiColumn Sort
 
 Optionally, if you would like to enable multi-column sort, add a `multiColumnSort` property to the bindings and set it to `true`.

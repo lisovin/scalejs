@@ -91,7 +91,7 @@ require([
 ```
 
 This is the bootstrapper of your app; it loads the modules and runs the application.
-Modules can be registered and loaded by appending a comma folloed by the module's name to `scalejs!application/main`. 
+Modules can be registered and loaded by appending a comma followed by the module's name to `scalejs!application/main`. 
 For example, if you add a new module and name it _new_, your would need to change `scalejs!application/main` to `scalejs!application/main,new`
 
 When adding a new module, you would do so by __right clicking on the app folder__, selecting __Add > New Item__,
@@ -196,7 +196,7 @@ define({
 ```
 
 `data-class` provides similar functionality to what is found in `data-bind` which is provided by [knockoutjs](http://knockoutjs.com/).
-More specifically, `data-class` is extends the capabilities of knockout by allowing you to define your data-binds in a seperate
+More specifically, `data-class` extends the capabilities of knockout by allowing you to define your data-binds in a seperate
 file. This avoids ugly inline html for more complex code.
 
 Bindings are what connects your view to your viewmodel. The viewmodel is covered in the next section.
@@ -308,6 +308,6 @@ define([
 
 This test checks if the mainViewModel was loaded and text observable from the mainViewModel is 'Hello World!'
 
-_Read more about [testing](./best#testing)_
+__In order to run the tests, open the index.test.html page in your browser.__
 
 

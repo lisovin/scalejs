@@ -129,7 +129,7 @@ You can view this code on [github](https://github.com/lisovin/scalejs-examples/t
 or clone [scalejs-examples repository](https://github.com/lisovin/scalejs-examples) and running the following command:
 
 `git checkout grid-2b`
-
+<br>
 ### Columns
 
 Filtering must also be enabled on the columns themselves. This is more complex than the default filtering because
@@ -233,7 +233,7 @@ define([
     };
 });
 ```
-
+<br>
 ### filtering.js
 
 For clarity, we decided to implement the filtering in a seperate file, filtering.js.

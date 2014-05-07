@@ -115,7 +115,7 @@
                                 <ul class="dropdown-menu" data-role="dropdown">
                                     <li><a href="./grid1.html">Introduction</a></li>
                                     <li><a href="./grid2.html">Filtering</a></li>
-                                    <li><a href="./grid3.html">Sorting</a></li>
+                                    <!--<li><a href="./grid3.html">Sorting</a></li>-->
                                 </ul>
                             </li>
                         </ul>
@@ -176,7 +176,7 @@
 								<ul class="dropdown-menu" data-role="dropdown" style="display:block !important">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
-									<li><a href="./grid3.html">Sorting</a></li>
+									<!--<li><a href="./grid3.html">Sorting</a></li>-->
 								</ul>
 							</li>
 			      <li class="title">Tutorials</li>
@@ -213,10 +213,12 @@ Multiple columns can be sorted by holding the <strong>shift</strong> key when cl
 </ul>
 <p><br></p>
 <h2 id="default-sorting">Default Sorting</h2>
-<p>Default sorting is provided by the grid if you do not wish to use your own sorting.
+<p>Default sorting is provided by the grid if you do not wish to use your own sorting. 
+This section ads on to the <a href="https://github.com/lisovin/scalejs-examples/tree/grid-2a/Grid">grid</a> you created in the <a href="./grid2.html#default-filtering">default filtering</a> tutorial.
 You can view this code on <a href="https://github.com/lisovin/scalejs-examples/tree/grid-3a/Grid">github</a>
 or clone <a href="https://github.com/lisovin/scalejs-examples">scalejs-examples repository</a> and running the following command:</p>
 <p><code>git checkout grid-3a</code></p>
+<p><br></p>
 <h3 id="columns">Columns</h3>
 <p>Life filtering, to enable sorting you only need to modify the columns.
 You can enable specific columns by adding a <code>sort</code> property and setting it to <code>true</code>.
@@ -271,6 +273,7 @@ define([
     };
 });
 </code></pre>
+<p><br></p>
 <h3 id="multicolumn-sort">MultiColumn Sort</h3>
 <p>Optionally, if you would like to enable multi-column sort, add a <code>multiColumnSort</code> property to the bindings and set it to <code>true</code>.</p>
 <h5 id="example-adding-sorting-to-grid-bindings-mainbindings-js-https-github-com-lisovin-scalejs-examples-blob-grid-3a-grid-app-main-bindings-mainbindings-js-">Example: adding sorting to grid bindings (<a href="https://github.com/lisovin/scalejs-examples/blob/grid-3a/Grid/app/main/bindings/mainBindings.js">mainBindings.js</a>)</h5>

@@ -115,7 +115,7 @@
                                 <ul class="dropdown-menu" data-role="dropdown">
                                     <li><a href="./grid1.html">Introduction</a></li>
                                     <li><a href="./grid2.html">Filtering</a></li>
-                                    <li><a href="./grid3.html">Sorting</a></li>
+                                    <!--<li><a href="./grid3.html">Sorting</a></li>-->
                                 </ul>
                             </li>
                         </ul>
@@ -176,7 +176,7 @@
 								<ul class="dropdown-menu" data-role="dropdown" style="display:block !important">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
-									<li><a href="./grid3.html">Sorting</a></li>
+									<!--<li><a href="./grid3.html">Sorting</a></li>-->
 								</ul>
 							</li>
 			      <li class="title">Tutorials</li>
@@ -288,7 +288,8 @@ This is advantageous if you would rather do filtering on the server.
 For simplicity, our example will do the filtering within the ViewModel, but it would not be much different if you were to do it on the server.</p>
 <p>You can view this code on <a href="https://github.com/lisovin/scalejs-examples/tree/grid-2b/Grid">github</a>
 or clone <a href="https://github.com/lisovin/scalejs-examples">scalejs-examples repository</a> and running the following command:</p>
-<p><code>git checkout grid-2b</code></p>
+<p><code>git checkout grid-2b</code>
+<br></p>
 <h3 id="columns">Columns</h3>
 <p>Filtering must also be enabled on the columns themselves. This is more complex than the default filtering because
 you must specify observables for the filter to use. 
@@ -381,6 +382,7 @@ define([
     };
 });
 </code></pre>
+<p><br></p>
 <h3 id="filtering-js">filtering.js</h3>
 <p>For clarity, we decided to implement the filtering in a seperate file, filtering.js.</p>
 <h5 id="example-filtering-items-in-filtering-js-https-github-com-lisovin-scalejs-examples-blob-grid-2b-grid-app-main-viewmodels-filtering-js-">Example: filtering items in <a href="https://github.com/lisovin/scalejs-examples/blob/grid-2b/Grid/app/main/viewmodels/filtering.js">filtering.js</a></h5>
