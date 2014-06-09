@@ -63,6 +63,10 @@
 		$('pre').each(function() {
 			$(this).html($(this).html().replace(/!!\*/g, "<i style='background-color:#FFFF99'>").replace(/\*\*!/g, "</i>"));
 		});
+
+		console.log(path);
+		//expand grid if it is grid
+		if(path === '/grid1.html' || path === '/grid2.html') $('#grid-dropdown').css("display","block");
     });
 
   </script>
@@ -173,7 +177,7 @@
 				  <li class="title">UI Components</li>
 				            <li>
 								<a class="dropdown-toggle" href=""><i class="icon-grid"></i> Grid</a>
-								<ul class="dropdown-menu" data-role="dropdown" style="display:block !important">
+								<ul id="grid-dropdown" class="dropdown-menu" data-role="dropdown">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
 									<!--<li><a href="./grid3.html">Sorting</a></li>-->
@@ -301,6 +305,147 @@ that knockout provides with things like <code>$parent</code>. </p>
 <p>This classes were implemented using the <a href="https://github.com/rniemeyer/knockout-classBindingProvider">knockout binding class provider</a>
 so it might be useful for you to take a look at some of those examples. As per scalejs convention,
 the key for the binding is in single quotes and is lower-case and delimitted by &quot;-&quot;.</p>
+<h2 id="mvvm-functions">MVVM Functions</h2>
+<p>In this section we will give an overview of the various MVVM functions which are exposed and can be used in your app
+and extensions.</p>
+<h3 id="observable">observable</h3>
+<p>This function gives you the power of 2 way data binding. It is exactly the same as <a href="http://knockoutjs.com/documentation/observables.html">knockout observables</a>.</p>
+<h6 id="example-using-observable">Example: using observable</h6>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-keyword">var</span> observable = sandbox.mvvm.observable, <span class="hljs-comment">// importing the observable</span>
+    example = observable(), <span class="hljs-comment">// creating a new empty observable</span>
+    example2 = observable(<span class="hljs-string">'initial value'</span>); <span class="hljs-comment">// creating an observable with an initial value</span>
+
+console.log(example()); <span class="hljs-comment">//unwraps observable and prints undefined</span>
+console.log(example2()); <span class="hljs-comment">//unwraps observable and prints 'initial value'</span>
+
+example(<span class="hljs-string">'new value'</span>); <span class="hljs-comment">//updates example's value to 'new value'</span>
+
+console.log(example()); <span class="hljs-comment">//unwraps observable and prints 'new value';</span>
+
+<span class="hljs-comment">// subscribe to example so that whenever it recieves a new value, this function is called</span>
+<span class="hljs-keyword">var</span> subscription = example.subscribe(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(newValue)</span> {</span>
+    console.log(newValue);
+}); 
+
+subscription.dispose(); <span class="hljs-comment">//dispose the subscription when it is not needed anymore</span>
+</code></pre>
+<p>In the above example, you can see how to create, use, update, and subscribe to observables.</p>
+<p>Observables work best when combined with bindings (inline or class). You can bind an observable directly using <code>data-bind=&#39;text: example&#39;</code>,
+which will update an html element&#39;s text with the value of example whenever it is changed. If you want to do additional logic 
+in a binding when using an observable, you must call it like this <code>data-bind=&quot;text: example() + &#39; and stuff&#39;&quot;</code>. </p>
+<h3 id="observablearray">observableArray</h3>
+<p>Observable arrays are a lot like observables, but they also allow you to leverage array functions on the underlying array without
+needing to call and update the observable. More information can be found about them on <a href="http://knockoutjs.com/documentation/observableArrays.html">knockout&#39;s website</a></p>
+<h6 id="example-using-observablearray">Example: using observableArray</h6>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-keyword">var</span> observableArray = sandbox.mvvm.observableArray, <span class="hljs-comment">//importing observableArray</span>
+    exampleArray = observableArray([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]); <span class="hljs-comment">//creating an observableArray</span>
+
+<span class="hljs-comment">//unwrapping observable arrays</span>
+console.log(exampleArray()); <span class="hljs-comment">//unwraps exampleArray and prints '[1]'</span>
+console.log(exampleArray().length); <span class="hljs-comment">//unwraps exampleArray and prints '1'</span>
+console.log(exampleArray()[<span class="hljs-number">0</span>]); <span class="hljs-comment">//unwraps exampleArray and prints the first element in the array</span>
+
+<span class="hljs-comment">//modifying observable arrays without unwrapping them</span>
+exampleArray.push(<span class="hljs-number">1</span>); <span class="hljs-comment">//adds an item to the end of an array</span>
+exampleArray.pop(); <span class="hljs-comment">//removes the last item from the array and returns it</span>
+exampleArray.unshift(<span class="hljs-string">'New Value'</span>); <span class="hljs-comment">//inserts a new item at the beginning of the array</span>
+exampleArray.shift(); <span class="hljs-comment">//removes the first value of the array and returns it</span>
+exampleArray.reverse(); <span class="hljs-comment">//reverses order of the array</span>
+exampleArray.sort(); <span class="hljs-comment">//sorts the array contents alphabetically (can pass your own comparer func)</span>
+exampleArray.splice(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>); <span class="hljs-comment">//removes values and/or inserts items at an index in the array</span>
+
+<span class="hljs-comment">//other observable array functions</span>
+exampleArray.remove(<span class="hljs-number">1</span>); <span class="hljs-comment">//removes all values which equal 1 and returns them as an array</span>
+<span class="hljs-comment">//removes all values which are less than 3</span>
+exampleArray.remove(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(val)</span> {</span>
+ <span class="hljs-keyword">return</span> val &lt; <span class="hljs-number">3</span>
+});
+exampleArray.removeAll([<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]); <span class="hljs-comment">//removes all items which equal 4 or 5 and returns them as an array</span>
+exampleArray.removeAll(); <span class="hljs-comment">//removes all the items and returns them as an array</span>
+
+<span class="hljs-comment">//updating observable array</span>
+exampleArray([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]);
+
+<span class="hljs-comment">//other array functions</span>
+console.log(exampleArray.indexOf(<span class="hljs-number">1</span>)); <span class="hljs-comment">//prints 0</span>
+console.log(exampleArray.slice(<span class="hljs-number">0</span>,<span class="hljs-number">2</span>); <span class="hljs-comment">//prints [1,2,3]</span>
+</code></pre>
+<h3 id="computed">computed</h3>
+<p>Computed is an observable which is generated from other observables. It is very powerful and used often.
+It keeps track of all observables which are unwrapped within its function, and whenever any of those observables are updated,
+the computed is re-evaluated. <a href="http://knockoutjs.com/documentation/computedObservables.html">Read more about computed</a></p>
+<h6 id="example-using-computed">Example: using computed</h6>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-keyword">var</span> computed = sandbox.mvvm.computed,
+    observable = sandbox.mvvm.observable,
+    firstName = observable(<span class="hljs-string">"Erica"</span>),
+    lastName = observable(<span class="hljs-string">"Gucciardo"</span>),
+    fullName = computed(<span class="hljs-function"><span class="hljs-keyword">function</span>)<span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">return</span> firstName() + <span class="hljs-string">" "</span> + lastName();
+    });
+
+console.log(fullName()) <span class="hljs-comment">//prints 'Erica Gucciardo'</span>
+
+<span class="hljs-comment">//writable computed observables</span>
+
+fullName = computed({
+    read: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">return</span> firstName() + <span class="hljs-string">" "</span> + lastName();
+    },
+    write: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(value)</span> {</span>
+        <span class="hljs-keyword">var</span> names = value.split(<span class="hljs-string">" "</span>);
+        firstName(value[<span class="hljs-number">0</span>]);
+        lastName(value[<span class="hljs-number">1</span>]);
+    }
+});
+
+<span class="hljs-comment">// controlling a dependency using peek - only gets evaluated when first name changes</span>
+fullName = computed(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+    <span class="hljs-keyword">return</span> firstName() + <span class="hljs-string">' '</span> + lastName.peek();
+});
+</code></pre>
+<h3 id="registerbindings-and-registertemplates">registerBindings and registerTemplates</h3>
+<p>Although you can use the <code>bindings!</code> plugin to registerBindings in the app, you must call <code>registerTemplates</code>
+on a view in order for it to be registered. You can pass multiple templates or bindings to these functions.</p>
+<h6 id="example-using-registerbindings-and-registertemplates">Example: using registerBindings and registerTemplates</h6>
+<pre class="highlight"><code class="hljs javascript">define([
+    <span class="hljs-string">'text!./example.html'</span>,
+    <span class="hljs-string">'./bindings/exampleBindings'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">( 
+    exampleTemplate,
+    exampleBindings
+)</span> {</span>
+    <span class="hljs-keyword">var</span> registerTemplates = sandbox.mvvm.registerTemplates,
+        registerBindings = sandbox.mvvm.registerBindings;
+
+    registerTemplates(exampleTemplate);
+    registerBinfings(exampleBindings);
+});
+</code></pre>
+<h3 id="tojson-toviewmodel-and-toobject">toJson, toViewModel, and toObject</h3>
+<p>These are all helper functions. <code>toJson</code> will take any ViewModel (an object containing observables) and map it JSON string.
+<code>toViewModel</code> will take a plan object and convert it to a viewmodel by wrapping all of its properties in an observable.
+<code>toObject</code> will take a viewmodel and unwrap all of its observables and return a plain object.</p>
+<h6 id="example-using-tojson-toviewmodel-and-toobject">Example: using toJson, toViewModel, and toObject</h6>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-keyword">var</span> toJson = sandbox.mvvm.toJson,
+    toViewModel = sandbox.mvvm.toViewModel,
+    toObject = sandbox.mvvm.toObject,
+    object = {
+        firstName: <span class="hljs-string">'Erica'</span>,
+        lastName: <span class="hljs-string">'Gucciardo'</span>
+    },
+    viewModel = toViewModel(object),
+    obj;
+
+console.log(viewModel.firstName()); <span class="hljs-comment">//prints 'Erica' as firstName is now wrapped in an observable</span>
+
+obj = toObject(viewModel); <span class="hljs-comment">//converts viewModel back to a plain object</span>
+
+console.log(toJson(viewModel)); <span class="hljs-comment">//prints '{ firstName: "Erica", lastName: "Gucciardo"}'</span>
+</code></pre>
+<h3 id="dataclass-template-and-databinding">dataClass, template, and dataBinding</h3>
+<p>Each of these are used to populate renderables (or regions). More information on that can be found in <a href="./composition.html">UI composition</a></p>
+<h3 id="root">root</h3>
+<p>root is an observable which is bound to a renderable on the body. It will populate any template/binding/class passed to it within the body of the html.</p>
 
 	    </div>
 

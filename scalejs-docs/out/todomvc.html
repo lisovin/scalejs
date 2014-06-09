@@ -63,6 +63,10 @@
 		$('pre').each(function() {
 			$(this).html($(this).html().replace(/!!\*/g, "<i style='background-color:#FFFF99'>").replace(/\*\*!/g, "</i>"));
 		});
+
+		console.log(path);
+		//expand grid if it is grid
+		if(path === '/grid1.html' || path === '/grid2.html') $('#grid-dropdown').css("display","block");
     });
 
   </script>
@@ -173,7 +177,7 @@
 				  <li class="title">UI Components</li>
 				            <li>
 								<a class="dropdown-toggle" href=""><i class="icon-grid"></i> Grid</a>
-								<ul class="dropdown-menu" data-role="dropdown" style="display:block !important">
+								<ul id="grid-dropdown" class="dropdown-menu" data-role="dropdown">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
 									<!--<li><a href="./grid3.html">Sorting</a></li>-->
@@ -843,7 +847,7 @@ them outside of the html.</p>
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </code></pre>
 <p>Similarly to <code>todo-visible</code>, we must add a definition for this class in <strong>todoBindings.js</strong></p>
-<p><sub><strong>todo/bindings/todoBindings.html</strong></sub></p>
+<p><sub><strong>todo/bindings/todoBindings.js</strong></sub></p>
 <pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 <span class="hljs-comment">/*jslint sloppy: true*/</span>
 define({
@@ -912,7 +916,7 @@ use it to make sure that the item has the <code>trim</code> function before we a
 event binding in the <code>todo-input</code> data-class we defined from before.</p>
 <p><sub><strong>todo/bindings/todoBindings.js</strong></sub></p>
 <pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
-<span class="hljs-comment">/*jslint sloppy: true,unparam: true*/</span>
+!!*<span class="hljs-comment">/*jslint sloppy: true,unparam: true*/</span>**!
 !!*define(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
     <span class="hljs-keyword">var</span> ENTER_KEY = <span class="hljs-number">13</span>;
     <span class="hljs-keyword">return</span> {**!
@@ -1116,8 +1120,8 @@ define([
             !!*computed = sandbox.mvvm.computed,**!
             <span class="hljs-comment">//properties</span>
             items = observableArray(),
-            newItem = observable(),
-            !!*checkAll;**!
+            newItem = observable()!!*,
+            checkAll;**!
 
         <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addItem</span><span class="hljs-params">()</span> {</span>
             <span class="hljs-keyword">var</span> item = newItem();
@@ -1325,8 +1329,8 @@ define(<span class="hljs-function"><span class="hljs-keyword">function</span> <s
                     }
                 }
             };
-        },
-        !!*<span class="hljs-string">'todo-item'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+        }!!*,
+        <span class="hljs-string">'todo-item'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
             <span class="hljs-keyword">return</span> {
                 css: {
                     completed: <span class="hljs-keyword">this</span>.completed,
@@ -2439,8 +2443,7 @@ define([
         <span class="hljs-comment">// Register application state for the module.</span>
         registerStates(<span class="hljs-string">'root'</span>,
             state(<span class="hljs-string">'app'</span>,
-                !!*routerState(**!
-                    state(<span class="hljs-string">'main'</span>,
+                !!*routerState(<span class="hljs-string">'main'</span>,**!
                         onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
                             <span class="hljs-comment">// create state properties for rendering todo module templates</span>
                             <span class="hljs-keyword">this</span>.todoItems = mainVM.todoItems;
@@ -2473,7 +2476,7 @@ these options in viewmodel that the view will bind to using <code>foreach</code>
 
     <span class="hljs-tag">&lt;<span class="hljs-title">footer</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"footer"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"todo-visible"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo-count"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">strong</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"text: items().length"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">strong</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">strong</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"text: items().length - completedItems().length"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">strong</span>&gt;</span>
             <span class="hljs-comment">&lt;!-- ko class:todo-count-text --&gt;</span>
             <span class="hljs-comment">&lt;!-- /ko --&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
@@ -2647,7 +2650,7 @@ define(<span class="hljs-function"><span class="hljs-keyword">function</span> <s
         },
         <span class="hljs-string">'todo-count-text'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
             <span class="hljs-keyword">return</span> {
-                text: (<span class="hljs-keyword">this</span>.items().length === <span class="hljs-number">1</span> ? <span class="hljs-string">'item'</span> : <span class="hljs-string">'items'</span>) + <span class="hljs-string">' left'</span>
+                text: (<span class="hljs-keyword">this</span>.items().length  - <span class="hljs-keyword">this</span>.completedItems().length === <span class="hljs-number">1</span> ? <span class="hljs-string">'item'</span> : <span class="hljs-string">'items'</span>) + <span class="hljs-string">' left'</span>
             };
         },
         <span class="hljs-string">'todo-clear-completed'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
@@ -2718,7 +2721,7 @@ define([
                     })),
                 state(<span class="hljs-string">'todo.completed'</span>,
                     onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
-                        todo.currentView
+                        todo.currentView(<span class="hljs-string">"Completed"</span>);
                     }))));**!
     };
 });

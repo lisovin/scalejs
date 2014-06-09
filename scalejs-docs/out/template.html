@@ -63,6 +63,10 @@
 		$('pre').each(function() {
 			$(this).html($(this).html().replace(/!!\*/g, "<i style='background-color:#FFFF99'>").replace(/\*\*!/g, "</i>"));
 		});
+
+		console.log(path);
+		//expand grid if it is grid
+		if(path === '/grid1.html' || path === '/grid2.html') $('#grid-dropdown').css("display","block");
     });
 
   </script>
@@ -173,7 +177,7 @@
 				  <li class="title">UI Components</li>
 				            <li>
 								<a class="dropdown-toggle" href=""><i class="icon-grid"></i> Grid</a>
-								<ul class="dropdown-menu" data-role="dropdown" style="display:block !important">
+								<ul id="grid-dropdown" class="dropdown-menu" data-role="dropdown">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
 									<!--<li><a href="./grid3.html">Sorting</a></li>-->
@@ -309,10 +313,10 @@ is created using <code>define</code> and is used also to define viewmodels and b
 is a combination of html and javscript files needed to implement a specific feature for your app which is independent
 of other features of the app. The purpose of the <strong>mainModule.js</strong> file is to setup the module;
 it does not solve functional tasks, its primary job is to tie the other components of the modules together by including them
-at the top of define as seen above and define the <a href="./overview.html#statechart">statechart</a>.</p>
-<p><em>Read more about <a href="./overview.html#modules">Modules</a></em></p>
+at the top of define as seen above and define the <a href="./statechart.html">statechart</a>.</p>
+<p><em>Read more about <a href="./architecture.html#modules">Modules</a></em></p>
 <h3 id="view-folder-and-main-html">view folder and main.html</h3>
-<p>The view folder is a container of <a href="./overview.thml#views">views</a> and includes one view file for the main module:</p>
+<p>The view folder is a container of <a href="./mvvm.thml#views">views</a> and includes one view file for the main module:</p>
 <p><strong>main.html</strong></p>
 <pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"main text"</span> <span class="hljs-attribute">data-class</span>=<span class="hljs-value">"main-text"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span> from helloworld.
@@ -322,7 +326,7 @@ at the top of define as seen above and define the <a href="./overview.html#state
 The purpose of the view is to contain the templates needed for the module. Usually, it is neccesary to bind components
 of templates to data which is signified by <code>data-class</code>. 
 <code>data-class</code> connects your view to your bindings, which will be discussed next.</p>
-<p><em>Read more about <a href="./overview.html#views">Views</a></em></p>
+<p><em>Read more about <a href="./mvvm.html#views">Views</a></em></p>
 <h3 id="bindings-folder-and-mainbindings-js">bindings folder and mainBindings.js</h3>
 <p>Bindings define the data-classes which are used in the view. Bindings rarely exist on their own;
 they are always referenced by a view. Since <strong>main.html</strong> defines a <code>data-class</code> property,
@@ -342,7 +346,7 @@ define({
 More specifically, <code>data-class</code> extends the capabilities of knockout by allowing you to define your data-binds in a seperate
 file. This avoids ugly inline html for more complex code.</p>
 <p>Bindings are what connects your view to your viewmodel. The viewmodel is covered in the next section.</p>
-<p><em>Read more about <a href="./overview.html#bindings">Bindings</a></em></p>
+<p><em>Read more about <a href="./mvvm.html#bindings">Bindings</a></em></p>
 <h3 id="viewmodels-folder-and-mainviewmodel-js">viewmodels folder and mainViewModel.js</h3>
 <p>Viewmodels are what perform the logical and functional tasks of your module.
 Viewmodels also define the model for your view; e.g. whatever needs to be in your view
@@ -370,17 +374,15 @@ define([
 });
 </code></pre>
 <p>In this file, we have exposed the <code>text</code> observable which was referenced in the bindings in the previous section.</p>
-<p><em>Read more about <a href="./overview.html#viewmodel">ViewModels</a></em></p>
+<p><em>Read more about <a href="./mvvm.html#viewmodel">ViewModels</a></em></p>
 <h3 id="styles-folder-and-main-css-or-main-less">styles folder and main.css or main.less</h3>
 <p>Styles are what are used modify the visual aspect of your modules.
 There is nothing special about the style which is provided by the template.
 However, we do recommend giving thought to the order and structure of styles when building a large application.
 These recommendations can be found in the styles section.</p>
-<p><em>Read more about <a href="./overview.html#styles">Styles</a></em></p>
 <h3 id="scripts">Scripts</h3>
 <p>The Scripts folder contains a combination of core scalejs files, scalejs extensions, and base libraries.
-The difference between extensions and base libraries are one of the key advantages of scalejs.
-If you&#39;re not sure why, make sure to read about it <a href="./power.html#scalable">here</a></p>
+The difference between extensions and base libraries are one of the key advantages of scalejs.</p>
 <h3 id="test">test</h3>
 <p>The test folder contains unit tests which are provided by the <a href="http://pivotal.github.io/jasmine/">jasmine</a>
 testing framework. </p>

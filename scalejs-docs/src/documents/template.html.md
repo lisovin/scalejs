@@ -154,13 +154,13 @@ is created using `define` and is used also to define viewmodels and bindings. A 
 is a combination of html and javscript files needed to implement a specific feature for your app which is independent
 of other features of the app. The purpose of the __mainModule.js__ file is to setup the module;
 it does not solve functional tasks, its primary job is to tie the other components of the modules together by including them
-at the top of define as seen above and define the [statechart](./overview.html#statechart).
+at the top of define as seen above and define the [statechart](./statechart.html).
 
-_Read more about [Modules](./overview.html#modules)_
+_Read more about [Modules](./architecture.html#modules)_
 
 ### view folder and main.html
 
-The view folder is a container of [views](./overview.thml#views) and includes one view file for the main module:
+The view folder is a container of [views](./mvvm.thml#views) and includes one view file for the main module:
 
 __main.html__
 ```xml
@@ -174,7 +174,7 @@ The purpose of the view is to contain the templates needed for the module. Usual
 of templates to data which is signified by `data-class`. 
 `data-class` connects your view to your bindings, which will be discussed next.
 
-_Read more about [Views](./overview.html#views)_
+_Read more about [Views](./mvvm.html#views)_
 
 ### bindings folder and mainBindings.js
 
@@ -201,7 +201,7 @@ file. This avoids ugly inline html for more complex code.
 
 Bindings are what connects your view to your viewmodel. The viewmodel is covered in the next section.
 
-_Read more about [Bindings](./overview.html#bindings)_
+_Read more about [Bindings](./mvvm.html#bindings)_
 
 ### viewmodels folder and mainViewModel.js
 
@@ -235,7 +235,7 @@ define([
 
 In this file, we have exposed the `text` observable which was referenced in the bindings in the previous section.
 
-_Read more about [ViewModels](./overview.html#viewmodel)_
+_Read more about [ViewModels](./mvvm.html#viewmodel)_
 
 
 ### styles folder and main.css or main.less
@@ -245,13 +245,10 @@ There is nothing special about the style which is provided by the template.
 However, we do recommend giving thought to the order and structure of styles when building a large application.
 These recommendations can be found in the styles section.
 
-_Read more about [Styles](./overview.html#styles)_
-
 ### Scripts
 
 The Scripts folder contains a combination of core scalejs files, scalejs extensions, and base libraries.
 The difference between extensions and base libraries are one of the key advantages of scalejs.
-If you're not sure why, make sure to read about it [here](./power.html#scalable)
 
 ### test
 

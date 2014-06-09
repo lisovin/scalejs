@@ -63,6 +63,10 @@
 		$('pre').each(function() {
 			$(this).html($(this).html().replace(/!!\*/g, "<i style='background-color:#FFFF99'>").replace(/\*\*!/g, "</i>"));
 		});
+
+		console.log(path);
+		//expand grid if it is grid
+		if(path === '/grid1.html' || path === '/grid2.html') $('#grid-dropdown').css("display","block");
     });
 
   </script>
@@ -98,7 +102,7 @@
 				  <li class="title">UI Components</li>
 				            <li>
 								<a class="dropdown-toggle" href=""><i class="icon-grid"></i> Grid</a>
-								<ul class="dropdown-menu" data-role="dropdown" style="display:block !important">
+								<ul id="grid-dropdown" class="dropdown-menu" data-role="dropdown">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
 									<!--<li><a href="./grid3.html">Sorting</a></li>-->

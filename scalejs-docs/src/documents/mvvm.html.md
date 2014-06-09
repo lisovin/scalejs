@@ -148,3 +148,178 @@ This classes were implemented using the [knockout binding class provider](https:
 so it might be useful for you to take a look at some of those examples. As per scalejs convention,
 the key for the binding is in single quotes and is lower-case and delimitted by "-".
 
+
+## MVVM Functions
+
+In this section we will give an overview of the various MVVM functions which are exposed and can be used in your app
+and extensions.
+
+### observable
+
+This function gives you the power of 2 way data binding. It is exactly the same as [knockout observables](http://knockoutjs.com/documentation/observables.html).
+
+###### Example: using observable
+```javascript
+var observable = sandbox.mvvm.observable, // importing the observable
+	example = observable(), // creating a new empty observable
+	example2 = observable('initial value'); // creating an observable with an initial value
+
+console.log(example()); //unwraps observable and prints undefined
+console.log(example2()); //unwraps observable and prints 'initial value'
+
+example('new value'); //updates example's value to 'new value'
+
+console.log(example()); //unwraps observable and prints 'new value';
+
+// subscribe to example so that whenever it recieves a new value, this function is called
+var subscription = example.subscribe(function(newValue) {
+	console.log(newValue);
+}); 
+
+subscription.dispose(); //dispose the subscription when it is not needed anymore
+```
+In the above example, you can see how to create, use, update, and subscribe to observables.
+
+Observables work best when combined with bindings (inline or class). You can bind an observable directly using `data-bind='text: example'`,
+which will update an html element's text with the value of example whenever it is changed. If you want to do additional logic 
+in a binding when using an observable, you must call it like this `data-bind="text: example() + ' and stuff'"`. 
+
+### observableArray
+
+Observable arrays are a lot like observables, but they also allow you to leverage array functions on the underlying array without
+needing to call and update the observable. More information can be found about them on [knockout's website](http://knockoutjs.com/documentation/observableArrays.html)
+
+###### Example: using observableArray
+```javascript
+var observableArray = sandbox.mvvm.observableArray, //importing observableArray
+	exampleArray = observableArray([1,2,3,4,5]); //creating an observableArray
+
+//unwrapping observable arrays
+console.log(exampleArray()); //unwraps exampleArray and prints '[1]'
+console.log(exampleArray().length); //unwraps exampleArray and prints '1'
+console.log(exampleArray()[0]); //unwraps exampleArray and prints the first element in the array
+
+//modifying observable arrays without unwrapping them
+exampleArray.push(1); //adds an item to the end of an array
+exampleArray.pop(); //removes the last item from the array and returns it
+exampleArray.unshift('New Value'); //inserts a new item at the beginning of the array
+exampleArray.shift(); //removes the first value of the array and returns it
+exampleArray.reverse(); //reverses order of the array
+exampleArray.sort(); //sorts the array contents alphabetically (can pass your own comparer func)
+exampleArray.splice(1,1,2); //removes values and/or inserts items at an index in the array
+
+//other observable array functions
+exampleArray.remove(1); //removes all values which equal 1 and returns them as an array
+//removes all values which are less than 3
+exampleArray.remove(function(val) {
+ return val < 3
+});
+exampleArray.removeAll([4,5]); //removes all items which equal 4 or 5 and returns them as an array
+exampleArray.removeAll(); //removes all the items and returns them as an array
+
+//updating observable array
+exampleArray([1,2,3,4,5]);
+
+//other array functions
+console.log(exampleArray.indexOf(1)); //prints 0
+console.log(exampleArray.slice(0,2); //prints [1,2,3]
+```
+
+### computed
+
+Computed is an observable which is generated from other observables. It is very powerful and used often.
+It keeps track of all observables which are unwrapped within its function, and whenever any of those observables are updated,
+the computed is re-evaluated. [Read more about computed](http://knockoutjs.com/documentation/computedObservables.html)
+
+###### Example: using computed
+```javascript
+var computed = sandbox.mvvm.computed,
+	observable = sandbox.mvvm.observable,
+	firstName = observable("Erica"),
+	lastName = observable("Gucciardo"),
+	fullName = computed(function)() {
+		return firstName() + " " + lastName();
+	});
+
+console.log(fullName()) //prints 'Erica Gucciardo'
+
+//writable computed observables
+
+fullName = computed({
+	read: function() {
+		return firstName() + " " + lastName();
+	},
+	write: function(value) {
+		var names = value.split(" ");
+		firstName(value[0]);
+		lastName(value[1]);
+	}
+});
+
+// controlling a dependency using peek - only gets evaluated when first name changes
+fullName = computed(function() {
+	return firstName() + ' ' + lastName.peek();
+});
+```
+
+### registerBindings and registerTemplates
+
+Although you can use the `bindings!` plugin to registerBindings in the app, you must call `registerTemplates`
+on a view in order for it to be registered. You can pass multiple templates or bindings to these functions.
+
+###### Example: using registerBindings and registerTemplates
+```javascript
+define([
+	'text!./example.html',
+	'./bindings/exampleBindings'
+], function( 
+	exampleTemplate,
+	exampleBindings
+) {
+	var registerTemplates = sandbox.mvvm.registerTemplates,
+		registerBindings = sandbox.mvvm.registerBindings;
+
+	registerTemplates(exampleTemplate);
+	registerBinfings(exampleBindings);
+});
+```
+
+### toJson, toViewModel, and toObject
+
+These are all helper functions. `toJson` will take any ViewModel (an object containing observables) and map it JSON string.
+`toViewModel` will take a plan object and convert it to a viewmodel by wrapping all of its properties in an observable.
+`toObject` will take a viewmodel and unwrap all of its observables and return a plain object.
+
+###### Example: using toJson, toViewModel, and toObject
+```javascript
+var toJson = sandbox.mvvm.toJson,
+	toViewModel = sandbox.mvvm.toViewModel,
+	toObject = sandbox.mvvm.toObject,
+	object = {
+		firstName: 'Erica',
+		lastName: 'Gucciardo'
+	},
+	viewModel = toViewModel(object),
+	obj;
+
+console.log(viewModel.firstName()); //prints 'Erica' as firstName is now wrapped in an observable
+
+obj = toObject(viewModel); //converts viewModel back to a plain object
+
+console.log(toJson(viewModel)); //prints '{ firstName: "Erica", lastName: "Gucciardo"}'
+```
+
+### dataClass, template, and dataBinding
+
+Each of these are used to populate renderables (or regions). More information on that can be found in [UI composition](./composition.html)
+
+### root
+
+root is an observable which is bound to a renderable on the body. It will populate any template/binding/class passed to it within the body of the html.
+
+
+
+
+
+
+

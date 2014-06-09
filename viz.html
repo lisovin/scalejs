@@ -189,9 +189,127 @@
 	      </div>
 
 	    <div id="content">
-		    <h1 id="samples">Samples</h1>
-<h2 id="hello-world-">Hello World!</h2>
-<h2 id="todo-mvc">ToDo MVC</h2>
+		    <h1 id="visualizations">Visualizations</h1>
+<hr>
+
+<p><a href="http://scalejs.com/scalejs-examples/Visualizations/">Visualization Live Sample</a> |
+<a href="https://github.com/lisovin/scalejs-examples/tree/master/Visualizations">Visualization on GitHub</a></p>
+<hr>
+
+<p>Intro to visualizations!</p>
+<p><br></p>
+<h2 id="getting-the-extension">Getting the Extension</h2>
+<p>Install blah blah</p>
+<p><br></p>
+<h2 id="visualization-setup">Visualization Setup</h2>
+<h3 id="html-and-styles">HTML and Styles</h3>
+<p>First, we need to create a view which contains a div to bind the visualization to. 
+We also need to specify the width and height of the visualization.</p>
+<p>//link stuff here</p>
+<h3 id="data-model">Data Model</h3>
+<p>The model you will bind to your visualization has a flexible format. 
+It must be a heirarchical data structure.
+It needs to contain some meaningful information for the visualization to display.
+The structure consists of levels which can be configured by the bindings.
+Each node in a level needs to contain a unique identifier. 
+This can be identified by the idPath which you can specify in the bindings.
+By default, the id path is <code>id</code>. 
+Each node can also have other information in it which could be used to determine its area, color, or children
+once the visualization is rendered.</p>
+<h5 id="an-example-data-model">An example data model</h5>
+<pre class="highlight"><code class="hljs javascript">*{
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"flare"</span>,
+    <span class="hljs-string">"children"</span>: [{
+        <span class="hljs-string">"name"</span>: <span class="hljs-string">"analytics"</span>,
+        <span class="hljs-string">"children"</span>: [{
+            <span class="hljs-string">"name"</span>: <span class="hljs-string">"cluster"</span>,
+            <span class="hljs-string">"children"</span>: [{
+                <span class="hljs-string">"name"</span>: <span class="hljs-string">"AgglomerativeCluster"</span>,
+                <span class="hljs-string">"size"</span>: <span class="hljs-number">3938</span>,
+                <span class="hljs-string">"x"</span>: <span class="hljs-number">1</span>,
+                <span class="hljs-string">"none"</span>: <span class="hljs-number">1</span>
+            }, {
+                <span class="hljs-string">"name"</span>: <span class="hljs-string">"CommunityStructure"</span>,
+                <span class="hljs-string">"size"</span>: <span class="hljs-number">3812</span>,
+                <span class="hljs-string">"x"</span>: <span class="hljs-number">2</span>,
+                <span class="hljs-string">"none"</span>: <span class="hljs-number">1</span>
+            }, {
+                <span class="hljs-string">"name"</span>: <span class="hljs-string">"HierarchicalCluster"</span>,
+                <span class="hljs-string">"size"</span>: <span class="hljs-number">6714</span>,
+                <span class="hljs-string">"x"</span>: <span class="hljs-number">3</span>,
+                <span class="hljs-string">"none"</span>: <span class="hljs-number">1</span>
+            }, {
+                <span class="hljs-string">"name"</span>: <span class="hljs-string">"MergeEdge"</span>,
+                <span class="hljs-string">"size"</span>: <span class="hljs-number">743</span>,
+                <span class="hljs-string">"x"</span>: <span class="hljs-number">4</span>,
+                <span class="hljs-string">"none"</span>: <span class="hljs-number">1</span>
+            }]
+        }]
+    }]
+}
+</code></pre>
+<p>The above example contains 4 levels of data. The id path in this example is <code>name</code>.
+The above example also specifies its children, which is an array of nodes.
+The property used to determine the children can also be specified by a custom path, the <code>childrenPath</code>.
+Other paths which can be specified are <code>areaPath</code> and <code>colorPath</code> which will be described in the bindings section.</p>
+<p>The important thing about this data structure is that it is configurable. We do not tell you what to name the properties
+you&#39;d like to bind to the id, name, children, area, or color. Rather, you can configure the binding so that it uses a custom path.
+It can even use a custom path for each level of the structure. </p>
+<blockquote>
+<p>give a link to the model</p>
+</blockquote>
+<h3 id="bindings">Bindings</h3>
+<p>Now that you have a model, you are ready to create your bindings in order to render the visualization.
+At a minimum, you will need to set the following bindings to see a visualization (treemap) on your screen.</p>
+<h5 id="example-required-bindings-for-a-treemap-visualization">Example: required bindings for a treemap visualization</h5>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
+<span class="hljs-comment">/*jslint sloppy: true*/</span>
+define({
+    <span class="hljs-string">'main-viz'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">return</span> {
+            d3: {
+                visualization: <span class="hljs-string">'treemap'</span>,
+                data: <span class="hljs-keyword">this</span>.model,
+                idPath: <span class="hljs-string">'name'</span>,
+                areaPath: <span class="hljs-string">'size'</span>,
+                colorPath: <span class="hljs-string">'x'</span>
+            }
+        };
+    }
+});
+</code></pre>
+<p>This is the result:</p>
+<div id="viz1"></div>
+
+<p>Using the same binding with one small modification can yield a sunburst visualization.</p>
+<h5 id="example-required-bindings-for-a-sunburst-visualization">Example: required bindings for a sunburst visualization</h5>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
+<span class="hljs-comment">/*jslint sloppy: true*/</span>
+define({
+    <span class="hljs-string">'main-viz'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">return</span> {
+            d3: {
+                visualization: <span class="hljs-string">'sunburst'</span>,
+                data: <span class="hljs-keyword">this</span>.model,
+                idPath: <span class="hljs-string">'name'</span>,
+                areaPath: <span class="hljs-string">'size'</span>,
+                colorPath: <span class="hljs-string">'x'</span>
+            }
+        };
+    }
+});
+</code></pre>
+<h2 id="more-stuff">More stuff</h2>
+<h3 id="define-the-levels">define the levels</h3>
+<h3 id="custom-vs-built-in-palettes">custom vs built in palettes</h3>
+<h3 id="sorting-and-custom-sorting">sorting and custom sorting</h3>
+<h3 id="enable-rotate-touch-and-zoom-events-">Enable rotate, touch, and zoom (events)</h3>
+<h3 id="item-paths-zoomed-item-path-selected-item-path-held-item-path-">Item Paths (zoomed item path, selected item path, held item path)</h3>
+<h3 id="using-observerables-for-parameters">Using observerables for parameters</h3>
+<h3 id="sunburst-specific-parameters">Sunburst specific parameters</h3>
+<h2 id="treemap">Treemap</h2>
+<h2 id="sunburst">Sunburst</h2>
+<h2 id="bindings">Bindings</h2>
 
 	    </div>
 

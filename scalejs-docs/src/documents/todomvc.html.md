@@ -794,7 +794,7 @@ them outside of the html.
 
 Similarly to `todo-visible`, we must add a definition for this class in __todoBindings.js__
 
-<sub>__todo/bindings/todoBindings.html__</sub>
+<sub>__todo/bindings/todoBindings.js__</sub>
 ```javascript
 /*global define */
 /*jslint sloppy: true*/
@@ -873,7 +873,7 @@ event binding in the `todo-input` data-class we defined from before.
 <sub>__todo/bindings/todoBindings.js__</sub>
 ```javascript
 /*global define */
-/*jslint sloppy: true,unparam: true*/
+!!*/*jslint sloppy: true,unparam: true*/**!
 !!*define(function () {
     var ENTER_KEY = 13;
     return {**!
@@ -1103,8 +1103,8 @@ define([
             !!*computed = sandbox.mvvm.computed,**!
             //properties
             items = observableArray(),
-            newItem = observable(),
-            !!*checkAll;**!
+            newItem = observable()!!*,
+            checkAll;**!
 
         function addItem() {
             var item = newItem();
@@ -1329,8 +1329,8 @@ define(function () {
                     }
                 }
             };
-        },
-        !!*'todo-item': function () {
+        }!!*,
+        'todo-item': function () {
             return {
                 css: {
                     completed: this.completed,
@@ -2539,8 +2539,7 @@ define([
         // Register application state for the module.
         registerStates('root',
             state('app',
-                !!*routerState(**!
-                    state('main',
+                !!*routerState('main',**!
                         onEntry(function () {
                             // create state properties for rendering todo module templates
                             this.todoItems = mainVM.todoItems;
@@ -2576,7 +2575,7 @@ these options in viewmodel that the view will bind to using `foreach`.
 
     <footer id="footer" data-class="todo-visible">
         <span id="todo-count">
-            <strong data-bind="text: items().length"></strong>
+            <strong data-bind="text: items().length - completedItems().length"></strong>
             <!-- ko class:todo-count-text -->
             <!-- /ko -->
         </span>
@@ -2756,7 +2755,7 @@ define(function () {
         },
         'todo-count-text': function () {
             return {
-                text: (this.items().length === 1 ? 'item' : 'items') + ' left'
+                text: (this.items().length  - this.completedItems().length === 1 ? 'item' : 'items') + ' left'
             };
         },
         'todo-clear-completed': function () {
@@ -2833,7 +2832,7 @@ define([
                     })),
                 state('todo.completed',
                     onEntry(function () {
-                        todo.currentView
+                        todo.currentView("Completed");
                     }))));**!
     };
 });
