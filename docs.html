@@ -189,82 +189,53 @@
 	      </div>
 
 	    <div id="content">
-		    <h1 id="scalejs">Scalejs</h1>
+		    <h1 id="scalejs-docs">Scalejs Docs</h1>
 <hr>
 
-<h3>Scalejs is a robust JavaScript framwework for creating web and mobile appications.
-It is designed for .NET developers or those who come from a WPF os Silverlight background.
-It is the <em>only</em> JavaScript framework which is optimized to run in Visual Studio and
-allows you to program using the software patterns you know and love.</h3>
-
+<p>Scalejs has a bit of a learning curve. 
+Reading the documentation isn&#39;t the best way to learn scalejs, but is here for you to gain a better understanding of scalejs.
+Beginners may want to <a href="https://github.com/lisovin/scalejs-examples">look at our examples</a> and check out our <a href="http://learn-scalejs.aws.af.cm/">learn-scalejs site</a>.
+Another option for learning is to follow the <a href="./todommvc.html">ToDoMVC tutorial</a>.</p>
+<p>It is also advised that new users try to learn JavaScript fundamentals, <a href="http://knockoutjs.com/">Knockout.js</a>, and <a href="http://requirejs.org/">require.js</a>.</p>
 <hr>
 
-<h2 id="scalable-architecture">Scalable Architecture</h2>
-<p>Scalejs is designed on top of a scalable architecture: a lean extendable core and sandboxed, loosely-couples modules.
-The core is tiny and only exposes some functions. You can register extensions on the core and on the
-sandbox. The sandbox allows modules to play safely and not interfere with eachother. </p>
-<h2 id="project-templates">Project Templates</h2>
-<p>Jump-start your development process using our Project Templates which do the work of setting up the project for you.
-It comes with a configurable app with some of the most common extensions (MVVM, Statechart, Styles, LINQ) and a
-module ready for you to use. It has development, debug, and release modes, as well as a testing framework. 
-You&#39;ll also recieve templates needed to create Extensions and new Item Templates for creating modules.</p>
-<h2 id="modular">Modular</h2>
-<p>Modules are independent components of your application that do not depend on other modules.
-They are organized into their own directories under your app and contain all of the files it needs.
-They have access to their own copy of the sandbox, so that they cannot interfere with eachother
-even if they wanted to.</p>
-<h2 id="extendable">Extendable</h2>
-<p>The core and sandbox can be extended so that modules have access too all kinds of feeatures. 
-This allows you to swap out extensions as needed without changing your application code
-as long as the API is kept consistant. Your app doesn&#39;t need to rely on base libraries
-which are subject to change over time.</p>
-<h2 id="nuget-package-management">NuGet Package Management</h2>
-<p>Extensions can be managed through NuGet. You can create and publish your own Extensions on NuGet as well.
-When Nuget installs or uninstalls an extension, it modifies the configuration of your app automatically.
-It&#39;s a one-click install procress which gives you everything you need.</p>
-<h2 id="intellisense">Intellisense</h2>
-<p>The sandbox and core have intellisense so that as you code using those functions, you can easily
-see what they are. You can also get intellisense on the files in your modules, such as the ViewModels.
-This feature is lacking on most JavaScript projects today, but it&#39;s a given in the .NET universe, 
-so you can expect to see it being leveraged here.</p>
-<h2 id="model-view-viewmodel">Model-View-ViewModel</h2>
-<p>MVVM is one of the extensions that are provided in the project template. It enforces seperation of concerns
-with the very common MV* software patterns. Bindings make it really easy to write complex, data-driven UIs.
-Two-way data-binding with observables frees you up from worrying how you will update the DOM.</p>
-<h2 id="statechart">Statechart</h2>
-<p>The state chart makes it easy to declare and manage the state of your app with the flow of events.
-Similar to a typical state machine except it also allows for parrallel and hieracical states,
-allowing for even more complex and intricate states, while also using a clean, concise, and organized
-declaration method using computation expressions.</p>
-<h2 id="routing">Routing</h2>
-<p>State-integrated Routing allows the easy creation of routing in your app. Build your app without
-routing in mind and add routing as you see necessary. Once a route is applied to a state,
-it updates the URL whenever it is entered and will route the app too that state if the url is entered.</p>
-<h2 id="reactive">Reactive</h2>
-<p>You can easily create observable events and listen and react to these events. The reactive pattern
-is needed for creating loosely coupled modules and is what the MVVM, statechart, and routing 
-extensions are built on top of.</p>
-<h2 id="organized-stylesheets">Organized Stylesheets</h2>
-<p>Use CSS or LESS and prevent your styles from becoming a mess by including them within the module.
-A module worries about its own styles so you can code smarter and cleaner. 
-Follow good stylesheet patterns easily using a CSS Linter.</p>
-<h2 id="layout">Layout</h2>
-<p>Layout your modules using the main module while still preserving the loosely coupled pattern.
-Use the css-grid extesion to create powerful and complex layouts easily!</p>
-<h2 id="linq">Linq</h2>
-<p>Use linq&#39;s clean and concise syntax to work with collections. </p>
-<h2 id="data-driven">Data-Driven</h2>
-<p>Whether you&#39;re using Ajax or WebSockets, Scalejs has the extension for you.
-Currently we have extensions for SignlarR and Breeze.</p>
-<h2 id="ui-components">UI Components</h2>
-<p>Grids, Treemaps, Autocompletes, Tiles, Panoramas, Transitions, and Other Visualizations.</p>
-<h2 id="build-and-deployment">Build and Deployment</h2>
-<p>Build for Development, Debug, and Release easily. Create packages for all mobile devices:
-iOs, Android, and Windows 8.</p>
-<h2 id="mobile">Mobile</h2>
-<p>Phones and Tablets; iOs, Android, or Windows 8. Code once, deply anywhere.</p>
-<h2 id="testable">Testable</h2>
-<p>Uses the Jasmine testing framework to make sure your applications work.</p>
+<h2 id="whats-in-our-docs">Whats in our Docs</h2>
+<p><br/> </p>
+<h3 id="creating-a-new-project">Creating a new Project</h3>
+<p>2 steps to creating a new project and running it. <a href="./project.html">See more</a></p>
+<h3 id="project-template">Project Template</h3>
+<p>Scalejs has some boilerplate. Curious minds might wonder what each file does and its purpose in developing apps.
+<a href="./template.html">See more</a></p>
+<h3 id="architecture">Architecture</h3>
+<p>Application architecture is the core of scalejs. Everything else builds on top of these concepts:
+loosely coupled, sandboxed modules built on top of a lean, extendable core, which exposes an abstracted API.
+If you&#39;re not sure what any of that means, you can <a href="./architecture.html">Read more</a>.</p>
+<h3 id="model-view-viewmodel">Model-View-ViewModel</h3>
+<p>An overview of MVVM concepts and also some samples of the MVVM api in scalejs. Good for beginners who are new to the concepts,
+but also good for new scalejs users who understand MVVM but want to know about what it has to do with scalejs.
+<a href="./mvvm.html">Read more</a></p>
+<h3 id="statechart">Statechart</h3>
+<p>Arguably the most original aspect of scalejs, but also the hardest to understand. It is recomended that you read
+this section, but also seek to understand statecharts more on your own by looking at examples and unit tests.
+The statechart&#39;s purpose is to respond to events and modify the &quot;state&quot; of your app based upon these events.
+The state consists of what modules are being shown on your UI at any given time, 
+and application specific data (e.g. Username, etc) that also needs to be shared amongst modules. 
+<a href="./statechart.html">Read more</a>.</p>
+<h3 id="routing">Routing</h3>
+<p>Routing controls the URL of your app, which allows you to directly link to different parts of the app.
+Although not neccesary for many SPAs on mobile devices, this is mainly beneficial for web applications
+which have different sections which would be good to share directly with others, or bookmark.
+Also maintains history using the navigation, so one can use their browser&#39;s backspace button to go back in the app.
+<a href="./routing.html">Find out how to use it</a></p>
+<h3 id="ui-composition">UI Composition</h3>
+<p>Learning how to create regions in your UI and how to render views into those regions from modules across the whole
+application is pretty important. So this is also a good document to read. <a href="./composition.html">Read More</a></p>
+<h3 id="grid-layout">Grid Layout</h3>
+<p>Positioning modules in your layout using a grid which consists of rows and columns, in a simple way.
+<a href="./gridlayout.html">Learn how to use it</a>.</p>
+<h3 id="grid">Grid</h3>
+<p>Learn how to create a filterable, sortable data grid which can support millions of rows.
+<a href="./grid1.html">Read more</a></p>
 
 	    </div>
 
