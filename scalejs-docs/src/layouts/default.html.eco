@@ -66,7 +66,7 @@
 
 		console.log(path);
 		//expand grid if it is grid
-		if(path === '/grid1.html' || path === '/grid2.html') $('#grid-dropdown').css("display","block");
+		if(path === '/grid1.html' || path === '/grid2.html' || path=='/grid3.html') $('#grid-dropdown').css("display","block");
     });
 
   </script>
@@ -105,7 +105,7 @@
 								<ul id="grid-dropdown" class="dropdown-menu" data-role="dropdown">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
-									<!--<li><a href="./grid3.html">Sorting</a></li>-->
+									<li><a href="./grid3.html">Sorting</a></li>
 								</ul>
 							</li>
 			      <li class="title">Tutorials</li>

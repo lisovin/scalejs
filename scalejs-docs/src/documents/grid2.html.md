@@ -51,6 +51,33 @@ your list selection would be removed.
 
 <br>
 
+### Bindings
+
+The first change you need to make, regardless of if you use default filtering or viewmodel filtering, is in the bindings.
+Filtering uses a header row to allow you to type in a click filter or click the icon to open up the filter box.
+
+##### Example: Updating the bindings([mainBindings.js](https://github.com/lisovin/scalejs-examples/blob/grid-2a/Grid/app/main/bindings/mainBindings.js)]
+```javascript
+/*global define */
+/*jslint sloppy: true*/
+define({
+    'main-grid': function () {
+        return {
+            slickGrid: {
+                columns: this.columns,
+                itemsSource: this.itemsSource,
+                enableColumnReorder: false,
+                forceFitColumns: true,
+                rowHeight: 40!!*,
+                showHeaderRow: true**!
+            }
+        };
+    }
+});
+```
+
+<br>
+
 ## Default Filtering
 
 If you do not wish to implement your own filtering, you may use the filtering provided by the extension.

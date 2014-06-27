@@ -66,7 +66,7 @@
 
 		console.log(path);
 		//expand grid if it is grid
-		if(path === '/grid1.html' || path === '/grid2.html') $('#grid-dropdown').css("display","block");
+		if(path === '/grid1.html' || path === '/grid2.html' || path=='/grid3.html') $('#grid-dropdown').css("display","block");
     });
 
   </script>
@@ -119,7 +119,7 @@
                                 <ul class="dropdown-menu" data-role="dropdown">
                                     <li><a href="./grid1.html">Introduction</a></li>
                                     <li><a href="./grid2.html">Filtering</a></li>
-                                    <!--<li><a href="./grid3.html">Sorting</a></li>-->
+                                    <li><a href="./grid3.html">Sorting</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -180,7 +180,7 @@
 								<ul id="grid-dropdown" class="dropdown-menu" data-role="dropdown">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
-									<!--<li><a href="./grid3.html">Sorting</a></li>-->
+									<li><a href="./grid3.html">Sorting</a></li>
 								</ul>
 							</li>
 			      <li class="title">Tutorials</li>
@@ -226,6 +226,28 @@ There is also an option to remove any data which contains an empty value for tha
 <p>When setting a value, selecting items in the list, or typing in a quick filter,
  it resets other filters for that column. For example, if you have an item checked, and then decided to enter a value,
 your list selection would be removed.</p>
+<p><br></p>
+<h3 id="bindings">Bindings</h3>
+<p>The first change you need to make, regardless of if you use default filtering or viewmodel filtering, is in the bindings.
+Filtering uses a header row to allow you to type in a click filter or click the icon to open up the filter box.</p>
+<h5 id="example-updating-the-bindings-mainbindings-js-https-github-com-lisovin-scalejs-examples-blob-grid-2a-grid-app-main-bindings-mainbindings-js-">Example: Updating the bindings(<a href="https://github.com/lisovin/scalejs-examples/blob/grid-2a/Grid/app/main/bindings/mainBindings.js">mainBindings.js</a>]</h5>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
+<span class="hljs-comment">/*jslint sloppy: true*/</span>
+define({
+    <span class="hljs-string">'main-grid'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">return</span> {
+            slickGrid: {
+                columns: <span class="hljs-keyword">this</span>.columns,
+                itemsSource: <span class="hljs-keyword">this</span>.itemsSource,
+                enableColumnReorder: <span class="hljs-literal">false</span>,
+                forceFitColumns: <span class="hljs-literal">true</span>,
+                rowHeight: <span class="hljs-number">40</span>!!*,
+                showHeaderRow: <span class="hljs-literal">true</span>**!
+            }
+        };
+    }
+});
+</code></pre>
 <p><br></p>
 <h2 id="default-filtering">Default Filtering</h2>
 <p>If you do not wish to implement your own filtering, you may use the filtering provided by the extension.

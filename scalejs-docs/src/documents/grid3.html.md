@@ -47,71 +47,16 @@ or clone [scalejs-examples repository](https://github.com/lisovin/scalejs-exampl
 `git checkout grid-3a`
 
 <br>
-### Columns
 
-Life filtering, to enable sorting you only need to modify the columns.
-You can enable specific columns by adding a `sort` property and setting it to `true`.
-If you do not want specific columns to be sorted, omit this property.
+### Bindings
 
-Optionally, to set a default sort order for a column, 
-and pass either `'asc'` or `'desc'` to the `sort` property instead of `true`.
-This will sort that column in ascending order or descending order respectively when the grid is initialized.
+The first change you need to make is in the bindings. Modify the bindings so there is a `sorting` property exposed.
+This can be bound to __true__ for default sorting, but the downside to that is you cannot specify the initial sort
+or modify the sorted columns from the ViewModel. In our example, we will bind it to a `sorting` observable in the ViewModel.
 
+Optionally, you can set the `multiColumnSort` property to true to enable the ability to sort multiple columns.
 
-##### Example: the viewmodel with the modified columns ([mainViewModel.js](https://github.com/lisovin/scalejs-examples/blob/grid-3a/Grid/app/main/viewmodels/mainViewModel.js))
-```javascript
-/*global define */
-define([
-    'sandbox!main'
-], function (
-    sandbox
-) {
-    'use strict';
-
-    return function () {
-		var // imports
-            observableArray = sandbox.mvvm.observableArray,
-            ajaxGet = sandbox.ajax.jsonpGet,
-            // vars
-            columns,
-            itemsSource = observableArray();
-
-        function moneyFormatter(m) {
-            return parseFloat(m).toFixed(2);
-        }
-
-        columns = [
-            { id: "Symbol", field: "Symbol", name: "Symbol", minWidth: 75, filter: { type: 'string' }, !!*sort: 'asc'**! },
-            { id: "Name", field: "Name", name: "Name", minWidth: 300, filter: { type: 'string' }, !!*sort: true**! },
-            { id: "LastSale", field: "LastSale", name: "Last Sale", cssClass: "money", minWidth: 100, filter: { type: 'number' }, !!*sort: true**! },
-            { id: "MarketCap", field: "MarketCap", name: "Market Cap", cssClass: "money", minWidth: 150, filter: { type: 'mumber' }, !!*sort: true**! },
-            { id: "Sector", field: "Sector", name: "Sector", minWidth: 150, filter: { type: 'string' }, !!*sort: true**! },
-            { id: "Industry", field: "industry", name: "Industry", minWidth: 350, filter: { type: 'string' }, !!*sort: true**! }];
-
-        ajaxGet('./companylist.txt', {}).subscribe(function (data) {
-            itemsSource(JSON.parse(data).map(function (company, index) {
-                // each item in itemsSource needs an index
-                company.index = index
-                // money formatter
-                company.LastSale = moneyFormatter(company.LastSale);
-                company.MarketCap = moneyFormatter(company.MarketCap);
-                return company;
-            }));
-        });
-
-        return {
-            columns: columns,
-            itemsSource: itemsSource
-        };
-    };
-});
-```
-<br>
-### MultiColumn Sort
-
-Optionally, if you would like to enable multi-column sort, add a `multiColumnSort` property to the bindings and set it to `true`.
-
-##### Example: adding sorting to grid bindings ([mainBindings.js](https://github.com/lisovin/scalejs-examples/blob/grid-3a/Grid/app/main/bindings/mainBindings.js))
+##### Example: changing the bindings ([mainBindings.js](https://github.com/lisovin/scalejs-examples/blob/grid-3a/Grid/app/main/bindings/mainBindings.js))
 ```javascript
 /*global define */
 /*jslint sloppy: true*/
@@ -124,16 +69,77 @@ define({
                 enableColumnReorder: false,
                 forceFitColumns: true,
                 rowHeight: 40,
-                showHeaderRow: true,
-                !!*multiColumnSort: true;**!
+                showHeaderRow: true!!*,
+                sorting: this.sorting,
+                multiColumnSort: true**!
             }
         };
     }
 });
+
 ```
 
-Whether you are using the default sorting, or using your ViewModel to sort, your [images and styles](./grid3.html#images-and-styles)
-and the [result](./grid3.html#result) will be the same.
+### ViewModel
+
+In our ViewModel, we need to do 2 things. First, we must expose the observable we bound to the `sorting` property in the bindings.
+Second, we must add `sortable: true` to all the columns we wish to be sortable. In this example, we wanted all of the columns to be sortable
+so we iterated through each one using `forEach` and added the property there. We also set an initial sort order in the `sorting` observable. 
+
+##### Example: changing the ViewModel ([mainViewModel.js](https://github.com/lisovin/scalejs-examples/blob/grid-3a/Grid/app/main/viewmodels/mainViewModel.js))
+```javascript
+/*global define */
+define([
+    'sandbox!main'
+], function (
+    sandbox
+) {
+    'use strict';
+
+    return function () {
+        var // imports
+            observableArray = sandbox.mvvm.observableArray,
+            observable = sandbox.mvvm.observable,
+            ajaxGet = sandbox.ajax.jsonpGet,
+            // vars
+            columns,
+            itemsSource = observableArray()!!*,
+            sorting = observable({ Symbol: true });**!
+
+        function moneyFormatter(m) {
+            return parseFloat(m).toFixed(2);
+        }
+
+        columns = [
+            { id: "Symbol", field: "Symbol", name: "Symbol", minWidth: 75, filter: { type: 'string' } },
+            { id: "Name", field: "Name", name: "Name", minWidth: 300, filter: { type: 'string', quickFilterOp: 'Contains' } },
+            { id: "LastSale", field: "LastSale", name: "Last Sale", cssClass: "money", minWidth: 100, filter: { type: 'number' } },
+            { id: "MarketCap", field: "MarketCap", name: "Market Cap", cssClass: "money", minWidth: 150, filter: { type: 'mumber' } },
+            { id: "Sector", field: "Sector", name: "Sector", minWidth: 150, filter: { type: 'string' } },
+            { id: "Industry", field: "industry", name: "Industry", minWidth: 350, filter: { type: 'string', quickFilterOp: 'Contains' } }];
+
+
+        !!*columns.forEach(function (c) {
+            c.sortable = true;
+        });**!
+
+        ajaxGet('./companylist.txt', {}).subscribe(function (data) {
+            itemsSource(JSON.parse(data).map(function (company) {
+                // money formatter
+                company.LastSale = moneyFormatter(company.LastSale);
+                company.MarketCap = moneyFormatter(company.MarketCap);
+                return company;
+            }));
+        });
+
+        return {
+            columns: columns,
+            itemsSource: itemsSource!!*,
+            sorting: sorting**!
+        };
+    };
+});
+
+```
 <br>
 
 ## Sorting Images and Styles
