@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <link rel="stylesheet" href="style/metro-bootstrap.min.css" />
+	  <link rel="stylesheet" href="style/metro-bootstrap-responsive.min.css" />
+    <script src="style/jquery.min.js"></script>
+	  <script src="style/jquery.ui.widget.js"></script>	
+    <script src="style/metro.min.js"></script>
+	  <link rel="stylesheet" href="highlight.css" />
+
+	<meta name="generator" content="DocPad v6.60.4" />
+	<link  rel="stylesheet" href="highlight.css" />
+    
+	<style>
+    header {
+      height: 45px;
+    }
+    #content {
+      overflow-y: scroll;
+	  padding-right: 20px;
+	  margin-left: 20px;
+    }
+    #sidebar {
+      display: block;
+      float: left;
+      width: 300px;
+      overflow-y: scroll;
+      margin-right:20px;
+    }
+    body {
+      overflow-y: hidden;
+     }
+	.metro h1 {
+		color: #9a1616 !important;
+	}	
+	.metro .sidebar>ul ul, .metro .sidebar>ul ul li a {
+		background-color: #3d3d3d;
+		border: 0px;
+		color: #fff;
+	}
+  </style>
+    
+	<script>
+	function adjustHeight() {
+		//adjust the height of the content and sidebar
+		$("#content").outerHeight(window.innerHeight -45);
+		$("#sidebar").outerHeight(window.innerHeight -45);
+	}
+
+    $(document).ready(function() {
+		var path = window.location.pathname.replace("/scalejs/scalejs-docs/out","");
+		
+		//make selected page active on sidebar
+		$("a[href='." + path +"']").parent().addClass("active");
+
+		adjustHeight();
+		$(window).resize(adjustHeight);
+
+		//create code highlighting
+		$('pre').each(function() {
+			$(this).html($(this).html().replace(/!!\*/g, "<i style='background-color:#FFFF99'>").replace(/\*\*!/g, "</i>"));
+		});
+
+		console.log(path);
+		//expand grid if it is grid
+		if(path === '/grid1.html' || path === '/grid2.html' || path=='/grid3.html') $('#grid-dropdown').css("display","block");
+    });
+
+  </script>
+</head>
+<body class="metro">
+
+  <header>
+	  <nav class="navigation-bar dark fixed-top">
+    <div class="navigation-bar-content">
+        <a href="./" class="element"><span class="icon-home"></span> SCALEJS</a>
+        <span class="element-divider"></span>
+
+        <a class="element1 pull-menu" href="#"></a>
+
+        <ul class="element-menu no-desktop">
+            <li>
+                <a class="dropdown-toggle" href="#"><span class="icon-layers"></span> Docs</a>
+                <ul class="dropdown-menu dark" data-role="dropdown">
+                    <li>
+                        <a href="#" class="dropdown-toggle">Getting Started</a>
+                        <ul class="dropdown-menu dark" data-role="dropdown">
+                            <li><a href="./docs.html"><i class="icon-star-3"></i> Introduction</a></li>
+                            <li><a href="./install.html"><i class="icon-download-2"></i> Install Scalejs</a></li>
+                            <li><a href="./project.html"><i class="icon-new"></i> Create an Application Project</a></li>
+                            <!--<li><a href="./build.html"><i class="icon-cloud"></i> Build and Deployment</a></li>
+                            <li><a href="./test.html"><i class="icon-checkmark"></i> Testing</a></li>
+                            <li><a href="./best.html"><i class="icon-thumbs-up"></i> Best Practices</a></li>-->
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle">Overview</a>
+                        <ul class="dropdown-menu dark" data-role="dropdown">
+                            <li><a href="./template.html"><i class="icon-clipboard-2"></i> Project Template</a></li>
+                            <li><a href="./architecture.html"><i class="icon-puzzle"></i> Architecture</a></li>
+                            <li><a href="./mvvm.html"><i class="icon-tree-view"></i> Model-View-ViewModel</a></li>
+                            <li><a href="./statechart.html"><i class="icon-tab"></i> Statechart</a></li>
+                            <li><a href="./routing.html"><i class="icon-share"></i> Routing</a></li>
+                            <li><a href="./composition.html"><i class="icon-screen"></i> UI Composition</a></li>
+                            <li><a href="./gridlayout.html"><i class="icon-grid-view"></i> Grid Layout</a></li>
+                            <!-- <li><a href="./styles.html"><i class="icon-droplet"></i> Styles</a></li>
+                            <li><a href="./extensions.html"><i class="icon-wrench"></i> Extensions</a></li>
+                            <li><a href="./api.html"><i class="icon-book"></i> API Documentation</a></li>-->
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle">UI Components</a>
+                        <ul class="dropdown-menu dark" data-role="dropdown">
+                            <li>
+                                <a class="dropdown-toggle" href=""><i class="icon-grid"></i> Grid</a>
+                                <ul class="dropdown-menu" data-role="dropdown">
+                                    <li><a href="./grid1.html">Introduction</a></li>
+                                    <li><a href="./grid2.html">Filtering</a></li>
+                                    <li><a href="./grid3.html">Sorting</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="./autocomplete.html"><i class="icon-search"></i> Autocomplete</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle">Tutorials</a>
+                        <ul class="dropdown-menu dark" data-role="dropdown">
+                            <li><a href="./todomvc.html">ToDoMVC</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="divider"></li>
+            <li><a title="Visual Studio Gallery" href="http://visualstudiogallery.msdn.microsoft.com/2a3d0050-ccab-458f-8bfc-2f2aca73e631"><span class="icon-box-add"></span> Visual Studio</a></li>
+            <li class="divider"></li>
+            <li><a title="GitHub" href="https://github.com/lisovin/scalejs/tree/master"><span class="icon-github-3"></span> GitHub</a></li>
+        </ul>
+
+        <div class="no-tablet-portrait no-phone">
+            <a href="./docs.html" class="element"><span class="icon-layers"></span> Docs</a>
+            <span class="element-divider"></span>
+
+            <a title="Visual Studio Gallery" href="http://visualstudiogallery.msdn.microsoft.com/2a3d0050-ccab-458f-8bfc-2f2aca73e631" class="element place-right"><span class="icon-box-add"></span> Visual Studio</a>
+            <span class="element-divider place-right"></span>
+
+            <a title="GitHub" href="https://github.com/lisovin/scalejs/tree/master" class="element place-right"><span class="icon-github-3"></span> GitHub</a>
+            <span class="element-divider place-right"></span>
+        </div>
+    </div>
+</nav>
+  </header>
+  
+  <div id="container">
+     
+       <div id="sidebar" class="sidebar no-tablet-portrait no-phone">
+		      <ul>
+			      <li class="title">Getting Started</li>
+				      <li><a href="./docs.html"><i class="icon-star-3"></i> Introduction</a></li>
+				      <li><a href="./install.html"><i class="icon-download-2"></i> Install Scalejs</a></li>
+				      <li><a href="./project.html"><i class="icon-new"></i> Create an Application Project</a></li>
+                            <!--<li><a href="./build.html"><i class="icon-cloud"></i> Build and Deployment</a></li>
+                            <li><a href="./test.html"><i class="icon-checkmark"></i> Testing</a></li>
+                            <li><a href="./best.html"><i class="icon-thumbs-up"></i> Best Practices</a></li>-->
+			      <li class="title">Overview</li>
+                            <li><a href="./template.html"><i class="icon-clipboard-2"></i> Project Template</a></li>
+                            <li><a href="./architecture.html"><i class="icon-puzzle"></i> Architecture</a></li>
+                            <li><a href="./mvvm.html"><i class="icon-tree-view"></i> Model-View-ViewModel</a></li>
+                            <li><a href="./statechart.html"><i class="icon-tab"></i> Statechart</a></li>
+                            <li><a href="./routing.html"><i class="icon-share"></i> Routing</a></li>
+                            <li><a href="./composition.html"><i class="icon-screen"></i> UI Composition</a></li>
+                            <li><a href="./gridlayout.html"><i class="icon-grid-view"></i> Grid Layout</a></li>
+                            <!--<li><a href="./styles.html"><i class="icon-droplet"></i> Styles</a></li>
+                            <li><a href="./extensions.html"><i class="icon-wrench"></i> Extensions</a></li>
+                            <li><a href="./api.html"><i class="icon-book"></i> API Documentation</a></li>-->
+				  <li class="title">UI Components</li>
+				            <li>
+								<a class="dropdown-toggle" href=""><i class="icon-grid"></i> Grid</a>
+								<ul id="grid-dropdown" class="dropdown-menu" data-role="dropdown">
+									<li><a href="./grid1.html">Introduction</a></li>
+									<li><a href="./grid2.html">Filtering</a></li>
+									<li><a href="./grid3.html">Sorting</a></li>
+								</ul>
+							</li>
+							<li><a href="./autocomplete.html"><i class="icon-search"></i> Autocomplete</a></li>
+				 <li class="title">Tutorials</li>
+				      <li><a href="./todomvc.html">ToDoMVC</a></li>
+		      </ul>
+	      </div>
+
+	    <div id="content">
+		    <h1 id="scalejs-autocomplete-select2">scalejs.autocomplete-select2</h1>
+<p>An autocomplete extension for scalejs based on Select2. This extension provides a way to use select2 and many of its advanced features while still following scalejs patterns. </p>
+<h1 id="features">Features</h1>
+<h2 id="direct-passing-to-select2">Direct Passing to Select2</h2>
+<p>Any object bound to the paramater <code>select2</code> will be passed directly to select2, allowing the developer to use all of the advanced features of select2 as if they are using select2 directly, with no additional modifications needed.</p>
+<h2 id="templating">Templating</h2>
+<p>The id of a template defined in the view can be bound to the paramater <code>itemTemplate</code>, and each item in the results dropdown will be rendered using this template. Also, another template id can be bound to &#39;selectedItemTemplate&#39; to cause the selected item to be rendered with a different template</p>
+<h2 id="persistent-queries">Persistent Queries</h2>
+<p>An observable bound to the paramtater <code>userInput</code> will expose the user&#39;s query to the viewmodel in real time, and cause this query to persist between searches in each select2 box.</p>
+<h2 id="observable-output">Observable Output</h2>
+<p>The user&#39;s selection is returned to the viewmodel through the knockout observable bound to the <code>selectedItem</code> parameter, so clean knockout based patterns can be followed easily. <code>selectedItem</code> is the only paramater that must always be passed, containing an observable.</p>
+<h2 id="adaptive-input">Adaptive Input</h2>
+<p>Instead of providing data using the <code>data</code> paramater in the select2 object, data can also be passed using the <code>itemsSource</code> parameter in this binding. The autocomplete <code>itemsSource</code> parameter accepts an array that contains either strings or objects. If the array contains strings, autocomple will map it correctly for select2 and take care of all the details. If the array contains objects, the <code>textpath</code> parameter must be sent to specify the property of the object that containts the string to be rendered if no template is provided. Likewise, the <code>idpath</code> parameter must be provided to specify which property contains the data returned on selection, else the entire object will be the selected value.</p>
+<h2 id="hierarchical-data">Hierarchical Data</h2>
+<p>This extension supports infinite levels of hierarchical data. Simply specify a <code>childpath</code> as a string or array of strings, and the binding will indent and layer each level of your data.</p>
+<h2 id="dynamic-data-loading">Dynamic Data Loading</h2>
+<p>The <code>itemsSource</code> parameter instead of taking an array can also take an observable. If an observable is passed, before every search the binding will get the most updated value it contains and use that to search from.</p>
+<h2 id="viewmodel-filtering">Viewmodel Filtering</h2>
+<p>All filtering can be done in the viewmodel without passing any functions to select2. If the parameter <code>customFiltering</code> is set to <code>true</code>, then the results of the dropdown will be exactly what is currently in the <code>itemsSource</code>, and can be easily created as a computed function depending on <code>userInput</code>.</p>
+<h1 id="examples">Examples</h1>
+<h2 id="simplest-binding">Simplest Binding</h2>
+<pre class="highlight"><code class="hljs javascript">autocomplete: {
+    itemsSource = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>],
+    selectedItem = <span class="hljs-keyword">this</span>.anyObservable
+}
+</code></pre>
+<h2 id="complex-binding">Complex Binding</h2>
+<pre class="highlight"><code class="hljs javascript">autocomplete: {
+    select2: {
+        placeholder: <span class="hljs-string">'Placeholder Text'</span>,
+        allowClear: <span class="hljs-literal">true</span>
+    },
+    selectedItem: <span class="hljs-keyword">this</span>.someObservable,
+    userInput: <span class="hljs-keyword">this</span>.anotherObservable,
+    itemsToShow: <span class="hljs-keyword">this</span>.computedFilteringFunction,
+    textpath: <span class="hljs-string">'textproperty'</span>,
+    idpath: <span class="hljs-string">'idproperty'</span>
+}
+</code></pre>
+<h1 id="installation">Installation</h1>
+<p>Just install <a href="https://www.nuget.org/packages/scalejs.autocomplete-select2/">this nuget package</a></p>
+<h1 id="browser-compatibility">Browser Compatibility</h1>
+<ul>
+<li>IE 8+</li>
+<li>Chrome 8+</li>
+<li>Firefox 10+</li>
+<li>Safari 3+</li>
+<li>Opera 10.6+</li>
+</ul>
+
+	    </div>
+
+  </div>
+</div>
+    
+</body>
+</html>
