@@ -4,6 +4,10 @@ isPage: true
 styles: ["highlight.css"]
 ---
 
+<link href="autocomplete/select2-bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="autocomplete/select2.css" rel="stylesheet" type="text/css" />
+<script src="autocomplete/autocomplete-test-1.0.1.js" type="text/javascript"></script>
+
 scalejs.autocomplete-select2
 ============================
 
@@ -70,6 +74,10 @@ autocomplete: {
 }
 ```
 
+<div id="autocomplete-example" ></div>
+
+
+
 # Installation
 
 Just install [this nuget package](https://www.nuget.org/packages/scalejs.autocomplete-select2/)
@@ -81,3 +89,4 @@ Just install [this nuget package](https://www.nuget.org/packages/scalejs.autocom
 * Firefox 10+
 * Safari 3+
 * Opera 10.6+
+<script source="./"
