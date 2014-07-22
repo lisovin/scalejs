@@ -86,4 +86,3 @@ Just install [this nuget package](https://www.nuget.org/packages/scalejs.autocom
 * Firefox 10+
 * Safari 3+
 * Opera 10.6+
-<script source="./"
