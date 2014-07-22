@@ -53,7 +53,7 @@
 
 .control-group.error .select2-container .select2-choice div {
     border-left: 1px solid #B94A48 !important;
-    background: #F2DEDE !important;
+    background: #1b1b1b !important;
 }
 
 .control-group.info .select2-container .select2-choice,
@@ -63,12 +63,12 @@
 .control-group.info .select2-dropdown-open.select2-drop-above .select2-choice,
 .control-group.info .select2-dropdown-open.select2-drop-above .select2-choices,
 .control-group.info .select2-container-multi.select2-container-active .select2-choices {
-    border: 1px solid #3A87AD !important;
+    border: 1px solid orange !important;
 }
 
 .control-group.info .select2-container .select2-choice div {
     border-left: 1px solid #3A87AD !important;
-    background: #D9EDF7 !important;
+    background: #808080 !important;
 }
 
 .control-group.success .select2-container .select2-choice,

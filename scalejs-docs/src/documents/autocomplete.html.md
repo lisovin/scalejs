@@ -4,8 +4,8 @@ isPage: true
 styles: ["highlight.css"]
 ---
 
-<link href="autocomplete/select2-bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="autocomplete/select2.css" rel="stylesheet" type="text/css" />
+<link href="autocomplete/select2-bootstrap.css" rel="stylesheet" type="text/css" />
 <script src="autocomplete/autocomplete-test-1.0.1.js" type="text/javascript"></script>
 
 scalejs.autocomplete-select2
