@@ -35,10 +35,9 @@ Version: 3.5.0 Timestamp: Mon Jun 16 19:29:44 EDT 2014
     border: 1px solid #aaa;
     white-space: nowrap;
     line-height: 26px;
-    color: #444;
+    color: #ffffff;
     text-decoration: none;
 
-    //border-radius: 4px;
 
     background-clip: padding-box;
 
@@ -367,17 +366,9 @@ html[dir="rtl"] .select2-results {
 .select2-results-dept-6 .select2-result-label { padding-left: 110px }
 .select2-results-dept-7 .select2-result-label { padding-left: 120px }
 
-.select2-results {
-    color: #ffffff !important;
-}
-
-.select2-results ul {
-    color: #ffffff !important;
-}
-
 .select2-results .select2-highlighted {
     background: #3875d7;
-    color: #121212;
+    color: #ffffff;
 }
 
 .select2-results li em {
@@ -519,7 +510,7 @@ html[dir="rtl"] .select2-container-multi .select2-choices li
 }
 
 .select2-default {
-    color: #121212 !important;
+    color: #4E4E50 !important;
 }
 
 .select2-container-multi .select2-choices .select2-search-choice {

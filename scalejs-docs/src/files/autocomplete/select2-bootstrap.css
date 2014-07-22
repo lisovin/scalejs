@@ -81,6 +81,10 @@
     border: 1px solid #468847 !important;
 }
 
+.select2-container .select2 {
+    color: #ffffff;
+}
+
 .control-group.success .select2-container .select2-choice div {
     border-left: 1px solid #468847 !important;
     background: #121212 !important;
@@ -92,4 +96,18 @@
 
 .select2-results ul {
     color: #ffffff !important;
+}
+
+.select2-search input {
+    color: #ffffff;
+}
+
+.select2-results .select2-no-results, .select2-results .select2-searching, .select2-results .select2-selection-limit li {
+    color: #ffffff;
+    background-color: #121212;
+}
+
+/* highlight on inputbox */
+.select2-container .select2-choice a:hover {
+    color: #ffffff;
 }
