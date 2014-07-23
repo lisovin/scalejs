@@ -14706,7 +14706,7 @@ define('text',['module'], function (module) {
     return text;
 });
 
-define('text!app/main/views/main.html',[],function () { return '<div id="main_template">\r\n    <label>\r\n        Basic strings to be filtered by select2<br />\r\n        <input data-class="auto" class="select2" style="width: 400px">\r\n    </label>\r\n    <span data-bind="text: selectedItem"></span>\r\n    <br /><br />\r\n    <label>\r\n        flare<br />\r\n        <input data-class="flare" class="select2" style="width: 400px">\r\n    </label>\r\n    <span data-bind="text: selectedItem1"></span>\r\n    <span data-bind="text: userInput"></span>\r\n\r\n</div>\r\n\r\n<div id="autocomplete_item_template">\r\n    <span data-bind="text: $data.text"></span>\r\n</div>\r\n';});
+define('text!app/main/views/main.html',[],function () { return '<div id="main_template">\r\n    <label>\r\n        <h4>Simple Binding</h4>\r\n        <input data-class="auto" class="select2" style="width: 400px">\r\n    </label><br />\r\n    Selected Item: <span data-bind="text: selectedItem"></span>\r\n    <br /><br />\r\n    <label>\r\n        <h4>Complex Binding</h4>\r\n        <input data-class="flare" class="select2" style="width: 400px">\r\n    </label><br />\r\n    Selected Item: <span data-bind="text: selectedItem1"></span><br />\r\n    User Input:    <span data-bind="text: userInput"></span>\r\n\r\n</div>\r\n\r\n<div id="autocomplete_item_template">\r\n    <span data-bind="text: $data.text"></span>\r\n</div>\r\n';});
 
 
 /*global define*/

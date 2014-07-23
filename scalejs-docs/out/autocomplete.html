@@ -217,24 +217,28 @@
 <h2 id="examples">Examples</h2>
 <h3 id="simplest-binding">Simplest Binding</h3>
 <pre class="highlight"><code class="hljs javascript">autocomplete: {
-    itemsSource = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>],
-    selectedItem = <span class="hljs-keyword">this</span>.anyObservable
+    itemsSource: [<span class="hljs-string">'Nick'</span>, <span class="hljs-string">'Conor'</span>, <span class="hljs-string">'Nissam'</span>, <span class="hljs-string">'Serge'</span>, <span class="hljs-string">'Jeremy'</span>, <span class="hljs-string">'Peter'</span>],
+    selectedItem: <span class="hljs-keyword">this</span>.selectedItem,
 }
 </code></pre>
 <h3 id="complex-binding">Complex Binding</h3>
 <pre class="highlight"><code class="hljs javascript">autocomplete: {
     select2: {
         placeholder: <span class="hljs-string">'Placeholder Text'</span>,
-        allowClear: <span class="hljs-literal">true</span>
+        allowClear: <span class="hljs-literal">true</span>,
     },
-    selectedItem: <span class="hljs-keyword">this</span>.someObservable,
-    userInput: <span class="hljs-keyword">this</span>.anotherObservable,
-    itemsToShow: <span class="hljs-keyword">this</span>.computedFilteringFunction,
-    textpath: <span class="hljs-string">'textproperty'</span>,
-    idpath: <span class="hljs-string">'idproperty'</span>
+    itemsSource: <span class="hljs-keyword">this</span>.dataObservable,
+    selectedItem: <span class="hljs-keyword">this</span>.selectedItemObservable,
+    queryText: <span class="hljs-keyword">this</span>.userInputObservable,
+    textPath: <span class="hljs-string">'name'</span>,
+    idPath: <span class="hljs-string">'name'</span>,
+    childPath: <span class="hljs-string">'children'</span>,
+    selectGroupNodes: <span class="hljs-literal">true</span>,
+    itemTemplate: <span class="hljs-string">"autocomplete_item_template"</span>
 }
 </code></pre>
 <div id="autocomplete-example" ></div>
+
 
 <h2 id="installation">Installation</h2>
 <p>Just install <a href="https://www.nuget.org/packages/scalejs.autocomplete-select2/">this nuget package</a></p>
