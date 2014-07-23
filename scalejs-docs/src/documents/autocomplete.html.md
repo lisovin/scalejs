@@ -10,7 +10,43 @@ styles: ["highlight.css"]
 
 # scalejs.autocomplete-select2
 
-An autocomplete extension for scalejs based on Select2. This extension provides a way to use select2 and many of its advanced features while still following scalejs patterns. 
+An autocomplete extension for scalejs based on [Select2](http://ivaynberg.github.io/select2/). This extension provides a way to use select2 and many of its advanced features while still following scalejs patterns. 
+
+
+<div id="autocomplete-example" ></div>
+
+
+
+## Examples
+
+### Simple Binding
+
+```javascript
+autocomplete: {
+    itemsSource: ['Nick', 'Conor', 'Nissam', 'Serge', 'Jeremy', 'Peter', 'Ernie', 'Bruce', 'Vlad', 'Mike'],
+    selectedItem: this.selectedItem,
+}
+```
+
+### Complex Binding
+
+```javascript
+autocomplete: {
+    select2: {
+        placeholder: 'Placeholder Text',
+        allowClear: true,
+    },
+    itemsSource: this.dataObservable,
+    selectedItem: this.selectedItemObservable,
+    queryText: this.userInputObservable,
+    textPath: 'name',
+    idPath: 'name',
+    childPath: 'children',
+    selectGroupNodes: false,
+    itemTemplate: "autocomplete_item_template"
+}
+```
+
 
 ## Features
 
@@ -24,7 +60,7 @@ The id of a template defined in the view can be bound to the paramater ```itemTe
 
 ### Persistent Queries
 
-An observable bound to the paramtater ```userInput``` will expose the user's query to the viewmodel in real time, and cause this query to persist between searches in each select2 box.
+An observable bound to the paramtater ```queryText``` will expose the user's query to the viewmodel in real time, and cause this query to persist between searches in each select2 box.
 
 ### Observable Output
 
@@ -44,49 +80,9 @@ The ```itemsSource``` parameter instead of taking an array can also take an obse
 
 ### Viewmodel Filtering
 
-All filtering can be done in the viewmodel without passing any functions to select2. If the parameter ```customFiltering``` is set to ```true```, then the results of the dropdown will be exactly what is currently in the ```itemsSource```, and can be easily created as a computed function depending on ```userInput```.
-
-## Examples
-
-### Simplest Binding
-
-```javascript
-autocomplete: {
-    itemsSource: ['Nick', 'Conor', 'Nissam', 'Serge', 'Jeremy', 'Peter'],
-    selectedItem: this.selectedItem,
-}
-```
-
-### Complex Binding
-
-```javascript
-autocomplete: {
-    select2: {
-        placeholder: 'Placeholder Text',
-        allowClear: true,
-    },
-    itemsSource: this.dataObservable,
-    selectedItem: this.selectedItemObservable,
-    queryText: this.userInputObservable,
-    textPath: 'name',
-    idPath: 'name',
-    childPath: 'children',
-    selectGroupNodes: true,
-    itemTemplate: "autocomplete_item_template"
-}
-```
-
-<div id="autocomplete-example" ></div>
+All filtering can be done in the viewmodel without passing any functions to select2. If the parameter ```customFiltering``` is set to ```true```, then the results of the dropdown will be exactly what is currently in the ```itemsSource```, and can be easily created as a computed function depending on ```queryText```.
 
 
 ## Installation
 
 Just install [this nuget package](https://www.nuget.org/packages/scalejs.autocomplete-select2/)
-
-## Browser Compatibility
-
-* IE 8+
-* Chrome 8+
-* Firefox 10+
-* Safari 3+
-* Opera 10.6+
