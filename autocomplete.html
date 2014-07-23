@@ -191,48 +191,58 @@
 	      </div>
 
 	    <div id="content">
-		    <h1 id="scalejs-autocomplete-select2">scalejs.autocomplete-select2</h1>
+		    <p><link href="autocomplete/select2.css" rel="stylesheet" type="text/css" /></p>
+<p><link href="autocomplete/select2-bootstrap.css" rel="stylesheet" type="text/css" /></p>
+<script src="autocomplete/autocomplete-test-1.0.1.js" type="text/javascript"></script>
+
+<h1 id="scalejs-autocomplete-select2">scalejs.autocomplete-select2</h1>
 <p>An autocomplete extension for scalejs based on Select2. This extension provides a way to use select2 and many of its advanced features while still following scalejs patterns. </p>
-<h1 id="features">Features</h1>
-<h2 id="direct-passing-to-select2">Direct Passing to Select2</h2>
+<h2 id="features">Features</h2>
+<h3 id="direct-passing-to-select2">Direct Passing to Select2</h3>
 <p>Any object bound to the paramater <code>select2</code> will be passed directly to select2, allowing the developer to use all of the advanced features of select2 as if they are using select2 directly, with no additional modifications needed.</p>
-<h2 id="templating">Templating</h2>
+<h3 id="templating">Templating</h3>
 <p>The id of a template defined in the view can be bound to the paramater <code>itemTemplate</code>, and each item in the results dropdown will be rendered using this template. Also, another template id can be bound to &#39;selectedItemTemplate&#39; to cause the selected item to be rendered with a different template</p>
-<h2 id="persistent-queries">Persistent Queries</h2>
+<h3 id="persistent-queries">Persistent Queries</h3>
 <p>An observable bound to the paramtater <code>userInput</code> will expose the user&#39;s query to the viewmodel in real time, and cause this query to persist between searches in each select2 box.</p>
-<h2 id="observable-output">Observable Output</h2>
+<h3 id="observable-output">Observable Output</h3>
 <p>The user&#39;s selection is returned to the viewmodel through the knockout observable bound to the <code>selectedItem</code> parameter, so clean knockout based patterns can be followed easily. <code>selectedItem</code> is the only paramater that must always be passed, containing an observable.</p>
-<h2 id="adaptive-input">Adaptive Input</h2>
+<h3 id="adaptive-input">Adaptive Input</h3>
 <p>Instead of providing data using the <code>data</code> paramater in the select2 object, data can also be passed using the <code>itemsSource</code> parameter in this binding. The autocomplete <code>itemsSource</code> parameter accepts an array that contains either strings or objects. If the array contains strings, autocomple will map it correctly for select2 and take care of all the details. If the array contains objects, the <code>textpath</code> parameter must be sent to specify the property of the object that containts the string to be rendered if no template is provided. Likewise, the <code>idpath</code> parameter must be provided to specify which property contains the data returned on selection, else the entire object will be the selected value.</p>
-<h2 id="hierarchical-data">Hierarchical Data</h2>
+<h3 id="hierarchical-data">Hierarchical Data</h3>
 <p>This extension supports infinite levels of hierarchical data. Simply specify a <code>childpath</code> as a string or array of strings, and the binding will indent and layer each level of your data.</p>
-<h2 id="dynamic-data-loading">Dynamic Data Loading</h2>
+<h3 id="dynamic-data-loading">Dynamic Data Loading</h3>
 <p>The <code>itemsSource</code> parameter instead of taking an array can also take an observable. If an observable is passed, before every search the binding will get the most updated value it contains and use that to search from.</p>
-<h2 id="viewmodel-filtering">Viewmodel Filtering</h2>
+<h3 id="viewmodel-filtering">Viewmodel Filtering</h3>
 <p>All filtering can be done in the viewmodel without passing any functions to select2. If the parameter <code>customFiltering</code> is set to <code>true</code>, then the results of the dropdown will be exactly what is currently in the <code>itemsSource</code>, and can be easily created as a computed function depending on <code>userInput</code>.</p>
-<h1 id="examples">Examples</h1>
-<h2 id="simplest-binding">Simplest Binding</h2>
+<h2 id="examples">Examples</h2>
+<h3 id="simplest-binding">Simplest Binding</h3>
 <pre class="highlight"><code class="hljs javascript">autocomplete: {
-    itemsSource = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>],
-    selectedItem = <span class="hljs-keyword">this</span>.anyObservable
+    itemsSource: [<span class="hljs-string">'Nick'</span>, <span class="hljs-string">'Conor'</span>, <span class="hljs-string">'Nissam'</span>, <span class="hljs-string">'Serge'</span>, <span class="hljs-string">'Jeremy'</span>, <span class="hljs-string">'Peter'</span>],
+    selectedItem: <span class="hljs-keyword">this</span>.selectedItem,
 }
 </code></pre>
-<h2 id="complex-binding">Complex Binding</h2>
+<h3 id="complex-binding">Complex Binding</h3>
 <pre class="highlight"><code class="hljs javascript">autocomplete: {
     select2: {
         placeholder: <span class="hljs-string">'Placeholder Text'</span>,
-        allowClear: <span class="hljs-literal">true</span>
+        allowClear: <span class="hljs-literal">true</span>,
     },
-    selectedItem: <span class="hljs-keyword">this</span>.someObservable,
-    userInput: <span class="hljs-keyword">this</span>.anotherObservable,
-    itemsToShow: <span class="hljs-keyword">this</span>.computedFilteringFunction,
-    textpath: <span class="hljs-string">'textproperty'</span>,
-    idpath: <span class="hljs-string">'idproperty'</span>
+    itemsSource: <span class="hljs-keyword">this</span>.dataObservable,
+    selectedItem: <span class="hljs-keyword">this</span>.selectedItemObservable,
+    queryText: <span class="hljs-keyword">this</span>.userInputObservable,
+    textPath: <span class="hljs-string">'name'</span>,
+    idPath: <span class="hljs-string">'name'</span>,
+    childPath: <span class="hljs-string">'children'</span>,
+    selectGroupNodes: <span class="hljs-literal">true</span>,
+    itemTemplate: <span class="hljs-string">"autocomplete_item_template"</span>
 }
 </code></pre>
-<h1 id="installation">Installation</h1>
+<div id="autocomplete-example" ></div>
+
+
+<h2 id="installation">Installation</h2>
 <p>Just install <a href="https://www.nuget.org/packages/scalejs.autocomplete-select2/">this nuget package</a></p>
-<h1 id="browser-compatibility">Browser Compatibility</h1>
+<h2 id="browser-compatibility">Browser Compatibility</h2>
 <ul>
 <li>IE 8+</li>
 <li>Chrome 8+</li>
