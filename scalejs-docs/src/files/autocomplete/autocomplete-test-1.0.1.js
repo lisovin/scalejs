@@ -14264,141 +14264,17 @@ define('app/main/viewmodels/mainViewModel',[
             observable = sandbox.mvvm.observable,
             computed = sandbox.mvvm.computed,
             // properties
-            names = ['Nick', 'Nissam', 'Conor', 'Serge', 'Jeremy', 'Peter'],
-            groupedNames = [
-                {
-                    text: "intern island",
-                    qwer: [
-                        {
-                            text: "interns",
-                            qwer: [
-                                { id: 'nick', text: 'nick' },
-                                { id: 'connor', text: 'connor' },
-                                { id: 'vinnie', text: 'vinnie' }
-                            ]
-                        },
-                        {
-                            text: "Bros4lyfe",
-                            qwer: [
-                                { id: 'terrence', text: 'terrence' },
-                                { id: 'hosea', text: 'hosea' }
-                            ]
-                        }
-
-                    ]
-                },
-                {
-                    text: "developer doughnut",
-                    qwer: [
-                        { id: 'greg', text: 'greg' },
-                        { id: 'dan', text: 'dan' },
-                        { id: 'nissam', text: 'nissam' }
-                    ]
-                },
-            ],
-            selectgroups = [
-                {
-                    text: "intern island",
-                    children: [
-                        {
-                            text: "interns",
-                            id: "erica's personal slaves",
-                            children: [
-                                { id: 'nick', text: 'nick' },
-                                { id: 'connor', text: 'connor' },
-                                { id: 'vinnie', text: 'vinnie' }
-                            ]
-                        },
-                        {
-                            text: "Bros4lyfe",
-                            id: 'yobrobros',
-                            children: [
-                                { id: 'terrence', text: 'terrence' },
-                                { id: 'hosea', text: 'hosea' }
-                            ]
-                        }
-
-                    ]
-                },
-                {
-                    text: "developer doughnut",
-                    children: [
-                        { id: 'greg', text: 'greg' },
-                        { id: 'dan', text: 'dan' },
-                        { id: 'nissam', text: 'nissam' }
-                    ]
-                },
-            ],
-            namesObservable = observable(names),
-            namesInObjs = names.map(function (d) {
-                return { id: d, text: d };
-            }),
             itemsToShow,
-            itemsToShow3,
-            itemsSource = observable(namesInObjs),
             selectedItem = observable(""),
             selectedItem1 = observable(""),
-            selectedItem2 = observable(""),
-            selectedItem3 = observable(""),
-            selectedItem4 = observable(""),
-            selectedItem5 = observable(""),
-            selectedItem6 = observable(""),
             userInput = observable(""),
-            userInput1 = observable(""),
-            userInput2 = observable(""),
-            userInput3 = observable(""),
-            userInput4 = observable(""),
             flareData = [flare];
 
-        // Returns all items that have the same first character as the user input
-        itemsToShow = computed(function () {
-            if (userInput1() !== "") {
-                var itemsToShow = names
-                    .filter(function (d) {
-                        return (d.indexOf(userInput1()[0]) === 0);
-                    }).map( function (d) {
-                        return { id: d, text: d };
-                    });
-                return itemsToShow;
-            } else {
-                return names.map(function (d) {
-                    return { id: d, text: d };
-                });
-            }
-        });
-        userInput1("");
-
-        itemsToShow3 = computed(function () {
-            if (userInput3() !== "") {
-                var itemsToShow = names
-                    .filter(function (d) {
-                        return (d.indexOf(userInput3()[0]) === 0);
-                    });
-                return itemsToShow;
-            } else {
-                return [];
-            }
-        });
-
         return {
-            selectedItem1: selectedItem1,
-            userInput1: userInput1,
-            itemsSource: itemsSource,
-            selectedItem: selectedItem,
-            userInput: userInput,
             itemsToShow: itemsToShow,
-            selectedItem2: selectedItem2,
-            userInput2: userInput2,
-            itemsToShow3: itemsToShow3,
-            userInput3: userInput3,
-            userInput4: userInput4,
-            selectedItem3: selectedItem3,
-            selectedItem4: selectedItem4,
-            namesObservable: namesObservable,
-            groupedNames: groupedNames,
-            selectgroups: selectgroups,
-            selectedItem5: selectedItem5,
-            selectedItem6: selectedItem6,
+            selectedItem: selectedItem,
+            selectedItem1: selectedItem1,
+            userInput: userInput,
             flareData: flareData
         };
     };
@@ -14411,7 +14287,9 @@ define('views',[],function () {
 
     return {
         load: function (name, req, onLoad, config) {
-            var names = name.match(/([\w\-]+)/g) || [];
+            /*jslint regexp: true*/
+            var names = name.match(/([^,]+)/g) || [];
+            /*jslint regexp: false*/
 
             names = names.map(function (n) {
                 if (n.indexOf('.html', n.length - 5) === -1) {
@@ -14440,6 +14318,7 @@ define('views',[],function () {
         }
     };
 });
+
 /**
  * @license RequireJS text 2.0.10 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
@@ -14827,7 +14706,7 @@ define('text',['module'], function (module) {
     return text;
 });
 
-define('text!app/main/views/main.html',[],function () { return '<div id="main_template">\n    <label>\r\n        Basic strings to be filtered by select2<br />\r\n        <input data-class="auto" class="select2" style="width: 400px">\r\n    </label>\n    <span data-bind="text: selectedItem"></span>\n    <span data-bind="text: userInput"></span>\n    <br /><br />\n    <label>\r\n        Viewmodel Filtering<br />\r\n        <input data-class="auto1" class="select2" style="width: 400px">\r\n    </label>\r\n    <span data-bind="text: selectedItem1"></span>\r\n    <span data-bind="text: userInput1"></span>\n    <br /><br />\r\n    <label>\r\n        Templating<br />\r\n        <input data-class="auto2" class="select2" style="width: 400px">\r\n    </label>\r\n    <span data-bind="text: selectedItem2"></span>\r\n    <span data-bind="text: userInput2"></span>\n    <br /><br />\n    <label>\r\n        Object Stuff<br />\r\n        <input data-class="auto3" class="select2" style="width: 400px">\r\n    </label>\r\n    <span data-bind="text: selectedItem3"></span>\r\n    <span data-bind="text: userInput3"></span>\n    <br /><br />\r\n    <label>\r\n        Grouping<br />\r\n        <input data-class="grouping" class="select2" style="width: 400px">\r\n    </label>\r\n    <span data-bind="text: selectedItem4"></span>\r\n    <span data-bind="text: userInput4"></span>\n    <br /><br />\r\n    <label>\r\n        flare<br />\r\n        <input data-class="flare" class="select2" style="width: 400px">\r\n    </label>\r\n    <span data-bind="text: selectedItem6"></span>\n    <br /><br />\r\n    <label>\r\n        test<br />\r\n        <input data-class="selectgroup" class="select2" style="width: 400px">\r\n    </label>\r\n    <span data-bind="text: selectedItem5"></span>\n</div>\n\n<div id="autocomplete_item_template">\r\n    <b><span data-bind="text: $data + 1"></span></b>\r\n</div>\r\n\r\n<div id="autocomplete_item_template3">\r\n    <b><span data-bind="text: $data"></span></b>\r\n</div>';});
+define('text!app/main/views/main.html',[],function () { return '<div id="main_template">\r\n    <label>\r\n        Basic strings to be filtered by select2<br />\r\n        <input data-class="auto" class="select2" style="width: 400px">\r\n    </label>\r\n    <span data-bind="text: selectedItem"></span>\r\n    <br /><br />\r\n    <label>\r\n        flare<br />\r\n        <input data-class="flare" class="select2" style="width: 400px">\r\n    </label>\r\n    <span data-bind="text: selectedItem1"></span>\r\n    <span data-bind="text: userInput"></span>\r\n\r\n</div>\r\n\r\n<div id="autocomplete_item_template">\r\n    <span data-bind="text: $data.text"></span>\r\n</div>\r\n';});
 
 
 /*global define*/
@@ -14837,7 +14716,9 @@ define('bindings',[],function () {
 
     return {
         load: function (name, req, onLoad, config) {
-            var names = name.match(/([\w\-]+)/g) || [];
+            /*jslint regexp: true*/
+            var names = name.match(/([^,]+)/g) || [];
+            /*jslint regexp: false*/
 
             names = names.map(function (n) {
                 if (n.indexOf('.js', n.length - 3) > -1) {
@@ -14870,78 +14751,15 @@ define('bindings',[],function () {
         }
     };
 });
+
 /*global define */
 /*jslint sloppy: true*/
 define('app/main/bindings/mainBindings',{
     'auto': function () {
         return {
             autocomplete: {
-                select2: {
-                },
-                itemsSource: this.namesObservable,
+                itemsSource: ['Nick', 'Conor', 'Nissam', 'Serge', 'Jeremy', 'Peter'],
                 selectedItem: this.selectedItem,
-                queryText: this.userInput
-            }
-        }
-    },
-    'auto1': function () {
-        return {
-            autocomplete: {
-                select2: {
-                    placeholder: 'Placeholder Text',
-                    allowClear: true
-                },
-                selectedItem: this.selectedItem1,
-                queryText: this.userInput1,
-                itemsSource: this.itemsToShow,
-                textPath: 'text',
-                idPath: 'id',
-                customFiltering: true
-            }
-        }
-    },
-    'auto2': function () {
-        return {
-            autocomplete: {
-                select2: {
-                    placeholder: 'Placeholder Text',
-                    allowClear: true
-                },
-                selectedItem: this.selectedItem2,
-                queryText: this.userInput2,
-                itemsSource: this.namesObservable,
-                itemTemplate: "autocomplete_item_template"
-            }
-        }
-    },
-    'auto3': function () {
-        return {
-            autocomplete: {
-                select2: {
-                    placeholder: 'Placeholder Text',
-                    allowClear: true
-                },
-                selectedItem: this.selectedItem3,
-                queryText: this.userInput3,
-                itemsSource: this.itemsToShow3,
-                itemTemplate: "autocomplete_item_template3",
-                customFiltering: true
-            }
-        }
-    },
-    'grouping': function () {
-        return {
-            autocomplete: {
-                select2: {
-                    placeholder: 'Grouping'
-                },
-                itemsSource: this.groupedNames,
-                queryText: this.userInput4,
-                selectedItem: this.selectedItem4,
-                childPath: 'qwer',
-                textPath: 'text',
-                idPath: 'id'
-
             }
         }
     },
@@ -14949,26 +14767,17 @@ define('app/main/bindings/mainBindings',{
         return {
             autocomplete: {
                 select2: {
-                    placeholder: 'flare.js'
+                    placeholder: 'flare.js',
+                    allowClear: true,
                 },
                 itemsSource: this.flareData,
+                selectedItem: this.selectedItem1,
+                queryText: this.userInput,
                 textPath: 'name',
                 idPath: 'name',
                 childPath: 'children',
-                selectedItem: this.selectedItem6,
-                selectGroupNodes: true
-
-            }
-        }
-    },
-    'selectgroup': function () {
-        return {
-            autocomplete: {
-                select2: {
-                    data: this.selectgroups,
-                    placeholder: 'selectablegroupnodes'
-                },
-                selectedItem: this.selectedItem5
+                selectGroupNodes: true,
+                itemTemplate: "autocomplete_item_template"
             }
         }
     }
@@ -15248,7 +15057,7 @@ define('app/main/mainModule',[
 });
 
 
-define("scalejs/extensions", ["scalejs.autocomplete-select2","scalejs.functional","scalejs.linq-linqjs","scalejs.mvvm","scalejs.statechart-scion"], function () { return Array.prototype.slice(arguments); });
+define("scalejs/extensions", ["scalejs.autocomplete-select2","scalejs.autocomplete-select2","scalejs.functional","scalejs.functional","scalejs.linq-linqjs","scalejs.mvvm","scalejs.mvvm","scalejs.statechart-scion"], function () { return Array.prototype.slice(arguments); });
 /*global require*/
 require([
     'scalejs!application/main'
