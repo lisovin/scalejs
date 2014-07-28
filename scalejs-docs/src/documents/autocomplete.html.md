@@ -23,7 +23,7 @@ An autocomplete extension for scalejs based on [Select2](http://ivaynberg.github
 
 ```javascript
 autocomplete: {
-    itemsSource: ['Nick', 'Conor', 'Nissam', 'Serge', 'Jeremy', 'Peter', 'Ernie', 'Bruce', 'Vlad', 'Mike'],
+    itemsSource: ['Nick', 'Conor', 'Nissim', 'Dan', 'Serge', 'Dave',  'Jeremy', 'Peter', 'Ernie', 'Bruce', 'Vlad', 'Mike'],
     selectedItem: this.selectedItem,
 }
 ```
