@@ -8,9 +8,9 @@ styles: ["highlight.css"]
 <link href="autocomplete/select2-bootstrap.css" rel="stylesheet" type="text/css" />
 <script src="autocomplete/autocomplete-test-1.0.1.js" type="text/javascript"></script>
 
-# scalejs.autocomplete-select2
+# Autocomplete
 
-An autocomplete extension for scalejs based on [Select2](http://ivaynberg.github.io/select2/). This extension provides a way to use select2 and many of its advanced features while still following scalejs patterns. 
+An autocomplete extension for scalejs based on [Select2](http://ivaynberg.github.io/select2/). This extension provides a way to use select2 and many of its advanced features while still following scalejs patterns. The code is freely available on [GitHub](https://github.com/egucciar/scalejs.autocomplete-select2).
 
 
 <div id="autocomplete-example" ></div>
