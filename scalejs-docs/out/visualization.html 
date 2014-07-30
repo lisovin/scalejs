@@ -123,6 +123,7 @@
                                 </ul>
                             </li>
                             <li><a href="./autocomplete.html"><i class="icon-search"></i> Autocomplete</a></li>
+                            <li><a href="./visualization.html"><i class="icon-stats-up"></i> Visualization</a></li>
                         </ul>
                     </li>
                     <li>
@@ -225,7 +226,7 @@
     }, {
         colorPalette: <span class="hljs-string">'PRGn'</span>
     }, {
-        colorPalette: [<span class="hljs-string">"#d7191c"</span>, <span class="hljs-string">"#fdae61"</span>, <span class="hljs-string">"#ffffbf"</span>, <span class="hljs-string">"#a6d96a"</span>, <span class="hljs-string">"#1a9641"</span>]   <span class="hljs-comment">//'RdYlGn'</span>
+        colorPalette: [<span class="hljs-string">"#d7191c"</span>, <span class="hljs-string">"#fdae61"</span>, <span class="hljs-string">"#ffffbf"</span>, <span class="hljs-string">"#a6d96a"</span>, <span class="hljs-string">"#1a9641"</span>]
     }],
     idPath: <span class="hljs-string">'name'</span>,
     childrenPath: <span class="hljs-string">'children'</span>,
@@ -242,18 +243,19 @@
     parentFr: <span class="hljs-number">1</span> / <span class="hljs-number">2</span>,
     levelsFr: [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]
 }
+}
 </code></pre>
 <h2 id="features">Features</h2>
 <h3 id="dynamic-visualization-switching">Dynamic Visualization Switching</h3>
 <p>The same data can be rendered using multiple visualizations that can be switched in real time by pushing the names of different visualizations into an observable bound to the <code>type</code> property.</p>
 <h3 id="observable-output">Observable Output</h3>
-<p>The user&#39;s selection is returned to the viewmodel through the knockout observable bound to the <code>selectedItem</code> parameter, so clean knockout based patterns can be followed easily. <code>selectedItem</code> is the only paramater that must always be passed, containing an observable.</p>
+<p>Anything that the user holds, selects, or zooms to, is accessable through the <code>heldItemPath</code>, <code>selectedItemPath</code>, or <code>zoomedItemPath</code> observables, and items can be pushed to these observables from the viewmodel as well to manipulate the visualization.</p>
 <h3 id="adaptive-input">Adaptive Input</h3>
-<p>Instead of providing data using the <code>data</code> paramater in the select2 object, data can also be passed using the <code>itemsSource</code> parameter in this binding. The autocomplete <code>itemsSource</code> parameter accepts an array that contains either strings or objects. If the array contains strings, autocomple will map it correctly for select2 and take care of all the details. If the array contains objects, the <code>textpath</code> parameter must be sent to specify the property of the object that containts the string to be rendered if no template is provided. Likewise, the <code>idpath</code> parameter must be provided to specify which property contains the data returned on selection, else the entire object will be the selected value.</p>
+<p>The colors and areas of the nodes within each visualization will be calculated based on values given in each object. The paths to these objects are specified using the <code>areaPath</code> and <code>colorPath</code> parameters.</p>
 <h3 id="hierarchical-data">Hierarchical Data</h3>
 <p>This extension supports infinite levels of hierarchical data. Simply specify a <code>childrenPath</code> as a string, and the binding will parse your data and display all levels  possible.</p>
 <h3 id="dynamic-data-loading">Dynamic Data Loading</h3>
-<p>The <code>data</code> parameter instead of taking an array can also take an observable. If an observable is passed, before every search the binding will get the most updated value it contains and use that to search from.</p>
+<p>The <code>data</code> parameter instead of taking an array can also take an observable to easily display static or dynamic data.</p>
 <h2 id="installation">Installation</h2>
 <p>Just install <a href="https://www.nuget.org/packages/scalejs.visualization-d3/">this nuget package</a></p>
 

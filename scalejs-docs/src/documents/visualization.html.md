@@ -46,7 +46,7 @@ visualizations: {
     }, {
         colorPalette: 'PRGn'
     }, {
-        colorPalette: ["#d7191c", "#fdae61", "#ffffbf", "#a6d96a", "#1a9641"]   //'RdYlGn'
+        colorPalette: ["#d7191c", "#fdae61", "#ffffbf", "#a6d96a", "#1a9641"]
     }],
     idPath: 'name',
     childrenPath: 'children',
@@ -63,6 +63,7 @@ visualizations: {
     parentFr: 1 / 2,
     levelsFr: [1, 1, 1, 1]
 }
+}
 ```
 
 
@@ -74,11 +75,11 @@ The same data can be rendered using multiple visualizations that can be switched
 
 ### Observable Output
 
-The user's selection is returned to the viewmodel through the knockout observable bound to the ```selectedItem``` parameter, so clean knockout based patterns can be followed easily. ```selectedItem``` is the only paramater that must always be passed, containing an observable.
+Anything that the user holds, selects, or zooms to, is accessable through the ```heldItemPath```, ```selectedItemPath```, or ```zoomedItemPath``` observables, and items can be pushed to these observables from the viewmodel as well to manipulate the visualization.
 
 ### Adaptive Input
 
-Instead of providing data using the ```data``` paramater in the select2 object, data can also be passed using the ```itemsSource``` parameter in this binding. The autocomplete ```itemsSource``` parameter accepts an array that contains either strings or objects. If the array contains strings, autocomple will map it correctly for select2 and take care of all the details. If the array contains objects, the ```textpath``` parameter must be sent to specify the property of the object that containts the string to be rendered if no template is provided. Likewise, the ```idpath``` parameter must be provided to specify which property contains the data returned on selection, else the entire object will be the selected value.
+The colors and areas of the nodes within each visualization will be calculated based on values given in each object. The paths to these objects are specified using the ```areaPath``` and ```colorPath``` parameters.
 
 ### Hierarchical Data
 
@@ -86,8 +87,7 @@ This extension supports infinite levels of hierarchical data. Simply specify a `
 
 ### Dynamic Data Loading
 
-The ```data``` parameter instead of taking an array can also take an observable. If an observable is passed, before every search the binding will get the most updated value it contains and use that to search from.
-
+The ```data``` parameter instead of taking an array can also take an observable to easily display static or dynamic data.
 
 ## Installation
 
