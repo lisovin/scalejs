@@ -109,6 +109,7 @@
 								</ul>
 							</li>
 							<li><a href="./autocomplete.html"><i class="icon-search"></i> Autocomplete</a></li>
+							<li><a href="./visualization.html"><i class="icon-stats-up"></i> Visualization</a></li>
 				 <li class="title">Tutorials</li>
 				      <li><a href="./todomvc.html">ToDoMVC</a></li>
 		      </ul>

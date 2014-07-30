@@ -12,7 +12,7 @@
 	  <link rel="stylesheet" href="highlight.css" />
 
 	<meta name="generator" content="DocPad v6.60.4" />
-	
+	<link  rel="stylesheet" href="highlight.css" />
     
 	<style>
     header {
@@ -192,53 +192,70 @@
 	      </div>
 
 	    <div id="content">
-		    <h1 id="scalejs-docs">Scalejs Docs</h1>
-<hr>
+		    <script src="visualization/visualizationdemo-1.0.1.js" type="text/javascript"></script>
 
-<p>Scalejs has a bit of a learning curve. 
-Reading the documentation isn&#39;t the best way to learn scalejs, but is here for you to gain a better understanding of scalejs.
-Beginners may want to <a href="https://github.com/lisovin/scalejs-examples">look at our examples</a> and check out our <a href="http://learn-scalejs.aws.af.cm/">learn-scalejs site</a>.
-Another option for learning is to follow the <a href="./todommvc.html">ToDoMVC tutorial</a>.</p>
-<p>It is also advised that new users try to learn JavaScript fundamentals, <a href="http://knockoutjs.com/">Knockout.js</a>, and <a href="http://requirejs.org/">require.js</a>.</p>
-<hr>
+<h1 id="visualizations">Visualizations</h1>
+<p>An autocomplete extension for scalejs based on <a href="http://d3js.org/">D3</a>. This extension provides a way to use select2 and many of its advanced features while still following scalejs patterns. The code is freely available on <a href="https://github.com/lisovin/scalejs.visualization-d3">GitHub</a>.</p>
+<div id="visualization-example" ></div>
 
-<h2 id="whats-in-our-docs">Whats in our Docs</h2>
-<p><br/> </p>
-<h3 id="creating-a-new-project">Creating a new Project</h3>
-<p>2 steps to creating a new project and running it. <a href="./project.html">See more</a></p>
-<h3 id="project-template">Project Template</h3>
-<p>Scalejs has some boilerplate. Curious minds might wonder what each file does and its purpose in developing apps.
-<a href="./template.html">See more</a></p>
-<h3 id="architecture">Architecture</h3>
-<p>Application architecture is the core of scalejs. Everything else builds on top of these concepts:
-loosely coupled, sandboxed modules built on top of a lean, extendable core, which exposes an abstracted API.
-If you&#39;re not sure what any of that means, you can <a href="./architecture.html">Read more</a>.</p>
-<h3 id="model-view-viewmodel">Model-View-ViewModel</h3>
-<p>An overview of MVVM concepts and also some samples of the MVVM api in scalejs. Good for beginners who are new to the concepts,
-but also good for new scalejs users who understand MVVM but want to know about what it has to do with scalejs.
-<a href="./mvvm.html">Read more</a></p>
-<h3 id="statechart">Statechart</h3>
-<p>Arguably the most original aspect of scalejs, but also the hardest to understand. It is recomended that you read
-this section, but also seek to understand statecharts more on your own by looking at examples and unit tests.
-The statechart&#39;s purpose is to respond to events and modify the &quot;state&quot; of your app based upon these events.
-The state consists of what modules are being shown on your UI at any given time, 
-and application specific data (e.g. Username, etc) that also needs to be shared amongst modules. 
-<a href="./statechart.html">Read more</a>.</p>
-<h3 id="routing">Routing</h3>
-<p>Routing controls the URL of your app, which allows you to directly link to different parts of the app.
-Although not neccesary for many SPAs on mobile devices, this is mainly beneficial for web applications
-which have different sections which would be good to share directly with others, or bookmark.
-Also maintains history using the navigation, so one can use their browser&#39;s backspace button to go back in the app.
-<a href="./routing.html">Find out how to use it</a></p>
-<h3 id="ui-composition">UI Composition</h3>
-<p>Learning how to create regions in your UI and how to render views into those regions from modules across the whole
-application is pretty important. So this is also a good document to read. <a href="./composition.html">Read More</a></p>
-<h3 id="grid-layout">Grid Layout</h3>
-<p>Positioning modules in your layout using a grid which consists of rows and columns, in a simple way.
-<a href="./gridlayout.html">Learn how to use it</a>.</p>
-<h3 id="grid">Grid</h3>
-<p>Learn how to create a filterable, sortable data grid which can support millions of rows.
-<a href="./grid1.html">Read more</a></p>
+
+
+<h2 id="examples">Examples</h2>
+<h3 id="simple-binding">Simple Binding</h3>
+<pre class="highlight"><code class="hljs javascript">sunburst: {
+    data: <span class="hljs-keyword">this</span>.data,
+    idPath: <span class="hljs-string">'name'</span>,
+    colorPath: <span class="hljs-keyword">this</span>.colorPath,
+    colorPalette: <span class="hljs-keyword">this</span>.colorPalette,
+    enableZoom: <span class="hljs-literal">true</span>,
+}
+</code></pre>
+<h3 id="complex-binding">Complex Binding</h3>
+<pre class="highlight"><code class="hljs javascript">visualizations: {
+    type: <span class="hljs-keyword">this</span>.type,
+    data: <span class="hljs-keyword">this</span>.data,
+    maxVisibleLevels: <span class="hljs-keyword">this</span>.maxVisibleLevels,
+    levels: [{
+        colorPalette: [<span class="hljs-string">"#88ff88"</span>, <span class="hljs-string">"#00ff00"</span>, <span class="hljs-string">"#008800"</span>]
+    }, {
+        colorPalette: [<span class="hljs-string">"#ff8888"</span>, <span class="hljs-string">"#ff0000"</span>, <span class="hljs-string">"#880000"</span>]
+    }, <span class="hljs-string">'children'</span>, {
+        childrenPath: <span class="hljs-string">'children'</span>,
+        colorPalette: <span class="hljs-keyword">this</span>.colorPalette2
+    }, {
+        colorPalette: <span class="hljs-string">'PRGn'</span>
+    }, {
+        colorPalette: [<span class="hljs-string">"#d7191c"</span>, <span class="hljs-string">"#fdae61"</span>, <span class="hljs-string">"#ffffbf"</span>, <span class="hljs-string">"#a6d96a"</span>, <span class="hljs-string">"#1a9641"</span>]   <span class="hljs-comment">//'RdYlGn'</span>
+    }],
+    idPath: <span class="hljs-string">'name'</span>,
+    childrenPath: <span class="hljs-string">'children'</span>,
+    areaPath: <span class="hljs-keyword">this</span>.areaPath,
+    colorPath: <span class="hljs-keyword">this</span>.colorPath,
+    colorPalette: <span class="hljs-keyword">this</span>.colorPalette,
+    zoomedItemPath: <span class="hljs-keyword">this</span>.zoomedItemPath,
+    selectedItemPath: <span class="hljs-keyword">this</span>.selectedItemPath,
+    heldItemPath: <span class="hljs-keyword">this</span>.heldItemPath,
+    enableZoom: <span class="hljs-literal">true</span>,
+    enableTouch: <span class="hljs-literal">true</span>,
+    sortBy: <span class="hljs-keyword">this</span>.sortBy,
+    fr: <span class="hljs-number">5</span>,
+    parentFr: <span class="hljs-number">1</span> / <span class="hljs-number">2</span>,
+    levelsFr: [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]
+}
+</code></pre>
+<h2 id="features">Features</h2>
+<h3 id="dynamic-visualization-switching">Dynamic Visualization Switching</h3>
+<p>The same data can be rendered using multiple visualizations that can be switched in real time by pushing the names of different visualizations into an observable bound to the <code>type</code> property.</p>
+<h3 id="observable-output">Observable Output</h3>
+<p>The user&#39;s selection is returned to the viewmodel through the knockout observable bound to the <code>selectedItem</code> parameter, so clean knockout based patterns can be followed easily. <code>selectedItem</code> is the only paramater that must always be passed, containing an observable.</p>
+<h3 id="adaptive-input">Adaptive Input</h3>
+<p>Instead of providing data using the <code>data</code> paramater in the select2 object, data can also be passed using the <code>itemsSource</code> parameter in this binding. The autocomplete <code>itemsSource</code> parameter accepts an array that contains either strings or objects. If the array contains strings, autocomple will map it correctly for select2 and take care of all the details. If the array contains objects, the <code>textpath</code> parameter must be sent to specify the property of the object that containts the string to be rendered if no template is provided. Likewise, the <code>idpath</code> parameter must be provided to specify which property contains the data returned on selection, else the entire object will be the selected value.</p>
+<h3 id="hierarchical-data">Hierarchical Data</h3>
+<p>This extension supports infinite levels of hierarchical data. Simply specify a <code>childrenPath</code> as a string, and the binding will parse your data and display all levels  possible.</p>
+<h3 id="dynamic-data-loading">Dynamic Data Loading</h3>
+<p>The <code>data</code> parameter instead of taking an array can also take an observable. If an observable is passed, before every search the binding will get the most updated value it contains and use that to search from.</p>
+<h2 id="installation">Installation</h2>
+<p>Just install <a href="https://www.nuget.org/packages/scalejs.visualization-d3/">this nuget package</a></p>
 
 	    </div>
 
