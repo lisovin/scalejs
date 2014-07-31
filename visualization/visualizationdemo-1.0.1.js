@@ -28981,13 +28981,30 @@ define('app/sundemo/viewmodels/sundemoViewModel',[
     return function () {
         var // Imports
             observable = sandbox.mvvm.observable,
+            computed = sandbox.mvvm.computed,
             // Variables
             data = observable(flare),
             areaPath = observable('size'),
             colorPath = observable('x'),
             colorPalette = observable('PuBu'),
             colorPalette2 = observable('YlOrRd'),
-            maxVisibleLevels = observable(3);
+            maxVisibleLevels = observable(3),
+            zoomedItemPath = observable([]),
+            showZoomedItemPath;
+
+        showZoomedItemPath = computed(function () {
+            var path = zoomedItemPath(),
+                str = "zoomedItemPath: " + JSON.stringify(path) + " == ",
+                d = data.peek(),
+                i;
+            str += d.name;
+            for (i = 0; i < path.length; i += 1) {
+                str += " > ";
+                d = d.children[path[i]];
+                str += d.name;
+            }
+            return str;
+        });
 
 
         return {
@@ -28996,7 +29013,9 @@ define('app/sundemo/viewmodels/sundemoViewModel',[
             colorPath: colorPath,
             colorPalette: colorPalette,
             colorPalette2: colorPalette2,
-            maxVisibleLevels: maxVisibleLevels
+            maxVisibleLevels: maxVisibleLevels,
+            zoomedItemPath: zoomedItemPath,
+            showZoomedItemPath: showZoomedItemPath
         };
     };
 });
@@ -29004,7 +29023,7 @@ define('app/sundemo/viewmodels/sundemoViewModel',[
 /*global define */
 /*jslint sloppy: true*/
 define('app/sundemo/bindings/sundemoBindings',{
-    'sun1': function () {
+    'simpleSun': function () {
         return {
             sunburst: {
                 data: this.data,
@@ -29015,7 +29034,19 @@ define('app/sundemo/bindings/sundemoBindings',{
             }
         };
     },
-    'tree1': function () {
+    'sharedSun': function () {
+        return {
+            sunburst: {
+                data: this.data,
+                idPath: 'name',
+                colorPath: this.colorPath,
+                colorPalette: this.colorPalette,
+                enableZoom: true,
+                zoomedItemPath: this.zoomedItemPath
+            }
+        };
+    },
+    'simpleTree': function () {
         return {
             treemap: {
                 data: this.data,
@@ -29027,7 +29058,7 @@ define('app/sundemo/bindings/sundemoBindings',{
             }
         };
     },
-    'tree2': function () {
+    'sharedTree': function () {
     return {
         treemap: {
             data: this.data,
@@ -29036,7 +29067,8 @@ define('app/sundemo/bindings/sundemoBindings',{
             colorPalette: this.colorPalette,
             enableZoom: true,
             maxVisibleLevels: this.maxVisibleLevels,
-            borderColor: ["#111418", "#474d56"]
+            borderColor: ["#111418", "#474d56"],
+            zoomedItemPath: this.zoomedItemPath
         }
     };
 }
@@ -29044,7 +29076,7 @@ define('app/sundemo/bindings/sundemoBindings',{
 
 
 
-define('text!app/sundemo/views/sundemo.html',[],function () { return '<div id="sundemo_template">\n    <div class="sundemo_content">\n        <div class="leftsun" data-class="sun1"></div>\n        <div class="rightsun" data-class="sun1"></div>\n        <div class="lefttree" data-class="tree1"></div>\n        <div class="righttree" data-class="tree2"></div>\n    </div>\n</div>';});
+define('text!app/sundemo/views/sundemo.html',[],function () { return '<div id="sundemo_template">\n    <div class="sundemo_content">\n        <div class="sun" data-class="sharedSun"></div>\n        <div class="demotext"><span data-bind="text: showZoomedItemPath"></span></div>\n        <div class="tree" data-class="sharedTree"></div>\n    </div>\n</div>';});
 
 
 
@@ -29105,4 +29137,4 @@ define("app/app", function(){});
 
 
 (function(c){var d=document,a='appendChild',i='styleSheet',s=d.createElement('style');s.type='text/css';d.getElementsByTagName('head')[0][a](s);s[i]?s[i].cssText=c:s[a](d.createTextNode(c));})
-('.main.text {\n  color: #ff0000;\n}\n.sundemo.text {\n  color: #ff0000;\n}\n/*GridLayoutStart*/\n.sundemo_content {\n  height: 800px;\n  width: 800px;\n  display: -ms-grid;\n  -ms-grid-columns: 1fr 1fr;\n  -ms-grid-rows: 1fr 1fr;\n}\n.leftsun {\n  -ms-grid-row: 1;\n  background: steelblue;\n}\n.rightsun {\n  -ms-grid-row: 1;\n  -ms-grid-column: 2;\n  background: green;\n}\n.lefttree {\n  -ms-grid-row: 2;\n  -ms-grid-column: 1;\n  background: yellow;\n}\n.righttree {\n  -ms-grid-row: 2;\n  -ms-grid-column: 2;\n  background: red;\n}\n/*GridLayoutEnd*/\n');
+('.main.text {\n  color: #ff0000;\n}\n.sundemo.text {\n  color: #ff0000;\n}\n/*GridLayoutStart*/\n.sundemo_content {\n  height: 800px;\n  width: 400px;\n  display: -ms-grid;\n  -ms-grid-rows: 1fr 50px 1fr;\n}\n.sun {\n  -ms-grid-row: 1;\n}\n.demotext {\n  -ms-grid-row: 2;\n}\n.tree {\n  -ms-grid-row: 3;\n}\n/*GridLayoutEnd*/\n');
