@@ -21,10 +21,10 @@ An autocomplete extension for scalejs based on [D3](http://d3js.org/). This exte
 
 ```javascript
 sunburst: {
-    data: this.data,
+    data: this.flareJS,
     idPath: 'name',
-    colorPath: this.colorPath,
-    colorPalette: this.colorPalette,
+    colorPath: "shade",
+    colorPalette: observable('PuBu'),
     enableZoom: true,
 }
 ```
@@ -33,9 +33,9 @@ sunburst: {
 
 ```javascript
 visualizations: {
-    type: this.type,
-    data: this.data,
-    maxVisibleLevels: this.maxVisibleLevels,
+    type: observable('sunburst'),
+    data: this.flareJS,
+    maxVisibleLevels: observable(3),
     levels: [{
         colorPalette: ["#88ff88", "#00ff00", "#008800"]
     }, {
@@ -48,21 +48,20 @@ visualizations: {
     }, {
         colorPalette: ["#d7191c", "#fdae61", "#ffffbf", "#a6d96a", "#1a9641"]
     }],
-    idPath: 'name',
+    idPath: 'id',
     childrenPath: 'children',
-    areaPath: this.areaPath,
-    colorPath: this.colorPath,
-    colorPalette: this.colorPalette,
-    zoomedItemPath: this.zoomedItemPath,
-    selectedItemPath: this.selectedItemPath,
-    heldItemPath: this.heldItemPath,
+    areaPath: 'x',
+    colorPath: 'x',
+    colorPalette: observable('PuBu'),
+    zoomedItemPath: observable([]),
+    selectedItemPath: observable([]),
+    heldItemPath: observable([]),
     enableZoom: true,
     enableTouch: true,
-    sortBy: this.sortBy,
+    sortBy: this.sortByFunction,
     fr: 5,
     parentFr: 1 / 2,
     levelsFr: [1, 1, 1, 1]
-}
 }
 ```
 

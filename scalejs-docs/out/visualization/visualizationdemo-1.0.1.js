@@ -26036,7 +26036,7 @@ define('app/sundemo/bindings/sundemoBindings',{
             colorPalette: this.colorPalette,
             enableZoom: true,
             maxVisibleLevels: this.maxVisibleLevels,
-            borderColor: ["#111418", "#474d56"],
+            borderColor: ["#FFF", "#EEE"],
             zoomedItemPath: this.zoomedItemPath
         }
     };
@@ -26045,7 +26045,7 @@ define('app/sundemo/bindings/sundemoBindings',{
 
 
 
-define('text!app/sundemo/views/sundemo.html',[],function () { return '<div id="sundemo_template">\n    <div class="sundemo_content">\n        <div class="sun" data-class="sharedSun"></div>\n        <div class="tree" data-class="sharedTree"></div>\n        <div class="demotext"><span data-bind="text: showZoomedItemPath"></span></div>\n    </div>\n</div>';});
+define('text!app/sundemo/views/sundemo.html',[],function () { return '<div id="sundemo_template">\n    <div class="sundemo_content">\n        <div class="sun" data-class="sharedSun"></div><div class="tree" data-class="sharedTree"></div>\n        <div class="demotext"><span data-bind="text: showZoomedItemPath"></span></div>\n    </div>\n</div>';});
 
 
 
@@ -26080,10 +26080,6 @@ define('app/sundemo/sundemoModule',[
             state('sundemo',
                 onEntry(function () {
                     this.main_content(template('sundemo_template', sundemo));
-                    layout.parseGridStyles(function () {
-                        console.log('styles loaded and parsed');
-                        layout.invalidate(true);
-                    });
                 })));
     };
 });
@@ -26106,4 +26102,4 @@ define("app/app", function(){});
 
 
 (function(c){var d=document,a='appendChild',i='styleSheet',s=d.createElement('style');s.type='text/css';d.getElementsByTagName('head')[0][a](s);s[i]?s[i].cssText=c:s[a](d.createTextNode(c));})
-('.main.text {\n  color: #ff0000;\n}\n.sundemo.text {\n  color: #ff0000;\n}\n.sun {\n  margin-left: auto;\n  margin-right: auto;\n  height: 400px;\n}\n.demotext {\n  margin-left: auto;\n  margin-right: auto;\n}\n.tree {\n  margin-left: auto;\n  margin-right: auto;\n  height: 400px;\n}\n@media all and (min-width: 1281px) {\n  .sun {\n    width: 400px;\n  }\n  .tree {\n    width: 800px;\n  }\n}\n@media all and (min-width: 451px) and (max-width: 1280px) {\n  .sun {\n    width: 400px;\n  }\n  .tree {\n    width: 100%;\n  }\n}\n@media all and (max-width: 450px) {\n  .sun {\n    width: 90%;\n  }\n  .tree {\n    width: 90%;\n  }\n}\n');
+('.main.text {\n  color: #ff0000;\n}\n.sundemo.text {\n  color: #ff0000;\n}\n.sundemo_content {\n  display: inline;\n}\n.sun,\n.tree {\n  height: 400px;\n}\n@media all and (min-width: 1101px) {\n  .sun,\n  .tree {\n    width: 400px;\n    margin-left: 0px;\n    margin-right: 0px;\n    display: inline-block;\n  }\n}\n@media all and (max-width: 1100px) {\n  .sun,\n  .tree {\n    width: 90%;\n    margin-left: auto;\n    margin-right: auto;\n    display: block;\n  }\n}\n');

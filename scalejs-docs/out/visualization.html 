@@ -172,13 +172,13 @@
                             <li><a href="./statechart.html"><i class="icon-tab"></i> Statechart</a></li>
                             <li><a href="./routing.html"><i class="icon-share"></i> Routing</a></li>
                             <li><a href="./composition.html"><i class="icon-screen"></i> UI Composition</a></li>
-                            <li><a href="./gridlayout.html"><i class="icon-grid-view"></i> Grid Layout</a></li>
+                            <li><a href="./gridlayout.html"><i class="icon-grid-view"></i> Layout</a></li>
                             <!--<li><a href="./styles.html"><i class="icon-droplet"></i> Styles</a></li>
                             <li><a href="./extensions.html"><i class="icon-wrench"></i> Extensions</a></li>
                             <li><a href="./api.html"><i class="icon-book"></i> API Documentation</a></li>-->
 				  <li class="title">UI Components</li>
 				            <li>
-								<a class="dropdown-toggle" href=""><i class="icon-grid"></i> Grid</a>
+								<a class="dropdown-toggle" href=""><i class="icon-grid"></i> Data Grid</a>
 								<ul id="grid-dropdown" class="dropdown-menu" data-role="dropdown">
 									<li><a href="./grid1.html">Introduction</a></li>
 									<li><a href="./grid2.html">Filtering</a></li>
@@ -204,18 +204,18 @@
 <h2 id="examples">Examples</h2>
 <h3 id="simple-binding">Simple Binding</h3>
 <pre class="highlight"><code class="hljs javascript">sunburst: {
-    data: <span class="hljs-keyword">this</span>.data,
+    data: <span class="hljs-keyword">this</span>.flareJS,
     idPath: <span class="hljs-string">'name'</span>,
-    colorPath: <span class="hljs-keyword">this</span>.colorPath,
-    colorPalette: <span class="hljs-keyword">this</span>.colorPalette,
+    colorPath: <span class="hljs-string">"shade"</span>,
+    colorPalette: observable(<span class="hljs-string">'PuBu'</span>),
     enableZoom: <span class="hljs-literal">true</span>,
 }
 </code></pre>
 <h3 id="complex-binding">Complex Binding</h3>
 <pre class="highlight"><code class="hljs javascript">visualizations: {
-    type: <span class="hljs-keyword">this</span>.type,
-    data: <span class="hljs-keyword">this</span>.data,
-    maxVisibleLevels: <span class="hljs-keyword">this</span>.maxVisibleLevels,
+    type: observable(<span class="hljs-string">'sunburst'</span>),
+    data: <span class="hljs-keyword">this</span>.flareJS,
+    maxVisibleLevels: observable(<span class="hljs-number">3</span>),
     levels: [{
         colorPalette: [<span class="hljs-string">"#88ff88"</span>, <span class="hljs-string">"#00ff00"</span>, <span class="hljs-string">"#008800"</span>]
     }, {
@@ -228,21 +228,20 @@
     }, {
         colorPalette: [<span class="hljs-string">"#d7191c"</span>, <span class="hljs-string">"#fdae61"</span>, <span class="hljs-string">"#ffffbf"</span>, <span class="hljs-string">"#a6d96a"</span>, <span class="hljs-string">"#1a9641"</span>]
     }],
-    idPath: <span class="hljs-string">'name'</span>,
+    idPath: <span class="hljs-string">'id'</span>,
     childrenPath: <span class="hljs-string">'children'</span>,
-    areaPath: <span class="hljs-keyword">this</span>.areaPath,
-    colorPath: <span class="hljs-keyword">this</span>.colorPath,
-    colorPalette: <span class="hljs-keyword">this</span>.colorPalette,
-    zoomedItemPath: <span class="hljs-keyword">this</span>.zoomedItemPath,
-    selectedItemPath: <span class="hljs-keyword">this</span>.selectedItemPath,
-    heldItemPath: <span class="hljs-keyword">this</span>.heldItemPath,
+    areaPath: <span class="hljs-string">'x'</span>,
+    colorPath: <span class="hljs-string">'x'</span>,
+    colorPalette: observable(<span class="hljs-string">'PuBu'</span>),
+    zoomedItemPath: observable([]),
+    selectedItemPath: observable([]),
+    heldItemPath: observable([]),
     enableZoom: <span class="hljs-literal">true</span>,
     enableTouch: <span class="hljs-literal">true</span>,
-    sortBy: <span class="hljs-keyword">this</span>.sortBy,
+    sortBy: <span class="hljs-keyword">this</span>.sortByFunction,
     fr: <span class="hljs-number">5</span>,
     parentFr: <span class="hljs-number">1</span> / <span class="hljs-number">2</span>,
     levelsFr: [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]
-}
 }
 </code></pre>
 <h2 id="features">Features</h2>
