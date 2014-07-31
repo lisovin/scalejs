@@ -75,3 +75,12 @@ Positioning modules in your layout using a grid which consists of rows and colum
 
 Learn how to create a filterable, sortable data grid which can support millions of rows.
 [Read more](./grid1.html)
+
+
+### Autocomplete
+
+Learn how to use an extremely simplistic binding to create a robust and feature filled user input control. [Read More](./autocomplete.html)
+
+### Visualization
+
+This extention includes multiple types of visualizations to display complex data, that can be switch between and controlled dynamically. [Learn how to use it.](./visualization.html)
