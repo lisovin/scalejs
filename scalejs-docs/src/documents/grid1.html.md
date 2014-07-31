@@ -22,6 +22,12 @@ This page will detail how to include the grid in your project.
 Our extension is adapted from the [SlickGrid](https://github.com/mleibman/SlickGrid) library created by [Michael Leibman](https://github.com/mleibman).
 The reason we decided to use SlickGrid was because it is a high performance library which supports customization, virtual scrolling, and other great features.
 
+## Example
+
+Once you add [styles](./grid1.html#styles) your grid will look like this:
+
+<div id="grid1" style="width:100%;height:600px"></div>
+
 You can view this code on [github](https://github.com/lisovin/scalejs-examples/tree/grid-1/Grid)
 or clone [scalejs-examples repository](https://github.com/lisovin/scalejs-examples) and running the following command:
 
@@ -169,10 +175,6 @@ This is because each item in the array has properties (keys) which map to the fi
 Each item contains (at least) the following properties: Symbol, Name, LastSale, MarketCap, Sector, and Industry.
 Also note since we are using JavaScript that it is case sensitive. The only modification our ViewModel makes to the data from the source
 is parsing the number for the _LastSale_ and _MarketCap_ columns and giving it a fixed number of decimal places.
-
-Once you add [styles](./grid1.html#styles) your grid will look like this:
-
-<div id="grid1" style="width:100%;height:600px"></div>
 
 ### Styles
 
