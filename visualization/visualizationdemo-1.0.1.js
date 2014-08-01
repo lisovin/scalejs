@@ -26028,24 +26028,36 @@ define('app/sundemo/bindings/sundemoBindings',{
         };
     },
     'sharedTree': function () {
-    return {
-        treemap: {
-            data: this.data,
-            idPath: 'name',
-            colorPath: this.colorPath,
-            colorPalette: this.colorPalette,
-            enableZoom: true,
-            maxVisibleLevels: this.maxVisibleLevels,
-            borderColor: ["#FFF", "#EEE"],
-            zoomedItemPath: this.zoomedItemPath
-        }
-    };
-}
+        return {
+            treemap: {
+                data: this.data,
+                idPath: 'name',
+                colorPath: this.colorPath,
+                colorPalette: this.colorPalette,
+                enableZoom: true,
+                maxVisibleLevels: this.maxVisibleLevels,
+                borderColor: ["#FFF", "#EEE"],
+                zoomedItemPath: this.zoomedItemPath
+            }
+        };
+    },
+    'colorbutton': function () {
+        return {
+            text: "Swap Color Palette",
+            click: function () {
+                if (this.colorPalette() === 'PuBu') {
+                    this.colorPalette('PRGn');
+                } else {
+                    this.colorPalette('PuBu');
+                }
+            }
+        };
+    }
 });
 
 
 
-define('text!app/sundemo/views/sundemo.html',[],function () { return '<div id="sundemo_template">\n    <div class="sundemo_content">\n        <div class="sun" data-class="sharedSun"></div><div class="tree" data-class="sharedTree"></div>\n        <div class="demotext"><span data-bind="text: showZoomedItemPath"></span></div>\n    </div>\n</div>';});
+define('text!app/sundemo/views/sundemo.html',[],function () { return '<div id="sundemo_template">\r\n    <div class="sundemo_content">\r\n        <div class="sun" data-class="sharedSun"></div>\r\n        <div class="tree" data-class="sharedTree"></div>\r\n        <div class="demotext">\r\n            <button data-class="colorbutton"></button>\r\n            <span data-bind="text: showZoomedItemPath"></span>\r\n        </div>\r\n    </div>\r\n</div>';});
 
 
 
@@ -26102,4 +26114,4 @@ define("app/app", function(){});
 
 
 (function(c){var d=document,a='appendChild',i='styleSheet',s=d.createElement('style');s.type='text/css';d.getElementsByTagName('head')[0][a](s);s[i]?s[i].cssText=c:s[a](d.createTextNode(c));})
-('.main.text {\n  color: #ff0000;\n}\n.sundemo.text {\n  color: #ff0000;\n}\n.sundemo_content {\n  display: inline;\n}\n.sun,\n.tree {\n  height: 400px;\n}\n@media all and (min-width: 1101px) {\n  .sun,\n  .tree {\n    width: 400px;\n    margin-left: 0px;\n    margin-right: 0px;\n    display: inline-block;\n  }\n}\n@media all and (max-width: 1100px) {\n  .sun,\n  .tree {\n    width: 90%;\n    margin-left: auto;\n    margin-right: auto;\n    display: block;\n  }\n}\n');
+('.main.text {\n  color: #ff0000;\n}\n.sundemo_content {\n  display: inline;\n}\n.sun,\n.tree {\n  height: 400px;\n}\n.demotext {\n  display: block;\n  margin-left: auto;\n  margin-right: auto;\n}\n@media all and (min-width: 1101px) {\n  .sun,\n  .tree {\n    width: 400px;\n    margin-left: 0px;\n    margin-right: 0px;\n    display: inline-block;\n  }\n}\n@media all and (max-width: 1100px) {\n  .sun,\n  .tree {\n    width: 90%;\n    margin-left: auto;\n    margin-right: auto;\n    display: block;\n  }\n}\n');
