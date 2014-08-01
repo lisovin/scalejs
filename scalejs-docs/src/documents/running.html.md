@@ -14,7 +14,9 @@ Once you have everything installed, and a simple test created, running your Scal
 
 ## Development Mode
 
-To run your app in development mode, simple press ```Ctrl + F5``` in visual studio to launch IIS Express configured already to host your site. By default, you can now reach your site at the url ```localhost:8888``` (Remember to disable caching for development). This port can be changed in the applicatin host config file in the IIS folder (by default in 'My Documents' on windows). With IIS running, simple saving a change to a file and refreshing the browser will load your changed files.
+To run your app in development mode, simply press ```Ctrl + F5``` in visual studio to launch IIS Express configured already to host your site. By default, you can now reach your site at the url ```localhost:8888``` (Remember to disable caching for development). This port can be changed in the applicatin host config file in the IIS folder (by default in 'My Documents' on windows). With IIS running, simple saving a change to a file and refreshing the browser will load your changed files.
+
+![See your Application in your browser](./helloworld.png)
 
 ## Built Application
 
