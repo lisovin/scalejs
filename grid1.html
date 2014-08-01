@@ -91,6 +91,7 @@
                             <li><a href="./docs.html"><i class="icon-star-3"></i> Introduction</a></li>
                             <li><a href="./install.html"><i class="icon-download-2"></i> Install Scalejs</a></li>
                             <li><a href="./project.html"><i class="icon-new"></i> Create an Application Project</a></li>
+                            <li><a href="./running.html"><i class="icon-play"></i> Running your  Application</a></li>
                             <!--<li><a href="./build.html"><i class="icon-cloud"></i> Build and Deployment</a></li>
                             <li><a href="./test.html"><i class="icon-checkmark"></i> Testing</a></li>
                             <li><a href="./best.html"><i class="icon-thumbs-up"></i> Best Practices</a></li>-->
@@ -123,7 +124,7 @@
                                 </ul>
                             </li>
                             <li><a href="./autocomplete.html"><i class="icon-search"></i> Autocomplete</a></li>
-                            <li><a href="./visualization.html"><i class="icon-stats-up"></i> Visualization</a></li>
+                            <li><a href="./visualization.html"><i class="icon-target"></i> Visualization</a></li>
                         </ul>
                     </li>
                     <li>
@@ -162,6 +163,7 @@
 				      <li><a href="./docs.html"><i class="icon-star-3"></i> Introduction</a></li>
 				      <li><a href="./install.html"><i class="icon-download-2"></i> Install Scalejs</a></li>
 				      <li><a href="./project.html"><i class="icon-new"></i> Create an Application Project</a></li>
+				      <li><a href="./running.html"><i class="icon-play"></i> Running your  Application</a></li>
                             <!--<li><a href="./build.html"><i class="icon-cloud"></i> Build and Deployment</a></li>
                             <li><a href="./test.html"><i class="icon-checkmark"></i> Testing</a></li>
                             <li><a href="./best.html"><i class="icon-thumbs-up"></i> Best Practices</a></li>-->
@@ -186,7 +188,7 @@
 								</ul>
 							</li>
 							<li><a href="./autocomplete.html"><i class="icon-search"></i> Autocomplete</a></li>
-							<li><a href="./visualization.html"><i class="icon-stats-up"></i> Visualization</a></li>
+							<li><a href="./visualization.html"><i class="icon-target"></i> Visualization</a></li>
 				 <li class="title">Tutorials</li>
 				      <li><a href="./todomvc.html">ToDoMVC</a></li>
 		      </ul>
@@ -208,6 +210,10 @@
 This page will detail how to include the grid in your project. 
 Our extension is adapted from the <a href="https://github.com/mleibman/SlickGrid">SlickGrid</a> library created by <a href="https://github.com/mleibman">Michael Leibman</a>.
 The reason we decided to use SlickGrid was because it is a high performance library which supports customization, virtual scrolling, and other great features.</p>
+<h2 id="example">Example</h2>
+<p>Once you add <a href="./grid1.html#styles">styles</a> your grid will look like this:</p>
+<div id="grid1" style="width:100%;height:600px"></div>
+
 <p>You can view this code on <a href="https://github.com/lisovin/scalejs-examples/tree/grid-1/Grid">github</a>
 or clone <a href="https://github.com/lisovin/scalejs-examples">scalejs-examples repository</a> and running the following command:</p>
 <p><code>git checkout grid-1</code></p>
@@ -329,9 +335,6 @@ This is because each item in the array has properties (keys) which map to the fi
 Each item contains (at least) the following properties: Symbol, Name, LastSale, MarketCap, Sector, and Industry.
 Also note since we are using JavaScript that it is case sensitive. The only modification our ViewModel makes to the data from the source
 is parsing the number for the <em>LastSale</em> and <em>MarketCap</em> columns and giving it a fixed number of decimal places.</p>
-<p>Once you add <a href="./grid1.html#styles">styles</a> your grid will look like this:</p>
-<div id="grid1" style="width:100%;height:600px"></div>
-
 <h3 id="styles">Styles</h3>
 <p>After implementing the code snippets above you might want to make your grid look nice.
 In order to do this make sure to grab the <a href="https://github.com/lisovin/scalejs-examples/blob/grid-1/Grid/css/global.css">global styles</a>

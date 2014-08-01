@@ -195,10 +195,20 @@
 	      </div>
 
 	    <div id="content">
-		    <h1 id="testing">Testing</h1>
-<hr>
-
-<p>Open index.test.html in your browser. Write your tests in the <strong>test</strong> folder.</p>
+		    <h1 id="running-your-app">Running Your App</h1>
+<p>Once you have everything installed, and a simple test created, running your Scalejs application is easy. There are 2 main ways to run an application:</p>
+<ul>
+<li><p>Development Mode - This mode lets you quickly make changes and view them in your browser for rapid development.</p>
+</li>
+<li><p>Built Application - This lets you view and test the site fully built and in the deployed state</p>
+</li>
+</ul>
+<h2 id="development-mode">Development Mode</h2>
+<p>To run your app in development mode, simple press <code>Ctrl + F5</code> in visual studio to launch IIS Express configured already to host your site. By default, you can now reach your site at the url <code>localhost:8888</code> (Remember to disable caching for development). This port can be changed in the applicatin host config file in the IIS folder (by default in &#39;My Documents&#39; on windows). With IIS running, simple saving a change to a file and refreshing the browser will load your changed files.</p>
+<h2 id="built-application">Built Application</h2>
+<p>To run in &#39;built&#39; mode, first, launch IIS as stated above. Then, select &#39;debug&#39; or &#39;release&#39; in visual studio, then build your solution (<code>Ctrl + Shift + B</code>). Building in release will make an unminified .js file containing your entire project, and release will do the same, but minified. Then, navigate to <code>localhost:8888/index.debug.html</code> or <code>localhost:8888/index.release.html</code>, respectively, to see your project running in it&#39;s final built state.</p>
+<h2 id="embedding-your-application">Embedding your application</h2>
+<p>Scalejs supports embedding your applicaton in a larger site with almost no effort. A <code>script</code> tag containing your app&#39;s javascript file by default is inserted into the head of an empty document, so your app uses the entire page. However, simple putting this <code>script</code> tag into an existing page, will render the scalejs app you built in the location of the script tag on the DOM.</p>
 
 	    </div>
 
