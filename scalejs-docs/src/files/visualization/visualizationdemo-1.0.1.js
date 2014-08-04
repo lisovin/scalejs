@@ -26057,7 +26057,7 @@ define('app/sundemo/bindings/sundemoBindings',{
 
 
 
-define('text!app/sundemo/views/sundemo.html',[],function () { return '<div id="sundemo_template">\r\n    <div class="sundemo_content">\r\n        <div class="sun" data-class="sharedSun"></div>\r\n        <div class="tree" data-class="sharedTree"></div>\r\n        <div class="demotext">\r\n            <button data-class="colorbutton"></button>\r\n            <span data-bind="text: showZoomedItemPath"></span>\r\n        </div>\r\n    </div>\r\n</div>';});
+define('text!app/sundemo/views/sundemo.html',[],function () { return '<div id="sundemo_template">\r\n    <div class="sundemo_content">\r\n        <select data-bind="value: colorPalette">\r\n            <option value="Greys">Greys</option>\r\n            <option value="PuBu">PuBu</option>\r\n            <option value="YlOrRd">YlOrRd</option>\r\n        </select><br />\r\n        <div class="sun" data-class="sharedSun"></div>\r\n        <div class="tree" data-class="sharedTree"></div>\r\n        <div class="demotext">\r\n            <span data-bind="text: showZoomedItemPath"></span>\r\n        </div>\r\n    </div>\r\n</div>';});
 
 
 
