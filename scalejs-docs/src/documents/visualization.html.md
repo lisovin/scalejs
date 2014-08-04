@@ -24,7 +24,7 @@ sunburst: {
     data: this.flareJS,
     idPath: 'name',
     colorPath: "shade",
-    colorPalette: observable('PuBu'),
+    colorPalette: 'PuBu',
     enableZoom: true,
 }
 ```
