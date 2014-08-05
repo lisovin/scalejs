@@ -35,8 +35,8 @@ sunburst: {
 
 ```javascript
 visualizations: {
-    type: this.type,
-    data: this.flareJS,
+    type: this.type, // Observable from viewmodel containing the type of visualization
+    data: this.flareJS, // Observable from viewmodel containing data
     maxVisibleLevels: this.maxVisibleLevels,
     levels: [{
         colorPalette: ["#88ff88", "#00ff00", "#008800"]
@@ -52,12 +52,12 @@ visualizations: {
     }],
     idPath: 'id',
     childrenPath: 'children',
-    areaPath: this.areaPath,
-    colorPath: this.colorPath,
-    colorPalette: this.colorPalette,
-    zoomedItemPath: this.zoomedItemPath,
-    selectedItemPath: this.selectedItemPathle,
-    heldItemPath: this.heldItemPath,
+    areaPath: this.areaPath, // Observable from viewmodel containing the path to an area property
+    colorPath: this.colorPath, // Observable from viewmodel containing the path to an color property
+    colorPalette: this.colorPalette, // Observable from viewmodel containing the color palette to pass to d3
+    zoomedItemPath: this.zoomedItemPath,  // Observable from viewmodel containing the path set on zoom
+    heldItemPath: this.heldItemPath, // Observable from viewmodel containing the path set on hold
+    selectedItemPath: this.selectedItemPath, // Observable from viewmodel containing the path set on selecting
     enableZoom: true,
     enableTouch: true,
     sortBy: this.sortMethod,

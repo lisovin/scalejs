@@ -216,8 +216,8 @@
 <h3 id="complex-binding">Complex Binding</h3>
 <h4 id="binding">Binding</h4>
 <pre class="highlight"><code class="hljs javascript">visualizations: {
-    type: <span class="hljs-keyword">this</span>.type,
-    data: <span class="hljs-keyword">this</span>.flareJS,
+    type: <span class="hljs-keyword">this</span>.type, <span class="hljs-comment">// Observable from viewmodel containing the type of visualization</span>
+    data: <span class="hljs-keyword">this</span>.flareJS, <span class="hljs-comment">// Observable from viewmodel containing data</span>
     maxVisibleLevels: <span class="hljs-keyword">this</span>.maxVisibleLevels,
     levels: [{
         colorPalette: [<span class="hljs-string">"#88ff88"</span>, <span class="hljs-string">"#00ff00"</span>, <span class="hljs-string">"#008800"</span>]
@@ -233,12 +233,12 @@
     }],
     idPath: <span class="hljs-string">'id'</span>,
     childrenPath: <span class="hljs-string">'children'</span>,
-    areaPath: <span class="hljs-keyword">this</span>.areaPath,
-    colorPath: <span class="hljs-keyword">this</span>.colorPath,
-    colorPalette: <span class="hljs-keyword">this</span>.colorPalette,
-    zoomedItemPath: <span class="hljs-keyword">this</span>.zoomedItemPath,
-    selectedItemPath: <span class="hljs-keyword">this</span>.selectedItemPathle,
-    heldItemPath: <span class="hljs-keyword">this</span>.heldItemPath,
+    areaPath: <span class="hljs-keyword">this</span>.areaPath, <span class="hljs-comment">// Observable from viewmodel containing the path to an area property</span>
+    colorPath: <span class="hljs-keyword">this</span>.colorPath, <span class="hljs-comment">// Observable from viewmodel containing the path to an color property</span>
+    colorPalette: <span class="hljs-keyword">this</span>.colorPalette, <span class="hljs-comment">// Observable from viewmodel containing the color palette to pass to d3</span>
+    zoomedItemPath: <span class="hljs-keyword">this</span>.zoomedItemPath,  <span class="hljs-comment">// Observable from viewmodel containing the path set on zoom</span>
+    heldItemPath: <span class="hljs-keyword">this</span>.heldItemPath, <span class="hljs-comment">// Observable from viewmodel containing the path set on hold</span>
+    selectedItemPath: <span class="hljs-keyword">this</span>.selectedItemPath, <span class="hljs-comment">// Observable from viewmodel containing the path set on selecting</span>
     enableZoom: <span class="hljs-literal">true</span>,
     enableTouch: <span class="hljs-literal">true</span>,
     sortBy: <span class="hljs-keyword">this</span>.sortMethod,
