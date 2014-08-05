@@ -218,9 +218,9 @@
         placeholder: <span class="hljs-string">'Placeholder Text'</span>,
         allowClear: <span class="hljs-literal">true</span>,
     },
-    itemsSource: <span class="hljs-keyword">this</span>.dataObservable,
-    selectedItem: <span class="hljs-keyword">this</span>.selectedItemObservable,
-    queryText: <span class="hljs-keyword">this</span>.userInputObservable,
+    itemsSource: <span class="hljs-keyword">this</span>.data, <span class="hljs-comment">//Observable from viewmodel containing data to show</span>
+    selectedItem: <span class="hljs-keyword">this</span>.selectedItem, <span class="hljs-comment">//Observable from viewmodel that gets populated with selected item</span>
+    queryText: <span class="hljs-keyword">this</span>.userInput, <span class="hljs-comment">//Observable from viewmodel that gets populated with what the user types</span>
     textPath: <span class="hljs-string">'name'</span>,
     idPath: <span class="hljs-string">'name'</span>,
     childPath: <span class="hljs-string">'children'</span>,

@@ -31,18 +31,20 @@ sunburst: {
 
 ### Complex Binding
 
+#### Binding
+
 ```javascript
 visualizations: {
-    type: observable('sunburst'),
+    type: this.type,
     data: this.flareJS,
-    maxVisibleLevels: observable(3),
+    maxVisibleLevels: this.maxVisibleLevels,
     levels: [{
         colorPalette: ["#88ff88", "#00ff00", "#008800"]
     }, {
         colorPalette: ["#ff8888", "#ff0000", "#880000"]
     }, 'children', {
         childrenPath: 'children',
-        colorPalette: this.colorPalette2
+        colorPalette: 'PuBu'
     }, {
         colorPalette: 'PRGn'
     }, {
@@ -50,20 +52,61 @@ visualizations: {
     }],
     idPath: 'id',
     childrenPath: 'children',
-    areaPath: 'x',
-    colorPath: 'x',
-    colorPalette: observable('PuBu'),
-    zoomedItemPath: observable([]),
-    selectedItemPath: observable([]),
-    heldItemPath: observable([]),
+    areaPath: this.areaPath,
+    colorPath: this.colorPath,
+    colorPalette: this.colorPalette,
+    zoomedItemPath: this.zoomedItemPath,
+    selectedItemPath: this.selectedItemPathle,
+    heldItemPath: this.heldItemPath,
     enableZoom: true,
     enableTouch: true,
-    sortBy: this.sortByFunction,
+    sortBy: this.sortMethod,
     fr: 5,
     parentFr: 1 / 2,
     levelsFr: [1, 1, 1, 1]
 }
 ```
+#### Viewmodel
+
+```javascript
+/*global define */
+define([
+    'sandbox!sundemo',
+    '../data/flare'
+], function (
+    sandbox,
+    flare
+) {
+    return function () {
+        var type = observable('sunburst'),
+            data = observable(flare),
+            areaPath = observable('size'),
+            colorPath = observable('x'),
+            colorPalette = observable('YlOrRd'),
+            sortMethod = observable('unordered'),
+            maxVisibleLevels = observable(3),
+            heldItemPath = observable([]),
+            selectedItemPath = observable([]),
+            zoomedItemPath = observable([]);
+
+        return {
+            type: type,
+            data: data,
+            areaPath: areaPath,
+            colorPath: colorPath,
+            colorPalette: colorPalette,
+            maxVisibleLevels: maxVisibleLevels,
+            heldItemPath: heldItemPath,
+            selectedItemPath: selectedItemPath,
+            zoomedItemPath: zoomedItemPath,
+            sortMethod: sortMethod
+        };
+    };
+});
+
+
+```
+
 
 
 ## Features

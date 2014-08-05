@@ -214,17 +214,18 @@
 }
 </code></pre>
 <h3 id="complex-binding">Complex Binding</h3>
+<h4 id="binding">Binding</h4>
 <pre class="highlight"><code class="hljs javascript">visualizations: {
-    type: observable(<span class="hljs-string">'sunburst'</span>),
+    type: <span class="hljs-keyword">this</span>.type,
     data: <span class="hljs-keyword">this</span>.flareJS,
-    maxVisibleLevels: observable(<span class="hljs-number">3</span>),
+    maxVisibleLevels: <span class="hljs-keyword">this</span>.maxVisibleLevels,
     levels: [{
         colorPalette: [<span class="hljs-string">"#88ff88"</span>, <span class="hljs-string">"#00ff00"</span>, <span class="hljs-string">"#008800"</span>]
     }, {
         colorPalette: [<span class="hljs-string">"#ff8888"</span>, <span class="hljs-string">"#ff0000"</span>, <span class="hljs-string">"#880000"</span>]
     }, <span class="hljs-string">'children'</span>, {
         childrenPath: <span class="hljs-string">'children'</span>,
-        colorPalette: <span class="hljs-keyword">this</span>.colorPalette2
+        colorPalette: <span class="hljs-string">'PuBu'</span>
     }, {
         colorPalette: <span class="hljs-string">'PRGn'</span>
     }, {
@@ -232,19 +233,55 @@
     }],
     idPath: <span class="hljs-string">'id'</span>,
     childrenPath: <span class="hljs-string">'children'</span>,
-    areaPath: <span class="hljs-string">'x'</span>,
-    colorPath: <span class="hljs-string">'x'</span>,
-    colorPalette: observable(<span class="hljs-string">'PuBu'</span>),
-    zoomedItemPath: observable([]),
-    selectedItemPath: observable([]),
-    heldItemPath: observable([]),
+    areaPath: <span class="hljs-keyword">this</span>.areaPath,
+    colorPath: <span class="hljs-keyword">this</span>.colorPath,
+    colorPalette: <span class="hljs-keyword">this</span>.colorPalette,
+    zoomedItemPath: <span class="hljs-keyword">this</span>.zoomedItemPath,
+    selectedItemPath: <span class="hljs-keyword">this</span>.selectedItemPathle,
+    heldItemPath: <span class="hljs-keyword">this</span>.heldItemPath,
     enableZoom: <span class="hljs-literal">true</span>,
     enableTouch: <span class="hljs-literal">true</span>,
-    sortBy: <span class="hljs-keyword">this</span>.sortByFunction,
+    sortBy: <span class="hljs-keyword">this</span>.sortMethod,
     fr: <span class="hljs-number">5</span>,
     parentFr: <span class="hljs-number">1</span> / <span class="hljs-number">2</span>,
     levelsFr: [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]
 }
+</code></pre>
+<h4 id="viewmodel">Viewmodel</h4>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
+define([
+    <span class="hljs-string">'sandbox!sundemo'</span>,
+    <span class="hljs-string">'../data/flare'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
+    sandbox,
+    flare
+)</span> {</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> type = observable(<span class="hljs-string">'sunburst'</span>),
+            data = observable(flare),
+            areaPath = observable(<span class="hljs-string">'size'</span>),
+            colorPath = observable(<span class="hljs-string">'x'</span>),
+            colorPalette = observable(<span class="hljs-string">'YlOrRd'</span>),
+            sortMethod = observable(<span class="hljs-string">'unordered'</span>),
+            maxVisibleLevels = observable(<span class="hljs-number">3</span>),
+            heldItemPath = observable([]),
+            selectedItemPath = observable([]),
+            zoomedItemPath = observable([]);
+
+        <span class="hljs-keyword">return</span> {
+            type: type,
+            data: data,
+            areaPath: areaPath,
+            colorPath: colorPath,
+            colorPalette: colorPalette,
+            maxVisibleLevels: maxVisibleLevels,
+            heldItemPath: heldItemPath,
+            selectedItemPath: selectedItemPath,
+            zoomedItemPath: zoomedItemPath,
+            sortMethod: sortMethod
+        };
+    };
+});
 </code></pre>
 <h2 id="features">Features</h2>
 <h3 id="dynamic-visualization-switching">Dynamic Visualization Switching</h3>

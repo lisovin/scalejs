@@ -36,9 +36,9 @@ autocomplete: {
         placeholder: 'Placeholder Text',
         allowClear: true,
     },
-    itemsSource: this.dataObservable,
-    selectedItem: this.selectedItemObservable,
-    queryText: this.userInputObservable,
+    itemsSource: this.data, //Observable from viewmodel containing data to show
+    selectedItem: this.selectedItem, //Observable from viewmodel that gets populated with selected item
+    queryText: this.userInput, //Observable from viewmodel that gets populated with what the user types
     textPath: 'name',
     idPath: 'name',
     childPath: 'children',
