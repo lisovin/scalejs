@@ -22585,7 +22585,6 @@ define('scalejs.visualization-d3/visualizations/sunburst',[
             zoomedItemPath,
             selectedItemPath,
             heldItemPath,
-            highlightedItemPath,
             enableRotate = true,
             enableRotateDefault = true,
             enableRootZoom = false,
@@ -22993,10 +22992,6 @@ define('scalejs.visualization-d3/visualizations/sunburst',[
             heldItemPath = isObservable(parameters.heldItemPath) ? parameters.heldItemPath : observable(parameters.heldItemPath);
             if (heldItemPath() === undefined) {
                 heldItemPath([]);
-            }
-            highlightedItemPath = isObservable(parameters.heldItemPath) ? parameters.highlightedItemPath : observable(parameters.highlightedItemPath);
-            if (highlightedItemPath() === undefined) {
-                highlightedItemPath([]);
             }
 
             // Subscribe to zoomedItemPath changes, verify path and then zoom:
@@ -26057,7 +26052,7 @@ define('app/sundemo/bindings/sundemoBindings',{
 
 
 
-define('text!app/sundemo/views/sundemo.html',[],function () { return '<div id="sundemo_template">\r\n    <div class="sundemo_content">\r\n        <select data-bind="value: colorPalette">\r\n            <option value="Greys">Greys</option>\r\n            <option value="PuBu">PuBu</option>\r\n            <option value="YlOrRd">YlOrRd</option>\r\n        </select><br />\r\n        <div class="sun" data-class="sharedSun"></div>\r\n        <div class="tree" data-class="sharedTree"></div>\r\n        <div class="demotext">\r\n            <span data-bind="text: showZoomedItemPath"></span>\r\n        </div>\r\n    </div>\r\n</div>';});
+define('text!app/sundemo/views/sundemo.html',[],function () { return '<div id="sundemo_template">\r\n    <div class="sundemo_content">\r\n            <span>Color Palette: </span>\r\n            <select data-bind="value: colorPalette">\r\n                <option value="PuBu">PuBu</option>\r\n                <option value="YlOrRd">YlOrRd</option>\r\n                <option value="Greys">Greys</option>\r\n            </select>\r\n            <span>Color Path: </span>\r\n            <select data-bind="value: colorPath">\r\n                <option value="x">X</option>\r\n                <option value="size">Size</option>\r\n                <option value="none">None</option>\r\n            </select><br />\r\n        <div class="sun" data-class="sharedSun"></div>\r\n        <div class="tree" data-class="sharedTree"></div><br />\r\n        <span data-bind="text: showZoomedItemPath"></span>\r\n    </div>\r\n</div><br /><br />';});
 
 
 
@@ -26114,4 +26109,4 @@ define("app/app", function(){});
 
 
 (function(c){var d=document,a='appendChild',i='styleSheet',s=d.createElement('style');s.type='text/css';d.getElementsByTagName('head')[0][a](s);s[i]?s[i].cssText=c:s[a](d.createTextNode(c));})
-('.main.text {\n  color: #ff0000;\n}\n.sundemo_content {\n  display: inline;\n}\n.sun,\n.tree {\n  height: 400px;\n}\n.demotext {\n  display: block;\n  margin-left: auto;\n  margin-right: auto;\n}\n@media all and (min-width: 1101px) {\n  .sun,\n  .tree {\n    width: 400px;\n    margin-left: 0px;\n    margin-right: 0px;\n    display: inline-block;\n  }\n}\n@media all and (max-width: 1100px) {\n  .sun,\n  .tree {\n    width: 90%;\n    margin-left: auto;\n    margin-right: auto;\n    display: block;\n  }\n}\n');
+('.main.text {\n  color: #ff0000;\n}\n.sundemo_content {\n  display: inline;\n}\n.sundemo_content div {\n  height: 400px;\n}\n.demotext {\n  display: block;\n  margin-left: auto;\n  margin-right: auto;\n}\n@media all and (min-width: 1101px) {\n  .sundemo_content div {\n    width: 400px;\n    margin-left: 0px;\n    margin-right: 0px;\n    display: inline-block;\n  }\n}\n@media all and (max-width: 1100px) {\n  .sundemo_content div {\n    width: 90%;\n    margin-left: auto;\n    margin-right: auto;\n    display: block;\n  }\n}\n');
