@@ -11342,12 +11342,24 @@ define('scalejs.autocomplete-select2/autocomplete',[
     
 
     var // Imports
+        unwrap = ko.unwrap,
         isObservable = ko.isObservable;
 
     function subscribeToSelectedItem(selectedItem, element) {
         if (isObservable(selectedItem)) {
-            $(element).on("change", function (o) {
-                selectedItem(o.val);
+            $(element).on('select2-selected', function (eventData) {
+                selectedItem(eventData.choice.id);
+            });
+
+            selectedItem.subscribe(function (newItem) {
+                var oldItem = $(element).select2('data');
+                if (oldItem) {
+                    oldItem = oldItem.id;
+                }
+
+                if (newItem !== oldItem) {
+                    $(element).select2('data', mapItems([newItem])[0]);
+                }
             });
         } else {
             console.error('selectedItem must be an observable');
@@ -11373,6 +11385,16 @@ define('scalejs.autocomplete-select2/autocomplete',[
         }
     }
 
+    function subscribeToReadOnly(readOnly, element) {
+        if (isObservable(readOnly)) {
+            readOnly.subscribe(function () {
+                $(element).select2("readonly", unwrap(readOnly));
+            });
+        }
+
+        $(element).select2("readonly", unwrap(readOnly));
+    }
+
     function init(element, valueAccessor) {
 
         var // Scope variables
@@ -11388,7 +11410,8 @@ define('scalejs.autocomplete-select2/autocomplete',[
             userInput =             value.queryText,
             selectedItem =          value.selectedItem,
             selectGroupNodes =      value.selectGroupNodes,
-            customFiltering =       value.customFiltering;
+            customFiltering =       value.customFiltering,
+            readOnly =              value.disabled;
 
         // ----Set up object to pass to select2 with all it's configuration properties----
         if (select2 === undefined || select2 === null) {
@@ -11429,6 +11452,10 @@ define('scalejs.autocomplete-select2/autocomplete',[
 
         // Pass all the set up properties to the select2 constructor and instantiate the select2 box
         $(element).select2(select2);
+
+        if (readOnly !== undefined) {
+            subscribeToReadOnly(readOnly, element);
+        }
 
         // Push item selections to viewmodel
         if (selectedItem) {
@@ -14791,7 +14818,7 @@ define('text',['module'], function (module) {
     return text;
 });
 
-define('text!app/main/views/main.html',[],function () { return '<div id="main_template">\r\n    <label>\r\n        <h4>Simple Binding</h4>\r\n        <input data-class="auto" class="select2" style="width: 400px">Selected Item: <b><span data-bind="text: selectedItem"></span></b>\r\n    </label>\r\n    \r\n    <br /><br />\r\n    <label>\r\n        <h4>Complex Binding</h4>\r\n        <input data-class="flare" class="select2" style="width: 400px">Selected Item: <b><span data-bind="text: selectedItem1"></span></b><br />\r\n         User Input:    <span data-bind="text: userInput"></span><br />\r\n    </label><br />\r\n</div>\r\n\r\n<div id="autocomplete_item_template">\r\n    <span data-bind="text: $data.text"></span>\r\n</div>\r\n';});
+define('text!app/main/views/main.html',[],function () { return '<div id="main_template">\r\n    <label>\r\n        <h4>Simple Binding</h4>\r\n        <input data-class="auto" class="select2" style="width: 400px">Selected Item: <b><span data-bind="text: selectedItem"></span></b>\r\n    </label>\r\n    \r\n    <br /><br />\r\n    <label>\r\n        <h4>Complex Binding</h4>\r\n        <input data-class="flare" class="select2" style="width: 400px">Selected Item: <b><span data-bind="text: selectedItem1"></span></b><br />\r\n         User Input:    <span data-bind="text: userInput"></span><br />\r\n    </label><br />\r\n</div>\r\n\r\n<div id="autocomplete_item_template">\r\n    <span data-bind="text: $data.name"></span>\r\n</div>\r\n';});
 
 
 /*global define*/
