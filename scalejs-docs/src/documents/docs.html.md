@@ -15,12 +15,6 @@ Another option for learning is to follow the [ToDoMVC tutorial](./todommvc.html)
 
 It is also advised that new users try to learn JavaScript fundamentals, [Knockout.js](http://knockoutjs.com/), and [require.js](http://requirejs.org/).
 
-<hr>
-
-## Whats in our Docs
-
-<br/> 
-
 ### Creating a new Project
 
 2 steps to creating a new project and running it. [See more](./project.html)
