@@ -220,7 +220,7 @@ This pattern is similar to Microsoft&#39;s prism pattern if you are familular wi
 <p>You may choose a different module to be the <strong>shell</strong> of your layout, however the main module
 is convienient as it is included already in the project template.
 This is the starting point of your layout.</p>
-<h5 id="example-the-main-module-boilerplate-code">Example: The main module boilerplate code</h5>
+<h5 id="example-the-main-module-boilerplate-code-mainmodule-js-">Example: The main module boilerplate code (mainModule.js)</h5>
 <pre class="highlight"><code class="hljs javascript"><span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
     root = sandbox.mvvm.root,
     template = sandbox.mvvm.template,
@@ -257,12 +257,27 @@ contains <em>all</em> of the content on your page.</p>
 <p><code>template</code> is a function which takes 2 parameters: a named template from the view and a viewModel to be passed to it.</p>
 <h5 id="example-rendering-content-using-template-function-in-the-root-region">Example: Rendering content using template function in the root region</h5>
 <pre class="highlight"><code class="hljs javascript"><span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
-    root = sandbox.mvvm.root,
-    template = sandbox.mvvm.template;
+<span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
+    !!*root = sandbox.mvvm.root,
+    template = sandbox.mvvm.template,**!
+    registerStates = sandbox.state.registerStates,
+    state = sandbox.state.builder.state,
+    onEntry = sandbox.state.builder.onEntry,
+    <span class="hljs-comment">// vars</span>
+    viewModel = mainViewModel();
 
-    root(template(<span class="hljs-string">'main_template'</span>, viewModel));
+<span class="hljs-comment">// Register application state for the module.</span>
+registerStates(<span class="hljs-string">'root'</span>,
+    state(<span class="hljs-string">'app'</span>,
+        state(<span class="hljs-string">'main'</span>,
+            onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+                <span class="hljs-comment">// Render viewModel using 'main_template' template </span>
+                <span class="hljs-comment">// (defined in main.html) and show it in the `root` region.</span>
+                !!*root(template(<span class="hljs-string">'main_template'</span>, viewModel));**!
+            }))));
 </code></pre>
-<p>It is important to note that this code is missing the statechart which is important for maintaining the order in the app.
+<p>It is important to note that the template is rendered in the root after the main state heas been entered. 
+This is because the states are entered after the application has started.
 You do not want to render the DOM until all modules and states have been registered because these happen before your
 application runs and it is better to wait for this to happen before attempting to render the layout. </p>
 <p><br></p>
@@ -275,7 +290,7 @@ In order to create a region you must:</p>
 </ul>
 <p>The <code>render</code> binding is used to populate regions with content using an observable.
 Much like the <code>root</code> function it expects a <code>dataBinding</code>, <code>dataClass</code>, or a <code>template</code>.</p>
-<h5 id="example-definding-regions-using-render">Example: definding regions using  render</h5>
+<h5 id="example-definding-regions-using-render-main-html-https-github-com-lisovin-scalejs-examples-blob-master-uicomposition-uicomposition-app-main-views-main-html-">Example: definding regions using  render  (<a href="https://github.com/lisovin/scalejs-examples/blob/master/UIComposition/UIComposition/app/main/views/main.html">main.html</a>)</h5>
 <pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"main_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"render: foo"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     <span class="hljs-comment">&lt;!-- ko render: bar--&gt;</span><span class="hljs-comment">&lt;!-- /ko --&gt;</span>
@@ -288,7 +303,7 @@ The difference between these two methods of naming regions is that the content o
 while the latter does not. Depending on what you need in your Layout, you can use either of these methods
 to define the render binding.</p>
 <p>The next step is defining <strong>foo</strong> and <strong>bar</strong> as observables within your viewModel. </p>
-<h5 id="example-declaring-regions-as-observables-within-the-viewmodel">Example: declaring regions as observables within the viewmodel</h5>
+<h5 id="example-declaring-regions-as-observables-within-the-viewmodel-mainviewmodel-js-https-github-com-lisovin-scalejs-examples-blob-master-uicomposition-uicomposition-app-main-viewmodels-mainviewmodel-js-">Example: declaring regions as observables within the viewmodel (<a href="https://github.com/lisovin/scalejs-examples/blob/master/UIComposition/UIComposition/app/main/viewmodels/mainViewModel.js">mainViewModel.js</a>)</h5>
 <pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!main'</span>
@@ -315,15 +330,41 @@ define([
 <h3 id="rendering-views-within-the-regions">Rendering views within the regions</h3>
 <p>In the previous section we created the regions for your layout, but in order for other modules to access the regions they must
 be exposed to other modules by adding them on the statechart.</p>
-<h5 id="example-adding-regions-to-the-statechart">Example: Adding regions to the statechart</h5>
-<pre class="highlight"><code class="hljs javascript">registerStates(<span class="hljs-string">'root'</span>,
-    state(<span class="hljs-string">'app'</span>,
-        state(<span class="hljs-string">'main'</span>,
-            onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
-                <span class="hljs-keyword">this</span>.foo = viewModel.foo;
-                <span class="hljs-keyword">this</span>.bar = viewModel.bar;
-                root(template(<span class="hljs-string">'main_template'</span>, viewModel));
-            }))));
+<h5 id="example-adding-regions-to-the-statechart-mainmodule-js-https-github-com-lisovin-scalejs-examples-blob-master-uicomposition-uicomposition-app-main-mainmodule-js-">Example: Adding regions to the statechart (<a href="https://github.com/lisovin/scalejs-examples/blob/master/UIComposition/UIComposition/app/main/mainModule.js">mainModule.js</a>)</h5>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
+define([
+    <span class="hljs-string">'sandbox!main'</span>,
+    <span class="hljs-string">'app/main/viewmodels/mainViewModel'</span>,
+    <span class="hljs-string">'views!main'</span>,
+    <span class="hljs-string">'bindings!main'</span>,
+    <span class="hljs-string">'styles!main'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
+    sandbox,
+    mainViewModel
+)</span> {</span>
+<span class="hljs-pi">    'use strict'</span>;
+
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
+            root = sandbox.mvvm.root,
+            template = sandbox.mvvm.template,
+            registerStates = sandbox.state.registerStates,
+            state = sandbox.state.builder.state,
+            onEntry = sandbox.state.builder.onEntry,
+            <span class="hljs-comment">// vars</span>
+            viewModel = mainViewModel();
+
+        <span class="hljs-comment">// Register application state for the module.</span>
+        registerStates(<span class="hljs-string">'root'</span>,
+            state(<span class="hljs-string">'app'</span>,
+                state(<span class="hljs-string">'main'</span>,
+                    onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+                        !!*<span class="hljs-keyword">this</span>.foo = viewModel.foo;
+                        <span class="hljs-keyword">this</span>.bar = viewModel.bar;**!
+                        root(template(<span class="hljs-string">'main_template'</span>, viewModel));
+                    }))));
+    };
+});
 </code></pre>
 <p>For another module to access these regions, it simply needs to call them from the statechart.
 However one thing to keep in mind is that if it tries to access the regions <em>before</em> they 
@@ -332,11 +373,12 @@ making the state a descedant of the state which adds the regions to the statecha
 Alternatively, you can create an interim state that waits for an event to notify
 the statechart that the properties were added. You then can create a transition
 that will allow your module to enter the state in which it tries to use the regions.</p>
-<p>In the following example we have created a module called <strong>foobar</strong>. </p>
-<h5 id="example-adding-foo-module-to-app-js">Example: Adding foo module to app.js</h5>
+<p>In the following example we have created a module called <strong>foobar</strong>. (right click on the app folder and select Add New Item, search for scalejs mvvm module template)</p>
+<p>First step we need to do is adding the module&#39;s name to app.js</p>
+<h5 id="example-adding-foo-module-to-app-js-https-github-com-lisovin-scalejs-examples-blob-master-uicomposition-uicomposition-app-app-js-">Example: Adding foo module to (<a href="https://github.com/lisovin/scalejs-examples/blob/master/UIComposition/UIComposition/app/app.js">app.js</a>)</h5>
 <pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global require*/</span>
 <span class="hljs-built_in">require</span>([
-    <span class="hljs-string">'scalejs!application/main,foobar'</span>
+    <span class="hljs-string">'scalejs!application/main!!*,foobar**!'</span>
 ], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
     application
 )</span> {</span>
@@ -346,7 +388,7 @@ that will allow your module to enter the state in which it tries to use the regi
 });
 </code></pre>
 <p>It contains 2 templates that are to be rendered inside of the regions.</p>
-<h5 id="example-two-templates-from-the-foobar-module-s-view-foobar-html">Example: Two templates from the foobar module&#39;s view, foobar.html</h5>
+<h5 id="example-two-templates-from-the-foobar-module-s-view-foobar-html-https-github-com-lisovin-scalejs-examples-blob-master-uicomposition-uicomposition-app-foobar-views-foobar-html-">Example: Two templates from the foobar module&#39;s view, (<a href="https://github.com/lisovin/scalejs-examples/blob/master/UIComposition/UIComposition/app/foobar/views/foobar.html">foobar.html</a>)</h5>
 <pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"foo_template"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"text: fooText"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
@@ -355,17 +397,43 @@ that will allow your module to enter the state in which it tries to use the regi
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </code></pre>
 <p>In order to render these templates in the regions, we need to access them similarly to how we are rendering
-the main template in the root, except we are accessing the regions from the statechart.</p>
-<pre class="highlight"><code class="hljs javascript">registerStates(<span class="hljs-string">'main'</span>,
-    state(<span class="hljs-string">'foobar'</span>,
-        onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
-            <span class="hljs-keyword">this</span>.foo(template(<span class="hljs-string">'foo_template'</span>, foobar));
-            <span class="hljs-keyword">this</span>.bar(template(<span class="hljs-string">'bar_template'</span>, foobar));
-        })));
+the main template in the root, except we are accessing the regions from the statechart. <strong>First make sure that the foobar state is a child of the main state or else the regions will not be defined</strong>.</p>
+<h5 id="example-rendering-templates-in-statechart-regions-from-foobarmodule-js-https-github-com-lisovin-scalejs-examples-blob-master-uicomposition-uicomposition-app-foobar-foobarmodule-js-">Example: Rendering templates in statechart regions from (<a href="https://github.com/lisovin/scalejs-examples/blob/master/UIComposition/UIComposition/app/foobar/foobarModule.js">foobarModule.js</a>)</h5>
+<pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
+define([
+    <span class="hljs-string">'sandbox!foobar'</span>,
+    <span class="hljs-string">'app/foobar/viewmodels/foobarViewModel'</span>,
+    <span class="hljs-string">'bindings!foobar'</span>,
+    <span class="hljs-string">'views!foobar'</span>,
+    <span class="hljs-string">'styles!foobar'</span>
+], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(
+    sandbox,
+    foobarViewModel
+)</span> {</span>
+<span class="hljs-pi">    'use strict'</span>;
+
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foobarModule</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> <span class="hljs-comment">// imports</span>
+            root = sandbox.mvvm.root,
+            template = sandbox.mvvm.template,
+            registerStates = sandbox.state.registerStates,
+            state = sandbox.state.builder.state,
+            onEntry = sandbox.state.builder.onEntry,
+            <span class="hljs-comment">// vars</span>
+            foobar = foobarViewModel(sandbox);
+
+        <span class="hljs-comment">// Register application state for the module.</span>
+        !!*registerStates(<span class="hljs-string">'main'</span>,**!
+            state(<span class="hljs-string">'foobar'</span>,
+                onEntry(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+                    !!*<span class="hljs-keyword">this</span>.foo(template(<span class="hljs-string">'foo_template'</span>, foobar));
+                    <span class="hljs-keyword">this</span>.bar(template(<span class="hljs-string">'bar_template'</span>, foobar));**!
+                })));
+    };
+});
 </code></pre>
-<p>Do not forget to ensure that the <code>foobar</code> state is entered after the <code>main</code> state.
-Remember that since fooText and barText are bound in the view, they must be exposed within the viewmodel.</p>
-<h5 id="example-declaring-footext-and-bartext-in-foobarviewmodel-js">Example: Declaring fooText and barText in foobarViewModel.js</h5>
+<p>Remember that since fooText and barText are bound in the view, they must be exposed within the viewmodel.</p>
+<h5 id="example-declaring-footext-and-bartext-in-foobarviewmodel-js-https-github-com-lisovin-scalejs-examples-blob-master-uicomposition-uicomposition-app-foobar-viewmodels-foobarviewmodel-js-">Example: Declaring fooText and barText in (<a href="https://github.com/lisovin/scalejs-examples/blob/master/UIComposition/UIComposition/app/foobar/viewmodels/foobarViewModel.js">foobarViewModel.js</a>)</h5>
 <pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
     <span class="hljs-string">'sandbox!foobar'</span>,

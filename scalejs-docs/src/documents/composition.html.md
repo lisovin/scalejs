@@ -37,7 +37,7 @@ You may choose a different module to be the __shell__ of your layout, however th
 is convienient as it is included already in the project template.
 This is the starting point of your layout.
 
-##### Example: The main module boilerplate code
+##### Example: The main module boilerplate code (mainModule.js)
 ```javascript
 var // imports
 	root = sandbox.mvvm.root,
@@ -86,13 +86,28 @@ contains _all_ of the content on your page.
 ##### Example: Rendering content using template function in the root region
 ```javascript
 var // imports
-	root = sandbox.mvvm.root,
-	template = sandbox.mvvm.template;
+var // imports
+	!!*root = sandbox.mvvm.root,
+	template = sandbox.mvvm.template,**!
+	registerStates = sandbox.state.registerStates,
+	state = sandbox.state.builder.state,
+	onEntry = sandbox.state.builder.onEntry,
+	// vars
+	viewModel = mainViewModel();
 
-	root(template('main_template', viewModel));
+// Register application state for the module.
+registerStates('root',
+	state('app',
+		state('main',
+			onEntry(function () {
+				// Render viewModel using 'main_template' template 
+				// (defined in main.html) and show it in the `root` region.
+				!!*root(template('main_template', viewModel));**!
+			}))));
 ```
 
-It is important to note that this code is missing the statechart which is important for maintaining the order in the app.
+It is important to note that the template is rendered in the root after the main state heas been entered. 
+This is because the states are entered after the application has started.
 You do not want to render the DOM until all modules and states have been registered because these happen before your
 application runs and it is better to wait for this to happen before attempting to render the layout. 
 
@@ -109,7 +124,7 @@ In order to create a region you must:
 The `render` binding is used to populate regions with content using an observable.
 Much like the `root` function it expects a `dataBinding`, `dataClass`, or a `template`.
 
-##### Example: definding regions using  render
+##### Example: definding regions using  render  ([main.html](https://github.com/lisovin/scalejs-examples/blob/master/UIComposition/UIComposition/app/main/views/main.html))
 ```xml
 <div id="main_template">
     <div data-bind="render: foo"></div>
@@ -126,7 +141,7 @@ to define the render binding.
 
 The next step is defining __foo__ and __bar__ as observables within your viewModel. 
 
-##### Example: declaring regions as observables within the viewmodel
+##### Example: declaring regions as observables within the viewmodel ([mainViewModel.js](https://github.com/lisovin/scalejs-examples/blob/master/UIComposition/UIComposition/app/main/viewmodels/mainViewModel.js))
 ```javascript
 /*global define */
 define([
@@ -158,16 +173,42 @@ define([
 In the previous section we created the regions for your layout, but in order for other modules to access the regions they must
 be exposed to other modules by adding them on the statechart.
 
-##### Example: Adding regions to the statechart
+##### Example: Adding regions to the statechart ([mainModule.js](https://github.com/lisovin/scalejs-examples/blob/master/UIComposition/UIComposition/app/main/mainModule.js))
 ```javascript
-registerStates('root',
-    state('app',
-        state('main',
-            onEntry(function () {
-                this.foo = viewModel.foo;
-                this.bar = viewModel.bar;
-                root(template('main_template', viewModel));
-            }))));
+/*global define */
+define([
+    'sandbox!main',
+    'app/main/viewmodels/mainViewModel',
+    'views!main',
+    'bindings!main',
+    'styles!main'
+], function (
+    sandbox,
+    mainViewModel
+) {
+    'use strict';
+
+    return function main() {
+        var // imports
+            root = sandbox.mvvm.root,
+            template = sandbox.mvvm.template,
+            registerStates = sandbox.state.registerStates,
+            state = sandbox.state.builder.state,
+            onEntry = sandbox.state.builder.onEntry,
+            // vars
+            viewModel = mainViewModel();
+
+        // Register application state for the module.
+        registerStates('root',
+            state('app',
+                state('main',
+                    onEntry(function () {
+                        !!*this.foo = viewModel.foo;
+                        this.bar = viewModel.bar;**!
+                        root(template('main_template', viewModel));
+                    }))));
+    };
+});
 ```
 
 For another module to access these regions, it simply needs to call them from the statechart.
@@ -178,13 +219,15 @@ Alternatively, you can create an interim state that waits for an event to notify
 the statechart that the properties were added. You then can create a transition
 that will allow your module to enter the state in which it tries to use the regions.
 
-In the following example we have created a module called __foobar__. 
+In the following example we have created a module called __foobar__. (right click on the app folder and select Add New Item, search for scalejs mvvm module template)
 
-##### Example: Adding foo module to app.js
+First step we need to do is adding the module's name to app.js
+
+##### Example: Adding foo module to ([app.js](https://github.com/lisovin/scalejs-examples/blob/master/UIComposition/UIComposition/app/app.js))
 ```javascript
 /*global require*/
 require([
-    'scalejs!application/main,foobar'
+    'scalejs!application/main!!*,foobar**!'
 ], function (
     application
 ) {
@@ -196,7 +239,7 @@ require([
 
 It contains 2 templates that are to be rendered inside of the regions.
 
-##### Example: Two templates from the foobar module's view, foobar.html
+##### Example: Two templates from the foobar module's view, ([foobar.html](https://github.com/lisovin/scalejs-examples/blob/master/UIComposition/UIComposition/app/foobar/views/foobar.html))
 ```xml
 <div id="foo_template">
     <span data-bind="text: fooText"></span>
@@ -207,20 +250,47 @@ It contains 2 templates that are to be rendered inside of the regions.
 ```
 
 In order to render these templates in the regions, we need to access them similarly to how we are rendering
-the main template in the root, except we are accessing the regions from the statechart.
+the main template in the root, except we are accessing the regions from the statechart. **First make sure that the foobar state is a child of the main state or else the regions will not be defined**.
+
+##### Example: Rendering templates in statechart regions from ([foobarModule.js](https://github.com/lisovin/scalejs-examples/blob/master/UIComposition/UIComposition/app/foobar/foobarModule.js))
 ```javascript
-registerStates('main',
-    state('foobar',
-        onEntry(function () {
-            this.foo(template('foo_template', foobar));
-            this.bar(template('bar_template', foobar));
-        })));
+/*global define */
+define([
+    'sandbox!foobar',
+    'app/foobar/viewmodels/foobarViewModel',
+    'bindings!foobar',
+    'views!foobar',
+    'styles!foobar'
+], function (
+    sandbox,
+    foobarViewModel
+) {
+    'use strict';
+
+    return function foobarModule() {
+        var // imports
+            root = sandbox.mvvm.root,
+            template = sandbox.mvvm.template,
+            registerStates = sandbox.state.registerStates,
+            state = sandbox.state.builder.state,
+            onEntry = sandbox.state.builder.onEntry,
+            // vars
+            foobar = foobarViewModel(sandbox);
+
+        // Register application state for the module.
+        !!*registerStates('main',**!
+            state('foobar',
+                onEntry(function () {
+                    !!*this.foo(template('foo_template', foobar));
+                    this.bar(template('bar_template', foobar));**!
+                })));
+    };
+});
 ```
 
-Do not forget to ensure that the `foobar` state is entered after the `main` state.
 Remember that since fooText and barText are bound in the view, they must be exposed within the viewmodel.
 
-##### Example: Declaring fooText and barText in foobarViewModel.js
+##### Example: Declaring fooText and barText in ([foobarViewModel.js](https://github.com/lisovin/scalejs-examples/blob/master/UIComposition/UIComposition/app/foobar/viewmodels/foobarViewModel.js))
 ```javascript
 /*global define */
 define([
