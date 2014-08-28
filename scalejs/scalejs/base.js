@@ -1,7 +1,8 @@
 /*
- * Minimal base implementation. 
+ * Minimal base implementation.
  */
-/*global define,console,document*/
+
+/*global define*/
 define([
     './base.array',
     './base.log',
@@ -16,9 +17,9 @@ define([
     'use strict';
 
     return {
-        type: type,
+        type:   type,
         object: object,
-        array: array,
-        log: log
+        array:  array,
+        log:    log
     };
 });

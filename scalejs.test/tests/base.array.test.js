@@ -1,11 +1,14 @@
 ﻿/*global require,define,describe,expect,it*/
 /// <reference path="../Scripts/jasmine.js"/>
 define([
-    'scalejs!core'
+    'scalejs!core',
+    'jasmine'
 ], function (core) {
     'use strict';
 
     var array = core.array;
+
+    core.log.log({a:{b:4}}, {a:4});
 
     describe('core.array', function () {
         it('is defined', function () {

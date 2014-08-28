@@ -1,6 +1,20 @@
-/*global define,console,document*/
+/**
+ * Provides type functionality to scalejs base
+ * @namespace scalejs.base
+ * @module type
+ */
+
+/*global define*/
 define(function () {
     'use strict';
+
+    /**
+     * Detects the type of the passed object
+     *
+     * @param {Any} obj object to find the type of
+     * @memberOf type
+     * @return {String} type of the passed object
+     */
     function typeOf(obj) {
         if (obj === undefined) {
             return 'undefined';
@@ -10,7 +24,7 @@ define(function () {
             return 'null';
         }
 
-        var t = ({}).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase(),
+        var t = Object.prototype.toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase(),
             m;
 
         if (t !== 'object') {
@@ -25,13 +39,19 @@ define(function () {
         return m[1];
     }
 
+
+    /**
+     * Determines if an object (and possibly a chain of properties within
+     * that object actually are of the passed type
+     * (no type will be null/undefined)
+     *
+     * @param {Any}        value     object to test
+     * @param {String}     [prop...] property chain to test within value
+     * @param {Any|String} [type]    type of the object to test for
+     * @memberOf type
+     * @return {Boolean} if the object 'is' (see inline documentation)
+     */
     function is(value) {
-        // Function: is([...,]value[,type]): boolean
-        // Check the type of a value, possibly nested in sub-properties.
-        //
-        // The method may be called with a single argument to check that the value
-        // is neither null nor undefined.
-        //
         // If more than two arguments are provided, the value is considered to be
         // nested within a chain of properties starting with the first argument:
         // | is(object,'parent','child','leaf','boolean')
@@ -50,14 +70,6 @@ define(function () {
         // |   // and the type expected (here 'number') is explicit
         // | }
         //
-        // Parameters:
-        //   ...   - any, optional, a chain of parent properties for a nested value
-        //   value - any, the value to check, which may be nested in a chain made
-        //           of previous arguments (see above)
-        //   type - string, optional, the type expected for the value.
-        //          Alternatively, a constructor function may be provided to check
-        //          whether the value is an instance of given constructor.
-        //
         // Returns:
         //   * false, if no argument is provided
         //   * false, if a single argument is provided which is null or undefined
@@ -68,17 +80,6 @@ define(function () {
         //     to check if the value is considered an instance of the function
         //   * otherwise, the value is compared with the provided type using the
         //     strict equality operator ===
-        //
-        // Type Reference:
-        //   'undefined' - undefined
-        //   'null'      - null
-        //   'boolean'   - false, true
-        //   'number'    - -1, 0, 1, 2, 3, Math.sqrt(2), Math.E, Math.PI...
-        //   'string'    - '', 'abc', "Text!?"...
-        //   'array'     - [], [1,2,3], ['a',{},3]...
-        //   'object'    - {}, {question:'?',answer:42}, {a:{b:{c:3}}}...
-        //   'regexp'    - /abc/g, /[0-9a-z]+/i...
-        //   'function'  - function(){}, Date, setTimeout...
         //
         // Notes:
         // This method retrieves the internal class of the provided value using
@@ -104,16 +105,16 @@ define(function () {
         //                   'HTMLDivElement' (Firefox,Chrome,Safari,Opera)
         //   document.createComment('') - 'Object' (IE),
         //                   'Comment' (Firefox,Chrome,Safari,Opera)
-        //
-        var undef, // do not trust global undefined, which may be overridden
-            i,
-            length = arguments.length,
-            last = length - 1,
+
+        // do not trust global undefined, which may be overridden
+        var undef       = void 0,
+            i,          // iterative variable
+            length      = arguments.length,
+            last        = length - 1,
             type,
             typeOfType,
             internalClass,
-            v = value;
-
+            v           = value;
 
         if (length === 0) {
             return false; // no argument
@@ -162,7 +163,8 @@ define(function () {
     }
 
     return {
-        is : is,
-        typeOf : typeOf
+        is:      is,
+        typeOf:  typeOf
     };
+
 });
