@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>scalejs - README</title><script>if (location.protocol.match(/^http/) && location.pathname.match('\.html') === null && location.pathname.slice(-1) !== '/') {
+  location.href = location.href + '/';
+}</script><link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="./google-code-prettify/prettify.css" rel="stylesheet" type="text/css"><link href="./style.css" rel="stylesheet" type="text/css"><link href="./tocify/jquery.tocify.css" rel="stylesheet" type="text/css"></head><body data-spy="scroll" data-target=".sidebar"><div class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><ul class="nav navbar-nav"><li class="active"><a href="./index.html">Home</a></li><li><a href="./modules/index.html">Modules</a></li></ul><div class="options"><label class="checkbox"><input id="options-private" type="checkbox"> Private </label></div></div></div><div class="container-fluid content"><div class="row"><div class="hidden-xs col-sm-3"><div id="toc"></div></div><div class="col-sm-9"><div><h1 id="scalejs">scalejs</h1>
+<p>Develop scalable JavaScript client side applications in Visual Studio.</p>
+<p>The framework is targeted towards a .Net developer who has experience with Silverlight or WPF 
+and is looking for ways to apply same principles and patterns 
+(e.g. MVVM, bindings, modularization, templated controls, reactive programming, etc.)
+ to JavaScript client side development. </p>
+<p>It&#39;s inspired by Nicholas Zakas <a href="http://www.youtube.com/watch?v=vXjVFPosQHw">&quot;Scalable JavaScript Application Architecture&quot;</a> talk. 
+The framework leverages best tools and libraries such as Knockout, Linq, RxJS, RequireJS, JSLint, SCION statecharts engine, jasmine, etc. and relies on what&#39;s considered as &quot;good parts&quot; of JavaScript language (aka &quot;functional JavaScript&quot;)</p>
+<p>(see more at: <a href="http://scalejs.com/docs.html">http://scalejs.com/docs.html</a>)</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<ol>
+<li>Visual Studio 2012 or 2013</li>
+<li>IIS Express (via Web Platform Installer)</li>
+<li>node.js (<a href="http://nodejs.org/">http://nodejs.org/</a>)</li>
+<li>requirejs optimizer (once node.js is installed run in console: npm install -g requirejs)</li>
+<li>PowerShell 3.0 (<a href="http://www.microsoft.com/en-us/download/details.aspx?id=34595">http://www.microsoft.com/en-us/download/details.aspx?id=34595</a>)</li>
+<li>JSLint.VS2012 extension for Visual Studio (in Visual Studio go to TOOLS -&gt; Extensions and Updates... -&gt; Visual Studio Gallery and type <code>JSLint</code> in search box)</li>
+<li>Chutzpah Test Adapter for Visual Studio 2012 (in Visual Studio go to TOOLS -&gt; Extensions and Updates... -&gt; Visual Studio Gallery and type <code>Chutzpah</code> in search box)</li>
+</ol>
+<h1 id="installation">Installation</h1>
+<p>In Visual Studio go to TOOLS -&gt; Extensions and Updates... -&gt; Visual Studio Gallery and type <code>Scalejs</code> in the search box. It will filter the list of extensions to have just <code>Scalejs</code>. Click <code>Download</code> button - this will install the extension.
+After installation you&#39;ll have 3 project templates (Scalejs Application, Scalejs Extension, and Scalejs Test)  and 1 item template (Scalejs Module)
+See tutorial below for how to use them. </p>
+<h1 id="tutorials">Tutorials</h1>
+<ol>
+<li><a href="https://github.com/lisovin/scalejs/wiki/Quick-Start">Quick Start</a></li>
+<li><a href="http://scalejs.com/todomvc.html">ToDoMVC</a></li>
+</ol>
+<p>=======
+MIT license: <a href="http://opensource.org/licenses/mit-license.php">http://opensource.org/licenses/mit-license.php</a></p>
+</div></div></div></div><script src="http://code.jquery.com/jquery-1.11.0.min.js"></script><script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script src="./google-code-prettify/prettify.js"></script><script src="./script.js"></script><script src="./group-examples.js"></script><script src="http://code.jquery.com/ui/1.9.0/jquery-ui.min.js"></script><script src="./tocify/jquery.tocify.js"></script><script>$(function() {
+  $('#toc').tocify({extendPage:false, scrollTo:60});
+});</script></body></html>

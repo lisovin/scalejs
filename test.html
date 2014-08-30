@@ -1,80 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <link rel="stylesheet" href="style/metro-bootstrap.min.css" />
-	  <link rel="stylesheet" href="style/metro-bootstrap-responsive.min.css" />
-    <script src="style/jquery.min.js"></script>
-	  <script src="style/jquery.ui.widget.js"></script>	
-    <script src="style/metro.min.js"></script>
-	  <link rel="stylesheet" href="highlight.css" />
 
-	<meta name="generator" content="DocPad v6.60.4" />
-	
-    
-	<style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link rel="stylesheet" href="style/metro-bootstrap.min.css" />
+  <link rel="stylesheet" href="style/metro-bootstrap-responsive.min.css" />
+  <script src="style/jquery.min.js"></script>
+  <script src="style/jquery.ui.widget.js"></script>
+  <script src="style/metro.min.js"></script>
+  <link rel="stylesheet" href="highlight.css" />
+
+  <meta name="generator" content="DocPad v6.60.4" />
+  
+
+  <style>
     header {
       height: 45px;
-    }
-    #content {
+  }
+  #content {
       overflow-y: scroll;
-	  padding-right: 20px;
-	  margin-left: 20px;
-    }
-    #sidebar {
+      padding-right: 20px;
+      margin-left: 20px;
+  }
+  #sidebar {
       display: block;
       float: left;
       width: 300px;
       overflow-y: scroll;
       margin-right:20px;
-    }
-    body {
+  }
+  body {
       overflow-y: hidden;
-     }
-	.metro h1 {
-		color: #9a1616 !important;
-	}	
-	.metro .sidebar>ul ul, .metro .sidebar>ul ul li a {
-		background-color: #3d3d3d;
-		border: 0px;
-		color: #fff;
-	}
-  </style>
-    
-	<script>
-	function adjustHeight() {
-		//adjust the height of the content and sidebar
-		$("#content").outerHeight(window.innerHeight -45);
-		$("#sidebar").outerHeight(window.innerHeight -45);
-	}
+  }
+  .metro h1 {
+    color: #9a1616 !important;
+}
+.metro .sidebar>ul ul, .metro .sidebar>ul ul li a {
+    background-color: #3d3d3d;
+    border: 0px;
+    color: #fff;
+}
+
+.metro h2, .metro h3 {
+    margin: 30px 0 15px 0;
+}
+</style>
+
+<script>
+    function adjustHeight() {
+        //adjust the height of the content and sidebar
+        $("#content").outerHeight(window.innerHeight -45);
+        $("#sidebar").outerHeight(window.innerHeight -45);
+    }
 
     $(document).ready(function() {
-		var path = window.location.pathname.replace("/scalejs/scalejs-docs/out","");
-		
-		//make selected page active on sidebar
-		$("a[href='." + path +"']").parent().addClass("active");
+        var path = window.location.pathname.replace("/scalejs/scalejs-docs/out","");
 
-		adjustHeight();
-		$(window).resize(adjustHeight);
+        //make selected page active on sidebar
+        $("a[href='." + path +"']").parent().addClass("active");
 
-		//create code highlighting
-		$('pre').each(function() {
-			$(this).html($(this).html().replace(/!!\*/g, "<i style='background-color:#FFFF99'>").replace(/\*\*!/g, "</i>"));
-		});
+        adjustHeight();
+        $(window).resize(adjustHeight);
 
-		console.log(path);
-		//expand grid if it is grid
-		if(path === '/grid1.html' || path === '/grid2.html' || path=='/grid3.html') $('#grid-dropdown').css("display","block");
+        //create code highlighting
+        $('pre').each(function() {
+            $(this).html($(this).html().replace(/!!\*/g, "<i style='background-color:#FFFF99'>").replace(/\*\*!/g, "</i>"));
+        });
+
+        console.log(path);
+        //expand grid if it is grid
+        if(path === '/grid1.html' || path === '/grid2.html' || path=='/grid3.html') $('#grid-dropdown').css("display","block");
     });
 
-  </script>
+</script>
 </head>
 <body class="metro">
 
-  <header>
-	  <nav class="navigation-bar dark fixed-top">
+    <header>
+        <nav class="navigation-bar dark fixed-top">
     <div class="navigation-bar-content">
         <a href="./" class="element"><span class="icon-home"></span> SCALEJS</a>
         <span class="element-divider"></span>
@@ -133,6 +137,12 @@
                             <li><a href="./todomvc.html">ToDoMVC</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle">Documentation</a>
+                        <ul class="dropdown-menu dark" data-role="dropdown">
+                            <li><a href="./scalejs-doc/index.html">scalejs</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
             <li class="divider"></li>
@@ -153,57 +163,59 @@
         </div>
     </div>
 </nav>
-  </header>
-  
-  <div id="container">
-     
-       <div id="sidebar" class="sidebar no-tablet-portrait no-phone">
-		      <ul>
-			      <li class="title">Getting Started</li>
-				      <li><a href="./docs.html"><i class="icon-star-3"></i> Introduction</a></li>
-				      <li><a href="./install.html"><i class="icon-download-2"></i> Install Scalejs</a></li>
-				      <li><a href="./project.html"><i class="icon-new"></i> Create an Application Project</a></li>
-				      <li><a href="./running.html"><i class="icon-play"></i> Running your  Application</a></li>
-                            <!--<li><a href="./build.html"><i class="icon-cloud"></i> Build and Deployment</a></li>
-                            <li><a href="./test.html"><i class="icon-checkmark"></i> Testing</a></li>
-                            <li><a href="./best.html"><i class="icon-thumbs-up"></i> Best Practices</a></li>-->
-			      <li class="title">Overview</li>
-                            <li><a href="./template.html"><i class="icon-clipboard-2"></i> Project Template</a></li>
-                            <li><a href="./architecture.html"><i class="icon-puzzle"></i> Architecture</a></li>
-                            <li><a href="./mvvm.html"><i class="icon-tree-view"></i> Model-View-ViewModel</a></li>
-                            <li><a href="./statechart.html"><i class="icon-tab"></i> Statechart</a></li>
-                            <li><a href="./routing.html"><i class="icon-share"></i> Routing</a></li>
-                            <li><a href="./composition.html"><i class="icon-screen"></i> UI Composition</a></li>
-                            <li><a href="./gridlayout.html"><i class="icon-grid-view"></i> Layout</a></li>
-                            <!--<li><a href="./styles.html"><i class="icon-droplet"></i> Styles</a></li>
-                            <li><a href="./extensions.html"><i class="icon-wrench"></i> Extensions</a></li>
-                            <li><a href="./api.html"><i class="icon-book"></i> API Documentation</a></li>-->
-				  <li class="title">UI Components</li>
-				            <li>
-								<a class="dropdown-toggle" href=""><i class="icon-grid"></i> Data Grid</a>
-								<ul id="grid-dropdown" class="dropdown-menu" data-role="dropdown">
-									<li><a href="./grid1.html">Introduction</a></li>
-									<li><a href="./grid2.html">Filtering</a></li>
-									<li><a href="./grid3.html">Sorting</a></li>
-								</ul>
-							</li>
-							<li><a href="./autocomplete.html"><i class="icon-search"></i> Autocomplete</a></li>
-							<li><a href="./visualization.html"><i class="icon-target"></i> Visualization</a></li>
-				 <li class="title">Tutorials</li>
-				      <li><a href="./todomvc.html">ToDoMVC</a></li>
-		      </ul>
-	      </div>
 
-	    <div id="content">
-		    <h1 id="testing">Testing</h1>
+    </header>
+
+    <div id="container">
+
+        <div id="sidebar" class="sidebar no-tablet-portrait no-phone">
+            <ul>
+                <li class="title">Getting Started</li>
+                <li><a href="./docs.html"><i class="icon-star-3"></i> Introduction</a></li>
+                <li><a href="./install.html"><i class="icon-download-2"></i> Install Scalejs</a></li>
+                <li><a href="./project.html"><i class="icon-new"></i> Create an Application Project</a></li>
+                <li><a href="./running.html"><i class="icon-play"></i> Running your  Application</a></li>
+                <!--<li><a href="./build.html"><i class="icon-cloud"></i> Build and Deployment</a></li>
+                <li><a href="./test.html"><i class="icon-checkmark"></i> Testing</a></li>
+                <li><a href="./best.html"><i class="icon-thumbs-up"></i> Best Practices</a></li>-->
+                <li class="title">Overview</li>
+                <li><a href="./template.html"><i class="icon-clipboard-2"></i> Project Template</a></li>
+                <li><a href="./architecture.html"><i class="icon-puzzle"></i> Architecture</a></li>
+                <li><a href="./mvvm.html"><i class="icon-tree-view"></i> Model-View-ViewModel</a></li>
+                <li><a href="./statechart.html"><i class="icon-tab"></i> Statechart</a></li>
+                <li><a href="./routing.html"><i class="icon-share"></i> Routing</a></li>
+                <li><a href="./composition.html"><i class="icon-screen"></i> UI Composition</a></li>
+                <li><a href="./gridlayout.html"><i class="icon-grid-view"></i> Layout</a></li>
+                <!--<li><a href="./styles.html"><i class="icon-droplet"></i> Styles</a></li>
+                <li><a href="./extensions.html"><i class="icon-wrench"></i> Extensions</a></li>
+                <li><a href="./api.html"><i class="icon-book"></i> API Documentation</a></li>-->
+                <li class="title">UI Components</li>
+                <li>
+                    <a class="dropdown-toggle" href=""><i class="icon-grid"></i> Data Grid</a>
+                    <ul id="grid-dropdown" class="dropdown-menu" data-role="dropdown">
+                        <li><a href="./grid1.html">Introduction</a></li>
+                        <li><a href="./grid2.html">Filtering</a></li>
+                        <li><a href="./grid3.html">Sorting</a></li>
+                    </ul>
+                </li>
+                <li><a href="./autocomplete.html"><i class="icon-search"></i> Autocomplete</a></li>
+                <li><a href="./visualization.html"><i class="icon-target"></i> Visualization</a></li>
+                <li class="title">Tutorials</li>
+                <li><a href="./todomvc.html">ToDoMVC</a></li>
+                <li class="title">Documentation</li>
+                <li><a href="./scalejs-doc/index.html">ScaleJS</a></li>
+            </ul>
+        </div>
+
+        <div id="content">
+            <h1 id="testing">Testing</h1>
 <hr>
 
 <p>Open index.test.html in your browser. Write your tests in the <strong>test</strong> folder.</p>
 
-	    </div>
+        </div>
 
-  </div>
-</div>
-    
+    </div>
+
 </body>
 </html>

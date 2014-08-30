@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>scalejs - scalejs.base.type</title><script>if (location.protocol.match(/^http/) && location.pathname.match('\.html') === null && location.pathname.slice(-1) !== '/') {
+  location.href = location.href + '/';
+}</script><link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="../google-code-prettify/prettify.css" rel="stylesheet" type="text/css"><link href="../style.css" rel="stylesheet" type="text/css"></head><body data-spy="scroll" data-target=".sidebar"><div class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><ul class="nav navbar-nav"><li><a href="../index.html">Home</a></li><li class="active"><a href="../modules/index.html">Modules - scalejs.base.type</a></li></ul><div class="options"><label class="checkbox"><input id="options-private" type="checkbox"> Private </label></div></div></div><div class="container-fluid content"><div class="row"><div data-spy="affix" class="hidden-xs sidebar col-sm-3"><div class="cormo-sidenav"><div class="panel panel-default"><div data-toggle="collapse" data-target="#scalejs.application_body" class="panel-heading">scalejs.application<span class="pull-right glyphicon"></span></div><div id="scalejs.application_body" class="panel-collapse collapse in"><ul class="nav nav-pills nav-stacked"><li><a href="../modules/scalejs.application.application.html">application</a></li></ul></div></div><div class="panel panel-default"><div data-toggle="collapse" data-target="#scalejs.base_body" class="panel-heading">scalejs.base<span class="pull-right glyphicon"></span></div><div id="scalejs.base_body" class="panel-collapse collapse in"><ul class="nav nav-pills nav-stacked"><li><a href="../modules/scalejs.base.array.html">array</a></li><li><a href="../modules/scalejs.base.log.html">log</a></li><li><a href="../modules/scalejs.base.object.html">object</a></li><li class="active"><a href="#scalejs_base_type">type</a></li><li class="cormo-class-property"><a href="#scalejs_base_type_is">is</a></li><li class="cormo-class-property"><a href="#scalejs_base_type_typeOf">typeOf</a></li></ul></div></div><div class="panel panel-default"><div data-toggle="collapse" data-target="#scalejs.core_body" class="panel-heading">scalejs.core<span class="pull-right glyphicon"></span></div><div id="scalejs.core_body" class="panel-collapse collapse in"><ul class="nav nav-pills nav-stacked"><li><a href="../modules/scalejs.core.core.html">core</a></li></ul></div></div></div></div><div class="col-sm-9 col-sm-offset-3"><span id="scalejs_base_type" class="fix-anchor"></span><section><h1 class="class_title">type</h1><div>(defined in /scalejs/scalejs/base.type.js)</div><div><p>Provides type functionality to scalejs base</p>
+</div><div></div></section><span id="scalejs_base_type_is" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#scalejs_base_type_is_body" class="panel-heading collapsed"><h3 class="panel-title">is(value, [prop...], [type])<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Determines if an object (and possibly a chain of properties within
+that object actually are of the passed type
+(no type will be null/undefined)</p>
+</div></div><div id="scalejs_base_type_is_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>value</code></td><td><span><a href='#'>Any</a></span></td><td><span> object to test</span></td></tr><tr><td><span class="method-depth0"></span><code>prop...</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String'>String</a></span></td><td><span> property chain to test within value</span></td></tr><tr><td><span class="method-depth0"></span><code>type</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='#'>Any</a>, <a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String'>String</a></span></td><td><span> of the object to test for</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean'>Boolean</a></span></td><td><span>if the object 'is' (see inline documentation)</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /scalejs/scalejs/base.type.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">function is(value) {
+        // If more than two arguments are provided, the value is considered to be
+        // nested within a chain of properties starting with the first argument:
+        // | is(object,'parent','child','leaf','boolean')
+        // will check whether the property object.parent.child.leaf exists and is
+        // a boolean.
+        //
+        // The intent of this method is to replace unsafe guard conditions that
+        // rely on type coercion:
+        // | if (object &amp;&amp; object.parent &amp;&amp; object.parent.child) {
+        // |   // Issue: all falsy values are treated like null and undefined:
+        // |   // '', 0, false...
+        // | }
+        // with a safer check in a single call:
+        // | if ( is(object,'parent','child','number') ) {
+        // |   // only null and undefined values are rejected
+        // |   // and the type expected (here 'number') is explicit
+        // | }
+        //
+        // Returns:
+        //   * false, if no argument is provided
+        //   * false, if a single argument is provided which is null or undefined
+        //   * true, if a single argument is provided, which is not null/undefined
+        //   * if the type argument is a non-empty string, it is compared with the
+        //     internal class of the value, put in lower case
+        //   * if the type argument is a function, the instanceof operator is used
+        //     to check if the value is considered an instance of the function
+        //   * otherwise, the value is compared with the provided type using the
+        //     strict equality operator ===
+        //
+        // Notes:
+        // This method retrieves the internal class of the provided value using
+        // | Object.prototype.toString.call(value).slice(8, -1)
+        // The class is then converted to lower case.
+        //
+        // See &quot;The Class of an Object&quot; section in the JavaScript Garden for
+        // more details on the internal class:
+        // http://bonsaiden.github.com/JavaScript-Garden/#types.typeof
+        //
+        // The internal class is only guaranteed to be the same in all browsers for
+        // Core JavaScript classes defined in ECMAScript. It differs for classes
+        // part of the Browser Object Model (BOM) and Document Object Model (DOM):
+        // window, document, DOM nodes:
+        //
+        //   window        - 'Object' (IE), 'Window' (Firefox,Opera),
+        //                   'global' (Chrome), 'DOMWindow' (Safari)
+        //   document      - 'Object' (IE),
+        //                   'HTMLDocument' (Firefox,Chrome,Safari,Opera)
+        //   document.body - 'Object' (IE),
+        //                   'HTMLBodyElement' (Firefox,Chrome,Safari,Opera)
+        //   document.createElement('div') - 'Object' (IE)
+        //                   'HTMLDivElement' (Firefox,Chrome,Safari,Opera)
+        //   document.createComment('') - 'Object' (IE),
+        //                   'Comment' (Firefox,Chrome,Safari,Opera)
+
+        var undef, // do not trust global undefined, which may be overridden
+            i,
+            length = arguments.length,
+            last = length - 1,
+            type,
+            typeOfType,
+            internalClass,
+            v = value;
+
+
+        if (length === 0) {
+            return false; // no argument
+        }
+
+        if (length === 1) {
+            return (value !== null &amp;&amp; value !== undef);
+        }
+
+        if (length &gt; 2) {
+            for (i = 0; i &lt; last - 1; i += 1) {
+                if (!is(v)) {
+                    return false;
+                }
+                v = v[arguments[i + 1]];
+            }
+        }
+
+        type = arguments[last];
+        if (v === null) {
+            return (type === null || type === 'null');
+        }
+        if (v === undef) {
+            return (type === undef || type === 'undefined');
+        }
+        if (type === '') {
+            return v === type;
+        }
+
+        typeOfType = typeof type;
+        if (typeOfType === 'string') {
+            internalClass =
+                Object.prototype
+                    .toString
+                    .call(v)
+                    .slice(8, -1)
+                    .toLowerCase();
+            return internalClass === type;
+        }
+
+        if (typeOfType === 'function') {
+            return v instanceof type;
+        }
+
+        return v === type;
+    }
+
+    return {
+        is : is,
+        typeOf : typeOf
+    };
+});</pre></div></div></div></section><span id="scalejs_base_type_typeOf" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#scalejs_base_type_typeOf_body" class="panel-heading collapsed"><h3 class="panel-title">typeOf(obj)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Detects the type of the passed object</p>
+</div></div><div id="scalejs_base_type_typeOf_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>obj</code></td><td><span><a href='#'>Any</a></span></td><td><span> object to find the type of</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String'>String</a></span></td><td><span>type of the passed object</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /scalejs/scalejs/base.type.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">function typeOf(obj) {
+        if (obj === undefined) {
+            return 'undefined';
+        }
+
+        if (obj === null) {
+            return 'null';
+        }
+
+        var t = ({}).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase(),
+            m;
+
+        if (t !== 'object') {
+            return t;
+        }
+
+        m = obj.constructor.toString().match(/^function\s*([$A-Z_][0-9A-Z_$]*)/i);
+        if (m === null) {
+            return 'object';
+        }
+
+        return m[1];
+    }</pre></div></div></div></section></div></div></div><script src="http://code.jquery.com/jquery-1.11.0.min.js"></script><script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script src="../google-code-prettify/prettify.js"></script><script src="../script.js"></script><script src="../group-examples.js"></script></body></html>

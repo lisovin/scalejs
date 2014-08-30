@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>scalejs - scalejs.base.object</title><script>if (location.protocol.match(/^http/) && location.pathname.match('\.html') === null && location.pathname.slice(-1) !== '/') {
+  location.href = location.href + '/';
+}</script><link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="../google-code-prettify/prettify.css" rel="stylesheet" type="text/css"><link href="../style.css" rel="stylesheet" type="text/css"></head><body data-spy="scroll" data-target=".sidebar"><div class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><ul class="nav navbar-nav"><li><a href="../index.html">Home</a></li><li class="active"><a href="../modules/index.html">Modules - scalejs.base.object</a></li></ul><div class="options"><label class="checkbox"><input id="options-private" type="checkbox"> Private </label></div></div></div><div class="container-fluid content"><div class="row"><div data-spy="affix" class="hidden-xs sidebar col-sm-3"><div class="cormo-sidenav"><div class="panel panel-default"><div data-toggle="collapse" data-target="#scalejs.application_body" class="panel-heading">scalejs.application<span class="pull-right glyphicon"></span></div><div id="scalejs.application_body" class="panel-collapse collapse in"><ul class="nav nav-pills nav-stacked"><li><a href="../modules/scalejs.application.application.html">application</a></li></ul></div></div><div class="panel panel-default"><div data-toggle="collapse" data-target="#scalejs.base_body" class="panel-heading">scalejs.base<span class="pull-right glyphicon"></span></div><div id="scalejs.base_body" class="panel-collapse collapse in"><ul class="nav nav-pills nav-stacked"><li><a href="../modules/scalejs.base.array.html">array</a></li><li><a href="../modules/scalejs.base.log.html">log</a></li><li class="active"><a href="#scalejs_base_object">object</a></li><li class="cormo-class-property"><a href="#scalejs_base_object_clone">clone</a></li><li class="cormo-class-property"><a href="#scalejs_base_object_extend">extend</a></li><li class="cormo-class-property"><a href="#scalejs_base_object_get">get</a></li><li class="cormo-class-property"><a href="#scalejs_base_object_has">has</a></li><li class="cormo-class-property"><a href="#scalejs_base_object_merge">merge</a></li><li class="cormo-class-property private"><a href="#scalejs_base_object_mix">mix<span class="pull-right label label-private">private</span></a></li><li class="cormo-class-property"><a href="#scalejs_base_object_stringify">stringify</a></li><li class="cormo-class-property"><a href="#scalejs_base_object_valueOrDefault">valueOrDefault</a></li><li><a href="../modules/scalejs.base.type.html">type</a></li></ul></div></div><div class="panel panel-default"><div data-toggle="collapse" data-target="#scalejs.core_body" class="panel-heading">scalejs.core<span class="pull-right glyphicon"></span></div><div id="scalejs.core_body" class="panel-collapse collapse in"><ul class="nav nav-pills nav-stacked"><li><a href="../modules/scalejs.core.core.html">core</a></li></ul></div></div></div></div><div class="col-sm-9 col-sm-offset-3"><span id="scalejs_base_object" class="fix-anchor"></span><section><h1 class="class_title">object</h1><div>(defined in /scalejs/scalejs/base.object.js)</div><div><p>Provides object functionality to scalejs base</p>
+</div><div></div></section><span id="scalejs_base_object_clone" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#scalejs_base_object_clone_body" class="panel-heading collapsed"><h3 class="panel-title">clone(obj)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Clones the passed object</p>
+</div></div><div id="scalejs_base_object_clone_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>obj</code></td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object'>Object</a></span></td><td><span> object to be cloned</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object'>Object</a></span></td><td><span>the cloned object</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /scalejs/scalejs/base.object.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">function clone(o) {
+        return merge(o);
+    }</pre></div></div></div></section><span id="scalejs_base_object_extend" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#scalejs_base_object_extend_body" class="panel-heading collapsed"><h3 class="panel-title">extend(reciever, extension, [path])<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Extends the extension into the reciever</p>
+</div></div><div id="scalejs_base_object_extend_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>reciever</code></td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object'>Object</a></span></td><td><span> object into which to extend</span></td></tr><tr><td><span class="method-depth0"></span><code>extension</code></td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object'>Object</a></span></td><td><span> object from which to extend</span></td></tr><tr><td><span class="method-depth0"></span><code>path</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String'>String</a></span></td><td><span> followed on the reciever before executing</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span></span></td><td><span>the extended object (after having followed the path)</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /scalejs/scalejs/base.object.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">function extend(receiver, extension, path) {
+        var props = has(path) ? path.split('.') : [],
+            target = receiver,
+            i;
+
+        for (i = 0; i &lt; props.length; i += 1) {
+            if (!has(target, props[i])) {
+                target[props[i]] = {};
+            }
+            target = target[props[i]];
+        }
+
+        mix(target, extension);
+
+        return target;
+    }</pre></div></div></div></section><span id="scalejs_base_object_get" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#scalejs_base_object_get_body" class="panel-heading collapsed"><h3 class="panel-title">get(o, path, [defaultValue])<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Obtains a value from an object following a path with the option to
+return a default value if that object was not found</p>
+</div></div><div id="scalejs_base_object_get_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>o</code></td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object'>Object</a></span></td><td><span> object in which to look for the specified path</span></td></tr><tr><td><span class="method-depth0"></span><code>path</code></td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String'>String</a></span></td><td><span> string representing the chain of properties to</span></td></tr><tr><td><span class="method-depth0"></span><code>defaultValue</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='#'>Any</a></span></td><td><span> value to return if the path does not</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><a href='#'>Any</a></span></td><td><span>object evaluated by following the given path or the default</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /scalejs/scalejs/base.object.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">function get(o, path, defaultValue) {
+        var props = path.split('.'),
+            i,
+            p,
+            success = true;
+
+        for (i = 0; i &lt; props.length; i += 1) {
+            p = props[i];
+            if (has(o, p)) {
+                o = o[p];
+            } else {
+                success = false;
+                break;
+            }
+        }
+
+        return success ? o : defaultValue;
+    }</pre></div></div></div></section><span id="scalejs_base_object_has" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#scalejs_base_object_has_body" class="panel-heading collapsed"><h3 class="panel-title">has(obj, [prop...])<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Determines if an object exists and if it does checks that each in
+the chain of properties also exist</p>
+</div></div><div id="scalejs_base_object_has_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>obj</code></td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object'>Object</a>, <a href='#'>Any</a></span></td><td><span> object to test</span></td></tr><tr><td><span class="method-depth0"></span><code>prop...</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String'>String</a></span></td><td><span> property chain of the object to test</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean'>Boolean</a></span></td><td><span>if the object 'has' (see inline documentation)</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /scalejs/scalejs/base.object.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">function has(object) {
+        // The intent of this method is to replace unsafe tests relying on type
+        // coercion for optional arguments or obj properties:
+        // | function on(event,options){
+        // |   options = options || {}; // type coercion
+        // |   if (!event || !event.data || !event.data.value){
+        // |     // unsafe due to type coercion: all falsy values '', false, 0
+        // |     // are discarded, not just null and undefined
+        // |     return;
+        // |   }
+        // |   // ...
+        // | }
+        // with a safer test without type coercion:
+        // | function on(event,options){
+        // |   options = has(options)? options : {}; // no type coercion
+        // |   if (!has(event,'data','value'){
+        // |     // safe check: only null/undefined values are rejected;
+        // |     return;
+        // |   }
+        // |   // ...
+        // | }
+        //
+        // Returns:
+        //   * false if no argument is provided or if the obj is null or
+        //     undefined, whatever the number of arguments
+        //   * true if the full chain of nested properties is found in the obj
+        //     and the corresponding value is neither null nor undefined
+        //   * false otherwise
+
+        var i,
+            length,
+            o = object,
+            property;
+
+        if (!is(o)) {
+            return false;
+        }
+
+        for (i = 1, length = arguments.length; i &lt; length; i += 1) {
+            property = arguments[i];
+            o = o[property];
+            if (!is(o)) {
+                return false;
+            }
+        }
+        return true;
+    }</pre></div></div></div></section><span id="scalejs_base_object_merge" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#scalejs_base_object_merge_body" class="panel-heading collapsed"><h3 class="panel-title">merge([obj...])<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Merges all of the passed objects into a new object</p>
+</div></div><div id="scalejs_base_object_merge_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>obj...</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object'>Object</a></span></td><td><span> object to mix into the new object</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object'>Object</a></span></td><td><span>the merged object</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /scalejs/scalejs/base.object.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">function merge() {
+        var args = arguments,
+            i,
+            len = args.length,
+            result = {};
+
+        for (i = 0; i &lt; len; i += 1) {
+            mix(result, args[i]);
+        }
+
+        return result;
+    }</pre></div></div></div></section><span id="scalejs_base_object_mix" class="fix-anchor"></span><section class="private"><div class="panel panel-success"><div data-toggle="collapse" data-target="#scalejs_base_object_mix_body" class="panel-heading collapsed"><h3 class="panel-title">mix(reciever, supplier)<span class="label label-private">private</span><span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Deep extend of the supplier into the reciever</p>
+</div></div><div id="scalejs_base_object_mix_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>reciever</code></td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object'>Object</a></span></td><td><span> object into which to extend</span></td></tr><tr><td><span class="method-depth0"></span><code>supplier</code></td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object'>Object</a></span></td><td><span> object from which to extend</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span></span></td><td><span>the reciever object for ease</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /scalejs/scalejs/base.object.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">function mix(receiver, supplier) {
+        var p;
+        for (p in supplier) {
+            if (supplier.hasOwnProperty(p)) {
+                if (has(supplier, p) &amp;&amp;
+                        supplier[p].constructor === Object &amp;&amp;
+                            has(receiver, p)) {
+                    receiver[p] = mix(receiver[p], supplier[p]);
+                } else {
+                    receiver[p] = supplier[p];
+                }
+            }
+        }
+
+        return receiver;
+    }</pre></div></div></div></section><span id="scalejs_base_object_stringify" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#scalejs_base_object_stringify_body" class="panel-heading collapsed"><h3 class="panel-title">stringify(obj)<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Stringifies an object without the chance for circular error</p>
+</div></div><div id="scalejs_base_object_stringify_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>obj</code></td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object'>Object</a></span></td><td><span> object to stringify</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String'>String</a></span></td><td><span>string form of the passed object</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /scalejs/scalejs/base.object.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">function stringify(obj) {
+        var cache=[];
+        return JSON.stringify(obj, function(k,v) {
+            if (typeof v === 'object' &amp;&amp; v !== null) {
+                if (cache.indexOf(v) !== -1) {
+                    return '[Circular]';
+                }
+                cache.push(v);
+            }
+            return v;
+        });
+    }
+
+    return {
+        has:            has,
+        valueOrDefault: valueOrDefault,
+        merge:          merge,
+        extend:         extend,
+        clone:          clone,
+        get:            get,
+        stringify:      stringify
+    };
+});</pre></div></div></div></section><span id="scalejs_base_object_valueOrDefault" class="fix-anchor"></span><section><div class="panel panel-success"><div data-toggle="collapse" data-target="#scalejs_base_object_valueOrDefault_body" class="panel-heading collapsed"><h3 class="panel-title">valueOrDefault(value, [defaultValue])<span class="pull-right glyphicon"></span></h3><div class="method-summary"><p>Gives the value if it exists or the default value if not</p>
+</div></div><div id="scalejs_base_object_valueOrDefault_body" class="panel-collapse collapse"><div class="panel-body"><div></div><h4>Parameters</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><span class="method-depth0"></span><code>value</code></td><td><span><a href='#'>Any</a></span></td><td><span> item to check</span></td></tr><tr><td><span class="method-depth0"></span><code>defaultValue</code><span class="pull-right label label-optional">optional</span></td><td><span><a href='#'>Any</a></span></td><td><span> item to return if value does not exist</span></td></tr></table><h4>Returns</h4><table class="table table-bordered table-condensed table-hover"><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td>(Returns)</td><td><span></span></td><td><span>value if it exists or default if not</span></td></tr></table><div class="showcode"><button class="btn btn-info">Show code</button><span> (defined in /scalejs/scalejs/base.object.js:)</span></div><pre class="sourcecode prettyprint .linenums:undefined">function valueOrDefault(value, defaultValue) {
+        return has(value) ? value : defaultValue;
+    }</pre></div></div></div></section></div></div></div><script src="http://code.jquery.com/jquery-1.11.0.min.js"></script><script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script src="../google-code-prettify/prettify.js"></script><script src="../script.js"></script><script src="../group-examples.js"></script></body></html>
