@@ -1,0 +1,10 @@
+build:
+    - 'newer:jshint'
+    - 'bower'
+    - 'requirejs'
+    - 'uglify'
+    - 'copy'
+
+'test':
+    - 'if-missing:curl-dir:jasmine'
+    - 'connect:test'

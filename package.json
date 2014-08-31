@@ -1,0 +1,40 @@
+{
+  "name": "scalejs",
+  "description": "Core of the scalable JavaScript application framework",
+  "homepage": "http://scalejs.com",
+  "keywords": [
+    "scalable",
+    "application",
+    "client"
+  ],
+  "author": "Peter Lisovin <peter@lisovin.com>",
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lisovin/scalejs.git"
+  },
+  "main": "dist/scalejs.min.js",
+  "version": "0.4.0",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lisovin/scalejs/issues"
+  },
+  "devDependencies": {
+    "bower": "^1.3.9",
+    "grunt": "~0.4.5",
+    "grunt-bower-requirejs": "^1.1.0",
+    "grunt-contrib-connect": "^0.8.0",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-requirejs": "^0.4.4",
+    "grunt-contrib-uglify": "^0.5.1",
+    "grunt-curl": "^2.0.3",
+    "grunt-if-missing": "^1.0.0",
+    "grunt-jslint": "^1.1.12",
+    "grunt-newer": "^0.7.0",
+    "jshint-stylish": "^0.4.0",
+    "load-grunt-config": "^0.13.1",
+    "rjs-build-analysis": "0.0.3",
+    "time-grunt": "^1.0.0"
+  }
+}

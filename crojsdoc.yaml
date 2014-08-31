@@ -1,6 +1,0 @@
-output: scalejs-doc
-title: scalejs
-quite: false
-sources:
-    - scalejs/scalejs
-external-types: {"Any":"#"}

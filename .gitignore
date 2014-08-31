@@ -333,6 +333,12 @@ node_modules
 .lock-wscript
 
 
+## Bower
+
+bower_components
+lib
+
+
 
 ### User defined
 
@@ -342,13 +348,6 @@ build/
 /TestResults
 /obj
 
-/.nuget/nuget.exe
-/scalejs/js
-
 # Documentation
-/scalejs-docs
-
-
-
-### Anomalies
-/scalejs.test/Scripts/_Chutzpah.2c00abb1d1ac257e6f8e3752e8108b3f.test.html
+/docs
+!/docs/crojsdoc.yaml
