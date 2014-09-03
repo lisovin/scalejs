@@ -117,7 +117,7 @@ The _main_ view defines the html for the layout and is located in in the __views
 A __template__ is a parentless div in an html file within your _views_ folder that has an id with the postfix `_template`.
 We only need to define one template for _main_ which specifies the layout.
 
-<sub>__main/views/main.html__</sub>
+<sub>__app/main/views/main.html__</sub>
 ```xml
 <div id="main_template">
     <section id="todoapp">
@@ -147,7 +147,7 @@ the contents of the view and render them where virtual binding is declared. Had 
 which we will see in the next section, a new html element would need to be created as a wrapper for the
 bound content. 
 
-<sub>__main/views/main.html__</sub>
+<sub>__app/main/views/main.html__</sub>
 ```xml
 <div id="main_template">
     <section id="todoapp">
@@ -213,7 +213,7 @@ Now back to the tutorial.
 Since we have referenced `todoInput` and `todoItems` in the view, we have to define them in the viewmodel. 
 Making the following change will fix the issues we just saw after altering the view.
 
-<sub>__main/viewmodels/mainViewModel.js__</sub>
+<sub>__app/main/viewmodels/mainViewModel.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -270,7 +270,7 @@ If used properly, this what allows modules to affect one another while still bei
 Adding properties to the statechart is very simple; the context of the statechart is exposed via `this` 
 within the functions of the statechart (i.e. `onEntry`). 
 
-<sub>__main/mainModule.js__</sub>
+<sub>__app/main/mainModule.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -352,7 +352,7 @@ __Scalejs MVVM Module (CSS)__. Name this module _todo_ and click __Add__.
 Once we create a module we need include it in the __app.js__ file by appending a comma and the name of the module
 to the `scalejs!application` argument within the `require` function.
 
-<sub>__app.js__</sub>
+<sub>__app/app.js__</sub>
 ```javascript
 require([
     'scalejs!application/main!!*,todo**!'
@@ -369,7 +369,7 @@ This will not allow the todo module to work as intended as __todoModule.js__ is 
 but it needs to be modified slightly so that we are adding the todo state to the correct parent state.
 Below is the todoModule.js file which is created by the module template.
 
-<sub>__todo/todoModule.js__</sub>
+<sub>__app/todo/todoModule.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -417,7 +417,7 @@ This means that our statechart looks like this:
 
 To remedy this, we can make _todo_ a child of the _main_ state by changing the statechart in __todoModule.js__.
 
-<sub>__todo/todoModule.js__</sub>
+<sub>__app/todo/todoModule.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -470,7 +470,7 @@ one for main. For now, we won't add any bindings; we will do that as we add func
 
 For now all we need to do is define the template so they can be rendered in the `todoItems` and `todoInput` regions defined in the _main_ view above.
 
-<sub>__todo/views/todo.html__</sub>
+<sub>__app/todo/views/todo.html__</sub>
 ```xml
 <div id="todo_items_template">
     <section id="main">
@@ -528,7 +528,7 @@ In the boilerplate code for the _todo_ state we are passing the template (which 
  Instead we should be passing the `todo_items_template` and the `todo_input_template` 
 into the `todoItems` and `todoInput` observables we defined in the _main_ state.
 
-<sub>__todo/todoModule.js__</sub>
+<sub>__app/todo/todoModule.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -594,7 +594,7 @@ Like with `observables`, if you are familiar with knockout.js this should be eas
 learn about them in more detail [here](./mvvm.html#obseravles) and also on [knockout's website](http://knockoutjs.com/documentation/observables.html).
 Since this is a requirement for the functionality of the _todo_ module it must be declared in the ViewModel.
 
-<sub>__todo/viewmodels/todoViewModel.js__</sub>
+<sub>__app/todo/viewmodels/todoViewModel.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -621,7 +621,7 @@ We can do this by defining a special data-class.
 To add a data-class to an element in your template is very simple and straightforward. 
 We will add the data-class `todo-visible` in the `todo_items_template`.
 
-<sub>__todo/views/todo.html__<sub>
+<sub>__app/todo/views/todo.html__<sub>
 ```xml
 <div id="todo_items_template">
     !!*<section id="main" data-class="todo-visible">**!
@@ -679,7 +679,7 @@ JavaScript within the html of our app. We can define the data-class in our bindi
 
 Now we can define the logic behind the `todo-visible` data-class in __todoBindings.js__.
 
-<sub>__todo/bindings/todoBindings.js__</sub>
+<sub>__app/todo/bindings/todoBindings.js__</sub>
 ```javascript
 /*global define */
 /*jslint sloppy: true*/
@@ -704,7 +704,7 @@ We need to let the user input a todo and when they hit enter it needs to be adde
 For this functionality, we need to bind the input to a new property of the viewmodel which will be implemented
 using an observable. Let's call it `newItem`.
 
-<sub>__todo/viewmodels/todoViewModel.js__</sub>
+<sub>__app/todo/viewmodels/todoViewModel.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -739,7 +739,7 @@ to it and name the data-class `todo-input`. This time, we are using a data-class
 there are so many bindings on this element and it will be cleaner to define
 them outside of the html.
 
-<sub>__todo/views/todo.html__</sub>
+<sub>__app/todo/views/todo.html__</sub>
 ```xml
 <div id="todo_items_template">
     <section id="main" data-class="todo-visible">
@@ -794,7 +794,7 @@ them outside of the html.
 
 Similarly to `todo-visible`, we must add a definition for this class in __todoBindings.js__
 
-<sub>__todo/bindings/todoBindings.js__</sub>
+<sub>__app/todo/bindings/todoBindings.js__</sub>
 ```javascript
 /*global define */
 /*jslint sloppy: true*/
@@ -828,7 +828,7 @@ data-class belongs to by looking at its class name.
 Now we need to add the logic so that when one presses enter a new todo is added to the list. 
 First lets create a function in __todoViewModel.js__ to do so. We will call it `addItem`.
 
-<sub>__todo/viewmodels/todoViewModel.js__</sub>
+<sub>__app/todo/viewmodels/todoViewModel.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -870,7 +870,7 @@ use it to make sure that the item has the `trim` function before we attempt to c
 The next step is making sure this function gets called when the user hits enter. We can do that by defining an
 event binding in the `todo-input` data-class we defined from before.
 
-<sub>__todo/bindings/todoBindings.js__</sub>
+<sub>__app/todo/bindings/todoBindings.js__</sub>
 ```javascript
 /*global define */
 !!*/*jslint sloppy: true,unparam: true*/**!
@@ -923,7 +923,7 @@ We can bind the `ul` element to the items array using the `foreach` binding. The
 of the `ul` will be repeated for each item in the list, with the item providing the 
 context for the binding.
 
-<sub>__todo/views/todo.html__</sub>
+<sub>__app/todo/views/todo.html__</sub>
 ```xml
 <div id="todo_items_template">
     <section id="main" data-class="todo-visible">
@@ -979,7 +979,7 @@ as completed only when it is completed. To do this, we need to alter the item so
 it is an object with two properties: `title` and `completed`.. 
 In __todoViewModel.js__ make the following change to the item when it is pushed to the items array.
 
-<sub>__todo/viewmodels/todoViewModel.js__</sub>
+<sub>__app/todo/viewmodels/todoViewModel.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -1020,7 +1020,7 @@ define([
 In `todo_items_template` also edit the li element so that it is being bound to the title
 and the completed properties.
 
-<sub>__todo/views/todo.html__</sub>
+<sub>__app/todo/views/todo.html__</sub>
 ```xml
 <div id="todo_items_template">
     <section id="main" data-class="todo-visible">
@@ -1086,7 +1086,7 @@ The computed will re-evaluate any time an observable within it changes.
 We can use this to react to the `items` and return true when they are all checked
 to indicate to the 'mark all as complete' arrow that it should be 'checked'
 
-<sub>__todo/viewmodels/todoViewModel.js__</sub>
+<sub>__app/todo/viewmodels/todoViewModel.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -1141,7 +1141,7 @@ This is why we expose all of linq's functions on the Array's prototype.
 
 We bind the computed property to the `toggle-all` checkbox like so:
 
-<sub>__todo/views/todo.html__</sub>
+<sub>__app/todo/views/todo.html__</sub>
 ```xml
 <div id="todo_items_template">
     <section id="main" data-class="todo-visible">
@@ -1192,7 +1192,7 @@ or not completed. We can fix this by giving this computed property a `write` fun
 which will take whatever value it is given and apply it to all the items' `completed` 
 properties.
 
-<sub>__todo/viewmodels/todoViewModel.js__</sub>
+<sub>__app/todo/viewmodels/todoViewModel.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -1256,7 +1256,7 @@ one or two bindings on an html element looks ugly. We will give it the `todo-ite
 We also need to add a data-class to the input element so that we can toggle editing on
 and off. We will call this the `todo-edit` class.
 
-<sub>__todo/views/todo.html__</sub>
+<sub>__app/todo/views/todo.html__</sub>
 ```xml
 <div id="todo_items_template">
     <section id="main" data-class="todo-visible">
@@ -1304,7 +1304,7 @@ defined inline in the html, we also need to apply an `editing` class if the item
 edited. We begin editing an item when we double-click on an item, so we also bind a function 
 called `beginEdit` to this event.
 
-<sub>__todo/bindings/todoBindings.html__</sub>
+<sub>__app/todo/bindings/todoBindings.html__</sub>
 ```javascript
 /*global define */
 /*jslint sloppy: true,unparam: true*/
@@ -1361,7 +1361,7 @@ We will define a new viewmodel in the __viewmodels__ folder for _todo_ and name 
 Copy and paste the code below or follow the pattern that the _main_ and _todo_ viewmodels use,
 except do not declare any properties or return anything.
 
-__todo/viewmodels/itemViewModel.js__
+<sub>__app/todo/viewmodels/itemViewModel.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -1385,7 +1385,7 @@ We need to pass to this viewmodel the title of the item and the status of its
 completion (when we create an item, it will always be false - but making
 this a parameter will come in handy when we implement persistence)
 
-<sub>__todo/viewmodels/todoViewModel.js__</sub>
+<sub>__app/todo/viewmodels/todoViewModel.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -1436,7 +1436,7 @@ define([
 
 Now we can recreate the functionality from before, and also add the new properties `editMode` and `beginEdit`
 
-<sub>__todo/viewmodels/itemViewModel.js__</sub>
+<sub>__app/todo/viewmodels/itemViewModel.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -1474,7 +1474,7 @@ Beginning an edit is rather useless if we are unable to end it. To do this, we n
 define the data-class `todo-edit` to listen for user input, update the value of title, and
 end edit mode.
 
-<sub>__todo/bindings/todoBindings.js__</sub>
+<sub>__app/todo/bindings/todoBindings.js__</sub>
 ```javascript
 /*global define */
 /*jslint sloppy: true,unparam: true*/
@@ -1539,7 +1539,7 @@ so that when `editMode` is entered, the input automatically is given focus. Also
 we make sure to call `item.endEdit()` so that it also ends the edit on blur. `endEdit` still
 needs to be defined in order for this to come full-circle.
 
-<sub>__todo/viewmodels/itemViewModel.js__</sub>
+<sub>__app/todo/viewmodels/itemViewModel.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -1598,7 +1598,7 @@ We will give the itemViewModel its own `remove` function which will, in turn, ca
 However the itemViewModel does not have `items` so we must pass the `items` to the `itemViewModel` so
 we can access the remove function.
 
-<sub>__todo/viewmodels/itemViewModel.js__</sub>
+<sub>__app/todo/viewmodels/itemViewModel.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -1647,7 +1647,7 @@ define([
 
 Now we also need to modify the __todoViewModel__ so that we are passing the items to the viewmodel.
 
-<sub>__todo/viewmodels/todoViewModel.js__</sub>
+<sub>__app/todo/viewmodels/todoViewModel.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -1698,7 +1698,7 @@ define([
 
 Now all we need to do is bind the 'x' button in the view to this function
 
-<sub>__todo/views/todo.html__</sub>
+<sub>__app/todo/views/todo.html__</sub>
 ```xml
 <div id="todo_items_template">
     <section id="main" data-class="todo-visible">
@@ -1753,7 +1753,7 @@ We also need to cancel the edit if the user hits 'escape'. To do this we introdu
 in our itemViewModel which stores the current title when an edit begins. We also need to implement
 a `cancelEdit` function which will restore the previous title.
 
-<sub>__todo/viewmodels/itemViewModel.js__</sub>
+<sub>__app/todo/viewmodels/itemViewModel.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -1810,7 +1810,7 @@ define([
 
 Also we have to modify the binding to call 'cancelEdit' if the user presses the `ESCAPE_KEY`
 
-<sub>__todo/viewmodels/todoBindings.js__</sub>
+<sub>__app/todo/viewmodels/todoBindings.js__</sub>
 ```javascript
 /*global define */
 /*jslint sloppy: true,unparam: true*/
@@ -1889,7 +1889,7 @@ to bind something without introducing a new parent div. We will define a data-cl
 which will display the grammatically correct form of 'items' based on the #. We will bind the `<strong>` element
 directly to the number of items (e.g. `length`)
 
-<sub>__todo/views/todo.html__</sub>
+<sub>__app/todo/views/todo.html__</sub>
 ```xml
 <div id="todo_items_template">
     <section id="main" data-class="todo-visible">
@@ -1937,7 +1937,7 @@ directly to the number of items (e.g. `length`)
 
 `todo-count-text` needs to be defined:
 
-<sub>__todo/bindings/todoBindings.js__</sub>
+<sub>__app/todo/bindings/todoBindings.js__</sub>
 ```javascript
 /*global define */
 /*jslint sloppy: true,unparam: true*/
@@ -2017,7 +2017,7 @@ Now the count has been implemented:
 We will introduce a new data-class, `todo-clear-completed`, to allow the users to clear all of the
 completed items with just one click.
 
-<sub>__todo/views/todo.html__</sub>
+<sub>__app/todo/views/todo.html__</sub>
 ```xml
 <div id="todo_items_template">
     <section id="main" data-class="todo-visible">
@@ -2070,7 +2070,7 @@ This data class needs to support 3 things:
 
 We implement the binding like so:
 
-<sub>__todo/bindings/todoBindings.js__</sub>
+<sub>__app/todo/bindings/todoBindings.js__</sub>
 ```javascript
 /*global define */
 /*jslint sloppy: true,unparam: true*/
@@ -2149,7 +2149,7 @@ define(function () {
 We referenced two new things here: a `completedItems` variable and a `removeCompletedItems` function,
 therefore we must define them in the viewmodel.
 
-<sub>__todo/viewmodels/todoViewModels.js__</sub>
+<sub>__app/todo/viewmodels/todoViewModels.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -2236,7 +2236,7 @@ to an `itemViewModel`
 
 Since we are using `localStorage` we need to add it to the global vars so that JSLint won't complain.
 
-<sub>__todos/viewmodels/todoViewModel.js__</sub>
+<sub>__app/todo/viewmodels/todoViewModel.js__</sub>
 ```javascript
 /*global define!!*,localStorage**! */
 define([
@@ -2314,7 +2314,7 @@ do not need to return anything.
 
 Also, if our `localStorage` is defined, then we need to `map` all of the to an `itemViewModel` using `toItemViewModel`.
 
-<sub>__todos/viewmodels/todoViewModel.js__</sub>
+<sub>__app/todo/viewmodels/todoViewModel.js__</sub>
 ```javascript
 /*global define,localStorage */
 define([
@@ -2398,7 +2398,7 @@ define([
 Since we have a `toItemViewModel` function, we can also simplify our `addItem` function by using that
 instead of calling `itemViewModel` and passing the items.
 
-<sub>__todos/viewmodels/todoViewModel.js__</sub>
+<sub>__app/todo/viewmodels/todoViewModel.js__</sub>
 ```javascript
 /*global define,localStorage */
 define([
@@ -2509,7 +2509,7 @@ We need to change our __mainModule__ slightly to implement this change. We must 
 we can get from `sandbox.routing` as a child of the `app` state. Then we must define our `main` state as 
 a child of the `router` state.
 
-<sub>__main/mainModule.js__</sub>
+<sub>__app/main/mainModule.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -2555,7 +2555,7 @@ define([
 To make it possible to switch between _all_, _active_ and _completed_, we need to introduce an array containing
 these options in viewmodel that the view will bind to using `foreach`.
 
-<sub>__todo/views/todo.html__</sub>
+<sub>__app/todo/views/todo.html__</sub>
 ```xml
 <div id="todo_items_template">
     <section id="main" data-class="todo-visible">
@@ -2597,7 +2597,7 @@ We need to define `viewableOptions` in the viewmodel. Each viewableOption has th
 displayed in the footer of our todo list (e.g. 'All', 'Active', and 'Completed') as well as a function
 which will raise a statechart event. We will need to subscribe to and react to this event in our statechart.
 
-<sub>__todo/viewmodel/todoViewModel.js__</sub>
+<sub>__app/todo/viewmodel/todoViewModel.js__</sub>
 ```javascript
 /*global define,localStorage */
 define([
@@ -2693,7 +2693,7 @@ define([
 
 We also need to define the `todo-view` data-class.
 
-<sub>__todo/bindings/todoBindings.js__</sub>
+<sub>__app/todo/bindings/todoBindings.js__</sub>
 ```javascript
 /*global define */
 /*jslint sloppy: true,unparam: true*/
@@ -2784,7 +2784,7 @@ We also need to define the transition that will occur when the events are raised
 we do not want to exit the child state when we are switching between two child states.
 
 
-<sub>__todo/todoModule.js__</sub>
+<sub>__app/todo/todoModule.js__</sub>
 ```javascript
 /*global define */
 define([
@@ -2841,7 +2841,7 @@ define([
 
 Which means we need to define `currentView` in our viewmodel.
 
-<sub>__todo/viewmodel/todoViewModel.js__</sub>
+<sub>__app/todo/viewmodel/todoViewModel.js__</sub>
 ```javascript
  return function () {
 /*global define,localStorage */
@@ -2942,7 +2942,7 @@ We need to modify how we are showing the items so that the correct items are bei
 also maintaining a list of all of the items. We will define a new computed, `viewableItems` which will
 react to changes in `currentView` and `items`.
 
-<sub>__todo/viewmodel/todoViewModel.js__</sub>
+<sub>__app/todo/viewmodel/todoViewModel.js__</sub>
 ```javascript
 /*global define,localStorage */
 define([
@@ -3056,7 +3056,7 @@ define([
 
 Now we need to bind our list to `viewableItems` instead of `items`.
 
-<sub>__todo/views/todo.html__</sub>
+<sub>__app/todo/views/todo.html__</sub>
 ```xml
 <div id="todo_items_template">
     <section id="main" data-class="todo-visible">
@@ -3097,7 +3097,7 @@ Now we need to bind our list to `viewableItems` instead of `items`.
 So far, so good. Now we will begin to introduce our routing into our states by simply passing `route` into the state
 with the text we would like to see in our URL. For the root, we specifiy '/'.
 
-<sub>__todo/todoModule.js__</sub>
+<sub>__app/todo/todoModule.js__</sub>
 ```javascript
 /*global define */
 define([
