@@ -250,21 +250,21 @@ setting up the application <a href="./statechart.html">statechart</a>. It usuall
 Functional modules are responsible for implementing business functionality.
 An example of a functional module is the <em>todo</em> module.</p>
 <p>In our ToDoMVC app, there are 2 modules: <em>main</em> and <em>todo</em>. Notice how <em>main</em> is the outer module, and consists
-of the header and background, where as the <em>todo</em> module shows the todos and lets you interact with them.</p>
+of the header and background, whereas the <em>todo</em> module shows the todos and lets you interact with them.</p>
 <p><img src="./todo.png" alt="ToDo App consists of two modules: main and todo"></p>
 <h3 id="mvvm-concepts">MVVM Concepts</h3>
 <p>Before we cover the rest of the tutorial, we will briefly discuss what MVVM is and how it is used in scalejs. 
-MVVM stands for <strong>Model-View-ViewModel</strong>, which is an application design pattern used to enforce seperation of concerns.</p>
+MVVM stands for <strong>Model-View-ViewModel</strong>, which is an application design pattern used to enforce separation of concerns.</p>
 <p>In our scalejs app, each module has its <em>own</em> models, views and viewmodels..
 A module consists of a <a href="./mvvm.html#views">view</a>, <a href="./mvvm.html#viewmodel">viewmodel</a>, 
 <a href="./mvvm.html#bindings">bindings</a> and <a href="./mvvm.html#styles">styles</a>. Therefore, along with the javascript file
 which will initialize a module, there are 4 additional folders within a module which contain the javascript files for the ViewModel
-and the HTML and CSS files for the view. We also can define our bindings between the ViewModel and View in a seperate file.</p>
+and the HTML and CSS files for the view. We also can define our bindings between the ViewModel and View in a separate file.</p>
 <p>The <strong>view</strong> defines templates for your modules. It is responsible for the visual representation of your module and is written in html.</p>
 <p>The <strong>viewmodel</strong> performs logical tasks, and exposes properties to the view. 
 These properties can be bound to the view in such a way that when a change is made in the viewmodel, 
 it will automatically update the view. Also, the reverse would also work;
- if you made a change in the view (e.g. inputing a value into a textbox), it will update the corrosponding
+ if you made a change in the view (e.g. inputting a value into a textbox), it will update the corresponding
 viewmodel property. </p>
 <p>The <strong>bindings</strong> define what is bound to an element with a certain data class. You can bind properties of the view model directly to 
 HTML elements using <code>data-bind</code>, but for more complex bindings you can bind the element to a class name using <code>data-class</code>. 
@@ -304,8 +304,8 @@ We only need to define one template for <em>main</em> which specifies the layout
 </code></pre>
 <p>Our layout defines two regions (items and input) that can become filled by
 views within the <em>todo</em> module. We split it up this way
-so that our <em>main</em> module also has control over the header &quot;todos&quot; and the <em>todo</em> module is soley responsible for
-the funtionality of creating, showing, editing, and removing todos.</p>
+so that our <em>main</em> module also has control over the header &quot;todos&quot; and the <em>todo</em> module is solely responsible for
+the functionality of creating, showing, editing, and removing todos.</p>
 <p><strong>In order to allow the todo module to render the views, the first thing we need to do is </strong>bind the view to the viewmodel__.
 We use a <a href="http://knockoutjs.com/">knockoutjs</a> <a href="./mvvm.html#virtual">virtual binding</a> to create the regions in the layout. 
 The binding which we are using is <a href="./mvvm.html#render">render</a>. </p>
@@ -339,7 +339,7 @@ bound content. </p>
 <p>For a brief moment, we will diverge from our tutorial in order to explain some important concepts which
 will be used repeatedly within our JavaScript files.</p>
 <p>The <a href="./mvvm.html#viewmodel">ViewModel</a> is a <a href="http://requirejs.org/">requirejs</a> module. Requirejs gives scalejs the ability to load modules with
-the neccessary dependencies while also keeping the global namespace clean since everything defined within the module
+the necessary dependencies while also keeping the global namespace clean since everything defined within the module
 is scoped to the function passed into <code>define</code>. Optionally, you can define an array of arguments to be passed
 into the function which is called, and these can be references to other requirejs modules or scalejs components,
 such as the sandbox (which can be seen in the below example.) The mainModule.js file and bindings file are also
@@ -348,8 +348,8 @@ requirejs modules. <em>Every JavaScript file within the app will most likely be 
 Using scalejs requires an understanding
 of the MVVM functionality which is provided by <a href="http://knockoutjs.com/">knockoutjs</a> so it is a good idea to get familiar
 with knockout bindings. What you need to care about now is that observables provide automatic UI updating when they
-are bound to an HTML element. This means that a change to this property will automatically refresh the corrosponding
-UI component, without needing to explictly update the UI whenever it needs to be changed.</p>
+are bound to an HTML element. This means that a change to this property will automatically refresh the corresponding
+UI component, without needing to explicitly update the UI whenever it needs to be changed.</p>
 <p>In order to use <code>observable</code> in our code, we import it from the <code>sandbox</code> by 
 setting it to a var at the top of our module. The <code>sandbox</code> is where extensions can
 place themselves and expose functions for modules to use. The <code>sandbox</code> allows  modules
@@ -395,11 +395,11 @@ In this case, we need it in the view. We could also access these from
 the module or another viewmodel. As you can now see, exposing these properties in the view resolved the issues from earlier.</p>
 <p><img src="./mainvm1.png" alt="Main ViewModel is working"></p>
 <h3 id="main-statechart">Main Statechart</h3>
-<p>Render can be bound to a template and corrosponding data. We want to render content from the <em>todo</em> module, 
+<p>Render can be bound to a template and corresponding data. We want to render content from the <em>todo</em> module, 
 but in order for the <em>todo</em> module to update these observables, we need to expose it in the <a href="./statechart.html">statechart</a>. </p>
-<p>The statechart defines the states and flow of your application. The statechart consists of two things: states and transitions. When we transition to a state, we setup the
+<p>The statechart defines the states and flow of your application. The statechart consists of two things: states and transitions. When we transition to a state, we set up the
 state within the <code>onEntry</code> transition. We also can listen for events (which are called with <code>raise</code>) and
-transition to the appropriate state based upon that. A benefit of the statechart is that states can be hierachical and can also run in parallel to eachother. 
+transition to the appropriate state based upon that. A benefit of the statechart is that states can be hierarchical and can also run in parallel to each other. 
 For example, our router is a parallel state and we will discuss <a href="./routing.html">routing</a> later on.
 The statechart is better understood in practice, but you can familiarize yourself with the statechart from
 the <a href="./statechart.html">statechart documentation</a></p>
@@ -455,7 +455,7 @@ define([
 These observables can now be accessed and updated by another module, but <em>main</em> doesn&#39;t know anything about this 
 other module which preserves the pattern of loosely-coupled modules. Even though the <em>todo</em> module passes
 its content to these observables, it doesn&#39;t know anything about the <em>main</em> module other
-than what is explictly shared via state.</p>
+than what is explicitly shared via state.</p>
 <p>You will find that all of the errors are gone, but unfortunately it is not styled. However,
 functionally we are done with the <em>main</em> module.</p>
 <p><img src="./app1.png" alt="Main module sans styles"></p>
@@ -471,7 +471,7 @@ specification. We will just copy-and-paste the contents of this css file into <s
 <p><br></p>
 <h2 id="3-create-the-todo-module">3. Create the todo Module</h2>
 <p>The todo module is responsible for the functionality needed in the todo list, such as adding, editing, and removing todos.
-Making a new module is extremely easy because scalejs provides Visual Stuido Item Templates
+Making a new module is extremely easy because scalejs provides Visual Studio Item Templates
 for modules. <strong>Right-click</strong> on the <strong>app</strong> folder and select <strong>Add &gt; New Item.</strong>
 From the Add New Item window, search for <em>scalejs</em> and select the 
 <strong>Scalejs MVVM Module (CSS)</strong>. Name this module <em>todo</em> and click <strong>Add</strong>.</p>
@@ -807,7 +807,7 @@ define([
 });
 </code></pre>
 <p><code>newItem</code> must be bound to the <em>value</em> binding of the input box so that as the user types,
-the observale gets updated with what they type. We also need to instruct this observable
+the observable gets updated with what they type. We also need to instruct this observable
 to update whenever a user hits a key (<code>afterkeydown</code> event) and to listen for the
 <code>ENTER_KEY</code> so that the <code>newItem</code>  can be added to the <code>items</code> array.</p>
 <p>Because we need to do so much with this input, we will assign a  data-class 
@@ -1365,7 +1365,7 @@ define(<span class="hljs-function"><span class="hljs-keyword">function</span> <s
 </code></pre>
 <p>Since the <code>li</code> element is bound to an item, this means we have created two new properties
 which need to be exposed on an item: <code>editMode</code> which is a boolean indicating if the item
-is currently being editted, and <code>beginEdit</code> which is a function which will begin editing
+is currently being edited, and <code>beginEdit</code> which is a function which will begin editing
 on the item</p>
 <p>The introduction of these two new properties on the item means that the item is getting
 more and more complex. We also will need to add more properties and methods as we continue
@@ -1394,7 +1394,7 @@ define([
 <p>We will reference this viewmodel from the <strong>todoViewModel</strong> when we make a new item. 
 We need to pass to this viewmodel the title of the item and the status of its
 completion (when we create an item, it will always be false - but making
-this a parameter will come in handy when we implement persistance)</p>
+this a parameter will come in handy when we implement persistence)</p>
 <p><sub><strong>todo/viewmodels/todoViewModel.js</strong></sub></p>
 <pre class="highlight"><code class="hljs javascript"><span class="hljs-comment">/*global define */</span>
 define([
@@ -1857,7 +1857,7 @@ The previous title will be restored.</p>
 <p>The tricky thing about this is the fact that we need to put the number in a <code>&lt;strong&gt;</code> tag, but right next
 to it we need to also display some text. This is where virtual bindings also help, since we want
 to bind something without introducing a new parent div. We will define a data-class, <code>todo-count-text</code>, 
-which will display the gramatically correct form of &#39;items&#39; based on the #. We will bind the <code>&lt;strong&gt;</code> element
+which will display the grammatically correct form of &#39;items&#39; based on the #. We will bind the <code>&lt;strong&gt;</code> element
 directly to the number of items (e.g. <code>length</code>)</p>
 <p><sub><strong>todo/views/todo.html</strong></sub></p>
 <pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todo_items_template"</span>&gt;</span>
@@ -2163,11 +2163,11 @@ define([
     };
 });
 </code></pre>
-<p>As per scalejs convention, we define our funtions after we define vars, and leave business logic to the end. </p>
+<p>As per scalejs convention, we define our functions after we define vars, and leave business logic to the end. </p>
 <p>For <code>removeCompletedItems</code>, we simply iterate through each item (using <code>Array.prototype.forEach</code>) and
-pass an annonymous function which will call <code>remove()</code> on each completed item.</p>
+pass an anonymous function which will call <code>remove()</code> on each completed item.</p>
 <p><code>completedItems</code> is a computed which will return the items where completed() is true. Again we are using
-<a href="./best.html#linq">linq</a> but this time since we want to return an array (<code>linq</code> functions cast arrays to enumerables
+<a href="./best.html#linq">linq</a> but this time since we want to return an array (<code>linq</code> functions cast arrays to enumerable
 by default) we need to call <code>toArray()</code> before it is returned.</p>
 <p>Now you can see this is working by refreshing your page, adding items, marking some as completed and observing
 the value of <em>clear completed</em> changing. Click on the button to remove all of the completed items.</p>
@@ -2428,7 +2428,7 @@ Select it and click &quot;Install&quot;</p>
 <p>We need to add the router to the app. Our <em>main</em> state needs to be a child to a <em>router</em> state so that the router 
 can listen to and react to changes. </p>
 <p>The way routing is implemented is via states by defining a property on the state called <code>route</code>. This allows
-the url to be updated whenever the state is entered, and also when one navigates to a url for a specific state
+the URL to be updated whenever the state is entered, and also when one navigates to a URL for a specific state
 the state becomes active.</p>
 <p>We need to change our <strong>mainModule</strong> slightly to implement this change. We must register the <code>routerState()</code> which
 we can get from <code>sandbox.routing</code> as a child of the <code>app</code> state. Then we must define our <code>main</code> state as 
