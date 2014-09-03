@@ -62,27 +62,27 @@ Functional modules are responsible for implementing business functionality.
 An example of a functional module is the _todo_ module.
 
 In our ToDoMVC app, there are 2 modules: _main_ and _todo_. Notice how _main_ is the outer module, and consists
-of the header and background, where as the _todo_ module shows the todos and lets you interact with them.
+of the header and background, whereas the _todo_ module shows the todos and lets you interact with them.
 
 ![ToDo App consists of two modules: main and todo](./todo.png)
 
 ### MVVM Concepts
 
 Before we cover the rest of the tutorial, we will briefly discuss what MVVM is and how it is used in scalejs. 
-MVVM stands for __Model-View-ViewModel__, which is an application design pattern used to enforce seperation of concerns.
+MVVM stands for __Model-View-ViewModel__, which is an application design pattern used to enforce separation of concerns.
 
 In our scalejs app, each module has its _own_ models, views and viewmodels..
 A module consists of a [view](./mvvm.html#views), [viewmodel](./mvvm.html#viewmodel), 
 [bindings](./mvvm.html#bindings) and [styles](./mvvm.html#styles). Therefore, along with the javascript file
 which will initialize a module, there are 4 additional folders within a module which contain the javascript files for the ViewModel
-and the HTML and CSS files for the view. We also can define our bindings between the ViewModel and View in a seperate file.
+and the HTML and CSS files for the view. We also can define our bindings between the ViewModel and View in a separate file.
 
 The __view__ defines templates for your modules. It is responsible for the visual representation of your module and is written in html.
 
 The __viewmodel__ performs logical tasks, and exposes properties to the view. 
 These properties can be bound to the view in such a way that when a change is made in the viewmodel, 
 it will automatically update the view. Also, the reverse would also work;
- if you made a change in the view (e.g. inputing a value into a textbox), it will update the corrosponding
+ if you made a change in the view (e.g. inputting a value into a textbox), it will update the corrosponding
 viewmodel property. 
 
 The __bindings__ define what is bound to an element with a certain data class. You can bind properties of the view model directly to 
@@ -135,7 +135,7 @@ We only need to define one template for _main_ which specifies the layout.
 
 Our layout defines two regions (items and input) that can become filled by
 views within the _todo_ module. We split it up this way
-so that our _main_ module also has control over the header "todos" and the _todo_ module is soley responsible for
+so that our _main_ module also has control over the header "todos" and the _todo_ module is solely responsible for
 the funtionality of creating, showing, editing, and removing todos.
 
 __In order to allow the todo module to render the views, the first thing we need to do is __bind the view to the viewmodel__.
@@ -180,7 +180,7 @@ For a brief moment, we will diverge from our tutorial in order to explain some i
 will be used repeatedly within our JavaScript files.
 
 The [ViewModel](./mvvm.html#viewmodel) is a [requirejs](http://requirejs.org/) module. Requirejs gives scalejs the ability to load modules with
-the neccessary dependencies while also keeping the global namespace clean since everything defined within the module
+the necessary dependencies while also keeping the global namespace clean since everything defined within the module
 is scoped to the function passed into `define`. Optionally, you can define an array of arguments to be passed
 into the function which is called, and these can be references to other requirejs modules or scalejs components,
 such as the sandbox (which can be seen in the below example.) The mainModule.js file and bindings file are also
@@ -190,7 +190,7 @@ Another thing in our modules, and more specifically ViewModels, which is of impo
 Using scalejs requires an understanding
 of the MVVM functionality which is provided by [knockoutjs](http://knockoutjs.com/) so it is a good idea to get familiar
 with knockout bindings. What you need to care about now is that observables provide automatic UI updating when they
-are bound to an HTML element. This means that a change to this property will automatically refresh the corrosponding
+are bound to an HTML element. This means that a change to this property will automatically refresh the corresponding
 UI component, without needing to explictly update the UI whenever it needs to be changed.
 
 In order to use `observable` in our code, we import it from the `sandbox` by 
@@ -249,12 +249,12 @@ the module or another viewmodel. As you can now see, exposing these properties i
 
 ### Main Statechart
 
-Render can be bound to a template and corrosponding data. We want to render content from the _todo_ module, 
+Render can be bound to a template and corresponding data. We want to render content from the _todo_ module, 
 but in order for the _todo_ module to update these observables, we need to expose it in the [statechart](./statechart.html). 
 
-The statechart defines the states and flow of your application. The statechart consists of two things: states and transitions. When we transition to a state, we setup the
+The statechart defines the states and flow of your application. The statechart consists of two things: states and transitions. When we transition to a state, we set up the
 state within the `onEntry` transition. We also can listen for events (which are called with `raise`) and
-transition to the appropriate state based upon that. A benefit of the statechart is that states can be hierachical and can also run in parallel to eachother. 
+transition to the appropriate state based upon that. A benefit of the statechart is that states can be hierarchical and can also run in parallel to eachother. 
 For example, our router is a parallel state and we will discuss [routing](./routing.html) later on.
 The statechart is better understood in practice, but you can familiarize yourself with the statechart from
 the [statechart documentation](./statechart.html)
@@ -316,7 +316,7 @@ Recall that when we created the `todoItems` and `todoInput` properties, we assig
 These observables can now be accessed and updated by another module, but _main_ doesn't know anything about this 
 other module which preserves the pattern of loosely-coupled modules. Even though the _todo_ module passes
 its content to these observables, it doesn't know anything about the _main_ module other
-than what is explictly shared via state.
+than what is explicitly shared via state.
 
 You will find that all of the errors are gone, but unfortunately it is not styled. However,
 functionally we are done with the _main_ module.
@@ -342,7 +342,7 @@ __styles__ folder. In a future tutorial, we will cover how to use LESS in your m
 ## 3. Create the todo Module
 
 The todo module is responsible for the functionality needed in the todo list, such as adding, editing, and removing todos.
-Making a new module is extremely easy because scalejs provides Visual Stuido Item Templates
+Making a new module is extremely easy because scalejs provides Visual Studio Item Templates
 for modules. __Right-click__ on the __app__ folder and select __Add > New Item.__
 From the Add New Item window, search for _scalejs_ and select the 
 __Scalejs MVVM Module (CSS)__. Name this module _todo_ and click __Add__.
@@ -730,7 +730,7 @@ define([
 ```
 
 `newItem` must be bound to the _value_ binding of the input box so that as the user types,
-the observale gets updated with what they type. We also need to instruct this observable
+the observable gets updated with what they type. We also need to instruct this observable
 to update whenever a user hits a key (`afterkeydown` event) and to listen for the
 `ENTER_KEY` so that the `newItem`  can be added to the `items` array.
 
@@ -1347,7 +1347,7 @@ define(function () {
 
 Since the `li` element is bound to an item, this means we have created two new properties
 which need to be exposed on an item: `editMode` which is a boolean indicating if the item
-is currently being editted, and `beginEdit` which is a function which will begin editing
+is currently being edited, and `beginEdit` which is a function which will begin editing
 on the item
 
 The introduction of these two new properties on the item means that the item is getting
@@ -1383,7 +1383,7 @@ define([
 We will reference this viewmodel from the __todoViewModel__ when we make a new item. 
 We need to pass to this viewmodel the title of the item and the status of its
 completion (when we create an item, it will always be false - but making
-this a parameter will come in handy when we implement persistance)
+this a parameter will come in handy when we implement persistence)
 
 <sub>__todo/viewmodels/todoViewModel.js__</sub>
 ```javascript
@@ -1886,7 +1886,7 @@ There are still some issues with the view not displaying the correct data so thi
 The tricky thing about this is the fact that we need to put the number in a `<strong>` tag, but right next
 to it we need to also display some text. This is where virtual bindings also help, since we want
 to bind something without introducing a new parent div. We will define a data-class, `todo-count-text`, 
-which will display the gramatically correct form of 'items' based on the #. We will bind the `<strong>` element
+which will display the grammatically correct form of 'items' based on the #. We will bind the `<strong>` element
 directly to the number of items (e.g. `length`)
 
 <sub>__todo/views/todo.html__</sub>
@@ -2211,13 +2211,13 @@ define([
 });
 ```
 
-As per scalejs convention, we define our funtions after we define vars, and leave business logic to the end. 
+As per scalejs convention, we define our functions after we define vars, and leave business logic to the end. 
 
 For `removeCompletedItems`, we simply iterate through each item (using `Array.prototype.forEach`) and
-pass an annonymous function which will call `remove()` on each completed item.
+pass an anonymous function which will call `remove()` on each completed item.
 
 `completedItems` is a computed which will return the items where completed() is true. Again we are using
-[linq](./best.html#linq) but this time since we want to return an array (`linq` functions cast arrays to enumerables
+[linq](./best.html#linq) but this time since we want to return an array (`linq` functions cast arrays to enumerable
 by default) we need to call `toArray()` before it is returned.
 
 Now you can see this is working by refreshing your page, adding items, marking some as completed and observing
@@ -2502,7 +2502,7 @@ We need to add the router to the app. Our _main_ state needs to be a child to a 
 can listen to and react to changes. 
 
 The way routing is implemented is via states by defining a property on the state called `route`. This allows
-the url to be updated whenever the state is entered, and also when one navigates to a url for a specific state
+the URL to be updated whenever the state is entered, and also when one navigates to a URL for a specific state
 the state becomes active.
 
 We need to change our __mainModule__ slightly to implement this change. We must register the `routerState()` which
