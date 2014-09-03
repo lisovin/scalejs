@@ -30,7 +30,7 @@ __Scalejs MVVM Application (CSS)__ from the project creation window.
 _For this tutorial we will use the CSS template. LESS will be covered in another tutorial_
 
 Every Scalejs Project has a similar file structure (as seen below) 
-which is explained in in depth [here](./template.html). 
+which is explained in depth [here](./template.html). 
 Your application code, which we will be editing in this tutorial, is within the _app_ folder. 
 This folder contains the [modules](./architecture.html#modules) for your project. 
 A module contains [bindings](./mvvm.html#bindings), [viewmodels](./mvvm.html#viewmodel),
@@ -112,7 +112,7 @@ are plugged into placeholders.
 
 ### Main View
 
-The _main_ view defines the html for the layout and is located in in the __views__ folder.
+The _main_ view defines the html for the layout and is located in the __views__ folder.
 
 A __template__ is a parentless div in an html file within your _views_ folder that has an id with the postfix `_template`.
 We only need to define one template for _main_ which specifies the layout.
