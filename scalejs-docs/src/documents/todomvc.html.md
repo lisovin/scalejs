@@ -15,7 +15,7 @@ We will demonstrate how to create a Scalejs application by creating a ToDo MVC a
 
 This tutorial is created using scalejs v0.3.5. 
 
-__You can view and clone this application from [this repository](https://github.com/egucciar/todomvc/tree/scalejs/labs/architecture-examples/scalejs/ToDoMVC)__.
+__You can view and clone this application from [this repository](https://github.com/tastejs/todomvc/blob/gh-pages/architecture-examples/knockoutjs/bower_components/todomvc-common/base.css)__.
 The commit history follows the major steps in this tutorial.
 
 <br>
@@ -331,7 +331,7 @@ bindings.
 
 ### Main Styles
 
-Styling main is simple and straight-forward. We used the [css](https://github.com/tastejs/todomvc/blob/gh-pages/template/bower_components/todomvc-common/base.css) that was provided by the [todomvc](http://todomvc.com/)
+Styling main is simple and straight-forward. We used the [css](https://github.com/tastejs/todomvc/blob/gh-pages/architecture-examples/knockoutjs/bower_components/todomvc-common/base.css) that was provided by the [todomvc](http://todomvc.com/)
 specification. We will just copy-and-paste the contents of this css file into __main.css__ which is located in the
 __styles__ folder. In a future tutorial, we will cover how to use LESS in your modules.
 
