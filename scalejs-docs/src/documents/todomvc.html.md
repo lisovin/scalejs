@@ -15,7 +15,7 @@ We will demonstrate how to create a Scalejs application by creating a ToDo MVC a
 
 This tutorial is created using scalejs v0.3.5. 
 
-__You can view and clone this application from [this repository](https://github.com/tastejs/todomvc/blob/gh-pages/architecture-examples/knockoutjs/bower_components/todomvc-common/base.css)__.
+__You can view and clone this application from [this repository](https://github.com/egucciar/todomvc/tree/scalejs/labs/architecture-examples/scalejs/ToDoMVC)__.
 The commit history follows the major steps in this tutorial.
 
 <br>
