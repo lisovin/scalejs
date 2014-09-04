@@ -8,7 +8,7 @@ isPage: true
 <hr>
 
 ## Prerequisites
-1. Visual Studio 2012 or 2013
+1. Visual Studio 2012 or 2013 (Express editions not supported)
 2. [IIS Express](http://www.iis.net/learn/extensions/introduction-to-iis-express/iis-express-overview) (via Web Platform Installer)
 3. node.js (http://nodejs.org/)
 4. requirejs optimizer (once node.js is installed run in console: npm install -g requirejs)
