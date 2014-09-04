@@ -9,7 +9,9 @@ and is looking for ways to apply same principles and patterns
  to JavaScript client side development. 
 
 It's inspired by Nicholas Zakas <a href="http://www.youtube.com/watch?v=vXjVFPosQHw">"Scalable JavaScript Application Architecture"</a> talk. 
-The framework leverages best tools and libraries such as Knockout, Linq, RxJS, RequireJS, JSLint, SCION statecharts engine, Chutzpah, jasmine, etc. and relies on what's considered as "good parts" of JavaScript language.
+The framework leverages best tools and libraries such as Knockout, Linq, RxJS, RequireJS, JSLint, SCION statecharts engine, jasmine, etc. and relies on what's considered as "good parts" of JavaScript language (aka "functional JavaScript")
+
+(see more at: http://scalejs.com/docs.html)
 
 Prerequisites
 ==========
@@ -29,12 +31,7 @@ After installation you'll have 3 project templates (Scalejs MMVM Application (CS
 Tutorials
 =========
 1. [Quick Start](https://github.com/lisovin/scalejs/wiki/Quick-Start)
-2. [TodoMVC](http://lisovin.github.io/scalejs/scalejs-docs/out/todomvc)
+2. [ToDoMVC](http://scalejs.com/todomvc.html)
 
-Examples
-========
-1. [Highstock](https://github.com/lisovin/scalejs-examples/tree/master/Highstock) - an appplication that retrieves stock data from the server and renders it as an interactive chart. 
-
-License
 =======
 MIT license: http://opensource.org/licenses/mit-license.php
