@@ -7,11 +7,10 @@
   ],
   "description": "Core of the scalable JavaScript application framework",
   "main": [
-    "scalejs.js",
-    "scalejs.min.js"
+    "dist/scalejs.min.js"
   ],
   "ignore": [
-    "*", "!scalejs.js", "!scalejs.min.js"
+    "*", "!dist/*.js"
   ],
   "keywords": [
     "javascript",
