@@ -25,7 +25,6 @@ require.config({
     },
     scalejs: {
         extensions: [
-            "scalejs.mvvm"
         ]
     }
 });
