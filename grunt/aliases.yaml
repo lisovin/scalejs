@@ -1,10 +1,16 @@
-build:
+compile:
     - 'newer:jshint'
+
+build:
+    - 'compile'
     - 'bower'
     - 'requirejs'
     - 'uglify'
+
+release:
+    - 'build'
     - 'copy'
 
-'test':
+test:
     - 'if-missing:curl-dir:jasmine'
     - 'connect:test'
